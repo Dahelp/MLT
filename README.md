@@ -48,3 +48,5 @@ English and German interface dictionaries live in `content/i18n.ts`. The selecte
 ## Collection routes
 
 The four product stories are available at `/collections/freedom`, `/collections/signature`, `/collections/concierge`, and `/collections/private`. Their English and German editorial copy is managed in `content/collection-details.ts`.
+
+Fleet stories are available at `/fleet/explorer`, `/fleet/granduca`, and `/fleet/compatto`. Bilingual equipment, space and suitability content is managed in `content/fleet-details.ts`. Vehicle specifications and images remain concept placeholders until MLT supplies confirmed fleet data and photography.

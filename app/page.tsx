@@ -151,7 +151,7 @@ export default function Home() {
             <div className={`vehicle-image ${vehicle.id}`}><span>{vehicle.badge}</span><b>{vehicle.number}</b></div>
             <div className="vehicle-copy"><div><small>{vehicle.category}</small><h3>{vehicle.name}</h3></div><strong>{vehicle.rate}</strong></div>
             <div className="vehicle-specs">{vehicle.specs.map((spec) => <span key={spec}>{spec}</span>)}</div>
-            <button onClick={() => { setSelected(vehicle.collection); document.querySelector("#collections")?.scrollIntoView(); }}>{t.discoverMotorhome} <span>↗</span></button>
+            <a className="vehicle-link" href={`/fleet/${vehicle.id}`}>{t.discoverMotorhome} <span>↗</span></a>
           </article>)}
         </div>
         <p className="fleet-disclaimer">Concept fleet names and indicative rates for demonstration purposes.</p>
