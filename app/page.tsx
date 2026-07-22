@@ -68,6 +68,9 @@ export default function Home() {
   const [destination, setDestination] = useState("Dolomites");
   const [days, setDays] = useState(10);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [country, setCountry] = useState("Italy");
+  const [guests, setGuests] = useState("2 guests");
+  const [bookingMessage, setBookingMessage] = useState("");
   const active = useMemo(
     () => collections.find((item) => item.id === selected) ?? collections[1],
     [selected],
@@ -82,6 +85,7 @@ export default function Home() {
         </a>
         <nav className={menuOpen ? "nav nav-open" : "nav"} aria-label="Primary navigation">
           <a href="#collections" onClick={() => setMenuOpen(false)}>Collections</a>
+          <a href="#fleet" onClick={() => setMenuOpen(false)}>Fleet</a>
           <a href="#journey" onClick={() => setMenuOpen(false)}>Journey designer</a>
           <a href="#philosophy" onClick={() => setMenuOpen(false)}>Philosophy</a>
         </nav>
@@ -105,6 +109,23 @@ export default function Home() {
             <button className="film-button"><span className="play">▶</span> Watch the film <small>01:24</small></button>
           </div>
         </div>
+        <form className="booking-bar" onSubmit={(event) => { event.preventDefault(); setBookingMessage("Your private selection is ready"); }}>
+          <div className="booking-intro"><small>Begin your journey</small><strong>Plan an expedition</strong></div>
+          <label>Starting country
+            <select value={country} onChange={(event) => setCountry(event.target.value)}>
+              <option>Italy</option><option>Austria</option><option>Germany</option>
+            </select>
+          </label>
+          <label>Arrival<input type="date" defaultValue="2026-09-17" /></label>
+          <label>Departure<input type="date" defaultValue="2026-09-27" /></label>
+          <label>Travellers
+            <select value={guests} onChange={(event) => setGuests(event.target.value)}>
+              <option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5+ guests</option>
+            </select>
+          </label>
+          <button type="submit">Explore availability <span>↗</span></button>
+          {bookingMessage && <p className="booking-message" role="status">{bookingMessage}</p>}
+        </form>
         <div className="hero-meta">
           <div><span>Now exploring</span><strong>Italy · Austria · Germany</strong></div>
           <div><span>First departures</span><strong>September 2026</strong></div>
@@ -121,6 +142,34 @@ export default function Home() {
             <p className="body-copy">Every MLT expedition is a considered balance of remarkable roads, rare places and effortless service — from total independence to a fully hosted private journey.</p>
           </div>
         </div>
+      </section>
+
+      <section className="fleet" id="fleet">
+        <div className="fleet-heading">
+          <div><p className="section-label">The private fleet</p><h2>Choose how<br />you <em>move.</em></h2></div>
+          <div className="fleet-note"><span>01 — 03</span><p>Exceptionally equipped motorhomes selected for long-distance comfort, privacy and complete independence.</p></div>
+        </div>
+        <div className="vehicle-grid">
+          <article className="vehicle-card">
+            <div className="vehicle-image explorer"><span>Available from September</span><b>01</b></div>
+            <div className="vehicle-copy"><div><small>Grand touring</small><h3>MLT Explorer</h3></div><strong>from €220 / day</strong></div>
+            <div className="vehicle-specs"><span>4 guests</span><span>Automatic</span><span>7.8 m</span></div>
+            <button onClick={() => { setSelected("freedom"); document.querySelector("#collections")?.scrollIntoView(); }}>Discover this motorhome <span>↗</span></button>
+          </article>
+          <article className="vehicle-card featured">
+            <div className="vehicle-image granduca"><span>Signature choice</span><b>02</b></div>
+            <div className="vehicle-copy"><div><small>Flagship residence</small><h3>MLT Granduca</h3></div><strong>from €390 / day</strong></div>
+            <div className="vehicle-specs"><span>4 guests</span><span>Panoramic lounge</span><span>8.7 m</span></div>
+            <button onClick={() => { setSelected("signature"); document.querySelector("#collections")?.scrollIntoView(); }}>Discover this motorhome <span>↗</span></button>
+          </article>
+          <article className="vehicle-card">
+            <div className="vehicle-image compatto"><span>Agile luxury</span><b>03</b></div>
+            <div className="vehicle-copy"><div><small>Compact touring</small><h3>MLT Compatto</h3></div><strong>from €180 / day</strong></div>
+            <div className="vehicle-specs"><span>2 guests</span><span>Automatic</span><span>6.9 m</span></div>
+            <button onClick={() => { setSelected("freedom"); document.querySelector("#collections")?.scrollIntoView(); }}>Discover this motorhome <span>↗</span></button>
+          </article>
+        </div>
+        <p className="fleet-disclaimer">Concept fleet names and indicative rates for demonstration purposes.</p>
       </section>
 
       <section className="collections" id="collections">

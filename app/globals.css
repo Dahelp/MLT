@@ -32,7 +32,7 @@ a { color: inherit; text-decoration: none; }
 
 .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; background: url('/mlt-hero.png') center / cover no-repeat; }
 .hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,6,6,.93) 0%, rgba(5,6,6,.68) 33%, rgba(5,6,6,.08) 70%), linear-gradient(0deg, rgba(5,6,6,.75), transparent 38%); }
-.hero-content { position: relative; z-index: 2; width: 62%; padding: 190px 5.5vw 155px; }
+.hero-content { position: relative; z-index: 2; width: 62%; padding: 170px 5.5vw 260px; }
 .kicker, .section-label { display: flex; align-items: center; gap: 13px; margin: 0 0 30px; color: #c7a284; font-size: 9px; letter-spacing: .3em; text-transform: uppercase; }
 .kicker span { width: 35px; height: 1px; background: var(--bronze); }
 h1, h2, .statement { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
@@ -46,19 +46,54 @@ h1 em, h2 em, .statement em { color: #c9a17e; font-weight: 400; }
 .film-button { display: flex; align-items: center; gap: 12px; padding: 0; border: 0; background: transparent; color: white; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
 .film-button small { color: #9c9a93; }
 .play { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; font-size: 9px; }
+.booking-bar { position: absolute; z-index: 4; left: 5.5vw; right: 5.5vw; bottom: 96px; min-height: 112px; padding: 16px; display: grid; grid-template-columns: 1.15fr repeat(4, 1fr) 1.25fr; align-items: stretch; border: 1px solid rgba(212,174,142,.36); background: rgba(15,16,15,.92); box-shadow: 0 24px 60px rgba(0,0,0,.38); backdrop-filter: blur(18px); }
+.booking-intro { padding: 12px 18px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--line); }
+.booking-intro small, .booking-bar label { color: #98968f; font-size: 7px; letter-spacing: .2em; text-transform: uppercase; }
+.booking-intro strong { margin-top: 9px; font-family: Georgia, serif; font-size: 17px; font-weight: 400; }
+.booking-bar label { padding: 10px 13px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--line); }
+.booking-bar select, .booking-bar input { width: 100%; height: auto; margin: 11px 0 0; padding: 0; border: 0; outline: 0; background: transparent; color: white; color-scheme: dark; font-family: Georgia, serif; font-size: 13px; text-transform: none; }
+.booking-bar button { border: 0; display: flex; align-items: center; justify-content: center; gap: 20px; background: linear-gradient(135deg, #b47d52, #d0a17b); color: #101111; font-size: 8px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; cursor: pointer; }
+.booking-bar button span { font-size: 17px; font-weight: 400; }
+.booking-message { position: absolute; right: 16px; bottom: -28px; margin: 0; color: #d0a17b; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
 .hero-meta { position: absolute; z-index: 2; bottom: 0; left: 0; width: 100%; height: 96px; padding: 0 5.5vw; display: flex; align-items: center; gap: 80px; border-top: 1px solid rgba(255,255,255,.18); background: rgba(8,9,9,.32); backdrop-filter: blur(8px); }
 .hero-meta div { display: flex; flex-direction: column; gap: 9px; }
 .hero-meta span, .card-head span, .summary small { color: #a7a59e; font-size: 8px; letter-spacing: .22em; text-transform: uppercase; }
 .hero-meta strong { font-family: Georgia, serif; font-size: 13px; font-weight: 400; }
 .hero-meta > a { margin-left: auto; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; }
 
-.intro, .collections, .designer, .contact { padding: 130px 8vw; }
+.intro, .fleet, .collections, .designer, .contact { padding: 130px 8vw; }
 .intro { background: #e7e1d6; color: #171818; }
 .intro .section-label { color: #8b6143; }
 .intro-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 8vw; align-items: start; }
 .intro h2, .collections h2, .designer h2, .contact h2 { margin: 0; font-size: clamp(48px, 6.2vw, 94px); line-height: .98; letter-spacing: -.04em; }
 .statement { margin: 0 0 38px; font-size: clamp(30px, 3.3vw, 52px); line-height: 1.12; }
 .body-copy { max-width: 550px; color: #5d5b57; font-size: 14px; line-height: 1.8; }
+
+.fleet { background: #0c0d0d; }
+.fleet-heading { display: grid; grid-template-columns: 1.25fr .75fr; gap: 8vw; align-items: end; margin-bottom: 65px; }
+.fleet h2 { margin: 0; font-family: Georgia, serif; font-size: clamp(48px, 6.2vw, 94px); font-weight: 400; line-height: .98; letter-spacing: -.04em; }
+.fleet h2 em { color: #c9a17e; font-weight: 400; }
+.fleet-note { max-width: 430px; }
+.fleet-note span { color: #b88b67; font-size: 8px; letter-spacing: .2em; }
+.fleet-note p { color: #92918c; font-family: Georgia, serif; font-size: 16px; line-height: 1.65; }
+.vehicle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+.vehicle-card { border: 1px solid var(--line); background: #111312; transition: transform .3s, border-color .3s; }
+.vehicle-card:hover { transform: translateY(-6px); border-color: rgba(201,161,126,.55); }
+.vehicle-card.featured { border-color: rgba(201,161,126,.58); }
+.vehicle-image { position: relative; height: 295px; overflow: hidden; background-image: linear-gradient(0deg, rgba(9,10,10,.68), transparent 55%), url('/mlt-hero.png'); background-repeat: no-repeat; }
+.vehicle-image.explorer { background-size: 220%; background-position: 78% 61%; }
+.vehicle-image.granduca { background-size: 190%; background-position: 82% 48%; filter: saturate(.78) brightness(1.06); }
+.vehicle-image.compatto { background-size: 235%; background-position: 74% 55%; filter: sepia(.12) brightness(.9); }
+.vehicle-image span { position: absolute; left: 19px; top: 18px; padding: 8px 10px; border: 1px solid rgba(220,187,158,.4); background: rgba(8,9,9,.65); color: #d5b89e; font-size: 7px; letter-spacing: .15em; text-transform: uppercase; backdrop-filter: blur(8px); }
+.vehicle-image b { position: absolute; right: 18px; bottom: 14px; color: rgba(255,255,255,.55); font-family: Georgia, serif; font-size: 22px; font-weight: 400; }
+.vehicle-copy { padding: 24px 22px 18px; display: flex; align-items: end; justify-content: space-between; gap: 15px; }
+.vehicle-copy small { color: #9a9891; font-size: 7px; letter-spacing: .18em; text-transform: uppercase; }
+.vehicle-copy h3 { margin: 8px 0 0; font-family: Georgia, serif; font-size: 27px; font-weight: 400; }
+.vehicle-copy > strong { color: #c99b75; font-family: Georgia, serif; font-size: 12px; font-weight: 400; white-space: nowrap; }
+.vehicle-specs { margin: 0 22px; padding: 14px 0; display: flex; justify-content: space-between; border-top: 1px solid var(--line); color: #888781; font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+.vehicle-card > button { width: calc(100% - 44px); margin: 4px 22px 22px; padding: 14px 0; display: flex; justify-content: space-between; border: 0; border-bottom: 1px solid #5b5148; background: transparent; color: #d5d0c7; font-size: 8px; letter-spacing: .15em; text-transform: uppercase; cursor: pointer; }
+.vehicle-card > button span { color: #c99b75; font-size: 15px; }
+.fleet-disclaimer { margin: 25px 0 0; color: #666762; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; }
 
 .collections { background: var(--ink-soft); }
 .section-head { display: grid; grid-template-columns: 1.25fr .75fr; gap: 8vw; align-items: end; margin-bottom: 80px; }
@@ -119,10 +154,16 @@ footer small { font-size: 8px; letter-spacing: .1em; text-transform: uppercase; 
   .nav-open { display: flex; }
   .menu { display: block; }
   .concierge-link { display: none; }
-  .hero-content { width: 90%; padding: 150px 24px 165px; }
+  .hero-content { width: 90%; padding: 140px 24px 360px; }
   .hero-shade { background: linear-gradient(90deg, rgba(5,6,6,.92), rgba(5,6,6,.22)), linear-gradient(0deg, rgba(5,6,6,.85), transparent 45%); }
   .hero-meta { height: 90px; padding: 0 24px; gap: 24px; }
-  .intro, .collections, .designer, .contact { padding: 90px 6vw; }
+  .booking-bar { left: 24px; right: 24px; bottom: 90px; grid-template-columns: repeat(2, 1fr); }
+  .booking-intro { grid-column: 1 / -1; border-right: 0; border-bottom: 1px solid var(--line); }
+  .booking-bar label { min-height: 68px; }
+  .booking-bar button { min-height: 58px; }
+  .intro, .fleet, .collections, .designer, .contact { padding: 90px 6vw; }
+  .fleet-heading { grid-template-columns: 1fr; gap: 30px; }
+  .vehicle-grid { grid-template-columns: 1fr; }
   .collection-row { grid-template-columns: 45px 1fr 160px 45px; }
   .collection-row .collection-data:first-of-type { display: none; }
   .designer { grid-template-columns: 1fr; }
@@ -131,16 +172,22 @@ footer small { font-size: 8px; letter-spacing: .1em; text-transform: uppercase; 
 
 @media (max-width: 640px) {
   h1 { font-size: 60px; }
-  .hero { min-height: 780px; background-position: 64% center; }
-  .hero-content { width: 100%; padding-bottom: 190px; }
+  .hero { min-height: 1050px; background-position: 64% center; }
+  .hero-content { width: 100%; padding-bottom: 570px; }
   .hero-copy { font-size: 15px; }
   .hero-cta-row { align-items: flex-start; flex-direction: column; }
   .hero-meta { height: 115px; gap: 18px; }
   .hero-meta div:nth-child(2), .hero-meta > a { display: none; }
   .intro-grid, .section-head { grid-template-columns: 1fr; }
+  .booking-bar { bottom: 115px; grid-template-columns: 1fr 1fr; }
+  .booking-intro { padding: 14px; }
+  .booking-bar label { padding: 9px; }
+  .booking-bar button { grid-column: 1 / -1; }
   .intro-grid { gap: 45px; }
   .section-head { gap: 35px; margin-bottom: 45px; }
   .intro h2, .collections h2, .designer h2, .contact h2 { font-size: 46px; }
+  .fleet h2 { font-size: 46px; }
+  .vehicle-image { height: 250px; }
   .collection-row { padding: 22px 5px; grid-template-columns: 28px 1fr 38px; gap: 10px; }
   .collection-row:hover, .collection-row.active { padding-left: 10px; }
   .collection-title { display: flex; flex-direction: column; gap: 7px; }
