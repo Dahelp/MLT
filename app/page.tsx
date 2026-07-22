@@ -106,17 +106,17 @@ export default function Home() {
             <button className="film-button"><span className="play">▶</span> {t.film} <small>01:24</small></button>
           </div>
         </div>
-        <form className="booking-bar" onSubmit={(event) => { event.preventDefault(); setBookingMessage("Your private selection is ready"); openConcierge(); }}>
+        <form className="booking-bar" onSubmit={(event) => { event.preventDefault(); const data = new FormData(event.currentTarget); window.location.href = `/plan?country=${encodeURIComponent(String(data.get("country") || "Italy"))}&guests=${encodeURIComponent(String(data.get("guests") || "2 guests"))}`; }}>
           <div className="booking-intro"><small>{t.begin}</small><strong>{t.plan}</strong></div>
           <label>{t.startingCountry}
-            <select value={country} onChange={(event) => setCountry(event.target.value)}>
+            <select name="country" value={country} onChange={(event) => setCountry(event.target.value)}>
               <option>Italy</option><option>Austria</option><option>Germany</option>
             </select>
           </label>
           <label>{t.arrival}<input type="date" defaultValue="2026-09-17" /></label>
           <label>{t.departure}<input type="date" defaultValue="2026-09-27" /></label>
           <label>{t.travellers}
-            <select value={guests} onChange={(event) => setGuests(event.target.value)}>
+            <select name="guests" value={guests} onChange={(event) => setGuests(event.target.value)}>
               <option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5+ guests</option>
             </select>
           </label>
@@ -270,7 +270,7 @@ export default function Home() {
             <div><small>{t.indicativeRate}</small><strong>{active.rate}</strong></div>
           </div>
           <ul>{active.inclusions.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul>
-          <button className="primary-button wide">{t.continueJourney} <span>→</span></button>
+          <a className="primary-button wide" href={`/plan?collection=${active.id}`}>{t.continueJourney} <span>→</span></a>
         </div>
       </section>
 
