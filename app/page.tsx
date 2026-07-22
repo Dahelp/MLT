@@ -167,17 +167,17 @@ export default function Home() {
         </div>
         <div className="collection-list">
           {localizedCollections.map((item) => (
-            <button
+            <a
               className={selected === item.id ? "collection-row active" : "collection-row"}
               key={item.id}
-              onClick={() => setSelected(item.id)}
+              href={`/collections/${item.id}`}
             >
               <span className="collection-number">{item.number}</span>
               <span className="collection-title"><strong>{item.name}</strong><small>{item.eyebrow}</small></span>
               <span className="collection-data"><small>{t.duration}</small>{item.days}</span>
               <span className="collection-data"><small>{t.from}</small>{item.rate}</span>
               <span className="round-arrow">↗</span>
-            </button>
+            </a>
           ))}
         </div>
       </section>

@@ -44,3 +44,7 @@ This typed local source is the fallback for the beta and the migration contract 
 ## Locales
 
 English and German interface dictionaries live in `content/i18n.ts`. The selected locale is remembered in browser storage. Italian and Russian are reserved in the language control for the next translation phase and are intentionally disabled until their copy is approved.
+
+## Collection routes
+
+The four product stories are available at `/collections/freedom`, `/collections/signature`, `/collections/concierge`, and `/collections/private`. Their English and German editorial copy is managed in `content/collection-details.ts`.
