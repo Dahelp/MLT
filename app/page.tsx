@@ -87,6 +87,10 @@ export default function Home() {
   const [routePoints, setRoutePoints] = useState<string[]>(["dolomites", "como"]);
   const [conciergeOpen, setConciergeOpen] = useState(false);
   const [formSent, setFormSent] = useState(false);
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [requestReference, setRequestReference] = useState("");
+  const [deliveryMode, setDeliveryMode] = useState<"telegram" | "demo">("demo");
   const active = useMemo(
     () => collections.find((item) => item.id === selected) ?? collections[1],
     [selected],
@@ -99,7 +103,32 @@ export default function Home() {
     return () => { document.removeEventListener("keydown", closeOnEscape); document.body.style.overflow = ""; };
   }, [conciergeOpen]);
 
-  const openConcierge = () => { setFormSent(false); setConciergeOpen(true); };
+  const openConcierge = () => { setFormSent(false); setFormError(""); setConciergeOpen(true); };
+
+  const submitConcierge = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFormSubmitting(true);
+    setFormError("");
+    const form = new FormData(event.currentTarget);
+    const payload = {
+      firstName: form.get("firstName"), lastName: form.get("lastName"), email: form.get("email"), phone: form.get("phone"),
+      preferredContact: form.get("contact"), bestTime: form.get("time"), notes: form.get("notes"),
+      collection: `${active.name} Collection`, country, guests, days,
+      route: routePoints.map((id) => mapPoints.find((point) => point.id === id)?.name).filter(Boolean),
+      rate: active.rate,
+      website: form.get("website"),
+    };
+    try {
+      const response = await fetch("/api/concierge", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Unable to send your request");
+      setRequestReference(result.reference);
+      setDeliveryMode(result.delivery === "telegram" ? "telegram" : "demo");
+      setFormSent(true);
+    } catch (error) {
+      setFormError(error instanceof Error ? error.message : "Unable to send your request");
+    } finally { setFormSubmitting(false); }
+  };
 
   return (
     <main>
@@ -333,13 +362,15 @@ export default function Home() {
                 <div className="summary-route"><small>Selected places</small>{routePoints.length ? routePoints.map((id) => <strong key={id}>{mapPoints.find((point) => point.id === id)?.name}</strong>) : <strong>To be curated</strong>}</div>
                 <p>Indicative rate<br /><b>{active.rate}</b></p>
               </aside>
-              <form className="concierge-form" onSubmit={(event) => { event.preventDefault(); setFormSent(true); }}>
+              <form className="concierge-form" onSubmit={submitConcierge}>
+                <label className="website-field" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
                 <div className="form-row"><label>First name<input required name="firstName" autoComplete="given-name" placeholder="Your name" /></label><label>Last name<input required name="lastName" autoComplete="family-name" placeholder="Your surname" /></label></div>
                 <div className="form-row"><label>Email<input required type="email" name="email" autoComplete="email" placeholder="name@company.com" /></label><label>Phone<input type="tel" name="phone" autoComplete="tel" placeholder="+49 ..." /></label></div>
                 <div className="form-row"><label>Preferred contact<select name="contact"><option>Email</option><option>Phone</option><option>WhatsApp</option></select></label><label>Best time to reach you<select name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label></div>
                 <label>What would make this journey exceptional?<textarea name="notes" rows={4} placeholder="A celebration, a landscape, a particular experience..." /></label>
                 <label className="consent"><input required type="checkbox" /><span>I agree that MLT may use these details to prepare and discuss my travel proposal.</span></label>
-                <button className="primary-button wide" type="submit">Request my private proposal <span>→</span></button>
+                {formError && <p className="form-error" role="alert">{formError}</p>}
+                <button className="primary-button wide" type="submit" disabled={formSubmitting}>{formSubmitting ? "Sending securely..." : "Request my private proposal"} <span>→</span></button>
                 <p className="form-note">Your information remains private. No payment or commitment is required.</p>
               </form>
             </div>
@@ -348,7 +379,9 @@ export default function Home() {
             <p className="section-label">Request received</p>
             <h2>Thank you.<br /><em>Your journey has begun.</em></h2>
             <p>An MLT concierge will review your preferences and contact you within one business day with the next private step.</p>
-            <div className="success-reference"><small>Private request</small><strong>MLT–{active.number}–0926</strong></div>
+            <div className={deliveryMode === "telegram" ? "delivery-status delivered" : "delivery-status"}><span>↗</span><div><small>Concierge channel</small><strong>{deliveryMode === "telegram" ? "Delivered to Telegram Concierge Desk" : "Telegram demo channel prepared"}</strong></div></div>
+            <div className="telegram-preview"><div className="telegram-head"><span>MLT</span><div><strong>Concierge Desk</strong><small>{deliveryMode === "telegram" ? "Notification delivered" : "Demo notification preview"}</small></div></div><p><b>New private journey request</b><br />{active.name} Collection · {country}<br />{routePoints.length || "Curated"} selected places · {days} days · {guests}</p></div>
+            <div className="success-reference"><small>Private request</small><strong>{requestReference}</strong></div>
             <button className="primary-button" onClick={() => setConciergeOpen(false)}>Return to MLT <span>→</span></button>
           </div>}
         </section>
