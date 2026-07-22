@@ -29,3 +29,14 @@ The proposal form works in demo mode without credentials. To deliver real manage
 - `TELEGRAM_CHAT_ID` — manager, group or channel chat ID.
 
 Never commit `.env.local` or the bot token.
+
+## Content model
+
+Editable product content is centralized in `content/mlt.ts`:
+
+- collections and inclusions;
+- fleet models, rates and specifications;
+- destinations and Smart Map points;
+- additional experiences.
+
+This typed local source is the fallback for the beta and the migration contract for a future Sanity or Strapi workspace. Connecting the external CMS will not require redesigning the page components.

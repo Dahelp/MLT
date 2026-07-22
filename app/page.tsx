@@ -1,79 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-
-type Collection = {
-  id: string;
-  number: string;
-  name: string;
-  eyebrow: string;
-  promise: string;
-  days: string;
-  rate: string;
-  mode: string;
-  inclusions: string[];
-};
-
-const collections: Collection[] = [
-  {
-    id: "freedom",
-    number: "01",
-    name: "Freedom",
-    eyebrow: "Self-directed discovery",
-    promise: "Your road. Your rhythm.",
-    days: "7–30 days",
-    rate: "€150–220 / day",
-    mode: "Independent",
-    inclusions: ["Luxury motorhome", "Curated map", "MLT route app", "Local recommendations"],
-  },
-  {
-    id: "signature",
-    number: "02",
-    name: "Signature",
-    eyebrow: "Curated, end to end",
-    promise: "The journey, beautifully resolved.",
-    days: "7–14 days",
-    rate: "€250–400 / day",
-    mode: "Tailored",
-    inclusions: ["Personal route", "Reserved campsites", "Panoramic roads", "Restaurants & activities"],
-  },
-  {
-    id: "concierge",
-    number: "03",
-    name: "Concierge",
-    eyebrow: "Always one step ahead",
-    promise: "Travel without interruption.",
-    days: "7–15 days",
-    rate: "€450–700 / day",
-    mode: "Assisted 24/7",
-    inclusions: ["Live route changes", "Dining reservations", "Excursions", "Roadside assistance"],
-  },
-  {
-    id: "private",
-    number: "04",
-    name: "Private",
-    eyebrow: "The rarest way to move",
-    promise: "A private world, in motion.",
-    days: "7–21 days",
-    rate: "€2,000–4,000 / day",
-    mode: "Fully hosted",
-    inclusions: ["Private driver & technician", "Chef & service", "Half board", "VIP transfers & concierge"],
-  },
-];
-
-const destinations = ["Dolomites", "Lake Como", "Tyrol", "Bavaria"];
-
-const mapPoints = [
-  { id: "como", country: "Italy", name: "Lake Como", type: "Lakeside stay", className: "pin-como" },
-  { id: "dolomites", country: "Italy", name: "Dolomites", type: "Panoramic road", className: "pin-dolomites" },
-  { id: "tuscany", country: "Italy", name: "Val d’Orcia", type: "Private vineyard", className: "pin-tuscany" },
-  { id: "amalfi", country: "Italy", name: "Amalfi Coast", type: "Coastal retreat", className: "pin-amalfi" },
-  { id: "tyrol", country: "Austria", name: "Tyrol", type: "Alpine lodge", className: "pin-tyrol" },
-  { id: "salzburg", country: "Austria", name: "Salzburg Lakes", type: "Wild swimming", className: "pin-salzburg" },
-  { id: "vienna", country: "Austria", name: "Vienna", type: "Private dining", className: "pin-vienna" },
-  { id: "bavaria", country: "Germany", name: "Bavarian Alps", type: "Scenic route", className: "pin-bavaria" },
-  { id: "blackforest", country: "Germany", name: "Black Forest", type: "Forest hideaway", className: "pin-blackforest" },
-];
+import { collections, destinations, experiences, fleet, mapPoints } from "../content/mlt";
 
 export default function Home() {
   const [selected, setSelected] = useState("signature");
@@ -141,6 +69,7 @@ export default function Home() {
           <a href="#collections" onClick={() => setMenuOpen(false)}>Collections</a>
           <a href="#fleet" onClick={() => setMenuOpen(false)}>Fleet</a>
           <a href="#smart-map" onClick={() => setMenuOpen(false)}>Smart map</a>
+          <a href="#experiences" onClick={() => setMenuOpen(false)}>Experiences</a>
           <a href="#journey" onClick={() => setMenuOpen(false)}>Journey designer</a>
           <a href="#philosophy" onClick={() => setMenuOpen(false)}>Philosophy</a>
         </nav>
@@ -205,24 +134,12 @@ export default function Home() {
           <div className="fleet-note"><span>01 — 03</span><p>Exceptionally equipped motorhomes selected for long-distance comfort, privacy and complete independence.</p></div>
         </div>
         <div className="vehicle-grid">
-          <article className="vehicle-card">
-            <div className="vehicle-image explorer"><span>Available from September</span><b>01</b></div>
-            <div className="vehicle-copy"><div><small>Grand touring</small><h3>MLT Explorer</h3></div><strong>from €220 / day</strong></div>
-            <div className="vehicle-specs"><span>4 guests</span><span>Automatic</span><span>7.8 m</span></div>
-            <button onClick={() => { setSelected("freedom"); document.querySelector("#collections")?.scrollIntoView(); }}>Discover this motorhome <span>↗</span></button>
-          </article>
-          <article className="vehicle-card featured">
-            <div className="vehicle-image granduca"><span>Signature choice</span><b>02</b></div>
-            <div className="vehicle-copy"><div><small>Flagship residence</small><h3>MLT Granduca</h3></div><strong>from €390 / day</strong></div>
-            <div className="vehicle-specs"><span>4 guests</span><span>Panoramic lounge</span><span>8.7 m</span></div>
-            <button onClick={() => { setSelected("signature"); document.querySelector("#collections")?.scrollIntoView(); }}>Discover this motorhome <span>↗</span></button>
-          </article>
-          <article className="vehicle-card">
-            <div className="vehicle-image compatto"><span>Agile luxury</span><b>03</b></div>
-            <div className="vehicle-copy"><div><small>Compact touring</small><h3>MLT Compatto</h3></div><strong>from €180 / day</strong></div>
-            <div className="vehicle-specs"><span>2 guests</span><span>Automatic</span><span>6.9 m</span></div>
-            <button onClick={() => { setSelected("freedom"); document.querySelector("#collections")?.scrollIntoView(); }}>Discover this motorhome <span>↗</span></button>
-          </article>
+          {fleet.map((vehicle) => <article className={vehicle.featured ? "vehicle-card featured" : "vehicle-card"} key={vehicle.id}>
+            <div className={`vehicle-image ${vehicle.id}`}><span>{vehicle.badge}</span><b>{vehicle.number}</b></div>
+            <div className="vehicle-copy"><div><small>{vehicle.category}</small><h3>{vehicle.name}</h3></div><strong>{vehicle.rate}</strong></div>
+            <div className="vehicle-specs">{vehicle.specs.map((spec) => <span key={spec}>{spec}</span>)}</div>
+            <button onClick={() => { setSelected(vehicle.collection); document.querySelector("#collections")?.scrollIntoView(); }}>Discover this motorhome <span>↗</span></button>
+          </article>)}
         </div>
         <p className="fleet-disclaimer">Concept fleet names and indicative rates for demonstration purposes.</p>
       </section>
@@ -291,6 +208,20 @@ export default function Home() {
             <p>No commitment. Your concierge will refine timing, roads and availability.</p>
           </aside>
         </div>
+      </section>
+
+      <section className="experiences" id="experiences">
+        <div className="experience-heading">
+          <div><p className="section-label">Beyond the road</p><h2>Additional<br /><em>experiences.</em></h2></div>
+          <div><p>Rare access, remarkable people and private moments — selected to become part of your route whenever you wish.</p><button onClick={openConcierge}>Ask your concierge <span>↗</span></button></div>
+        </div>
+        <div className="experience-grid">
+          {experiences.map((experience) => <article className={`experience-card ${experience.className}`} key={experience.id}>
+            <div className="experience-visual"><span>{experience.number}</span></div>
+            <div className="experience-copy"><small>{experience.eyebrow}</small><h3>{experience.title}</h3><p>{experience.detail}</p><button onClick={openConcierge} aria-label={`Request ${experience.title}`}>＋</button></div>
+          </article>)}
+        </div>
+        <p className="content-status"><span /> Content model ready for Headless CMS · Demo imagery</p>
       </section>
 
       <section className="designer" id="journey">
