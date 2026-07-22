@@ -40,3 +40,7 @@ Editable product content is centralized in `content/mlt.ts`:
 - additional experiences.
 
 This typed local source is the fallback for the beta and the migration contract for a future Sanity or Strapi workspace. Connecting the external CMS will not require redesigning the page components.
+
+## Locales
+
+English and German interface dictionaries live in `content/i18n.ts`. The selected locale is remembered in browser storage. Italian and Russian are reserved in the language control for the next translation phase and are intentionally disabled until their copy is approved.

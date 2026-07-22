@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { collections, destinations, experiences, fleet, mapPoints } from "../content/mlt";
+import { collectionDe, translations, type Locale } from "../content/i18n";
 
 export default function Home() {
   const [selected, setSelected] = useState("signature");
@@ -19,10 +20,22 @@ export default function Home() {
   const [formError, setFormError] = useState("");
   const [requestReference, setRequestReference] = useState("");
   const [deliveryMode, setDeliveryMode] = useState<"telegram" | "demo">("demo");
+  const [locale, setLocale] = useState<Locale>("en");
+  const t = translations[locale];
+  const localizedCollections = useMemo(() => collections.map((item) => locale === "de" ? { ...item, ...collectionDe[item.id] } : item), [locale]);
   const active = useMemo(
-    () => collections.find((item) => item.id === selected) ?? collections[1],
-    [selected],
+    () => localizedCollections.find((item) => item.id === selected) ?? localizedCollections[1],
+    [selected, localizedCollections],
   );
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("mlt-locale");
+    if (saved === "de" || saved === "en") setLocale(saved);
+  }, []);
+
+  const changeLocale = (next: Locale) => {
+    setLocale(next); window.localStorage.setItem("mlt-locale", next); document.documentElement.lang = next;
+  };
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => event.key === "Escape" && setConciergeOpen(false);
@@ -66,16 +79,16 @@ export default function Home() {
           <span className="brand-line">Move. Live. Travel.</span>
         </a>
         <nav className={menuOpen ? "nav nav-open" : "nav"} aria-label="Primary navigation">
-          <a href="#collections" onClick={() => setMenuOpen(false)}>Collections</a>
-          <a href="#fleet" onClick={() => setMenuOpen(false)}>Fleet</a>
-          <a href="#smart-map" onClick={() => setMenuOpen(false)}>Smart map</a>
-          <a href="#experiences" onClick={() => setMenuOpen(false)}>Experiences</a>
-          <a href="#journey" onClick={() => setMenuOpen(false)}>Journey designer</a>
+          <a href="#collections" onClick={() => setMenuOpen(false)}>{t.collections}</a>
+          <a href="#fleet" onClick={() => setMenuOpen(false)}>{t.fleet}</a>
+          <a href="#smart-map" onClick={() => setMenuOpen(false)}>{t.smartMap}</a>
+          <a href="#experiences" onClick={() => setMenuOpen(false)}>{t.experiences}</a>
+          <a href="#journey" onClick={() => setMenuOpen(false)}>{t.journeyDesigner}</a>
           <a href="#philosophy" onClick={() => setMenuOpen(false)}>Philosophy</a>
         </nav>
         <div className="top-actions">
-          <button className="lang" aria-label="Change language">EN</button>
-          <a className="concierge-link" href="#contact">Talk to a concierge</a>
+          <div className="language-switch" aria-label="Language"><button className={locale === "en" ? "active" : ""} onClick={() => changeLocale("en")}>EN</button><button className={locale === "de" ? "active" : ""} onClick={() => changeLocale("de")}>DE</button><button disabled title="Coming next">IT</button><button disabled title="Coming next">RU</button></div>
+          <a className="concierge-link" href="#contact">{t.concierge}</a>
           <button className="menu" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu">
             <span /><span />
           </button>
@@ -85,60 +98,60 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-shade" />
         <div className="hero-content">
-          <p className="kicker"><span /> Individual road expeditions</p>
-          <h1>Europe,<br /><em>without limits.</em></h1>
-          <p className="hero-copy">Not a rental. A private way of moving through the world — composed around you.</p>
+          <p className="kicker"><span /> {t.kicker}</p>
+          <h1>{t.heroLine1}<br /><em>{t.heroLine2}</em></h1>
+          <p className="hero-copy">{t.heroCopy}</p>
           <div className="hero-cta-row">
-            <a className="primary-button" href="#collections">Discover the collections <span>↗</span></a>
-            <button className="film-button"><span className="play">▶</span> Watch the film <small>01:24</small></button>
+            <a className="primary-button" href="#collections">{t.discover} <span>↗</span></a>
+            <button className="film-button"><span className="play">▶</span> {t.film} <small>01:24</small></button>
           </div>
         </div>
         <form className="booking-bar" onSubmit={(event) => { event.preventDefault(); setBookingMessage("Your private selection is ready"); openConcierge(); }}>
-          <div className="booking-intro"><small>Begin your journey</small><strong>Plan an expedition</strong></div>
-          <label>Starting country
+          <div className="booking-intro"><small>{t.begin}</small><strong>{t.plan}</strong></div>
+          <label>{t.startingCountry}
             <select value={country} onChange={(event) => setCountry(event.target.value)}>
               <option>Italy</option><option>Austria</option><option>Germany</option>
             </select>
           </label>
-          <label>Arrival<input type="date" defaultValue="2026-09-17" /></label>
-          <label>Departure<input type="date" defaultValue="2026-09-27" /></label>
-          <label>Travellers
+          <label>{t.arrival}<input type="date" defaultValue="2026-09-17" /></label>
+          <label>{t.departure}<input type="date" defaultValue="2026-09-27" /></label>
+          <label>{t.travellers}
             <select value={guests} onChange={(event) => setGuests(event.target.value)}>
               <option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5+ guests</option>
             </select>
           </label>
-          <button type="submit">Explore availability <span>↗</span></button>
+          <button type="submit">{t.availability} <span>↗</span></button>
           {bookingMessage && <p className="booking-message" role="status">{bookingMessage}</p>}
         </form>
         <div className="hero-meta">
-          <div><span>Now exploring</span><strong>Italy · Austria · Germany</strong></div>
-          <div><span>First departures</span><strong>September 2026</strong></div>
+          <div><span>{t.nowExploring}</span><strong>Italy · Austria · Germany</strong></div>
+          <div><span>{t.firstDepartures}</span><strong>{t.september}</strong></div>
           <a href="#collections" aria-label="Scroll to collections">↓</a>
         </div>
       </section>
 
       <section className="intro" id="philosophy">
-        <p className="section-label">The MLT philosophy</p>
+        <p className="section-label">{t.philosophy}</p>
         <div className="intro-grid">
-          <h2>We do not rent<br />motorhomes.</h2>
+          <h2>{t.notRent}<br />{t.motorhomes}</h2>
           <div>
-            <p className="statement">We create the freedom to wake up somewhere <em>extraordinary.</em></p>
-            <p className="body-copy">Every MLT expedition is a considered balance of remarkable roads, rare places and effortless service — from total independence to a fully hosted private journey.</p>
+            <p className="statement">{t.freedomLead} <em>{t.extraordinary}</em></p>
+            <p className="body-copy">{t.philosophyCopy}</p>
           </div>
         </div>
       </section>
 
       <section className="fleet" id="fleet">
         <div className="fleet-heading">
-          <div><p className="section-label">The private fleet</p><h2>Choose how<br />you <em>move.</em></h2></div>
-          <div className="fleet-note"><span>01 — 03</span><p>Exceptionally equipped motorhomes selected for long-distance comfort, privacy and complete independence.</p></div>
+          <div><p className="section-label">{t.privateFleet}</p><h2>{t.chooseHow}<br /><em>{t.youMove}</em></h2></div>
+          <div className="fleet-note"><span>01 — 03</span><p>{t.fleetCopy}</p></div>
         </div>
         <div className="vehicle-grid">
           {fleet.map((vehicle) => <article className={vehicle.featured ? "vehicle-card featured" : "vehicle-card"} key={vehicle.id}>
             <div className={`vehicle-image ${vehicle.id}`}><span>{vehicle.badge}</span><b>{vehicle.number}</b></div>
             <div className="vehicle-copy"><div><small>{vehicle.category}</small><h3>{vehicle.name}</h3></div><strong>{vehicle.rate}</strong></div>
             <div className="vehicle-specs">{vehicle.specs.map((spec) => <span key={spec}>{spec}</span>)}</div>
-            <button onClick={() => { setSelected(vehicle.collection); document.querySelector("#collections")?.scrollIntoView(); }}>Discover this motorhome <span>↗</span></button>
+            <button onClick={() => { setSelected(vehicle.collection); document.querySelector("#collections")?.scrollIntoView(); }}>{t.discoverMotorhome} <span>↗</span></button>
           </article>)}
         </div>
         <p className="fleet-disclaimer">Concept fleet names and indicative rates for demonstration purposes.</p>
@@ -147,13 +160,13 @@ export default function Home() {
       <section className="collections" id="collections">
         <div className="section-head">
           <div>
-            <p className="section-label">Four ways to travel</p>
-            <h2>Choose your<br /><em>collection.</em></h2>
+            <p className="section-label">{t.ways}</p>
+            <h2>{t.chooseYour}<br /><em>{t.collection}</em></h2>
           </div>
-          <p>Each collection begins with the same promise: the finest motorhomes, a remarkable European landscape and the space to travel differently.</p>
+          <p>{t.collectionCopy}</p>
         </div>
         <div className="collection-list">
-          {collections.map((item) => (
+          {localizedCollections.map((item) => (
             <button
               className={selected === item.id ? "collection-row active" : "collection-row"}
               key={item.id}
@@ -161,8 +174,8 @@ export default function Home() {
             >
               <span className="collection-number">{item.number}</span>
               <span className="collection-title"><strong>{item.name}</strong><small>{item.eyebrow}</small></span>
-              <span className="collection-data"><small>Duration</small>{item.days}</span>
-              <span className="collection-data"><small>From</small>{item.rate}</span>
+              <span className="collection-data"><small>{t.duration}</small>{item.days}</span>
+              <span className="collection-data"><small>{t.from}</small>{item.rate}</span>
               <span className="round-arrow">↗</span>
             </button>
           ))}
@@ -171,8 +184,8 @@ export default function Home() {
 
       <section className="smart-map" id="smart-map">
         <div className="map-heading">
-          <div><p className="section-label">MLT Smart Map</p><h2>Places worth<br /><em>changing course for.</em></h2></div>
-          <p>Explore a first edit of remarkable roads, private stays and rare experiences. Select what moves you — our concierge will compose the journey between them.</p>
+          <div><p className="section-label">MLT Smart Map</p><h2>{t.places}<br /><em>{t.changing}</em></h2></div>
+          <p>{t.mapCopy}</p>
         </div>
         <div className="map-shell">
           <div className="map-canvas">
@@ -195,7 +208,7 @@ export default function Home() {
             <div className="map-legend"><span><i className="legend-selected" /> Selected</span><span><i /> Curated place</span><small>Illustrative concept map</small></div>
           </div>
           <aside className="route-panel">
-            <div className="route-panel-head"><span>Your selected route</span><strong>{routePoints.length.toString().padStart(2, "0")} places</strong></div>
+            <div className="route-panel-head"><span>{t.selectedRoute}</span><strong>{routePoints.length.toString().padStart(2, "0")} {t.selectedPlaces}</strong></div>
             <div className="route-list">
               {routePoints.length === 0 && <p className="empty-route">Select places on the map to begin your route.</p>}
               {routePoints.map((id, index) => {
@@ -203,8 +216,8 @@ export default function Home() {
                 return <div className="route-item" key={id}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{point.name}</strong><small>{point.country} · {point.type}</small></div><button aria-label={`Remove ${point.name}`} onClick={() => setRoutePoints((current) => current.filter((item) => item !== id))}>×</button></div>;
               })}
             </div>
-            <div className="route-estimate"><div><small>Suggested duration</small><strong>{Math.max(7, routePoints.length * 3)}–{Math.max(10, routePoints.length * 4)} days</strong></div><div><small>Collection</small><strong>{active.name}</strong></div></div>
-            <button className="primary-button wide" disabled={routePoints.length === 0} onClick={openConcierge}>Build this route with a concierge <span>↗</span></button>
+            <div className="route-estimate"><div><small>{t.suggestedDuration}</small><strong>{Math.max(7, routePoints.length * 3)}–{Math.max(10, routePoints.length * 4)} {locale === "de" ? "Tage" : "days"}</strong></div><div><small>{t.collection}</small><strong>{active.name}</strong></div></div>
+            <button className="primary-button wide" disabled={routePoints.length === 0} onClick={openConcierge}>{t.buildRoute} <span>↗</span></button>
             <p>No commitment. Your concierge will refine timing, roads and availability.</p>
           </aside>
         </div>
@@ -212,8 +225,8 @@ export default function Home() {
 
       <section className="experiences" id="experiences">
         <div className="experience-heading">
-          <div><p className="section-label">Beyond the road</p><h2>Additional<br /><em>experiences.</em></h2></div>
-          <div><p>Rare access, remarkable people and private moments — selected to become part of your route whenever you wish.</p><button onClick={openConcierge}>Ask your concierge <span>↗</span></button></div>
+          <div><p className="section-label">{t.beyond}</p><h2>{t.additional}<br /><em>{t.experienceWord}</em></h2></div>
+          <div><p>{t.experienceCopy}</p><button onClick={openConcierge}>{t.askConcierge} <span>↗</span></button></div>
         </div>
         <div className="experience-grid">
           {experiences.map((experience) => <article className={`experience-card ${experience.className}`} key={experience.id}>
@@ -226,23 +239,23 @@ export default function Home() {
 
       <section className="designer" id="journey">
         <div className="designer-copy">
-          <p className="section-label">Your journey, assembled</p>
-          <h2>Build the first chapter<br />of your <em>expedition.</em></h2>
-          <p>Select a collection, a landscape and your pace. We will turn the outline into a private itinerary.</p>
+          <p className="section-label">{t.assembled}</p>
+          <h2>{t.buildChapter}<br /><em>{t.expedition}</em></h2>
+          <p>{t.designerCopy}</p>
           <div className="steps"><span className="done">01</span><i /><span>02</span><i /><span>03</span></div>
         </div>
 
         <div className="journey-card">
-          <div className="card-head"><span>01 / 03</span><p>Select your collection</p></div>
+          <div className="card-head"><span>01 / 03</span><p>{t.selectCollection}</p></div>
           <div className="choice-grid">
-            {collections.map((item) => (
+            {localizedCollections.map((item) => (
               <button key={item.id} onClick={() => setSelected(item.id)} className={selected === item.id ? "choice selected" : "choice"}>
                 <span>{item.number}</span><strong>{item.name}</strong><small>{item.mode}</small>
               </button>
             ))}
           </div>
           <div className="config-row">
-            <label>Landscape
+            <label>{t.landscape}
               <select value={destination} onChange={(event) => setDestination(event.target.value)}>
                 {destinations.map((item) => <option key={item}>{item}</option>)}
               </select>
@@ -252,19 +265,19 @@ export default function Home() {
             </label>
           </div>
           <div className="summary">
-            <div><small>Your collection</small><strong>{active.name}</strong></div>
-            <div><small>Beginning in</small><strong>{destination}</strong></div>
-            <div><small>Indicative rate</small><strong>{active.rate}</strong></div>
+            <div><small>{t.yourCollection}</small><strong>{active.name}</strong></div>
+            <div><small>{t.beginningIn}</small><strong>{destination}</strong></div>
+            <div><small>{t.indicativeRate}</small><strong>{active.rate}</strong></div>
           </div>
           <ul>{active.inclusions.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul>
-          <button className="primary-button wide">Continue your journey <span>→</span></button>
+          <button className="primary-button wide">{t.continueJourney} <span>→</span></button>
         </div>
       </section>
 
       <section className="contact" id="contact">
-        <p className="section-label">A private conversation</p>
-        <h2>Some journeys begin<br />with a destination.<br /><em>Yours begins here.</em></h2>
-        <button className="primary-button" onClick={openConcierge}>Speak with our concierge <span>↗</span></button>
+        <p className="section-label">{t.conversation}</p>
+        <h2>{t.someJourneys}<br />{locale === "de" ? "mit einem Ziel." : "with a destination."}<br /><em>{t.yours}</em></h2>
+        <button className="primary-button" onClick={openConcierge}>{t.speak} <span>↗</span></button>
       </section>
 
       <footer>
@@ -279,13 +292,13 @@ export default function Home() {
           <button className="modal-close" aria-label="Close concierge form" onClick={() => setConciergeOpen(false)}>×</button>
           {!formSent ? <>
             <div className="modal-intro">
-              <p className="section-label">Your private request</p>
-              <h2 id="concierge-title">Let us compose<br /><em>the journey.</em></h2>
-              <p>Share a few details. An MLT concierge will return with a considered first proposal.</p>
+              <p className="section-label">{t.privateRequest}</p>
+              <h2 id="concierge-title">{t.compose}<br /><em>{t.theJourney}</em></h2>
+              <p>{t.modalCopy}</p>
             </div>
             <div className="modal-layout">
               <aside className="request-summary">
-                <span className="summary-label">Expedition outline</span>
+                <span className="summary-label">{t.expeditionOutline}</span>
                 <div><small>Collection</small><strong>{active.name} Collection</strong></div>
                 <div><small>Starting country</small><strong>{country}</strong></div>
                 <div><small>Travellers</small><strong>{guests}</strong></div>
@@ -295,25 +308,25 @@ export default function Home() {
               </aside>
               <form className="concierge-form" onSubmit={submitConcierge}>
                 <label className="website-field" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
-                <div className="form-row"><label>First name<input required name="firstName" autoComplete="given-name" placeholder="Your name" /></label><label>Last name<input required name="lastName" autoComplete="family-name" placeholder="Your surname" /></label></div>
-                <div className="form-row"><label>Email<input required type="email" name="email" autoComplete="email" placeholder="name@company.com" /></label><label>Phone<input type="tel" name="phone" autoComplete="tel" placeholder="+49 ..." /></label></div>
-                <div className="form-row"><label>Preferred contact<select name="contact"><option>Email</option><option>Phone</option><option>WhatsApp</option></select></label><label>Best time to reach you<select name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label></div>
-                <label>What would make this journey exceptional?<textarea name="notes" rows={4} placeholder="A celebration, a landscape, a particular experience..." /></label>
-                <label className="consent"><input required type="checkbox" /><span>I agree that MLT may use these details to prepare and discuss my travel proposal.</span></label>
+                <div className="form-row"><label>{t.firstName}<input required name="firstName" autoComplete="given-name" placeholder={locale === "de" ? "Ihr Vorname" : "Your name"} /></label><label>{t.lastName}<input required name="lastName" autoComplete="family-name" placeholder={locale === "de" ? "Ihr Nachname" : "Your surname"} /></label></div>
+                <div className="form-row"><label>{t.email}<input required type="email" name="email" autoComplete="email" placeholder="name@company.com" /></label><label>{t.phone}<input type="tel" name="phone" autoComplete="tel" placeholder="+49 ..." /></label></div>
+                <div className="form-row"><label>{t.preferred}<select name="contact"><option>Email</option><option>{t.phone}</option><option>WhatsApp</option></select></label><label>{t.bestTime}<select name="time"><option>{locale === "de" ? "Vormittag" : "Morning"}</option><option>{locale === "de" ? "Nachmittag" : "Afternoon"}</option><option>{locale === "de" ? "Abend" : "Evening"}</option></select></label></div>
+                <label>{t.exceptional}<textarea name="notes" rows={4} placeholder={locale === "de" ? "Ein Anlass, eine Landschaft, ein besonderes Erlebnis..." : "A celebration, a landscape, a particular experience..."} /></label>
+                <label className="consent"><input required type="checkbox" /><span>{t.consent}</span></label>
                 {formError && <p className="form-error" role="alert">{formError}</p>}
-                <button className="primary-button wide" type="submit" disabled={formSubmitting}>{formSubmitting ? "Sending securely..." : "Request my private proposal"} <span>→</span></button>
-                <p className="form-note">Your information remains private. No payment or commitment is required.</p>
+                <button className="primary-button wide" type="submit" disabled={formSubmitting}>{formSubmitting ? t.sending : t.requestProposal} <span>→</span></button>
+                <p className="form-note">{t.noCommitment}</p>
               </form>
             </div>
           </> : <div className="success-state">
             <span className="success-mark">✓</span>
-            <p className="section-label">Request received</p>
-            <h2>Thank you.<br /><em>Your journey has begun.</em></h2>
-            <p>An MLT concierge will review your preferences and contact you within one business day with the next private step.</p>
+            <p className="section-label">{t.received}</p>
+            <h2>{t.thankYou}<br /><em>{t.begun}</em></h2>
+            <p>{t.successCopy}</p>
             <div className={deliveryMode === "telegram" ? "delivery-status delivered" : "delivery-status"}><span>↗</span><div><small>Concierge channel</small><strong>{deliveryMode === "telegram" ? "Delivered to Telegram Concierge Desk" : "Telegram demo channel prepared"}</strong></div></div>
             <div className="telegram-preview"><div className="telegram-head"><span>MLT</span><div><strong>Concierge Desk</strong><small>{deliveryMode === "telegram" ? "Notification delivered" : "Demo notification preview"}</small></div></div><p><b>New private journey request</b><br />{active.name} Collection · {country}<br />{routePoints.length || "Curated"} selected places · {days} days · {guests}</p></div>
             <div className="success-reference"><small>Private request</small><strong>{requestReference}</strong></div>
-            <button className="primary-button" onClick={() => setConciergeOpen(false)}>Return to MLT <span>→</span></button>
+            <button className="primary-button" onClick={() => setConciergeOpen(false)}>{t.returnMlt} <span>→</span></button>
           </div>}
         </section>
       </div>}
