@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Collection = {
   id: string;
@@ -85,10 +85,21 @@ export default function Home() {
   const [bookingMessage, setBookingMessage] = useState("");
   const [mapCountry, setMapCountry] = useState("All");
   const [routePoints, setRoutePoints] = useState<string[]>(["dolomites", "como"]);
+  const [conciergeOpen, setConciergeOpen] = useState(false);
+  const [formSent, setFormSent] = useState(false);
   const active = useMemo(
     () => collections.find((item) => item.id === selected) ?? collections[1],
     [selected],
   );
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => event.key === "Escape" && setConciergeOpen(false);
+    document.addEventListener("keydown", closeOnEscape);
+    document.body.style.overflow = conciergeOpen ? "hidden" : "";
+    return () => { document.removeEventListener("keydown", closeOnEscape); document.body.style.overflow = ""; };
+  }, [conciergeOpen]);
+
+  const openConcierge = () => { setFormSent(false); setConciergeOpen(true); };
 
   return (
     <main>
@@ -124,7 +135,7 @@ export default function Home() {
             <button className="film-button"><span className="play">▶</span> Watch the film <small>01:24</small></button>
           </div>
         </div>
-        <form className="booking-bar" onSubmit={(event) => { event.preventDefault(); setBookingMessage("Your private selection is ready"); }}>
+        <form className="booking-bar" onSubmit={(event) => { event.preventDefault(); setBookingMessage("Your private selection is ready"); openConcierge(); }}>
           <div className="booking-intro"><small>Begin your journey</small><strong>Plan an expedition</strong></div>
           <label>Starting country
             <select value={country} onChange={(event) => setCountry(event.target.value)}>
@@ -247,7 +258,7 @@ export default function Home() {
               })}
             </div>
             <div className="route-estimate"><div><small>Suggested duration</small><strong>{Math.max(7, routePoints.length * 3)}–{Math.max(10, routePoints.length * 4)} days</strong></div><div><small>Collection</small><strong>{active.name}</strong></div></div>
-            <button className="primary-button wide" disabled={routePoints.length === 0}>Build this route with a concierge <span>↗</span></button>
+            <button className="primary-button wide" disabled={routePoints.length === 0} onClick={openConcierge}>Build this route with a concierge <span>↗</span></button>
             <p>No commitment. Your concierge will refine timing, roads and availability.</p>
           </aside>
         </div>
@@ -293,7 +304,7 @@ export default function Home() {
       <section className="contact" id="contact">
         <p className="section-label">A private conversation</p>
         <h2>Some journeys begin<br />with a destination.<br /><em>Yours begins here.</em></h2>
-        <a className="primary-button" href="mailto:concierge@mlt.travel">Speak with our concierge <span>↗</span></a>
+        <button className="primary-button" onClick={openConcierge}>Speak with our concierge <span>↗</span></button>
       </section>
 
       <footer>
@@ -302,6 +313,46 @@ export default function Home() {
         <div><a href="#top">Instagram</a><a href="#top">Imprint</a><a href="#top">Privacy</a></div>
         <small>Concept preview · 2026 MLT GmbH</small>
       </footer>
+
+      {conciergeOpen && <div className="concierge-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setConciergeOpen(false)}>
+        <section className="concierge-modal" role="dialog" aria-modal="true" aria-labelledby="concierge-title">
+          <button className="modal-close" aria-label="Close concierge form" onClick={() => setConciergeOpen(false)}>×</button>
+          {!formSent ? <>
+            <div className="modal-intro">
+              <p className="section-label">Your private request</p>
+              <h2 id="concierge-title">Let us compose<br /><em>the journey.</em></h2>
+              <p>Share a few details. An MLT concierge will return with a considered first proposal.</p>
+            </div>
+            <div className="modal-layout">
+              <aside className="request-summary">
+                <span className="summary-label">Expedition outline</span>
+                <div><small>Collection</small><strong>{active.name} Collection</strong></div>
+                <div><small>Starting country</small><strong>{country}</strong></div>
+                <div><small>Travellers</small><strong>{guests}</strong></div>
+                <div><small>Duration</small><strong>{days} days</strong></div>
+                <div className="summary-route"><small>Selected places</small>{routePoints.length ? routePoints.map((id) => <strong key={id}>{mapPoints.find((point) => point.id === id)?.name}</strong>) : <strong>To be curated</strong>}</div>
+                <p>Indicative rate<br /><b>{active.rate}</b></p>
+              </aside>
+              <form className="concierge-form" onSubmit={(event) => { event.preventDefault(); setFormSent(true); }}>
+                <div className="form-row"><label>First name<input required name="firstName" autoComplete="given-name" placeholder="Your name" /></label><label>Last name<input required name="lastName" autoComplete="family-name" placeholder="Your surname" /></label></div>
+                <div className="form-row"><label>Email<input required type="email" name="email" autoComplete="email" placeholder="name@company.com" /></label><label>Phone<input type="tel" name="phone" autoComplete="tel" placeholder="+49 ..." /></label></div>
+                <div className="form-row"><label>Preferred contact<select name="contact"><option>Email</option><option>Phone</option><option>WhatsApp</option></select></label><label>Best time to reach you<select name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label></div>
+                <label>What would make this journey exceptional?<textarea name="notes" rows={4} placeholder="A celebration, a landscape, a particular experience..." /></label>
+                <label className="consent"><input required type="checkbox" /><span>I agree that MLT may use these details to prepare and discuss my travel proposal.</span></label>
+                <button className="primary-button wide" type="submit">Request my private proposal <span>→</span></button>
+                <p className="form-note">Your information remains private. No payment or commitment is required.</p>
+              </form>
+            </div>
+          </> : <div className="success-state">
+            <span className="success-mark">✓</span>
+            <p className="section-label">Request received</p>
+            <h2>Thank you.<br /><em>Your journey has begun.</em></h2>
+            <p>An MLT concierge will review your preferences and contact you within one business day with the next private step.</p>
+            <div className="success-reference"><small>Private request</small><strong>MLT–{active.number}–0926</strong></div>
+            <button className="primary-button" onClick={() => setConciergeOpen(false)}>Return to MLT <span>→</span></button>
+          </div>}
+        </section>
+      </div>}
     </main>
   );
 }
