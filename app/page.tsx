@@ -63,6 +63,18 @@ const collections: Collection[] = [
 
 const destinations = ["Dolomites", "Lake Como", "Tyrol", "Bavaria"];
 
+const mapPoints = [
+  { id: "como", country: "Italy", name: "Lake Como", type: "Lakeside stay", className: "pin-como" },
+  { id: "dolomites", country: "Italy", name: "Dolomites", type: "Panoramic road", className: "pin-dolomites" },
+  { id: "tuscany", country: "Italy", name: "Val d’Orcia", type: "Private vineyard", className: "pin-tuscany" },
+  { id: "amalfi", country: "Italy", name: "Amalfi Coast", type: "Coastal retreat", className: "pin-amalfi" },
+  { id: "tyrol", country: "Austria", name: "Tyrol", type: "Alpine lodge", className: "pin-tyrol" },
+  { id: "salzburg", country: "Austria", name: "Salzburg Lakes", type: "Wild swimming", className: "pin-salzburg" },
+  { id: "vienna", country: "Austria", name: "Vienna", type: "Private dining", className: "pin-vienna" },
+  { id: "bavaria", country: "Germany", name: "Bavarian Alps", type: "Scenic route", className: "pin-bavaria" },
+  { id: "blackforest", country: "Germany", name: "Black Forest", type: "Forest hideaway", className: "pin-blackforest" },
+];
+
 export default function Home() {
   const [selected, setSelected] = useState("signature");
   const [destination, setDestination] = useState("Dolomites");
@@ -71,6 +83,8 @@ export default function Home() {
   const [country, setCountry] = useState("Italy");
   const [guests, setGuests] = useState("2 guests");
   const [bookingMessage, setBookingMessage] = useState("");
+  const [mapCountry, setMapCountry] = useState("All");
+  const [routePoints, setRoutePoints] = useState<string[]>(["dolomites", "como"]);
   const active = useMemo(
     () => collections.find((item) => item.id === selected) ?? collections[1],
     [selected],
@@ -86,6 +100,7 @@ export default function Home() {
         <nav className={menuOpen ? "nav nav-open" : "nav"} aria-label="Primary navigation">
           <a href="#collections" onClick={() => setMenuOpen(false)}>Collections</a>
           <a href="#fleet" onClick={() => setMenuOpen(false)}>Fleet</a>
+          <a href="#smart-map" onClick={() => setMenuOpen(false)}>Smart map</a>
           <a href="#journey" onClick={() => setMenuOpen(false)}>Journey designer</a>
           <a href="#philosophy" onClick={() => setMenuOpen(false)}>Philosophy</a>
         </nav>
@@ -194,6 +209,47 @@ export default function Home() {
               <span className="round-arrow">↗</span>
             </button>
           ))}
+        </div>
+      </section>
+
+      <section className="smart-map" id="smart-map">
+        <div className="map-heading">
+          <div><p className="section-label">MLT Smart Map</p><h2>Places worth<br /><em>changing course for.</em></h2></div>
+          <p>Explore a first edit of remarkable roads, private stays and rare experiences. Select what moves you — our concierge will compose the journey between them.</p>
+        </div>
+        <div className="map-shell">
+          <div className="map-canvas">
+            <div className="map-country-tabs" aria-label="Filter map by country">
+              {["All", "Italy", "Austria", "Germany"].map((item) => <button key={item} className={mapCountry === item ? "active" : ""} onClick={() => setMapCountry(item)}>{item}</button>)}
+            </div>
+            <div className="map-land land-one" /><div className="map-land land-two" /><div className="map-land land-three" />
+            <div className="route-trace trace-one" /><div className="route-trace trace-two" />
+            {mapPoints.map((point, index) => {
+              const visible = mapCountry === "All" || point.country === mapCountry;
+              const isSelected = routePoints.includes(point.id);
+              return <button
+                key={point.id}
+                className={`map-pin ${point.className} ${isSelected ? "selected" : ""} ${visible ? "" : "muted"}`}
+                onClick={() => setRoutePoints((current) => current.includes(point.id) ? current.filter((id) => id !== point.id) : [...current, point.id])}
+                aria-pressed={isSelected}
+                aria-label={`${isSelected ? "Remove" : "Add"} ${point.name}`}
+              ><span>{isSelected ? "✓" : index + 1}</span><b>{point.name}</b></button>;
+            })}
+            <div className="map-legend"><span><i className="legend-selected" /> Selected</span><span><i /> Curated place</span><small>Illustrative concept map</small></div>
+          </div>
+          <aside className="route-panel">
+            <div className="route-panel-head"><span>Your selected route</span><strong>{routePoints.length.toString().padStart(2, "0")} places</strong></div>
+            <div className="route-list">
+              {routePoints.length === 0 && <p className="empty-route">Select places on the map to begin your route.</p>}
+              {routePoints.map((id, index) => {
+                const point = mapPoints.find((item) => item.id === id)!;
+                return <div className="route-item" key={id}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{point.name}</strong><small>{point.country} · {point.type}</small></div><button aria-label={`Remove ${point.name}`} onClick={() => setRoutePoints((current) => current.filter((item) => item !== id))}>×</button></div>;
+              })}
+            </div>
+            <div className="route-estimate"><div><small>Suggested duration</small><strong>{Math.max(7, routePoints.length * 3)}–{Math.max(10, routePoints.length * 4)} days</strong></div><div><small>Collection</small><strong>{active.name}</strong></div></div>
+            <button className="primary-button wide" disabled={routePoints.length === 0}>Build this route with a concierge <span>↗</span></button>
+            <p>No commitment. Your concierge will refine timing, roads and availability.</p>
+          </aside>
         </div>
       </section>
 

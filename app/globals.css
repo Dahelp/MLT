@@ -109,6 +109,38 @@ h1 em, h2 em, .statement em { color: #c9a17e; font-weight: 400; }
 .round-arrow { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #565552; border-radius: 50%; transition: border .2s, color .2s; }
 .collection-row.active .round-arrow { border-color: var(--bronze); color: var(--bronze); }
 
+.smart-map { padding: 130px 5.5vw; overflow: hidden; background: #090a0a; }
+.map-heading { display: grid; grid-template-columns: 1.15fr .85fr; gap: 8vw; align-items: end; margin: 0 2.5vw 65px; }
+.map-heading h2 { margin: 0; font-family: Georgia, serif; font-size: clamp(48px, 6.2vw, 94px); font-weight: 400; line-height: .98; letter-spacing: -.04em; }
+.map-heading h2 em { color: #c9a17e; font-weight: 400; }
+.map-heading > p { max-width: 490px; margin: 0 0 8px; color: #93918b; font-family: Georgia, serif; font-size: 16px; line-height: 1.7; }
+.map-shell { min-height: 690px; display: grid; grid-template-columns: minmax(0, 1fr) 365px; border: 1px solid rgba(211,174,142,.28); background: #0e100f; box-shadow: 0 35px 100px rgba(0,0,0,.38); }
+.map-canvas { position: relative; min-height: 690px; overflow: hidden; background-color: #171a18; background-image: radial-gradient(circle at 42% 45%, rgba(142,112,84,.18), transparent 27%), linear-gradient(135deg, rgba(255,255,255,.025) 25%, transparent 25% 50%, rgba(255,255,255,.025) 50% 75%, transparent 75%); background-size: auto, 50px 50px; }
+.map-canvas::before { content: "EUROPE / 45.6° N"; position: absolute; left: 22px; bottom: 25px; z-index: 2; color: rgba(255,255,255,.3); font-size: 7px; letter-spacing: .2em; }
+.map-country-tabs { position: absolute; z-index: 8; top: 22px; left: 22px; display: flex; padding: 5px; border: 1px solid var(--line); background: rgba(10,11,11,.78); backdrop-filter: blur(10px); }
+.map-country-tabs button { padding: 10px 17px; border: 0; background: transparent; color: #8e8d88; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; cursor: pointer; }
+.map-country-tabs button.active { background: #b88963; color: #111; }
+.map-land { position: absolute; border: 1px solid rgba(203,178,151,.17); background: linear-gradient(145deg, rgba(130,132,119,.22), rgba(56,62,57,.42)); filter: drop-shadow(0 18px 24px rgba(0,0,0,.18)); transform: rotate(-8deg); }
+.land-one { left: 25%; top: 18%; width: 31%; height: 58%; border-radius: 47% 38% 58% 30% / 38% 53% 33% 55%; }
+.land-two { left: 51%; top: 12%; width: 28%; height: 42%; border-radius: 38% 62% 34% 51% / 52% 35% 58% 41%; transform: rotate(10deg); }
+.land-three { left: 40%; top: 60%; width: 18%; height: 30%; border-radius: 45% 55% 60% 30%; transform: rotate(21deg); }
+.route-trace { position: absolute; z-index: 3; height: 1px; border-top: 1px dashed rgba(203,153,111,.65); transform-origin: left center; }
+.trace-one { left: 39%; top: 39%; width: 25%; transform: rotate(22deg); }
+.trace-two { left: 44%; top: 55%; width: 20%; transform: rotate(-35deg); }
+.map-pin { position: absolute; z-index: 5; display: flex; align-items: center; gap: 8px; border: 0; background: transparent; color: #c9c7c0; cursor: pointer; transition: opacity .25s, transform .25s; }
+.map-pin:hover { transform: translateY(-3px); }
+.map-pin.muted { opacity: .14; pointer-events: none; }
+.map-pin span { width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid #8a725e; border-radius: 50%; background: rgba(13,14,14,.9); color: #d4a57c; font-size: 8px; box-shadow: 0 5px 15px rgba(0,0,0,.35); }
+.map-pin b { padding: 6px 8px; background: rgba(10,11,11,.72); font-family: Georgia, serif; font-size: 11px; font-weight: 400; white-space: nowrap; backdrop-filter: blur(6px); }
+.map-pin.selected span { border-color: #d0a079; background: #b9865d; color: #101111; }
+.pin-como { left: 39%; top: 40%; }.pin-dolomites { left: 51%; top: 31%; }.pin-tuscany { left: 45%; top: 56%; }.pin-amalfi { left: 55%; top: 72%; }.pin-tyrol { left: 49%; top: 20%; }.pin-salzburg { left: 61%; top: 25%; }.pin-vienna { left: 73%; top: 30%; }.pin-bavaria { left: 43%; top: 14%; }.pin-blackforest { left: 27%; top: 25%; }
+.map-legend { position: absolute; z-index: 7; left: 22px; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 22px; padding: 15px 18px 15px 105px; border: 1px solid var(--line); background: rgba(10,11,11,.76); color: #aaa8a2; font-size: 8px; letter-spacing: .08em; text-transform: uppercase; backdrop-filter: blur(10px); }
+.map-legend span { display: flex; align-items: center; gap: 7px; }.map-legend i { width: 8px; height: 8px; border: 1px solid #8a725e; border-radius: 50%; }.map-legend .legend-selected { border-color: #c79369; background: #b9865d; }.map-legend small { margin-left: auto; color: #666762; font-size: 7px; }
+.route-panel { padding: 32px 28px; display: flex; flex-direction: column; border-left: 1px solid var(--line); background: #0b0c0c; }
+.route-panel-head { padding-bottom: 22px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }.route-panel-head span { font-family: Georgia, serif; font-size: 21px; }.route-panel-head strong { color: #bf906b; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
+.route-list { min-height: 285px; padding: 12px 0; }.route-item { padding: 15px 0; display: grid; grid-template-columns: 28px 1fr 24px; gap: 10px; align-items: center; border-bottom: 1px solid rgba(255,255,255,.07); }.route-item > span { color: #86705e; font-size: 8px; }.route-item div { display: flex; flex-direction: column; gap: 6px; }.route-item strong { font-family: Georgia, serif; font-size: 14px; font-weight: 400; }.route-item small { color: #777873; font-size: 7px; letter-spacing: .1em; text-transform: uppercase; }.route-item button { border: 0; background: transparent; color: #777873; font-size: 18px; cursor: pointer; }.empty-route { color: #777873; font-family: Georgia, serif; font-size: 14px; line-height: 1.6; }
+.route-estimate { margin: auto 0 22px; padding: 18px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border-top: 1px solid var(--line); }.route-estimate div { display: flex; flex-direction: column; gap: 8px; }.route-estimate small { color: #777873; font-size: 7px; letter-spacing: .12em; text-transform: uppercase; }.route-estimate strong { font-family: Georgia, serif; font-size: 13px; font-weight: 400; }.route-panel .primary-button:disabled { opacity: .35; cursor: not-allowed; transform: none; }.route-panel > p { margin: 15px 5px 0; color: #656661; font-size: 8px; line-height: 1.5; text-align: center; }
+
 .designer { display: grid; grid-template-columns: .8fr 1.2fr; gap: 8vw; background: radial-gradient(circle at 10% 20%, #25221f 0, #101211 42%); }
 .designer-copy { padding-top: 40px; }
 .designer-copy > p:not(.section-label) { max-width: 430px; margin: 35px 0; color: #92918d; font-family: Georgia, serif; line-height: 1.7; }
@@ -167,6 +199,12 @@ footer small { font-size: 8px; letter-spacing: .1em; text-transform: uppercase; 
   .collection-row { grid-template-columns: 45px 1fr 160px 45px; }
   .collection-row .collection-data:first-of-type { display: none; }
   .designer { grid-template-columns: 1fr; }
+  .smart-map { padding: 90px 4vw; }
+  .map-heading { grid-template-columns: 1fr; gap: 30px; margin: 0 2vw 45px; }
+  .map-shell { grid-template-columns: 1fr; }
+  .map-canvas { min-height: 610px; }
+  .route-panel { border-top: 1px solid var(--line); border-left: 0; }
+  .route-list { min-height: 0; }
   footer { grid-template-columns: 1fr 1fr; }
 }
 
@@ -187,6 +225,17 @@ footer small { font-size: 8px; letter-spacing: .1em; text-transform: uppercase; 
   .section-head { gap: 35px; margin-bottom: 45px; }
   .intro h2, .collections h2, .designer h2, .contact h2 { font-size: 46px; }
   .fleet h2 { font-size: 46px; }
+  .map-heading h2 { font-size: 46px; }
+  .smart-map { padding: 80px 18px; }
+  .map-heading { margin: 0 0 35px; }
+  .map-shell { min-height: 0; }
+  .map-canvas { min-height: 600px; }
+  .map-country-tabs { left: 12px; right: 12px; overflow-x: auto; }
+  .map-country-tabs button { padding: 10px 12px; }
+  .map-pin b { display: none; }
+  .map-legend { left: 12px; right: 12px; padding: 12px; gap: 10px; }
+  .map-legend small { display: none; }
+  .route-panel { padding: 27px 20px; }
   .vehicle-image { height: 250px; }
   .collection-row { padding: 22px 5px; grid-template-columns: 28px 1fr 38px; gap: 10px; }
   .collection-row:hover, .collection-row.active { padding-left: 10px; }
