@@ -40,7 +40,7 @@ export default function PlanPage() {
   };
 
   return <main className="planner-page">
-    <header className="planner-nav"><a className="brand" href="/"><span className="brand-mark">MLT</span><span className="brand-line">Move. Live. Travel.</span></a><a href="/">×</a><div className="language-switch"><button className={locale === "en" ? "active" : ""} onClick={() => setLocale("en")}>EN</button><button className={locale === "de" ? "active" : ""} onClick={() => setLocale("de")}>DE</button></div></header>
+    <header className="planner-nav"><a className="brand" href="/"><span className="brand-mark">MLT</span><span className="brand-line">Move. Live. Travel.</span></a><a className="planner-close" href="/" aria-label={locale === "de" ? "Reiseplaner schließen" : "Close journey designer"}>×</a><div className="language-switch"><button className={locale === "en" ? "active" : ""} onClick={() => setLocale("en")}>EN</button><button className={locale === "de" ? "active" : ""} onClick={() => setLocale("de")}>DE</button></div></header>
     <section className="planner-shell">
       <aside className="planner-sidebar"><p className="section-label">MLT Journey Designer</p><h1>{t.title}</h1><p>{t.subtitle}</p><div className="planner-tools"><button onClick={sharePlan}><span>↗</span>{shareStatus || (locale === "de" ? "Reise teilen" : "Share journey")}</button><button onClick={resetPlan}>{locale === "de" ? "Neu beginnen" : "Start over"}</button></div><ol>{t.steps.map((label, index) => <li key={label} className={step === index + 1 ? "active" : step > index + 1 ? "done" : ""}><span>{step > index + 1 ? "✓" : String(index + 1).padStart(2, "0")}</span>{label}</li>)}</ol></aside>
       <div className="planner-content">
