@@ -45,4 +45,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./static-export/
-          server-dir: /www/otrstar.ru/
+          server-dir: /
