@@ -343,6 +343,20 @@ footer small { font-size: 8px; letter-spacing: .1em; text-transform: uppercase; 
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 
+/* Readability pass */
+.nav { gap: 30px; font-size: 11px; font-weight: 600; letter-spacing: .12em; }.nav a { opacity: .9; }
+.language-switch { gap: 0; padding: 3px; border: 1px solid rgba(214,169,133,.55); border-radius: 3px; background: rgba(12,14,13,.72); box-shadow: 0 6px 18px rgba(0,0,0,.22); }
+.language-switch button { min-width: 42px; min-height: 32px; padding: 7px 9px; border: 0; border-radius: 2px; color: #c8c2ba; font-size: 11px; font-weight: 700; letter-spacing: .08em; }
+.language-switch button.active { color: #171512; background: #d0a078; border: 0; box-shadow: inset 0 1px rgba(255,255,255,.25); }.language-switch button:not(.active):hover { color: #fff; background: rgba(255,255,255,.08); }
+.brand-line { font-size: 9px; }.kicker, .section-label { font-size: 11px; font-weight: 600; letter-spacing: .23em; }.primary-button, .film-button, .vehicle-card > button, .vehicle-card > .vehicle-link { font-size: 11px; }.hero-copy { font-size: 18px; line-height: 1.55; }
+.hero-meta span, .card-head span, .summary small, .fleet-note span, .vehicle-image span, .vehicle-copy small, .vehicle-specs, .fleet-disclaimer, .collection-title small, .collection-data small { font-size: 10px; line-height: 1.45; }
+.intro-text, .intro-body p, .fleet-heading p, .map-heading p, .experience-heading p, .contact-copy, .designer-copy { font-size: 15px; line-height: 1.7; }
+.map-country-tabs button { min-height: 38px; font-size: 10px; font-weight: 700; }.map-legend { font-size: 10px; }.route-panel p, .route-panel small { font-size: 10px; }.experience-copy small, .experience-copy p { font-size: 11px; }.collection-data strong { font-size: 14px; }
+footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }
+.cookie-lang { gap: 0; padding: 3px; border: 1px solid #675142; background: #0e1010; }.cookie-lang button { min-width: 40px; min-height: 30px; padding: 6px 9px; color: #c1bab1; font-size: 11px; font-weight: 700; }.cookie-lang button.active { color: #151311; background: #c99a76; border: 0; }.cookie-panel > div:first-child > p:not(.section-label) { font-size: 14px; }.cookie-panel a, .cookie-actions button { font-size: 10px; }.cookie-settings small { font-size: 11px; }
+.proposal-actions > div { padding: 3px; border: 1px solid #745943; background: #111312; }.proposal-actions > div button { min-width: 40px; min-height: 30px; font-size: 11px; font-weight: 700; }.proposal-actions > div button.active { color: #171512; background: #d0a078; border: 0; }
+.planner-tools button, .planner-sidebar li, .planner-card > small, .planner-card > p, .planner-card > b, .step-hint, .planner-fields label, .planner-form label { font-size: 11px; }.planner-sidebar > p:not(.section-label), .planner-route-list > p { font-size: 14px; }.planner-route-head small, .planner-route-list article small, .planner-route-note p, .addon-option > span, .addon-option > small { font-size: 10px; }
+
 /* High-contrast expedition booking panel */
 .booking-bar { min-height: 126px; padding: 10px; border-color: rgba(223,174,135,.72); background: #30322f; box-shadow: 0 32px 80px rgba(0,0,0,.62), inset 0 1px rgba(255,255,255,.07); }
 .booking-intro { padding-left: 20px; background: #373936; border-right-color: rgba(255,255,255,.18); }
