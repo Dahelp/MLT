@@ -477,8 +477,28 @@ footer .brand-line { font-size: 12px; }
 .proposal-preview-link, .proposal-brand span, .proposal-cover > p, .proposal-cover > div:nth-of-type(2) small, .proposal-cover footer, .proposal-overview small, .proposal-investment aside small, .proposal-itinerary li p, .proposal-itinerary li b, .proposal-experiences article small, .proposal-footer p, .proposal-footer a { font-size: 12px !important; line-height: 1.45; }
 .planner-tools button, .step-number, .planner-fields label, .planner-form label, .planner-card > small, .planner-card > p, .planner-card > b, .planner-route-head small, .planner-route-head button, .planner-route-list article small, .planner-route-note span, .planner-route-note p, .place-option small, .addon-option > span, .addon-option > small, .planner-summary small, .planner-live-estimate small { font-size: 12px; line-height: 1.45; }
 
+/* Smart Map: readable route information at normal laptop viewing distance */
+.smart-map .section-label { font-size: 14px; }
+.map-heading > p { font-size: 19px; line-height: 1.75; }
+.map-country-tabs button { font-size: 13px; }
+.map-legend, .map-legend small { font-size: 13px; }
+.map-pin span, .real-map-marker span { font-size: 12px; }
+.map-pin b, .real-map-marker b { font-size: 13px; }
+.route-panel-head span { font-size: 24px; }
+.route-panel-head strong { font-size: 14px; }
+.route-item > span { font-size: 14px; }
+.route-item strong { font-size: 18px; line-height: 1.35; }
+.route-item small { font-size: 14px; line-height: 1.4; }
+.route-estimate small { font-size: 14px; line-height: 1.35; }
+.route-estimate strong { font-size: 17px; line-height: 1.4; }
+.route-panel .primary-button { font-size: 13px; line-height: 1.4; }
+.route-panel > p { font-size: 14px; line-height: 1.6; }
+
 @media (max-width: 640px) {
   .collection-number { font-size: 16px; }
   .collection-title small { font-size: 12px; letter-spacing: .12em; }
   .collection-row { grid-template-columns: 38px minmax(0, 1fr) 40px; }
+  .map-heading > p { font-size: 17px; }
+  .route-item strong { font-size: 17px; }
+  .route-item small, .route-estimate small, .route-panel > p { font-size: 13px; }
 }
