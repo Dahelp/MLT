@@ -31,7 +31,7 @@ export default function PlanPage() {
   useEffect(() => { if (!hydrated || step === 7) return; localStorage.setItem("mlt-journey-draft", JSON.stringify({ country, arrival, departure, guests, vehicle, collection, places, addons, step })); }, [hydrated, country, arrival, departure, guests, vehicle, collection, places, addons, step]);
   const toggle = (value: string, values: string[], setter: (next: string[]) => void) => setter(values.includes(value) ? values.filter((item) => item !== value) : [...values, value]);
   const valid = step === 1 ? Boolean(arrival && departure && guests) : step === 2 ? Boolean(vehicle) : step === 3 ? Boolean(collection) : true;
-  const journeyQuery = () => new URLSearchParams({ plan: "1", country, guests, vehicle, collection, dates: `${arrival}_${departure}`, route: places.join(","), extras: addons.join(",") }).toString();
+  const journeyQuery = () => new URLSearchParams({ plan: "1", lang: locale, country, guests, vehicle, collection, dates: `${arrival}_${departure}`, route: places.join(","), extras: addons.join(",") }).toString();
   const sharePlan = async () => { const url = `${location.origin}/plan?${journeyQuery()}`; try { await navigator.clipboard.writeText(url); setShareStatus(locale === "de" ? "Link kopiert" : "Link copied"); } catch { window.prompt(locale === "de" ? "Link kopieren" : "Copy this link", url); setShareStatus(""); } window.setTimeout(() => setShareStatus(""), 2200); };
   const resetPlan = () => { localStorage.removeItem("mlt-journey-draft"); setCountry("Italy"); setArrival("2026-09-17"); setDeparture("2026-09-27"); setGuests("2 guests"); setVehicle("granduca"); setCollection("signature"); setPlaces(["dolomites", "como"]); setAddons([]); setStep(1); };
 
