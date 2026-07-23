@@ -34,6 +34,10 @@ export default function Home() {
     if (saved === "de" || saved === "en") setLocale(saved);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   const changeLocale = (next: Locale) => {
     setLocale(next); window.localStorage.setItem("mlt-locale", next); document.documentElement.lang = next;
   };
