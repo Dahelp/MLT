@@ -283,7 +283,7 @@ export default function Home() {
       <footer>
         <div className="brand footer-brand"><span className="brand-mark">MLT</span><span className="brand-line">Move. Live. Travel.</span></div>
         <p>Individual Road Expeditions<br />Italy · Austria · Germany</p>
-        <div><a href="#top">Instagram</a><a href="#top">Imprint</a><a href="#top">Privacy</a></div>
+        <div><a href="#top">Instagram</a><a href="/legal/imprint">Imprint</a><a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a></div>
         <small>Concept preview · 2026 MLT GmbH</small>
       </footer>
 
