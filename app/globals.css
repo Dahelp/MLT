@@ -357,6 +357,7 @@ footer small { font-size: 8px; letter-spacing: .1em; text-transform: uppercase; 
 .planner-sidebar { padding: 70px 4vw; border-right: 1px solid var(--line); background: radial-gradient(circle at 0 0, #27211c, #111313 48%); }
 .planner-sidebar h1 { margin: 25px 0 18px; font-family: Georgia, serif; font-size: clamp(42px, 4.6vw, 73px); font-weight: 400; line-height: .96; }
 .planner-sidebar > p:not(.section-label) { max-width: 390px; color: #8e8c86; line-height: 1.7; }
+.planner-tools { margin-top: 28px; display: flex; gap: 20px; }.planner-tools button { padding: 0 0 7px; color: #9b958e; background: transparent; border: 0; border-bottom: 1px solid #4e4944; font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }.planner-tools button:first-child { color: #c99a76; }.planner-tools button span { margin-right: 7px; }
 .planner-sidebar ol { margin: 70px 0 0; padding: 0; list-style: none; }
 .planner-sidebar li { padding: 15px 0; display: flex; gap: 18px; color: #5f605d; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 .planner-sidebar li span { width: 24px; color: #806751; }
