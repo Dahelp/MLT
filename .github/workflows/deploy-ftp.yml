@@ -1,0 +1,48 @@
+name: Deploy MLT preview to otrstar.ru
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: otrstar-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm build
+
+      - name: Export static preview
+        run: node scripts/export-static.mjs
+
+      - name: Deploy by FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: grass.gohost.ru
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./static-export/
+          server-dir: /www/otrstar.ru/
