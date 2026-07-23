@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { collections, destinations, experiences, fleet, mapPoints } from "../content/mlt";
 import { collectionDe, translations, type Locale } from "../content/i18n";
+import RealRouteMap from "./plan/RealRouteMap";
 
 export default function Home() {
   const [selected, setSelected] = useState("signature");
@@ -188,24 +189,12 @@ export default function Home() {
           <p>{t.mapCopy}</p>
         </div>
         <div className="map-shell">
-          <div className="map-canvas">
+          <div className="map-canvas real-home-map">
             <div className="map-country-tabs" aria-label="Filter map by country">
               {["All", "Italy", "Austria", "Germany"].map((item) => <button key={item} className={mapCountry === item ? "active" : ""} onClick={() => setMapCountry(item)}>{item}</button>)}
             </div>
-            <div className="map-land land-one" /><div className="map-land land-two" /><div className="map-land land-three" />
-            <div className="route-trace trace-one" /><div className="route-trace trace-two" />
-            {mapPoints.map((point, index) => {
-              const visible = mapCountry === "All" || point.country === mapCountry;
-              const isSelected = routePoints.includes(point.id);
-              return <button
-                key={point.id}
-                className={`map-pin ${point.className} ${isSelected ? "selected" : ""} ${visible ? "" : "muted"}`}
-                onClick={() => setRoutePoints((current) => current.includes(point.id) ? current.filter((id) => id !== point.id) : [...current, point.id])}
-                aria-pressed={isSelected}
-                aria-label={`${isSelected ? "Remove" : "Add"} ${point.name}`}
-              ><span>{isSelected ? "✓" : index + 1}</span><b>{point.name}</b></button>;
-            })}
-            <div className="map-legend"><span><i className="legend-selected" /> Selected</span><span><i /> Curated place</span><small>Illustrative concept map</small></div>
+              <RealRouteMap selected={routePoints} country={mapCountry} onToggle={(id) => setRoutePoints((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id])} />
+              <div className="map-legend"><span><i className="legend-selected" /> {locale === "de" ? "Gewählt" : "Selected"}</span><span><i /> {locale === "de" ? "Kuratierter Ort" : "Curated place"}</span><small>MLT / OpenStreetMap</small></div>
           </div>
           <aside className="route-panel">
             <div className="route-panel-head"><span>{t.selectedRoute}</span><strong>{routePoints.length.toString().padStart(2, "0")} {t.selectedPlaces}</strong></div>
