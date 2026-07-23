@@ -456,3 +456,29 @@ footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }
 .planner-success { max-width: 690px; margin: auto; text-align: center; }.planner-success > span { width: 62px; height: 62px; margin: 0 auto 28px; display: grid; place-items: center; border: 1px solid #a47b5c; border-radius: 50%; color: #c4926c; font-size: 25px; }.planner-success h2 { margin: 17px auto 24px; }.planner-success > p:not(.section-label) { color: #8e8c86; }.planner-success > div { margin: 36px 0; padding: 18px; display: grid; gap: 6px; border: 1px solid var(--line); }.planner-success small { color: #7f7d77; text-transform: uppercase; letter-spacing: .15em; }
 @media (max-width: 900px) { .planner-shell { grid-template-columns: 1fr; }.planner-sidebar { padding: 38px 24px 25px; border-right: 0; border-bottom: 1px solid var(--line); }.planner-sidebar h1 { font-size: 48px; }.planner-sidebar > p:not(.section-label) { display: none; }.planner-sidebar ol { margin-top: 35px; display: flex; overflow-x: auto; }.planner-sidebar li { min-width: 125px; border-bottom: 0; }.planner-content { padding: 42px 24px 28px; }.planner-card-grid { grid-template-columns: 1fr 1fr; }.addon-grid { grid-template-columns: 1fr 1fr; }.planner-route-builder { grid-template-columns: 1fr; }.planner-route-panel { border-left: 0; border-top: 1px solid var(--line); }.planner-route-list { max-height: 260px; } }
 @media (max-width: 600px) { .planner-nav { height: 75px; padding: 0 16px; grid-template-columns: 1fr auto auto; gap: 10px; }.planner-nav .planner-close { width: 36px; height: 36px; display: grid; font-size: 22px; }.planner-nav .language-switch button { min-width: 36px; }.planner-sidebar { padding-top: 30px; }.planner-sidebar h1 { font-size: 40px; }.planner-sidebar ol { margin-top: 25px; }.planner-sidebar li { min-width: 105px; font-size: 11px; }.planner-content { padding: 38px 18px 25px; }.planner-step h2, .planner-success h2 { margin-bottom: 32px; font-size: 40px; }.planner-fields, .planner-card-grid, .collections-grid, .place-grid, .addon-grid, .planner-final, .planner-form { grid-template-columns: 1fr; }.planner-card-image { height: 220px; }.planner-form label:nth-of-type(4), .planner-form .consent, .planner-form .primary-button, .planner-form .form-error { grid-column: auto; }.planner-summary { display: none; }.planner-map { min-height: 480px; }.planner-route-builder { min-height: 0; }.planner-map .map-country-tabs { max-width: calc(100% - 24px); overflow-x: auto; }.planner-map .map-pin b { display: none; }.planner-map .map-legend { padding-left: 15px; }.planner-map .map-legend small { display: none; } }
+
+/* Readable small typography: content labels stay legible on laptops and tablets */
+.collection-number { font-size: 16px; font-weight: 600; }
+.collection-title small { font-size: 14px; line-height: 1.45; }
+.collection-data { font-size: 20px; }
+.collection-data small { font-size: 14px; line-height: 1.35; }
+.collection-data strong { font-size: 20px; line-height: 1.25; }
+.nav, .primary-button, .film-button, .booking-bar button, .vehicle-card > button, .vehicle-card > .vehicle-link { font-size: 12px; }
+.language-switch button, .kicker, .section-label, .booking-intro small, .booking-bar label { font-size: 12px; }
+.hero-meta span, .card-head span, .summary small, .fleet-note span, .vehicle-image span, .vehicle-copy small, .vehicle-specs, .fleet-disclaimer { font-size: 12px; line-height: 1.45; }
+.map-country-tabs button, .map-legend, .map-legend small, .route-panel-head strong, .route-item > span, .route-item small, .route-estimate small, .route-panel > p { font-size: 12px; line-height: 1.45; }
+.experience-heading > div:last-child > button, .experience-visual span, .experience-copy small, .experience-copy p, .content-status { font-size: 12px; line-height: 1.45; }
+.choice span, .choice small, .config-row label, .journey-card ul, footer small { font-size: 12px; line-height: 1.5; }
+footer, footer p, footer a, footer small { font-size: 14px; line-height: 1.65; }
+footer .brand-line { font-size: 12px; }
+.summary-label, .request-summary small, .request-summary > p, .concierge-form label:not(.consent), .form-note, .success-reference small, .delivery-status small, .delivery-status strong { font-size: 12px; line-height: 1.5; }
+.detail-nav > a:nth-child(2), .detail-index, .detail-facts small, .flow-grid small, .detail-footer, .fleet-spec-bar small, .equipment-grid > div p, .fleet-gallery span, .fleet-gallery > p { font-size: 12px; line-height: 1.45; }
+.cookie-lang button, .cookie-panel a, .cookie-settings small, .cookie-actions button, .legal-nav > a:last-child, .legal-notice strong, .legal-page footer a { font-size: 12px; line-height: 1.45; }
+.proposal-preview-link, .proposal-brand span, .proposal-cover > p, .proposal-cover > div:nth-of-type(2) small, .proposal-cover footer, .proposal-overview small, .proposal-investment aside small, .proposal-itinerary li p, .proposal-itinerary li b, .proposal-experiences article small, .proposal-footer p, .proposal-footer a { font-size: 12px !important; line-height: 1.45; }
+.planner-tools button, .step-number, .planner-fields label, .planner-form label, .planner-card > small, .planner-card > p, .planner-card > b, .planner-route-head small, .planner-route-head button, .planner-route-list article small, .planner-route-note span, .planner-route-note p, .place-option small, .addon-option > span, .addon-option > small, .planner-summary small, .planner-live-estimate small { font-size: 12px; line-height: 1.45; }
+
+@media (max-width: 640px) {
+  .collection-number { font-size: 16px; }
+  .collection-title small { font-size: 12px; letter-spacing: .12em; }
+  .collection-row { grid-template-columns: 38px minmax(0, 1fr) 40px; }
+}
