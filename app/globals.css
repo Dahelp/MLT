@@ -47,11 +47,11 @@ h1 em, h2 em, .statement em { color: #c9a17e; font-weight: 400; }
 .film-button { display: flex; align-items: center; gap: 12px; padding: 0; border: 0; background: transparent; color: white; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
 .film-button small { color: #9c9a93; }
 .play { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; font-size: 9px; }
-.booking-bar { position: absolute; z-index: 4; left: 5.5vw; right: 5.5vw; bottom: 96px; min-height: 112px; padding: 16px; display: grid; grid-template-columns: 1.15fr repeat(4, 1fr) 1.25fr; align-items: stretch; border: 1px solid rgba(212,174,142,.36); background: rgba(15,16,15,.92); box-shadow: 0 24px 60px rgba(0,0,0,.38); backdrop-filter: blur(18px); }
-.booking-intro { padding: 12px 18px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--line); }
+.booking-bar { position: absolute; z-index: 4; left: 5.5vw; right: 5.5vw; bottom: 96px; min-height: 112px; padding: 12px; display: grid; grid-template-columns: 1.15fr repeat(4, 1fr) 1.25fr; align-items: stretch; border: 1px solid rgba(211,163,125,.45); background: linear-gradient(135deg, rgba(35,36,34,.97), rgba(26,28,27,.97)); box-shadow: 0 30px 75px rgba(0,0,0,.52), 0 1px 0 rgba(255,255,255,.045) inset; backdrop-filter: blur(22px); }
+.booking-intro { padding: 12px 18px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.018); }
 .booking-intro small, .booking-bar label { color: #98968f; font-size: 7px; letter-spacing: .2em; text-transform: uppercase; }
 .booking-intro strong { margin-top: 9px; font-family: Georgia, serif; font-size: 17px; font-weight: 400; }
-.booking-bar label { padding: 10px 13px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--line); }
+.booking-bar label { padding: 10px 13px; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(255,255,255,.1); background: rgba(9,11,10,.18); transition: background .25s ease; }.booking-bar label:focus-within { background: rgba(196,145,105,.075); }
 .booking-bar select, .booking-bar input { width: 100%; height: auto; margin: 11px 0 0; padding: 0; border: 0; outline: 0; background: transparent; color: white; color-scheme: dark; font-family: Georgia, serif; font-size: 13px; text-transform: none; }
 .booking-bar button { border: 0; display: flex; align-items: center; justify-content: center; gap: 20px; background: linear-gradient(135deg, #b47d52, #d0a17b); color: #101111; font-size: 8px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; cursor: pointer; }
 .booking-bar button span { font-size: 17px; font-weight: 400; }
