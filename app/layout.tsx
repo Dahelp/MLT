@@ -3,8 +3,17 @@ import "./globals.css";
 import CookieConsent from "./CookieConsent";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://otrstar.ru"),
   title: "MLT — Individual Road Expeditions",
   description: "Private luxury road expeditions across Europe, composed around you.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "MLT",
+    title: "MLT — Individual Road Expeditions",
+    description: "Private luxury road expeditions across Europe, composed around you.",
+  },
   robots: {
     index: false,
     follow: false,

@@ -1,6 +1,8 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex, nofollow, noarchive');
+header('Cache-Control: no-store, max-age=0');
+header('X-Content-Type-Options: nosniff');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -12,6 +14,12 @@ $body = json_decode(file_get_contents('php://input'), true);
 if (!is_array($body)) {
     http_response_code(400);
     echo json_encode(['error' => 'Invalid request']);
+    exit;
+}
+
+if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 20000) {
+    http_response_code(413);
+    echo json_encode(['error' => 'Request is too large']);
     exit;
 }
 
@@ -74,7 +82,9 @@ if ($token && $chatId) {
         echo json_encode(['ok' => true, 'reference' => $reference, 'delivery' => 'telegram']);
         exit;
     }
+    http_response_code(502);
+    echo json_encode(['error' => 'Your request could not be delivered. Please try again.']);
+    exit;
 }
 
 echo json_encode(['ok' => true, 'reference' => $reference, 'delivery' => 'demo']);
-

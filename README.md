@@ -16,7 +16,8 @@ Open the local address shown in the terminal (normally `http://localhost:5173`).
 ## Production check
 
 ```bash
-pnpm build
+pnpm test
+node scripts/export-static.mjs
 ```
 
 The current beta is a front-end concept. Payments, CRM, inventory, CMS content and production booking logic are intentionally outside this demonstration scope.
@@ -50,3 +51,15 @@ English and German interface dictionaries live in `content/i18n.ts`. The selecte
 The four product stories are available at `/collections/freedom`, `/collections/signature`, `/collections/concierge`, and `/collections/private`. Their English and German editorial copy is managed in `content/collection-details.ts`.
 
 Fleet stories are available at `/fleet/explorer`, `/fleet/granduca`, and `/fleet/compatto`. Bilingual equipment, space and suitability content is managed in `content/fleet-details.ts`. Vehicle specifications and images remain concept placeholders until MLT supplies confirmed fleet data and photography.
+
+## Demonstration safeguards
+
+- Search indexing remains disabled in page metadata, `public/robots.txt` and the production `X-Robots-Tag`.
+- The Apache preview includes basic security headers, disabled directory listing and cache rules in `public/.htaccess`.
+- The Smart Map shows a loading or temporary-unavailable state and resizes when its layout changes.
+- Journey choices and locale are stored only in the visitor's browser.
+- Concierge requests validate required identity fields, use a honeypot, limit payload size and never expose Telegram credentials to the browser.
+
+## Pre-launch checklist
+
+Before removing `noindex`, MLT must approve final copy, translations, fleet data, imagery, prices, legal texts and production contact details. Production Stripe, CMS, CRM, `.com` / `.ru` routing and AI itinerary generation are separate implementation phases.
