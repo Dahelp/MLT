@@ -12,7 +12,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [country, setCountry] = useState("Italy");
   const [guests, setGuests] = useState("2 guests");
-  const [bookingMessage, setBookingMessage] = useState("");
   const [mapCountry, setMapCountry] = useState("All");
   const [routePoints, setRoutePoints] = useState<string[]>(["dolomites", "como"]);
   const [conciergeOpen, setConciergeOpen] = useState(false);
@@ -111,22 +110,21 @@ export default function Home() {
             <button className="film-button"><span className="play">▶</span> {t.film} <small>01:24</small></button>
           </div>
         </div>
-        <form className="booking-bar" onSubmit={(event) => { event.preventDefault(); const data = new FormData(event.currentTarget); window.location.href = `/plan?country=${encodeURIComponent(String(data.get("country") || "Italy"))}&guests=${encodeURIComponent(String(data.get("guests") || "2 guests"))}`; }}>
+        <form className="booking-bar" onSubmit={(event) => { event.preventDefault(); const data = new FormData(event.currentTarget); const arrival = String(data.get("arrival") || "2026-09-17"); const departure = String(data.get("departure") || "2026-09-27"); window.location.href = `/plan?country=${encodeURIComponent(String(data.get("country") || "Italy"))}&guests=${encodeURIComponent(String(data.get("guests") || "2 guests"))}&dates=${encodeURIComponent(`${arrival}_${departure}`)}`; }}>
           <div className="booking-intro"><small>{t.begin}</small><strong>{t.plan}</strong></div>
           <label>{t.startingCountry}
             <select name="country" value={country} onChange={(event) => setCountry(event.target.value)}>
               <option>Italy</option><option>Austria</option><option>Germany</option>
             </select>
           </label>
-          <label>{t.arrival}<input type="date" defaultValue="2026-09-17" /></label>
-          <label>{t.departure}<input type="date" defaultValue="2026-09-27" /></label>
+          <label>{t.arrival}<input required name="arrival" type="date" defaultValue="2026-09-17" /></label>
+          <label>{t.departure}<input required name="departure" type="date" defaultValue="2026-09-27" /></label>
           <label>{t.travellers}
             <select name="guests" value={guests} onChange={(event) => setGuests(event.target.value)}>
               <option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5+ guests</option>
             </select>
           </label>
           <button type="submit">{t.availability} <span>↗</span></button>
-          {bookingMessage && <p className="booking-message" role="status">{bookingMessage}</p>}
         </form>
         <div className="hero-meta">
           <div><span>{t.nowExploring}</span><strong>Italy · Austria · Germany</strong></div>
