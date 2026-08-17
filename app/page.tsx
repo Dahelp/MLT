@@ -14,7 +14,7 @@ const collections = [
   { id: "signature", name: "Signature", image: "/collection-signature.jpg", eyebrow: "Curated end to end", copy: "A personal route, reserved stays and remarkable roads — every essential detail already considered.", rate: "From €250 / day", days: "7–14 days" },
   { id: "concierge", name: "Concierge", image: "/collection-concierge.jpg", eyebrow: "Always one step ahead", copy: "Your journey, supported by a dedicated MLT concierge, available around the clock.", rate: "From €450 / day", days: "7–14 days" },
   { id: "private", name: "Private", image: "/collection-private.jpg", eyebrow: "A private world in motion", copy: "A five-star travelling residence with driver, private team and service shaped entirely around you.", rate: "From €2,000 / day", days: "7–21 days" },
-  { id: "proposal", name: "Proposal", image: "/experience-wine-v2.webp", eyebrow: "The art of saying yes", copy: "A private European route and a complete proposal scenario — location, creative team and every detail handled by MLT.", rate: "Tailored proposal", days: "3–7 days" },
+  { id: "proposal", name: "Proposal", image: "/collection-proposal.jpg", eyebrow: "The art of saying yes", copy: "A private European route and a complete proposal scenario — location, creative team and every detail handled by MLT.", rate: "Tailored proposal", days: "3–7 days" },
 ] as const;
 
 const experiences = [
@@ -93,12 +93,12 @@ export default function Home() {
     <section className="light-collections" id="collections">
       <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Пять способов путешествовать" : locale === "de" ? "Fünf Arten zu reisen" : "Five ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button></div></div></div>
       <SwiperCarousel className="collection-rail" modules={[Autoplay, EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={4} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" loop speed={850} grabCursor keyboard={{ enabled: true }} autoplay={{ delay: 4200, disableOnInteraction: false, pauseOnMouseEnter: true }} coverflowEffect={{ rotate: 0, stretch: 22, depth: 145, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; setActiveCollection(instance.realIndex); }} onSlideChange={(instance) => setActiveCollection(instance.realIndex)} aria-label="MLT collections">
-        {collections.map((item, index) => <SwiperSlide className="collection-slide" key={item.id}><article className="light-collection-card">
+        {collections.map((item, index) => <SwiperSlide className="collection-slide" key={item.id}><a className="collection-card-link" href={`/collections/${item.id}`} aria-label={`Open MLT ${item.name} Collection`}><article className="light-collection-card">
           <img src={item.image} alt={`MLT ${item.name} Collection`} />
           <div className="collection-shade" />
           <div className="collection-top"><span>0{index + 1}</span><small>{item.eyebrow}</small></div>
-          <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{item.copy}</p><div><span>{item.days}</span><strong>{item.rate}</strong></div><a href={`/collections/${item.id}`}>{t.details}<span>↗</span></a></div>
-        </article></SwiperSlide>)}
+          <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{item.copy}</p><div><span>{item.days}</span><strong>{item.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
+        </article></a></SwiperSlide>)}
       </SwiperCarousel>
     </section>
 
