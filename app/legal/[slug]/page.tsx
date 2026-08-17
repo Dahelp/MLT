@@ -1,9 +1,57 @@
 import type { Metadata } from "next";
+
 const pages = {
-  privacy: { title: "Privacy Policy", de: "Datenschutzerklärung", intro: "How MLT handles personal information when you explore and request a private journey.", sections: [["Controller / Verantwortlicher", "MLT GmbH · [registered address to be supplied] · [privacy email to be supplied]. The company details must be completed and legally reviewed before launch."], ["Information we process", "Contact details, travel preferences, route selections and technical data required to provide the website and prepare a proposal."], ["Purpose and legal basis", "We process enquiry data to take steps before entering into a contract (Art. 6(1)(b) GDPR). Optional analytics require consent (Art. 6(1)(a) GDPR). Essential security and technical processing is based on legitimate interests (Art. 6(1)(f) GDPR)."], ["Recipients and transfers", "Authorised MLT staff and necessary service providers may receive data. Any provider, hosting location and international transfer mechanism must be documented before production launch."], ["Retention", "Enquiry data is retained only as long as needed to prepare the journey, meet legal obligations or handle claims. Final retention periods must be approved by MLT legal counsel."], ["Your rights", "You may request access, correction, deletion, restriction, portability or object to processing. You may withdraw consent and lodge a complaint with the competent German supervisory authority."], ["Cookies and local storage", "The preview stores language, journey progress and your consent choice on the device. Optional analytics are disabled until separately approved and configured."]] },
-  imprint: { title: "Legal Notice", de: "Impressum", intro: "Provider identification under German law.", sections: [["Provider / Anbieter", "MLT GmbH · [street and number] · [postal code and city] · Germany"], ["Represented by", "Managing director: [full legal name to be supplied]"], ["Contact", "Telephone: [to be supplied] · Email: [to be supplied]"], ["Registration", "Commercial register: [court and HRB number to be supplied] · VAT ID: [to be supplied]"], ["Editorial responsibility", "Responsible according to § 18 Abs. 2 MStV: [name and address to be supplied]."], ["Important", "This is a structured launch draft. All bracketed company information must be replaced and the final page reviewed by German legal counsel before publication."]] },
-  terms: { title: "Terms & Conditions", de: "Allgemeine Geschäftsbedingungen", intro: "Framework for journey enquiries and future bookings.", sections: [["Scope", "These draft terms describe the intended enquiry process for private MLT road expeditions. They are not final booking terms."], ["Enquiries and proposals", "Website prices and generated proposals are non-binding estimates. A contract is formed only after availability, scope, final price and booking terms are confirmed by MLT and accepted by the client."], ["Third-party services", "Campsites, restaurants, activities and transfers may be supplied by independent partners and can be subject to their own terms."], ["Payment and cancellation", "Deposit schedule, payment deadlines, cancellation fees, security deposit and refund rules must be supplied by MLT and reviewed for compliance before bookings are accepted."], ["Vehicle and travel requirements", "Driver eligibility, licences, insurance, permitted territories, mileage and vehicle handover rules must be defined in the final rental agreement."], ["Draft status", "This page is a product-design draft and must not be used as final legal terms without review by qualified German counsel."]] },
+  imprint: {
+    title: "Impressum",
+    intro: "Angaben gemäß § 5 TMG",
+    sections: [
+      ["Anbieter", "MLT Maschinenhandel GmbH Import-Export\nBauernweg 17\n01109 Dresden\nDeutschland"],
+      ["Vertretung", "Vertreten durch die Geschäftsführerin Elena Bokova."],
+      ["Kontakt", "Telefon: +49 176 325 23 799\nMobil: +49 176 303 35 242\nE-Mail: dresden@mlt-maschinen.de\nInternet: www.mlt-maschinen.de"],
+      ["Registereintrag", "Eingetragen im Handelsregister beim Amtsgericht Dresden.\nRegisternummer: HRB 14693"],
+      ["Umsatzsteuer", "Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: DE 185964940"],
+      ["EU-Streitbeilegung", "Plattform der EU-Kommission zur Online-Streitbeilegung: https://ec.europa.eu/consumers/odr"],
+    ],
+  },
+  privacy: {
+    title: "Datenschutzerklärung",
+    intro: "Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst.",
+    sections: [
+      ["Verantwortliche Stelle", "MLT Maschinenhandel GmbH Import-Export\nBauernweg 17, 01109 Dresden, Deutschland\nVertreten durch: Elena Bokova\nE-Mail: dresden@mlt-maschinen.de"],
+      ["Erhebung und Verarbeitung", "Wir erheben personenbezogene Daten nur, soweit dies für unsere Dienstleistungen, die Vertragsabwicklung oder gesetzliche Pflichten erforderlich ist. Dazu können Kontakt-, Identitäts-, Führerschein-, Buchungs- und Zahlungsdaten gehören. Vollständige Kreditkartendaten werden nicht in unseren Systemen gespeichert."],
+      ["Zweck der Verarbeitung", "Die Verarbeitung dient vorvertraglichen Maßnahmen und der Vertragserfüllung, der Identitätsprüfung, gesetzlichen Dokumentationspflichten sowie der Sicherheit unserer Fahrzeuge und Unterkünfte."],
+      ["Weitergabe an Dritte", "Daten werden nur weitergegeben, wenn dies für die Vertragsabwicklung erforderlich ist, etwa an Zahlungsdienstleister oder Versicherungen, oder wenn eine gesetzliche Verpflichtung besteht."],
+      ["Speicherdauer", "Wir löschen Daten, sobald der Speicherzweck entfällt und keine gesetzlichen Aufbewahrungsfristen entgegenstehen. Handels- und steuerrechtliche Fristen betragen in der Regel sechs bis zehn Jahre."],
+      ["Ihre Rechte", "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch nach Art. 15–21 DS-GVO."],
+      ["Datensicherheit", "Wir setzen technische und organisatorische Sicherheitsmaßnahmen einschließlich SSL/TLS-Verschlüsselung ein, um Ihre Daten vor unbefugtem Zugriff zu schützen."],
+      ["Beschwerderecht", "Sie können sich bei einer Datenschutzaufsichtsbehörde beschweren, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer Daten gegen die DS-GVO verstößt."],
+      ["Cookies", "Technisch notwendige Cookies sind für den Betrieb der Website erforderlich. Statistik- und Marketing-Cookies werden nur nach ausdrücklicher Einwilligung gemäß Art. 6 Abs. 1 lit. a DS-GVO gesetzt. Ihre Auswahl können Sie jederzeit über die Cookie-Einstellungen ändern."],
+    ],
+  },
+  terms: {
+    title: "Allgemeine Geschäftsbedingungen",
+    intro: "MLT Maschinenhandel GmbH Import-Export",
+    sections: [
+      ["§ 1 Geltungsbereich", "Diese AGB gelten für Verträge über die Vermietung von Fahrzeugen sowie Ferienwohnungen durch die MLT Maschinenhandel GmbH Import-Export."],
+      ["§ 2 Vertragsschluss", "Die Darstellung auf der Website ist kein bindendes Angebot. Ein Vertrag kommt erst durch die schriftliche Buchungsbestätigung, auch per E-Mail, durch den Vermieter zustande."],
+      ["§ 3 Mietgegenstand und Nutzung", "Mietgegenstände dürfen nur zum vereinbarten Zweck genutzt und nicht ohne Zustimmung untervermietet werden. Fahrer benötigen die passende gültige Fahrerlaubnis. Die Fahrzeugnutzung ist auf die vertraglich vereinbarten Länder innerhalb der EU begrenzt."],
+      ["§ 4 Preise und Zahlung", "Es gelten die bei Buchung vereinbarten Preise. Zahlungen erfolgen per Kreditkarte oder Überweisung. Bei Fahrzeugmiete wird eine Kaution zur Absicherung möglicher Schäden oder Verstöße fällig."],
+      ["§ 5 Pflichten des Mieters", "Der Mietgegenstand ist pfleglich zu behandeln. Schäden, Defekte oder Unfälle sind unverzüglich mitzuteilen; bei Unfällen ist die Polizei hinzuzuziehen."],
+      ["§ 6 Haftung des Vermieters", "Der Vermieter haftet für Vorsatz und grobe Fahrlässigkeit. Bei leichter Fahrlässigkeit besteht eine Haftung nur bei Verletzung wesentlicher Vertragspflichten. Die Haftung für Leben, Körper und Gesundheit bleibt unberührt."],
+      ["§ 7 Haftung des Mieters", "Der Mieter haftet für von ihm zu vertretende Schäden. Die vereinbarte Selbstbeteiligung gilt nicht bei grober Fahrlässigkeit oder Vorsatz."],
+      ["§ 8 Stornierung und Rücktritt", "Die konkreten Stornofristen und Gebühren ergeben sich aus der Buchungsbestätigung. Bei höherer Gewalt oder kurzfristigem Defekt kann der Vermieter zurücktreten; bereits gezahlter Mietpreis wird in diesem Fall erstattet."],
+      ["§ 9 Datenschutz", "Personenbezogene Daten werden gemäß unserer Datenschutzerklärung und der DS-GVO verarbeitet."],
+      ["§ 10 Schlussbestimmungen", "Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Erfüllungsort und Gerichtsstand ist Dresden, soweit der Mieter Kaufmann ist. Die Unwirksamkeit einzelner Regelungen berührt die übrigen Bestimmungen nicht."],
+    ],
+  },
 } as const;
+
 export function generateStaticParams() { return Object.keys(pages).map((slug) => ({ slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const page = pages[slug as keyof typeof pages]; return { title: `${page?.title || "Legal"} — MLT` }; }
-export default async function LegalPage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const page = pages[slug as keyof typeof pages]; if (!page) return <main className="not-found"><h1>Page not found</h1></main>; return <main className="legal-page"><header className="legal-nav"><a className="brand" href="/"><span className="brand-mark">MLT</span><span className="brand-line">Move. Live. Travel.</span></a><a href="/">Close ×</a></header><article><p className="section-label">Legal / Draft for counsel review</p><h1>{page.title}<br /><em>{page.de}</em></h1><p className="legal-intro">{page.intro}</p><div className="legal-notice"><strong>Launch requirement</strong><span>Bracketed company details and final legal wording must be supplied and approved before the production site accepts bookings.</span></div>{page.sections.map(([title, text], index) => <section key={title}><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{text}</p></div></section>)}<footer><a href="/legal/privacy">Privacy</a><a href="/legal/imprint">Imprint</a><a href="/legal/terms">Terms</a><a href="/">Return to MLT</a></footer></article></main>; }
+
+export default async function LegalPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const page = pages[slug as keyof typeof pages];
+  if (!page) return <main className="not-found"><h1>Page not found</h1></main>;
+  return <main className="legal-page light-legal"><header className="legal-nav"><a className="legal-logo" href="/"><img src="/mlt-logo-bronze.png" alt="MLT" /></a><a href="/">Zurück ×</a></header><article><p className="light-section-label">MLT / Rechtliches</p><h1>{page.title}</h1><p className="legal-intro">{page.intro}</p><div className="legal-sections">{page.sections.map(([title, text], index) => <section key={title}><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{text}</p></div></section>)}</div><footer><a href="/legal/privacy">Datenschutz</a><a href="/legal/imprint">Impressum</a><a href="/legal/terms">AGB</a><a href="/">MLT entdecken</a></footer></article></main>;
+}

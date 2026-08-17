@@ -15,14 +15,15 @@ async function render(pathname = "/") {
   );
 }
 
-test("renders the MLT demonstration with noindex metadata", async () => {
+test("renders the light MLT experience with noindex metadata", async () => {
   const response = await render("/");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /<title>MLT — Individual Road Expeditions<\/title>/);
+  assert.match(html, /<title>MLT .* Individual Road Expeditions<\/title>/);
   assert.match(html, /name="robots" content="noindex, nofollow, nocache"/);
   assert.match(html, /MLT Smart Map/);
-  assert.match(html, /Journey designer/i);
+  assert.match(html, /Four ways to travel/i);
+  assert.match(html, /MLT Freedom Collection/i);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview/i);
 });
 
@@ -40,7 +41,7 @@ test("renders all public MVP routes", async () => {
   }
 });
 
-test("keeps production safeguards and critical interactions in source", async () => {
+test("keeps safeguards and critical interactions in source", async () => {
   const [layout, home, planner, map, robots, htaccess, gitignore] = await Promise.all([
     readFile(new URL("app/layout.tsx", root), "utf8"),
     readFile(new URL("app/page.tsx", root), "utf8"),
@@ -54,8 +55,10 @@ test("keeps production safeguards and critical interactions in source", async ()
   assert.match(robots, /Disallow:\s*\//);
   assert.match(htaccess, /X-Robots-Tag "noindex, nofollow, noarchive"/);
   assert.match(gitignore, /\.env\*/);
-  assert.match(home, /name="arrival"/);
-  assert.match(home, /name="departure"/);
+  assert.match(home, /collection-rail/);
+  assert.match(home, /mlt-brand-film\.mp4/);
+  assert.match(home, /localStorage\.setItem\("mlt-locale"/);
+  assert.match(home, /href="\/plan"/);
   assert.match(planner, /mlt-journey-draft/);
   assert.match(planner, /disabled=\{submitting\}/);
   assert.match(map, /ResizeObserver/);
