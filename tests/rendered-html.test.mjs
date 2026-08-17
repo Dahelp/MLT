@@ -56,7 +56,8 @@ test("keeps safeguards and critical interactions in source", async () => {
   assert.match(htaccess, /X-Robots-Tag "noindex, nofollow, noarchive"/);
   assert.match(gitignore, /\.env\*/);
   assert.match(home, /collection-rail/);
-  assert.match(home, /mlt-brand-film\.mp4/);
+  assert.match(home, /className="light-chat"/);
+  assert.match(home, />RU<\/button>/);
   assert.match(home, /localStorage\.setItem\("mlt-locale"/);
   assert.match(home, /href="\/plan"/);
   assert.match(planner, /mlt-journey-draft/);
