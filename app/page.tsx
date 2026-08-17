@@ -17,7 +17,9 @@ const collections = [
   { id: "proposal", name: "Proposal", image: "/collection-proposal.jpg", eyebrow: "The art of saying yes", copy: "A private European route and a complete proposal scenario — location, creative team and every detail handled by MLT.", rate: "Tailored proposal", days: "3–7 days" },
 ] as const;
 
-const carouselCollections = [...collections, ...collections, ...collections];
+const carouselCopies = 9;
+const carouselMiddleStart = collections.length * Math.floor(carouselCopies / 2);
+const carouselCollections = Array.from({ length: carouselCopies }, () => collections).flat();
 
 const experiences = [
   ["01", "Family expedition", "Routes created around wonder — lakes, mountains, castles and unhurried evenings."],
@@ -98,9 +100,9 @@ export default function Home() {
 
     <section className="light-collections" id="collections">
       <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Пять способов путешествовать" : locale === "de" ? "Fünf Arten zu reisen" : "Five ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button></div></div></div>
-      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={collections.length + 4} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={850} grabCursor keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 22, depth: 145, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; setActiveCollection(instance.activeIndex % collections.length); }} onSlideChange={(instance) => setActiveCollection(instance.activeIndex % collections.length)} onSlideChangeTransitionEnd={(instance) => { if (instance.activeIndex < collections.length) instance.slideTo(instance.activeIndex + collections.length, 0, false); else if (instance.activeIndex >= collections.length * 2) instance.slideTo(instance.activeIndex - collections.length, 0, false); }} aria-label="MLT collections">
+      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={carouselMiddleStart + 4} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={850} grabCursor keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 22, depth: 145, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; setActiveCollection(instance.activeIndex % collections.length); }} onSlideChange={(instance) => setActiveCollection(instance.activeIndex % collections.length)} onSlideChangeTransitionEnd={(instance) => { if (instance.activeIndex < collections.length * 2 || instance.activeIndex >= collections.length * (carouselCopies - 2)) instance.slideTo(carouselMiddleStart + (instance.activeIndex % collections.length), 0, false); }} aria-label="MLT collections">
         {carouselCollections.map((item, index) => <SwiperSlide className="collection-slide" key={`${item.id}-${index}`}><a className="collection-card-link" href={`/collections/${item.id}`} aria-label={`Open MLT ${item.name} Collection`}><article className="light-collection-card">
-          <img src={item.image} alt={`MLT ${item.name} Collection`} />
+          <img src={item.image} alt={`MLT ${item.name} Collection`} loading="eager" />
           <div className="collection-shade" />
           <div className="collection-top"><span>0{(index % collections.length) + 1}</span><small>{item.eyebrow}</small></div>
           <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{item.copy}</p><div><span>{item.days}</span><strong>{item.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
