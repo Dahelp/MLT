@@ -75,11 +75,7 @@ export default function Home() {
     </header>
 
     <section className="light-hero" id="top">
-      <div className="light-hero-media" aria-hidden="true">
-        <img className="light-hero-image" src="/hero-coast-motorhome.jpg" alt="" />
-        <img className="light-hero-image" src="/collection-concierge.jpg" alt="" />
-        <img className="light-hero-image" src="/collection-signature.jpg" alt="" />
-      </div>
+      <img className="light-hero-image" src="/hero-coast-motorhome.jpg" alt="MLT motorhome overlooking the Mediterranean coast at sunset" />
       <div className="light-hero-wash" />
       <div className="light-hero-copy">
         <p className="light-eyebrow"><span />{t.eyebrow}</p>

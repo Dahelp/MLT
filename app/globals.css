@@ -360,13 +360,8 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-menu { display: none; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.62); border-radius: 50%; background: transparent; }
 .light-menu span { display: block; width: 16px; height: 1px; margin: 5px auto; background: #fff; }
 .light-hero { position: relative; min-height: min(880px, 100vh); height: 100svh; color: #fff; background: #767d77; }
-.light-hero-media, .light-hero-wash { position: absolute; inset: 0; width: 100%; height: 100%; }
-.light-hero-media { overflow: hidden; background: #d7c7ae; }
-.light-hero-image { position: absolute; inset: -2%; width: 104%; height: 104%; object-fit: cover; object-position: center center; opacity: 0; animation: hero-cinema 18s infinite ease-in-out; will-change: opacity, transform; }
-.light-hero-image:nth-child(1) { animation-delay: -1s; }
-.light-hero-image:nth-child(2) { animation-delay: 5s; object-position: center 42%; }
-.light-hero-image:nth-child(3) { animation-delay: 11s; object-position: center 48%; }
-@keyframes hero-cinema { 0% { opacity: 0; transform: scale(1.02); } 7%, 31% { opacity: 1; } 38%, 100% { opacity: 0; transform: scale(1.09); } }
+.light-hero-image, .light-hero-wash { position: absolute; inset: 0; width: 100%; height: 100%; }
+.light-hero-image { object-fit: cover; object-position: center center; }
 .light-hero-wash { background: linear-gradient(90deg, rgba(15,17,16,.58) 0%, rgba(15,17,16,.34) 38%, rgba(15,17,16,.05) 76%), linear-gradient(180deg, rgba(12,13,13,.2) 0%, transparent 36%), linear-gradient(0deg, rgba(12,13,13,.24), transparent 45%); }
 .light-hero-copy { position: absolute; z-index: 2; left: clamp(24px, 7vw, 112px); top: 50%; width: min(940px, 82vw); transform: translateY(-45%); }
 .light-eyebrow, .light-section-label { display: flex; align-items: center; gap: 12px; margin-bottom: 28px !important; color: var(--mlt-bronze); font-size: 12px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
@@ -491,7 +486,6 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
   .light-menu { display: block; }
   .light-hero { min-height: 760px; height: 100svh; }
   .light-hero-image { object-position: 54% center; }
-  .light-hero-image:nth-child(2), .light-hero-image:nth-child(3) { object-position: center center; }
   .light-hero-wash { background: linear-gradient(90deg, rgba(14,15,15,.64), rgba(14,15,15,.16)), linear-gradient(180deg, rgba(10,11,11,.24), transparent 42%), linear-gradient(0deg, rgba(13,14,13,.34), transparent 58%); }
   .light-hero-copy { left: 22px; top: 45%; width: calc(100% - 44px); transform: translateY(-40%); }
   .light-hero h1 { font-size: clamp(48px, 15vw, 68px); }
@@ -517,11 +511,6 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
   .light-footer { grid-template-columns: 1fr 1fr; gap: 38px 24px; }
   .light-footer-logo { grid-column: 1 / -1; }
   .light-footer > div:nth-of-type(4) { grid-column: 1 / -1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .light-hero-image { animation: none; opacity: 0; }
-  .light-hero-image:first-child { opacity: 1; }
 }
 
 .light-legal { min-height: 100vh; color: var(--mlt-ink); background: var(--mlt-paper); font-family: Arial, Helvetica, sans-serif; }
