@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Swiper as SwiperCarousel, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperInstance } from "swiper";
-import { Autoplay, EffectCoverflow, Keyboard } from "swiper/modules";
+import { EffectCoverflow, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 
@@ -92,7 +92,7 @@ export default function Home() {
 
     <section className="light-collections" id="collections">
       <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Пять способов путешествовать" : locale === "de" ? "Fünf Arten zu reisen" : "Five ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button></div></div></div>
-      <SwiperCarousel className="collection-rail" modules={[Autoplay, EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={4} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" loop speed={850} grabCursor keyboard={{ enabled: true }} autoplay={{ delay: 4200, disableOnInteraction: false, pauseOnMouseEnter: true }} coverflowEffect={{ rotate: 0, stretch: 22, depth: 145, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; setActiveCollection(instance.realIndex); }} onSlideChange={(instance) => setActiveCollection(instance.realIndex)} aria-label="MLT collections">
+      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={4} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" loop speed={850} grabCursor keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 22, depth: 145, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; setActiveCollection(instance.realIndex); }} onSlideChange={(instance) => setActiveCollection(instance.realIndex)} aria-label="MLT collections">
         {collections.map((item, index) => <SwiperSlide className="collection-slide" key={item.id}><a className="collection-card-link" href={`/collections/${item.id}`} aria-label={`Open MLT ${item.name} Collection`}><article className="light-collection-card">
           <img src={item.image} alt={`MLT ${item.name} Collection`} />
           <div className="collection-shade" />
