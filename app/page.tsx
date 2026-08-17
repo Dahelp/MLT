@@ -1,6 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Swiper as SwiperCarousel, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { Autoplay, EffectCoverflow, Keyboard } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
 
 type SiteLocale = "en" | "de" | "ru";
 
@@ -32,7 +37,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [activeCollection, setActiveCollection] = useState(0);
-  const rail = useRef<HTMLDivElement>(null);
+  const carousel = useRef<SwiperInstance | null>(null);
   const t = copy[locale];
 
   useEffect(() => {
@@ -48,18 +53,6 @@ export default function Home() {
   }, [locale]);
 
   const changeLocale = (next: SiteLocale) => { setLocale(next); localStorage.setItem("mlt-locale", next); };
-  const goToCollection = (index: number) => {
-    const next = (index + collections.length) % collections.length;
-    setActiveCollection(next);
-    const card = rail.current?.children[next] as HTMLElement | undefined;
-    if (card && rail.current) rail.current.scrollTo({ left: card.offsetLeft - rail.current.offsetLeft, behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    const timer = window.setInterval(() => goToCollection(activeCollection + 1), 5200);
-    return () => window.clearInterval(timer);
-  }, [activeCollection]);
-
   return <main className="home-light">
     <header className="light-nav">
       <a className="light-brand" href="#top" aria-label="MLT home"><img src="/mlt-logo-bronze.png" alt="MLT — Move. Live. Travel." /></a>
@@ -97,15 +90,15 @@ export default function Home() {
     </section>
 
     <section className="light-collections" id="collections">
-      <div className="light-section-head"><div><p className="light-section-label">02 / {t.ways}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => goToCollection(activeCollection - 1)} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => goToCollection(activeCollection + 1)} aria-label="Next collection">→</button></div></div></div>
-      <div className="collection-rail" ref={rail} tabIndex={0} aria-label="MLT collections">
-        {collections.map((item, index) => <article className={index === activeCollection ? "light-collection-card active" : "light-collection-card"} key={item.id}>
+      <div className="light-section-head"><div><p className="light-section-label">02 / {t.ways}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button></div></div></div>
+      <SwiperCarousel className="collection-rail" modules={[Autoplay, EffectCoverflow, Keyboard]} effect="coverflow" centeredSlides slidesPerView="auto" loop speed={850} grabCursor keyboard={{ enabled: true }} autoplay={{ delay: 4200, disableOnInteraction: false, pauseOnMouseEnter: true }} coverflowEffect={{ rotate: 0, stretch: 22, depth: 145, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; }} onSlideChange={(instance) => setActiveCollection(instance.realIndex)} aria-label="MLT collections">
+        {collections.map((item, index) => <SwiperSlide className="collection-slide" key={item.id}><article className="light-collection-card">
           <img src={item.image} alt={`MLT ${item.name} Collection`} />
           <div className="collection-shade" />
           <div className="collection-top"><span>0{index + 1}</span><small>{item.eyebrow}</small></div>
           <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{item.copy}</p><div><span>{item.days}</span><strong>{item.rate}</strong></div><a href={`/collections/${item.id}`}>{t.details}<span>↗</span></a></div>
-        </article>)}
-      </div>
+        </article></SwiperSlide>)}
+      </SwiperCarousel>
     </section>
 
     <section className="light-experiences" id="experiences">
