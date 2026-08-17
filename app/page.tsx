@@ -31,6 +31,7 @@ export default function Home() {
   const [locale, setLocale] = useState<SiteLocale>("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [activeCollection, setActiveCollection] = useState(0);
   const rail = useRef<HTMLDivElement>(null);
   const t = copy[locale];
 
@@ -47,7 +48,17 @@ export default function Home() {
   }, [locale]);
 
   const changeLocale = (next: SiteLocale) => { setLocale(next); localStorage.setItem("mlt-locale", next); };
-  const moveRail = (direction: number) => rail.current?.scrollBy({ left: direction * Math.min(window.innerWidth * .78, 540), behavior: "smooth" });
+  const goToCollection = (index: number) => {
+    const next = (index + collections.length) % collections.length;
+    setActiveCollection(next);
+    const card = rail.current?.children[next] as HTMLElement | undefined;
+    if (card && rail.current) rail.current.scrollTo({ left: card.offsetLeft - rail.current.offsetLeft, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const timer = window.setInterval(() => goToCollection(activeCollection + 1), 5200);
+    return () => window.clearInterval(timer);
+  }, [activeCollection]);
 
   return <main className="home-light">
     <header className="light-nav">
@@ -86,9 +97,9 @@ export default function Home() {
     </section>
 
     <section className="light-collections" id="collections">
-      <div className="light-section-head"><div><p className="light-section-label">02 / {t.ways}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => moveRail(-1)} aria-label="Previous collection">←</button><button onClick={() => moveRail(1)} aria-label="Next collection">→</button></div></div></div>
+      <div className="light-section-head"><div><p className="light-section-label">02 / {t.ways}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => goToCollection(activeCollection - 1)} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => goToCollection(activeCollection + 1)} aria-label="Next collection">→</button></div></div></div>
       <div className="collection-rail" ref={rail} tabIndex={0} aria-label="MLT collections">
-        {collections.map((item, index) => <article className="light-collection-card" key={item.id}>
+        {collections.map((item, index) => <article className={index === activeCollection ? "light-collection-card active" : "light-collection-card"} key={item.id}>
           <img src={item.image} alt={`MLT ${item.name} Collection`} />
           <div className="collection-shade" />
           <div className="collection-top"><span>0{index + 1}</span><small>{item.eyebrow}</small></div>
