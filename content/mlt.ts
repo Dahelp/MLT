@@ -8,6 +8,7 @@ export const collections: Collection[] = [
   { id: "signature", number: "02", name: "Signature", eyebrow: "Curated, end to end", promise: "The journey, beautifully resolved.", days: "7–14 days", rate: "€250–400 / day", mode: "Tailored", inclusions: ["Personal route", "Reserved campsites", "Panoramic roads", "Restaurants & activities"] },
   { id: "concierge", number: "03", name: "Concierge", eyebrow: "Always one step ahead", promise: "Travel without interruption.", days: "7–15 days", rate: "€450–700 / day", mode: "Assisted 24/7", inclusions: ["Live route changes", "Dining reservations", "Excursions", "Roadside assistance"] },
   { id: "private", number: "04", name: "Private", eyebrow: "The rarest way to move", promise: "A private world, in motion.", days: "7–21 days", rate: "€2,000–4,000 / day", mode: "Fully hosted", inclusions: ["Private driver & technician", "Chef & service", "Half board", "VIP transfers & concierge"] },
+  { id: "proposal", number: "05", name: "Proposal", eyebrow: "The art of saying yes", promise: "The art of saying yes at the edge of the world.", days: "3–7 days", rate: "Tailored proposal", mode: "Turnkey", inclusions: ["Premium motorhome", "Exclusive private location", "24/7 proposal concierge", "Complete on-site coordination"] },
 ];
 
 export const destinations = ["Dolomites", "Lake Como", "Tyrol", "Bavaria"];

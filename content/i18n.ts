@@ -34,4 +34,5 @@ export const collectionDe: Record<string, { eyebrow: string; days: string; mode:
   signature: { eyebrow: "Von Anfang bis Ende kuratiert", days: "7–14 Tage", mode: "Maßgeschneidert", inclusions: ["Persönliche Route", "Reservierte Stellplätze", "Panoramastraßen", "Restaurants & Aktivitäten"] },
   concierge: { eyebrow: "Immer einen Schritt voraus", days: "7–15 Tage", mode: "24/7 begleitet", inclusions: ["Flexible Routenänderung", "Restaurantreservierungen", "Ausflüge", "Pannenhilfe"] },
   private: { eyebrow: "Die exklusivste Art zu reisen", days: "7–21 Tage", mode: "Vollständig begleitet", inclusions: ["Privatfahrer & Techniker", "Koch & Service", "Halbpension", "VIP-Transfers & Concierge"] },
+  proposal: { eyebrow: "Die Kunst, Ja zu sagen", days: "3–7 Tage", mode: "Schlüsselfertig", inclusions: ["Premium-Reisemobil", "Exklusiver privater Ort", "Proposal-Concierge rund um die Uhr", "Vollständige Koordination vor Ort"] },
 };

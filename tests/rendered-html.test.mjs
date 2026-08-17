@@ -22,7 +22,7 @@ test("renders the light MLT experience with noindex metadata", async () => {
   assert.match(html, /<title>MLT .* Individual Road Expeditions<\/title>/);
   assert.match(html, /name="robots" content="noindex, nofollow, nocache"/);
   assert.match(html, /MLT Smart Map/);
-  assert.match(html, /Four ways to travel/i);
+  assert.match(html, /Five ways to travel/i);
   assert.match(html, /MLT Freedom Collection/i);
   assert.doesNotMatch(html, /Your site is taking shape|codex-preview/i);
 });
@@ -30,7 +30,7 @@ test("renders the light MLT experience with noindex metadata", async () => {
 test("renders all public MVP routes", async () => {
   const routes = [
     "/plan", "/proposal",
-    "/collections/freedom", "/collections/signature", "/collections/concierge", "/collections/private",
+    "/collections/freedom", "/collections/signature", "/collections/concierge", "/collections/private", "/collections/proposal",
     "/fleet/explorer", "/fleet/granduca", "/fleet/compatto",
     "/legal/imprint", "/legal/privacy", "/legal/terms",
   ];
