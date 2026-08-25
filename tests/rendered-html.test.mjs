@@ -16,7 +16,10 @@ async function render(pathname = "/") {
 }
 
 test("renders the light MLT experience with noindex metadata", async () => {
-  const response = await render("/");
+  const redirect = await render("/");
+  assert.equal(redirect.status, 307);
+  assert.equal(new URL(redirect.headers.get("location"), "http://localhost").pathname, "/en/");
+  const response = await render("/en/");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /<title>MLT .* Individual Road Expeditions<\/title>/);
@@ -29,10 +32,11 @@ test("renders the light MLT experience with noindex metadata", async () => {
 
 test("renders all public MVP routes", async () => {
   const routes = [
-    "/plan", "/proposal",
-    "/collections/freedom", "/collections/signature", "/collections/concierge", "/collections/private", "/collections/proposal",
-    "/fleet/explorer", "/fleet/granduca", "/fleet/compatto",
-    "/legal/imprint", "/legal/privacy", "/legal/terms",
+    "/en/", "/de/", "/ru/",
+    "/en/plan/", "/de/plan/", "/ru/plan/", "/en/proposal/",
+    "/en/collections/freedom/", "/en/collections/signature/", "/en/collections/concierge/", "/en/collections/private/", "/en/collections/proposal/",
+    "/de/fleet/explorer/", "/en/fleet/granduca/", "/ru/fleet/compatto/",
+    "/en/legal/imprint/", "/de/legal/privacy/", "/ru/legal/terms/",
   ];
   for (const route of routes) {
     const response = await render(route);
@@ -42,9 +46,10 @@ test("renders all public MVP routes", async () => {
 });
 
 test("keeps safeguards and critical interactions in source", async () => {
-  const [layout, home, planner, map, robots, htaccess, gitignore] = await Promise.all([
+  const [layout, home, cookies, planner, map, robots, htaccess, gitignore] = await Promise.all([
     readFile(new URL("app/layout.tsx", root), "utf8"),
-    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/HomePage.tsx", root), "utf8"),
+    readFile(new URL("app/CookieConsent.tsx", root), "utf8"),
     readFile(new URL("app/plan/page.tsx", root), "utf8"),
     readFile(new URL("app/plan/RealRouteMap.tsx", root), "utf8"),
     readFile(new URL("public/robots.txt", root), "utf8"),
@@ -59,7 +64,10 @@ test("keeps safeguards and critical interactions in source", async () => {
   assert.match(home, /className="light-chat"/);
   assert.match(home, />RU<\/button>/);
   assert.match(home, /localStorage\.setItem\("mlt-locale"/);
-  assert.match(home, /href="\/plan"/);
+  assert.match(home, /localPath\("\/plan"\)/);
+  assert.match(cookies, />RU<\/button>/);
+  assert.match(cookies, /Ваша конфиденциальность/);
+  assert.match(cookies, /location\.pathname\.split/);
   assert.match(planner, /mlt-journey-draft/);
   assert.match(planner, /disabled=\{submitting\}/);
   assert.match(map, /ResizeObserver/);

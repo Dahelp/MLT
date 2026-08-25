@@ -4,16 +4,33 @@ import { useEffect, useState } from "react";
 const copy = {
   en: { title: "Your privacy,", accent: "considered.", body: "We use cookies to provide essential website functions. Analytics and marketing cookies are only activated with your explicit permission.", policy: "Privacy policy", essential: "Essential", essentialInfo: "Language, consent choice and essential website functions", analytics: "Analytics & marketing", analyticsInfo: "Optional insights and personalised content", only: "Essential only", preferences: "Preferences", close: "Close settings", all: "Accept all" },
   de: { title: "Ihre Privatsphäre,", accent: "mit Bedacht.", body: "Wir verwenden Cookies, um Inhalte zu personalisieren, Funktionen bereitzustellen und Zugriffe zu analysieren. Für Analyse und Marketing benötigen wir Ihre ausdrückliche Zustimmung.", policy: "Datenschutzerklärung", essential: "Erforderlich", essentialInfo: "Sprache, Einwilligung und notwendige Website-Funktionen", analytics: "Analyse & Marketing", analyticsInfo: "Optionale Nutzungsanalyse und personalisierte Inhalte", only: "Nur notwendige akzeptieren", preferences: "Einstellungen", close: "Einstellungen schließen", all: "Alle akzeptieren" },
+  ru: { title: "Ваша конфиденциальность,", accent: "под нашим вниманием.", body: "Мы используем cookies для работы основных функций сайта. Аналитические и маркетинговые cookies включаются только с вашего явного согласия.", policy: "Политика конфиденциальности", essential: "Необходимые", essentialInfo: "Язык, выбор согласия и основные функции сайта", analytics: "Аналитика и маркетинг", analyticsInfo: "Необязательная аналитика и персонализированный контент", only: "Только необходимые", preferences: "Настройки", close: "Закрыть настройки", all: "Принять все" },
 } as const;
+
+type Locale = keyof typeof copy;
+const locales: Locale[] = ["en", "de", "ru"];
 
 export default function CookieConsent() {
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState(false);
   const [analytics, setAnalytics] = useState(false);
-  const [locale, setLocale] = useState<"en" | "de">("en");
-  useEffect(() => { setOpen(!localStorage.getItem("mlt-cookie-consent")); setLocale(localStorage.getItem("mlt-locale") === "de" || navigator.language.toLowerCase().startsWith("de") ? "de" : "en"); }, []);
+  const [locale, setLocale] = useState<Locale>("en");
+  useEffect(() => {
+    setOpen(!localStorage.getItem("mlt-cookie-consent"));
+    const routeLocale = location.pathname.split("/")[1] as Locale;
+    const savedLocale = localStorage.getItem("mlt-locale") as Locale | null;
+    const browserLocale = navigator.language.toLowerCase().split("-")[0] as Locale;
+    setLocale(locales.includes(routeLocale) ? routeLocale : savedLocale && locales.includes(savedLocale) ? savedLocale : locales.includes(browserLocale) ? browserLocale : "en");
+  }, []);
   const t = copy[locale];
   const save = (choice: "essential" | "all") => { localStorage.setItem("mlt-cookie-consent", JSON.stringify({ choice, analytics: choice === "all", date: new Date().toISOString() })); setOpen(false); };
+  const changeLocale = (next: Locale) => {
+    localStorage.setItem("mlt-locale", next);
+    const segments = location.pathname.split("/");
+    if (locales.includes(segments[1] as Locale)) segments[1] = next;
+    else segments.splice(1, 0, next);
+    window.location.assign(`${segments.join("/")}${location.search}${location.hash}`);
+  };
   if (!open) return null;
-  return <div className="cookie-overlay"><section className="cookie-panel" role="dialog" aria-modal="true" aria-label="Cookie preferences"><div><div className="cookie-lang"><button className={locale === "en" ? "active" : ""} onClick={() => setLocale("en")}>EN</button><button className={locale === "de" ? "active" : ""} onClick={() => setLocale("de")}>DE</button></div><p className="section-label">MLT / Privacy</p><h2>{t.title}<br /><em>{t.accent}</em></h2><p>{t.body}</p><a href="/legal/privacy">{t.policy}</a></div>{settings && <div className="cookie-settings"><label><span><strong>{t.essential}</strong><small>{t.essentialInfo}</small></span><input type="checkbox" checked disabled /></label><label><span><strong>{t.analytics}</strong><small>{t.analyticsInfo}</small></span><input type="checkbox" checked={analytics} onChange={(event) => setAnalytics(event.target.checked)} /></label></div>}<div className="cookie-actions"><button onClick={() => save("essential")}>{t.only}</button><button onClick={() => setSettings(!settings)}>{settings ? t.close : t.preferences}</button><button onClick={() => save("all")}>{t.all}</button></div></section></div>;
+  return <div className="cookie-overlay"><section className="cookie-panel" role="dialog" aria-modal="true" aria-label={locale === "ru" ? "Настройки cookies" : "Cookie preferences"}><div><div className="cookie-lang"><button className={locale === "en" ? "active" : ""} onClick={() => changeLocale("en")}>EN</button><button className={locale === "de" ? "active" : ""} onClick={() => changeLocale("de")}>DE</button><button className={locale === "ru" ? "active" : ""} onClick={() => changeLocale("ru")}>RU</button></div><p className="section-label">MLT / {locale === "ru" ? "Конфиденциальность" : "Privacy"}</p><h2>{t.title}<br /><em>{t.accent}</em></h2><p>{t.body}</p><a href={`/${locale}/legal/privacy/`}>{t.policy}</a></div>{settings && <div className="cookie-settings"><label><span><strong>{t.essential}</strong><small>{t.essentialInfo}</small></span><input type="checkbox" checked disabled /></label><label><span><strong>{t.analytics}</strong><small>{t.analyticsInfo}</small></span><input type="checkbox" checked={analytics} onChange={(event) => setAnalytics(event.target.checked)} /></label></div>}<div className="cookie-actions"><button onClick={() => save("essential")}>{t.only}</button><button onClick={() => setSettings(!settings)}>{settings ? t.close : t.preferences}</button><button onClick={() => save("all")}>{t.all}</button></div></section></div>;
 }
