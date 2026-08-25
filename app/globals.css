@@ -513,6 +513,43 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
   .light-footer > div:nth-of-type(4) { grid-column: 1 / -1; }
 }
 
+/* Journey planner aligned with the light MLT editorial template. */
+.planner-page { --planner-ink: #292722; --planner-muted: #777269; --planner-line: #d5ccbe; --planner-paper: #f5f1e9; --planner-panel: #e9e1d5; --planner-bronze: #9b6d4b; color: var(--planner-ink); background: var(--planner-paper); }
+.planner-nav { background: rgba(250,247,241,.96); border-bottom-color: var(--planner-line); }
+.planner-nav .brand-mark { color: var(--planner-bronze); }.planner-nav .brand-line { color: #7f756a; }
+.planner-nav .planner-close { color: #fffaf3; background: var(--planner-bronze); border-color: var(--planner-bronze); box-shadow: 0 8px 24px rgba(91,62,42,.16); }
+.planner-nav .planner-close:hover { color: #fff; background: #7f563a; box-shadow: 0 10px 30px rgba(91,62,42,.2); }
+.planner-nav .language-switch { padding: 3px; border: 1px solid #bba991; background: #eee7dc; }
+.planner-nav .language-switch button { color: #726b62; background: transparent; }.planner-nav .language-switch button.active { color: #fffaf3; background: var(--planner-bronze); }
+.planner-sidebar { background: linear-gradient(145deg, #ece4d8, #e4dbce); border-right-color: var(--planner-line); }
+.planner-sidebar .section-label, .step-number { color: var(--planner-bronze); }
+.planner-sidebar h1, .planner-step h2, .planner-success h2 { color: #27241f; }
+.planner-sidebar > p:not(.section-label), .step-hint { color: var(--planner-muted); }
+.planner-tools button { color: #6f685f; border-bottom-color: #bdb1a2; }.planner-tools button:first-child { color: var(--planner-bronze); }
+.planner-sidebar li { color: #938b80; border-bottom-color: rgba(89,74,60,.12); }.planner-sidebar li span { color: #a77c5c; }.planner-sidebar li.active { color: #2d2924; font-weight: 700; }.planner-sidebar li.done { color: #655f57; }
+.planner-content { background: linear-gradient(135deg, #faf7f1, #f2ede5); }
+.planner-fields label, .planner-form label { color: #726b62; }
+.planner-fields select, .planner-fields input { color: #292722; border-bottom-color: #bfb4a5; }
+.planner-fields select:focus, .planner-fields input:focus { outline: 0; border-bottom-color: var(--planner-bronze); box-shadow: 0 1px var(--planner-bronze); }
+.planner-card, .place-option, .addon-option { color: var(--planner-ink); background: #fffdf8; border-color: var(--planner-line); }
+.planner-card:hover, .planner-card.selected, .place-option.selected, .addon-option.selected { background: #f2e8dc; border-color: var(--planner-bronze); box-shadow: 0 18px 45px rgba(83,66,49,.12); }
+.planner-card > p, .place-option small { color: var(--planner-muted); }.planner-card > b { color: var(--planner-bronze); }
+.planner-route-builder { border-color: #bcb1a4; box-shadow: 0 18px 45px rgba(83,66,49,.1); }
+.planner-route-panel { color: var(--planner-ink); background: #eee7dc; border-left-color: #c9bdad; }
+.planner-route-head, .planner-route-note { border-color: #c8bcad; }.planner-route-head small, .planner-route-list > p, .planner-route-note p { color: #746e66; }
+.planner-route-list article { border-bottom-color: rgba(89,74,60,.12); }.planner-route-list article small { color: #7d766d; }.planner-route-list article button { color: #785d49; }
+.planner-final { color: var(--planner-ink); background: #f8f4ed; border-color: #cbbbA8; box-shadow: 0 24px 70px rgba(78,61,45,.12); }
+.planner-summary { background: linear-gradient(145deg, #e2d6c6, #d8cbbb); }.planner-summary div { border-bottom-color: rgba(76,60,45,.15); }.planner-summary small { color: #6f675e; }
+.planner-form { background: #fffdf8; }.planner-form label { color: #6c655d; }
+.planner-form input:not([type="checkbox"]), .planner-form textarea { color: #292722; background: #f7f2ea; border-color: #cbbdac; }
+.planner-form input:not([type="checkbox"]):hover, .planner-form textarea:hover { background: #fff; border-color: #b39479; }
+.planner-form input:not([type="checkbox"]):focus, .planner-form textarea:focus { background: #fff; border-color: var(--planner-bronze); box-shadow: 0 0 0 3px rgba(155,109,75,.12); }
+.planner-form .consent { color: #625c54; background: #f1e9de; border-color: #d1c4b4; }
+.planner-summary .journey-estimate { border-color: #bca58f; background: rgba(255,253,248,.42); }.journey-estimate strong, .planner-live-estimate strong { color: #80583d; }.journey-estimate p, .planner-live-estimate small { color: #716a62; }
+.planner-actions button { color: #716a62; }.planner-actions button:last-child { color: var(--planner-bronze); font-weight: 700; }
+.planner-success > p:not(.section-label), .planner-success small { color: var(--planner-muted); }.planner-success > div { border-color: var(--planner-line); background: #fffdf8; }
+@media (max-width: 900px) { .planner-sidebar { border-bottom-color: var(--planner-line); }.planner-route-panel { border-top-color: #c9bdad; } }
+
 .light-legal { min-height: 100vh; color: var(--mlt-ink); background: var(--mlt-paper); font-family: Arial, Helvetica, sans-serif; }
 .light-legal .legal-nav { position: static; height: 94px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(24px, 7vw, 112px); border-bottom: 1px solid #ded7ce; background: var(--mlt-paper); }
 .light-legal .legal-nav > a:last-child { color: var(--mlt-ink); text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
