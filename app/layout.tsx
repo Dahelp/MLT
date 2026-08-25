@@ -3,7 +3,7 @@ import "./globals.css";
 import CookieConsent from "./CookieConsent";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://otrstar.ru"),
+  metadataBase: new URL("https://mlt-lifestyle.com"),
   title: "MLT — Individual Road Expeditions",
   description: "Private luxury road expeditions across Europe, composed around you.",
   alternates: { canonical: "/" },
