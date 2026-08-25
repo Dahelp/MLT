@@ -1,4 +1,4 @@
-name: Deploy MLT preview to otrstar.ru
+name: Deploy MLT production to mlt-lifestyle.com
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: otrstar-production
+  group: mlt-lifestyle-production
   cancel-in-progress: true
 
 jobs:
@@ -40,9 +40,9 @@ jobs:
       - name: Deploy by FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: grass.gohost.ru
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: w021f859.kasserver.com
+          username: ${{ secrets.MLT_FTP_USERNAME }}
+          password: ${{ secrets.MLT_FTP_PASSWORD }}
           protocol: ftp
           local-dir: ./static-export/
           server-dir: /

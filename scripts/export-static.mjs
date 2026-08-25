@@ -6,20 +6,27 @@ const root = process.cwd();
 const output = path.join(root, "static-export");
 const port = 4173;
 const origin = `http://127.0.0.1:${port}`;
-const routes = [
-  "/",
+const pageRoutes = [
+  "",
   "/plan",
   "/proposal",
   "/collections/freedom",
   "/collections/signature",
   "/collections/concierge",
   "/collections/private",
+  "/collections/proposal",
   "/fleet/explorer",
   "/fleet/granduca",
   "/fleet/compatto",
   "/legal/imprint",
   "/legal/privacy",
   "/legal/terms",
+];
+const locales = ["en", "de", "ru"];
+const routes = [
+  "/",
+  ...pageRoutes.filter(Boolean),
+  ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
 ];
 
 await rm(output, { recursive: true, force: true });
@@ -66,4 +73,3 @@ try {
 }
 
 console.log(`Static preview exported to ${output}`);
-
