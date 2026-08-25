@@ -747,3 +747,27 @@ footer .brand-line { font-size: 12px; }
   .route-item strong { font-size: 17px; }
   .route-item small, .route-estimate small, .route-panel > p { font-size: 13px; }
 }
+
+/* Final planner theme overrides must stay after the legacy planner rules. */
+.planner-page { --planner-ink: #292722; --planner-muted: #6f6960; --planner-line: #cfc4b5; --planner-paper: #f5f1e9; --planner-bronze: #946443; color: var(--planner-ink); background: var(--planner-paper); color-scheme: light; }
+.planner-page .planner-nav { background: #f8f4ed; border-bottom-color: var(--planner-line); }
+.planner-page .planner-nav .brand-mark { color: var(--planner-bronze); }.planner-page .planner-nav .brand-line { color: #6f685f; }
+.planner-page .planner-nav .planner-close { color: #fff; background: var(--planner-bronze); border-color: var(--planner-bronze); box-shadow: 0 8px 22px rgba(77,52,35,.2); }
+.planner-page .planner-nav .language-switch { border-color: #baa791; background: #e9e0d4; }.planner-page .planner-nav .language-switch button { color: #5f5952; background: transparent; }.planner-page .planner-nav .language-switch button.active { color: #fff; background: var(--planner-bronze); }
+.planner-page .planner-sidebar { color: var(--planner-ink); background: linear-gradient(145deg, #ebe2d6, #dfd3c4); border-right-color: var(--planner-line); }
+.planner-page .planner-sidebar h1, .planner-page .planner-step h2, .planner-page .planner-success h2 { color: #27241f; }
+.planner-page .planner-sidebar > p:not(.section-label), .planner-page .step-hint { color: var(--planner-muted); }.planner-page .planner-sidebar .section-label, .planner-page .step-number { color: var(--planner-bronze); }
+.planner-page .planner-tools button { color: #645d55; border-bottom-color: #b7aa9a; }.planner-page .planner-tools button:first-child { color: #82573c; }
+.planner-page .planner-sidebar li { color: #786f65; border-bottom-color: rgba(79,62,47,.14); }.planner-page .planner-sidebar li span { color: #9b6c4c; }.planner-page .planner-sidebar li.active { color: #28241f; font-weight: 700; }.planner-page .planner-sidebar li.done { color: #5f584f; }
+.planner-page .planner-content { color: var(--planner-ink); background: linear-gradient(135deg, #faf7f1, #f0e9df); }
+.planner-page .planner-fields label, .planner-page .planner-form label { color: #625b53; }
+.planner-page .planner-fields select, .planner-page .planner-fields input { color: #211f1b; background-color: transparent; border-bottom-color: #a99c8c; opacity: 1; }
+.planner-page .planner-fields select option { color: #211f1b; background: #fff; }.planner-page .planner-fields input::-webkit-calendar-picker-indicator { opacity: .75; }
+.planner-page .planner-card, .planner-page .place-option, .planner-page .addon-option { color: #292722; background: #fffdf8; border-color: var(--planner-line); }
+.planner-page .planner-card:hover, .planner-page .planner-card.selected, .planner-page .place-option.selected, .planner-page .addon-option.selected { color: #292722; background: #efe4d7; border-color: var(--planner-bronze); box-shadow: 0 16px 36px rgba(74,55,40,.13); }
+.planner-page .planner-card > p, .planner-page .place-option small { color: #676159; }.planner-page .planner-card > b, .planner-page .addon-option > b { color: #82573c; }
+.planner-page .planner-route-panel { color: #292722; background: #ebe2d6; border-left-color: #c5b7a7; }.planner-page .planner-route-head, .planner-page .planner-route-note { border-color: #c5b7a7; }.planner-page .planner-route-list article { border-bottom-color: rgba(79,62,47,.14); }.planner-page .planner-route-head small, .planner-page .planner-route-list > p, .planner-page .planner-route-note p, .planner-page .planner-route-list article small { color: #696259; }
+.planner-page .planner-final { color: #292722; background: #f8f4ed; border-color: #c6b6a3; }.planner-page .planner-summary { background: linear-gradient(145deg, #e2d6c6, #d7c8b7); }.planner-page .planner-summary div { border-bottom-color: rgba(76,60,45,.15); }.planner-page .planner-summary small { color: #625b53; }
+.planner-page .planner-form { background: #fffdf8; }.planner-page .planner-form input:not([type="checkbox"]), .planner-page .planner-form textarea { color: #292722; background: #f7f2ea; border-color: #c7b8a6; }.planner-page .planner-form .consent { color: #554f48; background: #efe7dc; border-color: #cfc1b0; }
+.planner-page .planner-actions button { color: #625b53; }.planner-page .planner-actions button:last-child { color: #82573c; font-weight: 700; }
+@media (max-width: 900px) { .planner-page .planner-sidebar { border-bottom-color: var(--planner-line); }.planner-page .planner-route-panel { border-top-color: #c5b7a7; } }
