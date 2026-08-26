@@ -6,6 +6,8 @@ import type { Swiper as SwiperInstance } from "swiper";
 import { EffectCoverflow, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
+import RealRouteMap from "./plan/RealRouteMap";
+import { mapPoints } from "../content/mlt";
 
 type SiteLocale = "en" | "de" | "ru";
 
@@ -57,6 +59,8 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [activeCollection, setActiveCollection] = useState(4);
+  const [mapCountry, setMapCountry] = useState("All");
+  const [mapSelection, setMapSelection] = useState<string[]>(["dolomites", "como"]);
   const carousel = useRef<SwiperInstance | null>(null);
   const t = copy[locale];
   const localizedExperiences = locale === "ru" ? russianExperiences : experiences;
@@ -70,6 +74,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   }, [locale]);
 
   const localPath = (path: string) => `/${locale}${path}`;
+  const toggleMapPoint = (id: string) => setMapSelection((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   const scrollToSection = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     event.preventDefault();
     setMenuOpen(false);
@@ -135,8 +140,12 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     </section>
 
     <section className="light-map" id="smart-map">
-      <div className="map-photo"><img src="/collection-signature.jpg" alt="An MLT route through the Amalfi coast" /><div className="map-route-art"><span className="point one" /><span className="point two" /><span className="point three" /><i /></div></div>
-      <div className="map-copy"><p className="light-section-label">04 / {t.mapLabel}</p><h2>{t.mapTitle}</h2><p>{t.mapCopy}</p><div className="map-stats"><div><strong>30+</strong><span>{locale === "ru" ? "отобранных мест" : "curated places"}</span></div><div><strong>3</strong><span>{locale === "ru" ? "страны на старте" : "countries at launch"}</span></div></div><a className="bronze-button" href={localPath("/plan")}>{t.openMap}<span>↗</span></a></div>
+      <div className="smart-map-canvas">
+        <div className="smart-map-country-tabs" aria-label={locale === "ru" ? "Выбор страны" : "Choose country"}>{["All", "Italy", "Austria", "Germany"].map((item) => <button key={item} className={mapCountry === item ? "active" : ""} onClick={() => setMapCountry(item)}>{locale === "ru" ? ({ All: "Все", Italy: "Италия", Austria: "Австрия", Germany: "Германия" } as Record<string, string>)[item] : locale === "de" && item === "All" ? "Alle" : item}</button>)}</div>
+        <RealRouteMap selected={mapSelection} country={mapCountry} onToggle={toggleMapPoint} locale={locale} className="home-route-map" />
+        <div className="smart-map-selection"><small>{locale === "ru" ? "Ваш маршрут" : locale === "de" ? "Ihre Route" : "Your route"}</small><div>{mapSelection.length ? mapSelection.map((id, index) => { const point = mapPoints.find((item) => item.id === id); return point && <button key={id} onClick={() => toggleMapPoint(id)}><span>{index + 1}</span>{point.name}<b>×</b></button>; }) : <p>{locale === "ru" ? "Выберите минимум две точки" : locale === "de" ? "Wählen Sie mindestens zwei Orte" : "Choose at least two places"}</p>}</div></div>
+      </div>
+      <div className="map-copy"><p className="light-section-label">04 / {t.mapLabel}</p><h2>{t.mapTitle}</h2><p>{t.mapCopy}</p><div className="map-stats"><div><strong>30+</strong><span>{locale === "ru" ? "отобранных мест" : "curated places"}</span></div><div><strong>3</strong><span>{locale === "ru" ? "страны на старте" : "countries at launch"}</span></div></div><a className="bronze-button" href={`${localPath("/plan")}?route=${mapSelection.join(",")}`}>{t.openMap}<span>↗</span></a></div>
     </section>
 
     <section className="light-quote"><p>“{t.quote}”</p><span>{locale === "ru" ? "MLT — Двигайся. Живи. Путешествуй." : "MLT — Move. Live. Travel."}</span></section>

@@ -773,3 +773,30 @@ footer .brand-line { font-size: 12px; }
 .planner-page .planner-actions button { color: #625b53; }.planner-page .planner-actions button:last-child { color: #82573c; font-weight: 700; }
 @media (max-width: 900px) { .planner-page .planner-sidebar { border-bottom-color: var(--planner-line); }.planner-page .planner-route-panel { border-top-color: #c5b7a7; } }
 .proposal-brand img { display: block; width: 170px; height: auto; }
+
+/* Interactive Smart Map in the light editorial homepage. */
+.smart-map-canvas { position: relative; min-height: 780px; overflow: hidden; background: #d8d3ca; }
+.smart-map-canvas::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; box-shadow: inset -35px 0 70px rgba(71,58,44,.13); }
+.smart-map-canvas .home-route-map { position: absolute; inset: 0; width: 100%; height: 100%; }
+.smart-map-country-tabs { position: absolute; z-index: 5; top: 24px; left: 24px; display: flex; gap: 4px; padding: 5px; border: 1px solid rgba(113,87,65,.28); border-radius: 4px; background: rgba(249,246,240,.91); box-shadow: 0 12px 35px rgba(55,43,32,.14); backdrop-filter: blur(12px); }
+.smart-map-country-tabs button { min-height: 38px; padding: 0 14px; border: 0; color: #71685f; background: transparent; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.smart-map-country-tabs button.active { color: #fff; background: #9a6643; }
+.smart-map-selection { position: absolute; z-index: 5; left: 24px; right: 24px; bottom: 24px; padding: 17px 18px; border: 1px solid rgba(113,87,65,.25); background: rgba(249,246,240,.93); box-shadow: 0 15px 45px rgba(55,43,32,.16); backdrop-filter: blur(14px); }
+.smart-map-selection > small { display: block; margin-bottom: 10px; color: #8b6043; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.smart-map-selection > div { display: flex; flex-wrap: wrap; gap: 7px; }
+.smart-map-selection button { min-height: 36px; display: flex; align-items: center; gap: 8px; padding: 5px 10px 5px 6px; color: #403a34; border: 1px solid #d2c4b4; border-radius: 999px; background: #fffdf9; font-size: 12px; cursor: pointer; }
+.smart-map-selection button span { width: 24px; height: 24px; display: grid; place-items: center; color: #fff; border-radius: 50%; background: #a66a40; font-size: 10px; }
+.smart-map-selection button b { color: #9d8e80; font-size: 15px; font-weight: 400; }
+.smart-map-selection p { margin: 0; color: #776f66; font-size: 13px; }
+.smart-map-canvas .real-map-marker span { color: #fff; border-color: #9b623b; background: #a86c43; box-shadow: 0 5px 18px rgba(60,42,28,.28); }
+.smart-map-canvas .real-map-marker b { color: #2d2925; border: 1px solid rgba(134,103,77,.25); background: rgba(255,252,246,.94); box-shadow: 0 8px 22px rgba(55,43,32,.13); }
+.smart-map-canvas .real-map-marker.selected span { color: #fff; border-color: #fff3e8; background: #754529; box-shadow: 0 0 0 4px rgba(166,106,64,.22); }
+.smart-map-canvas .maplibregl-ctrl-group { background: rgba(255,252,247,.92) !important; border-color: rgba(113,87,65,.25); }
+.smart-map-canvas .maplibregl-ctrl-group button { filter: none; opacity: .7; }
+.smart-map-canvas .maplibregl-ctrl-attrib { color: #5f5953 !important; background: rgba(255,252,247,.86) !important; }
+.route-calculation-status { position: absolute; z-index: 6; top: 78px; left: 24px; padding: 9px 12px; color: #665d54; border: 1px solid rgba(113,87,65,.23); border-radius: 3px; background: rgba(255,252,247,.93); box-shadow: 0 8px 24px rgba(55,43,32,.1); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+.route-calculation-status.loading::before { content: ""; width: 7px; height: 7px; margin-right: 8px; display: inline-block; border-radius: 50%; background: #a66a40; animation: route-pulse 1s infinite alternate; }
+.route-calculation-status.ready { color: #42644d; }.route-calculation-status.error { color: #9b4c3d; }
+@keyframes route-pulse { to { opacity: .25; } }
+@media (max-width: 900px) { .light-map { grid-template-columns: 1fr; }.smart-map-canvas { min-height: 680px; }.map-copy { min-height: 620px; } }
+@media (max-width: 600px) { .smart-map-canvas { min-height: 620px; }.smart-map-country-tabs { left: 12px; right: 12px; top: 12px; overflow-x: auto; }.smart-map-country-tabs button { flex: 1 0 auto; padding-inline: 10px; }.route-calculation-status { top: 70px; left: 12px; }.smart-map-selection { left: 12px; right: 12px; bottom: 12px; }.smart-map-selection button { font-size: 11px; }.smart-map-canvas .real-map-marker b { display: none; } }

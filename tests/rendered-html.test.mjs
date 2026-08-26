@@ -46,12 +46,15 @@ test("renders all public MVP routes", async () => {
 });
 
 test("keeps safeguards and critical interactions in source", async () => {
-  const [layout, home, cookies, planner, map, robots, htaccess, gitignore] = await Promise.all([
+  const [layout, home, cookies, planner, map, italy, austria, germany, robots, htaccess, gitignore] = await Promise.all([
     readFile(new URL("app/layout.tsx", root), "utf8"),
     readFile(new URL("app/HomePage.tsx", root), "utf8"),
     readFile(new URL("app/CookieConsent.tsx", root), "utf8"),
     readFile(new URL("app/plan/page.tsx", root), "utf8"),
     readFile(new URL("app/plan/RealRouteMap.tsx", root), "utf8"),
+    readFile(new URL("public/data/countries/italy.geojson", root), "utf8"),
+    readFile(new URL("public/data/countries/austria.geojson", root), "utf8"),
+    readFile(new URL("public/data/countries/germany.geojson", root), "utf8"),
     readFile(new URL("public/robots.txt", root), "utf8"),
     readFile(new URL("public/.htaccess", root), "utf8"),
     readFile(new URL(".gitignore", root), "utf8"),
@@ -75,4 +78,8 @@ test("keeps safeguards and critical interactions in source", async () => {
   assert.match(map, /ResizeObserver/);
   assert.match(map, /aria-pressed/);
   assert.match(map, /map-status/);
+  assert.match(map, /router\.project-osrm\.org\/route\/v1\/driving/);
+  assert.match(map, /overview=full&geometries=geojson/);
+  assert.match(home, /className="smart-map-canvas"/);
+  for (const boundary of [italy, austria, germany]) assert.equal(JSON.parse(boundary).type, "FeatureCollection");
 });
