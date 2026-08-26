@@ -65,6 +65,8 @@ test("keeps safeguards and critical interactions in source", async () => {
   assert.match(home, />RU<\/button>/);
   assert.match(home, /localStorage\.setItem\("mlt-locale"/);
   assert.match(home, /localPath\("\/plan"\)/);
+  assert.match(home, /scrollToSection/);
+  assert.match(home, /history\.replaceState\(null, "", `\$\{location\.pathname\}\$\{location\.search\}`\)/);
   assert.match(cookies, />RU<\/button>/);
   assert.match(cookies, /Ваша конфиденциальность/);
   assert.match(cookies, /location\.pathname\.split/);

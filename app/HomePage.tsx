@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { Swiper as SwiperCarousel, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { EffectCoverflow, Keyboard } from "swiper/modules";
@@ -70,6 +70,13 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   }, [locale]);
 
   const localPath = (path: string) => `/${locale}${path}`;
+  const scrollToSection = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    event.preventDefault();
+    setMenuOpen(false);
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", `${location.pathname}${location.search}`);
+    event.currentTarget.blur();
+  };
   const changeLocale = (next: SiteLocale) => {
     localStorage.setItem("mlt-locale", next);
     window.location.assign(`/${next}/${window.location.hash}`);
@@ -78,14 +85,14 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     <header className="light-nav">
       <a className="light-brand" href="#top" aria-label="MLT home"><img src="/mlt-logo.svg" alt="MLT — Move. Live. Travel." /></a>
       <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
-        <a href="#collections" onClick={() => setMenuOpen(false)}>{t.nav[0]}</a>
-        <a href="#experiences" onClick={() => setMenuOpen(false)}>{t.nav[1]}</a>
-        <a href="#smart-map" onClick={() => setMenuOpen(false)}>{t.nav[2]}</a>
-        <a href="#about" onClick={() => setMenuOpen(false)}>{t.nav[3]}</a>
+        <a href="#collections" onClick={(event) => scrollToSection(event, "collections")}>{t.nav[0]}</a>
+        <a href="#experiences" onClick={(event) => scrollToSection(event, "experiences")}>{t.nav[1]}</a>
+        <a href="#smart-map" onClick={(event) => scrollToSection(event, "smart-map")}>{t.nav[2]}</a>
+        <a href="#about" onClick={(event) => scrollToSection(event, "about")}>{t.nav[3]}</a>
       </nav>
       <div className="light-actions">
         <div className="light-language" aria-label="Language"><button className={locale === "en" ? "active" : ""} onClick={() => changeLocale("en")}>EN</button><button className={locale === "de" ? "active" : ""} onClick={() => changeLocale("de")}>DE</button><button className={locale === "ru" ? "active" : ""} onClick={() => changeLocale("ru")}>RU</button></div>
-        <a className="nav-concierge" href="#contact">{t.concierge}</a>
+        <a className="nav-concierge" href="#contact" onClick={(event) => scrollToSection(event, "contact")}>{t.concierge}</a>
         <button className="light-menu" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu"><span /><span /></button>
       </div>
     </header>
