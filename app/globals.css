@@ -445,6 +445,7 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .map-route-art .point { position: absolute; z-index: 2; width: 18px; height: 18px; border: 4px solid #fff; border-radius: 50%; background: var(--mlt-bronze); box-shadow: 0 2px 16px rgba(0,0,0,.3); }
 .map-route-art .one { left: 18%; top: 60%; }.map-route-art .two { left: 50%; top: 42%; }.map-route-art .three { left: 79%; top: 28%; }
 .map-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(64px, 6.5vw, 100px); background: rgba(255,252,247,.7); }
+.map-copy h2 { max-width: 13ch; font-size: clamp(40px, 4.15vw, 64px); line-height: 1.02; text-wrap: balance; }
 .map-copy > p { margin: 28px 0; }
 .map-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 34px; padding-top: 26px; border-top: 1px solid #c8baa8; }
 .map-stats div { display: grid; gap: 4px; }
