@@ -13,7 +13,7 @@ const copy = {
 
 type PlannerLocale = keyof typeof copy;
 
-const dailyRates: Record<string, [number, number]> = { freedom: [150, 220], signature: [250, 400], concierge: [450, 700], private: [2000, 4000] };
+const dailyRates: Record<string, [number, number]> = { freedom: [1490 / 7, 1490 / 7], signature: [2490 / 7, 2490 / 7], concierge: [4990 / 7, 4990 / 7], private: [19900 / 7, 19900 / 7] };
 const formatEuro = (value: number, locale: PlannerLocale) => new Intl.NumberFormat(locale === "de" ? "de-DE" : locale === "ru" ? "ru-RU" : "en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(value);
 
 export default function PlanPage({ initialLocale = "en" }: { initialLocale?: PlannerLocale }) {

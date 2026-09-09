@@ -12,10 +12,10 @@ import { mapPoints } from "../content/mlt";
 type SiteLocale = "en" | "de" | "ru";
 
 const collections = [
-  { id: "freedom", name: "Freedom", image: "/collection-freedom.jpg", eyebrow: "Self-directed discovery", copy: "A fully equipped premium motorhome, a curated map and the freedom to follow your own rhythm.", rate: "From €150 / day", days: "7–30 days" },
-  { id: "signature", name: "Signature", image: "/collection-signature.jpg", eyebrow: "Curated end to end", copy: "A personal route, reserved stays and remarkable roads — every essential detail already considered.", rate: "From €250 / day", days: "7–14 days" },
-  { id: "concierge", name: "Concierge", image: "/collection-concierge.jpg", eyebrow: "Always one step ahead", copy: "Your journey, supported by a dedicated MLT concierge, available around the clock.", rate: "From €450 / day", days: "7–14 days" },
-  { id: "private", name: "Private", image: "/collection-private.jpg", eyebrow: "A private world in motion", copy: "A five-star travelling residence with driver, private team and service shaped entirely around you.", rate: "From €2,000 / day", days: "7–21 days" },
+  { id: "freedom", name: "Freedom", image: "/collection-freedom.jpg", eyebrow: "Self-directed discovery", copy: "A fully equipped premium motorhome, a curated map and the freedom to follow your own rhythm.", rate: "From €1,490 for 7 days", days: "7–30 days" },
+  { id: "signature", name: "Signature", image: "/collection-signature.jpg", eyebrow: "Curated end to end", copy: "A personal route, reserved stays and remarkable roads — every essential detail already considered.", rate: "From €2,490 for 7 days", days: "7–14 days" },
+  { id: "concierge", name: "Concierge", image: "/collection-concierge.jpg", eyebrow: "Always one step ahead", copy: "Your journey, supported by a dedicated MLT concierge, available around the clock.", rate: "From €4,990 for 7 days", days: "7–14 days" },
+  { id: "private", name: "Private", image: "/collection-private.jpg", eyebrow: "A private world in motion", copy: "A five-star travelling residence with driver, private team and service shaped entirely around you.", rate: "From €19,900 for 7 days", days: "7–21 days" },
   { id: "proposal", name: "Proposal", image: "/collection-proposal.jpg", eyebrow: "The art of saying yes", copy: "A private European route and a complete proposal scenario — location, creative team and every detail handled by MLT.", rate: "Tailored proposal", days: "3–7 days" },
 ] as const;
 
@@ -31,10 +31,10 @@ const experiences = [
 ] as const;
 
 const russianCollections = [
-  { name: "Свобода", eyebrow: "Самостоятельные открытия", copy: "Полностью оборудованный премиальный автодом, продуманная карта и свобода следовать собственному ритму.", rate: "От €150 в день" },
-  { name: "Фирменная", eyebrow: "Продумано от начала до конца", copy: "Персональный маршрут, забронированные места и удивительные дороги — каждая важная деталь уже учтена.", rate: "От €250 в день" },
-  { name: "Консьерж", eyebrow: "Всегда на шаг впереди", copy: "Ваше путешествие с личным консьержем MLT, который доступен круглосуточно.", rate: "От €450 в день" },
-  { name: "Приватная", eyebrow: "Личный мир в движении", copy: "Пятизвёздочная резиденция на колёсах с водителем, персональной командой и сервисом, полностью созданным для вас.", rate: "От €2 000 в день" },
+  { name: "Свобода", eyebrow: "Самостоятельные открытия", copy: "Полностью оборудованный премиальный автодом, продуманная карта и свобода следовать собственному ритму.", rate: "От €1 490 за 7 дней" },
+  { name: "Фирменная", eyebrow: "Продумано от начала до конца", copy: "Персональный маршрут, забронированные места и удивительные дороги — каждая важная деталь уже учтена.", rate: "От €2 490 за 7 дней" },
+  { name: "Консьерж", eyebrow: "Всегда на шаг впереди", copy: "Ваше путешествие с личным консьержем MLT, который доступен круглосуточно.", rate: "От €4 990 за 7 дней" },
+  { name: "Приватная", eyebrow: "Личный мир в движении", copy: "Пятизвёздочная резиденция на колёсах с водителем, персональной командой и сервисом, полностью созданным для вас.", rate: "От €19 900 за 7 дней" },
   { name: "Предложение", eyebrow: "Искусство услышать «да»", copy: "Приватный маршрут по Европе и готовый сценарий предложения — место, творческая команда и каждая деталь под контролем MLT.", rate: "По индивидуальному запросу" },
 ] as const;
 
