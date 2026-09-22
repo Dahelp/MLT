@@ -16,7 +16,6 @@ const collections = [
   { id: "signature", name: "Signature", image: "/collection-signature.jpg", eyebrow: "Curated end to end", copy: "A personal route, reserved stays and remarkable roads — every essential detail already considered.", rate: "From €2,490 for 7 days", days: "7–14 days" },
   { id: "concierge", name: "Concierge", image: "/collection-concierge.jpg", eyebrow: "Always one step ahead", copy: "Your journey, supported by a dedicated MLT concierge, available around the clock.", rate: "From €4,990 for 7 days", days: "7–14 days" },
   { id: "private", name: "Private", image: "/collection-private.jpg", eyebrow: "A private world in motion", copy: "A five-star travelling residence with driver, private team and service shaped entirely around you.", rate: "From €19,900 for 7 days", days: "7–21 days" },
-  { id: "proposal", name: "Proposal", image: "/collection-proposal.jpg", eyebrow: "The art of saying yes", copy: "A private European route and a complete proposal scenario — location, creative team and every detail handled by MLT.", rate: "Tailored proposal", days: "3–7 days" },
 ] as const;
 
 const carouselCopies = 9;
@@ -35,7 +34,6 @@ const russianCollections = [
   { name: "Фирменная", eyebrow: "Продумано от начала до конца", copy: "Персональный маршрут, забронированные места и удивительные дороги — каждая важная деталь уже учтена.", rate: "От €2 490 за 7 дней" },
   { name: "Консьерж", eyebrow: "Всегда на шаг впереди", copy: "Ваше путешествие с личным консьержем MLT, который доступен круглосуточно.", rate: "От €4 990 за 7 дней" },
   { name: "Приватная", eyebrow: "Личный мир в движении", copy: "Пятизвёздочная резиденция на колёсах с водителем, персональной командой и сервисом, полностью созданным для вас.", rate: "От €19 900 за 7 дней" },
-  { name: "Предложение", eyebrow: "Искусство услышать «да»", copy: "Приватный маршрут по Европе и готовый сценарий предложения — место, творческая команда и каждая деталь под контролем MLT.", rate: "По индивидуальному запросу" },
 ] as const;
 
 const russianExperiences = [
@@ -58,7 +56,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [locale, setLocale] = useState<SiteLocale>(initialLocale);
   const [menuOpen, setMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
-  const [activeCollection, setActiveCollection] = useState(4);
+  const [activeCollection, setActiveCollection] = useState(3);
   const [mapCountry, setMapCountry] = useState("All");
   const [mapSelection, setMapSelection] = useState<string[]>(["dolomites", "como"]);
   const carousel = useRef<SwiperInstance | null>(null);
@@ -123,8 +121,8 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     </section>
 
     <section className="light-collections" id="collections">
-      <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Пять способов путешествовать" : locale === "de" ? "Fünf Arten zu reisen" : "Five ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button></div></div></div>
-      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={carouselMiddleStart + 4} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={850} grabCursor keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; setActiveCollection(instance.activeIndex % collections.length); }} onSlideChange={(instance) => setActiveCollection(instance.activeIndex % collections.length)} onSlideChangeTransitionEnd={(instance) => { if (instance.activeIndex < collections.length * 2 || instance.activeIndex >= collections.length * (carouselCopies - 2)) instance.slideTo(carouselMiddleStart + (instance.activeIndex % collections.length), 0, false); }} aria-label="MLT collections">
+      <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Четыре способа путешествовать" : locale === "de" ? "Vier Arten zu reisen" : "Four ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button></div></div></div>
+      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={carouselMiddleStart + 3} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={850} grabCursor keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; setActiveCollection(instance.activeIndex % collections.length); }} onSlideChange={(instance) => setActiveCollection(instance.activeIndex % collections.length)} onSlideChangeTransitionEnd={(instance) => { if (instance.activeIndex < collections.length * 2 || instance.activeIndex >= collections.length * (carouselCopies - 2)) instance.slideTo(carouselMiddleStart + (instance.activeIndex % collections.length), 0, false); }} aria-label="MLT collections">
         {carouselCollections.map((item, index) => { const localizedItem = locale === "ru" ? russianCollections[index % collections.length] : item; return <SwiperSlide className="collection-slide" key={`${item.id}-${index}`}><a className="collection-card-link" href={localPath(`/collections/${item.id}`)} aria-label={locale === "ru" ? `Открыть коллекцию MLT «${localizedItem.name}»` : `Open MLT ${item.name} Collection`}><article className="light-collection-card">
           <img src={item.image} alt={locale === "ru" ? `Коллекция MLT «${localizedItem.name}»` : `MLT ${item.name} Collection`} loading="eager" />
           <div className="collection-shade" />

@@ -13,12 +13,15 @@ const clean = (value: unknown, max = 80) => String(value ?? "").trim().slice(0, 
 const encode = (value: Record<string, string>) => new URLSearchParams(value).toString();
 
 export async function POST(request: Request) {
-  let body: { provider?: Provider; collection?: unknown; days?: unknown; reference?: unknown };
+  let body: { provider?: Provider; collection?: unknown; days?: unknown; reference?: unknown; extraGuests?: unknown; freedomPlus?: unknown };
   try { body = await request.json(); } catch { return NextResponse.json({ error: "Invalid payment request" }, { status: 400 }); }
   const provider = body.provider;
   const collection = clean(body.collection).toLowerCase();
   const days = Number(body.days);
-  const amount = prices[collection]?.[days];
+  const baseAmount = prices[collection]?.[days];
+  const extraGuests = Math.max(0, Math.min(6, Number(body.extraGuests) || 0));
+  const plusFee = collection === "freedom" && body.freedomPlus ? (days <= 10 ? 300 : days <= 14 ? 400 : 500) : 0;
+  const amount = baseAmount ? baseAmount + extraGuests * 190 + plusFee : 0;
   const reference = clean(body.reference);
   if ((provider !== "stripe" && provider !== "paypal") || !amount || !reference) return NextResponse.json({ error: "This journey cannot be paid online yet. Please contact MLT Concierge." }, { status: 400 });
 
