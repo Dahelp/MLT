@@ -8,6 +8,7 @@ const prices: Record<string, Record<number, number>> = {
   concierge: { 7: 4990, 10: 7129, 14: 9980, 21: 14970, 30: 21386 },
   private: { 7: 19900, 10: 28429, 14: 39800, 21: 59700, 30: 85286 },
 };
+const freedomPlusPrices: Record<number, number> = { 7: 1790, 10: 2340, 14: 3040, 21: 4190, 30: 5490 };
 
 const clean = (value: unknown, max = 80) => String(value ?? "").trim().slice(0, max);
 const encode = (value: Record<string, string>) => new URLSearchParams(value).toString();
@@ -18,10 +19,9 @@ export async function POST(request: Request) {
   const provider = body.provider;
   const collection = clean(body.collection).toLowerCase();
   const days = Number(body.days);
-  const baseAmount = prices[collection]?.[days];
+  const baseAmount = collection === "freedom" && body.freedomPlus ? freedomPlusPrices[days] : prices[collection]?.[days];
   const extraGuests = Math.max(0, Math.min(6, Number(body.extraGuests) || 0));
-  const plusFee = collection === "freedom" && body.freedomPlus ? (days <= 10 ? 300 : days <= 14 ? 400 : 500) : 0;
-  const amount = baseAmount ? baseAmount + extraGuests * 190 + plusFee : 0;
+  const amount = baseAmount ? baseAmount + extraGuests * 190 : 0;
   const reference = clean(body.reference);
   if ((provider !== "stripe" && provider !== "paypal") || !amount || !reference) return NextResponse.json({ error: "This journey cannot be paid online yet. Please contact MLT Concierge." }, { status: 400 });
 
