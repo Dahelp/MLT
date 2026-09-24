@@ -666,7 +666,7 @@ footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }
 
 /* Keep date fields and the price visually stable on compact screens. */
 .collection-booking-band .booking-date { position: relative; }
-.collection-booking-band .booking-date input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.collection-booking-band .booking-date input { position: static; width: 100%; min-height: 38px; padding: 5px 0; opacity: 1; cursor: pointer; }
 .collection-booking-band .booking-date-value, .collection-booking-band .booking-end strong { min-height: 28px; display: block; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .collection-booking-band .booking-total strong { min-width: 9ch; display: block; font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
 @media (min-width: 581px) and (max-width: 900px) { .collection-booking-band .booking-main { grid-template-columns: 1.6fr 1fr 1fr; }.collection-booking-band .booking-duration { grid-row: span 2; }.collection-booking-band .guest-stepper { grid-column: 2 / -1; }.collection-booking-band .booking-main > *:nth-child(2), .collection-booking-band .booking-main > *:nth-child(-n+2) { border: 1px solid rgba(255,255,255,.14); } }
