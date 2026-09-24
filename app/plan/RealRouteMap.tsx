@@ -7,6 +7,7 @@ import { mapPoints } from "../../content/mlt";
 
 const coordinates: Record<string, [number, number]> = {
   como: [9.2572, 45.984], dolomites: [11.925, 46.54], tuscany: [11.17, 43.06], amalfi: [14.602, 40.634], tyrol: [11.39, 47.27], salzburg: [13.055, 47.81], vienna: [16.373, 48.208], bavaria: [11.08, 47.56], blackforest: [8.19, 48.1],
+  "dolomites-grand-tour": [11.925, 46.54], "lakes-of-bavaria": [11.26, 47.65], "alpine-escape": [12.64, 47.13], "wine-roads-collection": [11.17, 43.06], "mediterranean-discovery": [14.602, 40.634], "winter-alps-expedition": [12.03, 46.53], "black-forest-experience": [8.19, 48.1],
 };
 const views: Record<string, { center: [number, number]; zoom: number }> = {
   All: { center: [10.8, 46.2], zoom: 4.4 }, Italy: { center: [11.7, 43.7], zoom: 5.2 }, Austria: { center: [13.25, 47.55], zoom: 6.2 }, Germany: { center: [9.7, 49.6], zoom: 5.4 },

@@ -13,6 +13,16 @@ export const collections: Collection[] = [
 
 export const destinations = ["Dolomites", "Lake Como", "Tyrol", "Bavaria"];
 
+export const journeyRoutes = [
+  { id: "dolomites-grand-tour", number: "01", name: "Dolomites Freedom Journey", country: "Italy", image: "/route-dolomites.jpg", tagline: { en: "Iconic passes and pure driving", de: "Ikonische Pässe und Fahrspaß", ru: "Культовые перевалы и драйв" } },
+  { id: "lakes-of-bavaria", number: "02", name: "Bavaria Discovery Pass", country: "Germany", image: "/route-bavaria.jpg", tagline: { en: "Castles, lakes and freedom", de: "Schlösser, Seen und Freiheit", ru: "Замки, озера и свобода" } },
+  { id: "alpine-escape", number: "03", name: "Alpine Escape Express", country: "Austria", image: "/route-alpine.jpg", tagline: { en: "Mountain energy and trekking", de: "Bergenergie und Trekking", ru: "Энергия гор и треккинг" } },
+  { id: "wine-roads-collection", number: "04", name: "Wine Roads Horizon", country: "Italy", image: "/route-wine-roads.jpg", tagline: { en: "Wine roads and terroirs", de: "Weinstraßen und Terroirs", ru: "Винные дороги и терруары" } },
+  { id: "mediterranean-discovery", number: "05", name: "Mediterranean Coastline", country: "Italy", image: "/route-mediterranean.jpg", tagline: { en: "Sea breeze and hidden coves", de: "Meeresbrise und Buchten", ru: "Морской бриз и бухты" } },
+  { id: "winter-alps-expedition", number: "06", name: "Winter Alps Horizon", country: "Austria", image: "/route-winter-alps.jpg", tagline: { en: "Winter romance and ski slopes", de: "Winterromantik und Pisten", ru: "Зимняя романтика и трассы" } },
+  { id: "black-forest-experience", number: "07", name: "Black Forest Trail", country: "Germany", image: "/route-black-forest.jpg", tagline: { en: "Forest roads and thermal spas", de: "Waldstraßen und Thermen", ru: "Лесные дороги и термы" } },
+] as const;
+
 export const mapPoints = [
   { id: "como", country: "Italy", name: "Lake Como", type: "Lakeside stay", className: "pin-como" },
   { id: "dolomites", country: "Italy", name: "Dolomites", type: "Panoramic road", className: "pin-dolomites" },
@@ -23,6 +33,13 @@ export const mapPoints = [
   { id: "vienna", country: "Austria", name: "Vienna", type: "Private dining", className: "pin-vienna" },
   { id: "bavaria", country: "Germany", name: "Bavarian Alps", type: "Scenic route", className: "pin-bavaria" },
   { id: "blackforest", country: "Germany", name: "Black Forest", type: "Forest hideaway", className: "pin-blackforest" },
+  { id: "dolomites-grand-tour", country: "Italy", name: "Dolomites Freedom Journey", type: "Grand tour", className: "pin-dolomites" },
+  { id: "lakes-of-bavaria", country: "Germany", name: "Bavaria Discovery Pass", type: "Lakeside journey", className: "pin-bavaria" },
+  { id: "alpine-escape", country: "Austria", name: "Alpine Escape Express", type: "Mountain retreat", className: "pin-tyrol" },
+  { id: "wine-roads-collection", country: "Italy", name: "Wine Roads Horizon", type: "Vineyard journey", className: "pin-tuscany" },
+  { id: "mediterranean-discovery", country: "Italy", name: "Mediterranean Coastline", type: "Coastal journey", className: "pin-amalfi" },
+  { id: "winter-alps-expedition", country: "Austria", name: "Winter Alps Horizon", type: "Winter journey", className: "pin-tyrol" },
+  { id: "black-forest-experience", country: "Germany", name: "Black Forest Trail", type: "Forest journey", className: "pin-blackforest" },
 ];
 
 export const fleet = [
