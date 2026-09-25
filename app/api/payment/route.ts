@@ -9,17 +9,18 @@ const prices: Record<string, Record<number, number>> = {
   private: { 7: 19900, 10: 28429, 14: 39800, 21: 59700, 30: 85286 },
 };
 const freedomPlusPrices: Record<number, number> = { 7: 1790, 10: 2340, 14: 3040, 21: 4190, 30: 5490 };
+const signatureTailoredPrices: Record<number, number> = { 7: 2990, 10: 4290, 14: 5890 };
 
 const clean = (value: unknown, max = 80) => String(value ?? "").trim().slice(0, max);
 const encode = (value: Record<string, string>) => new URLSearchParams(value).toString();
 
 export async function POST(request: Request) {
-  let body: { provider?: Provider; collection?: unknown; days?: unknown; reference?: unknown; extraGuests?: unknown; freedomPlus?: unknown };
+  let body: { provider?: Provider; collection?: unknown; days?: unknown; reference?: unknown; extraGuests?: unknown; freedomPlus?: unknown; signatureTailored?: unknown };
   try { body = await request.json(); } catch { return NextResponse.json({ error: "Invalid payment request" }, { status: 400 }); }
   const provider = body.provider;
   const collection = clean(body.collection).toLowerCase();
   const days = Number(body.days);
-  const baseAmount = collection === "freedom" && body.freedomPlus ? freedomPlusPrices[days] : prices[collection]?.[days];
+  const baseAmount = collection === "freedom" && body.freedomPlus ? freedomPlusPrices[days] : collection === "signature" && body.signatureTailored ? signatureTailoredPrices[days] : prices[collection]?.[days];
   const extraGuests = Math.max(0, Math.min(6, Number(body.extraGuests) || 0));
   const amount = baseAmount ? baseAmount + extraGuests * 190 : 0;
   const reference = clean(body.reference);
