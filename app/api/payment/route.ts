@@ -4,7 +4,7 @@ type Provider = "stripe" | "paypal";
 
 const prices: Record<string, Record<number, number>> = {
   freedom: { 7: 1490, 10: 1990, 14: 2590, 21: 3690, 30: 4990 },
-  signature: { 7: 2490, 10: 3557, 14: 4980, 21: 7470, 30: 10671 },
+  signature: { 7: 2490, 10: 3290, 14: 4390 },
   concierge: { 7: 4990, 10: 7129, 14: 9980, 21: 14970, 30: 21386 },
   private: { 7: 19900, 10: 28429, 14: 39800, 21: 59700, 30: 85286 },
 };
