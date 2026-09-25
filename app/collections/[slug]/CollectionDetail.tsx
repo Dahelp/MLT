@@ -10,7 +10,7 @@ import { journeyRoutes, type Collection } from "../../../content/mlt";
 import { collectionDe, type Locale } from "../../../content/i18n";
 import { collectionDetails } from "../../../content/collection-details";
 
-const rates = { freedom: [{ d: 7, p: 1490 }, { d: 10, p: 1990 }, { d: 14, p: 2590 }, { d: 21, p: 3690 }, { d: 30, p: 4990 }], signature: [{ d: 7, p: 2490 }, { d: 10, p: 3557 }, { d: 14, p: 4980 }, { d: 21, p: 7470 }, { d: 30, p: 10671 }], concierge: [{ d: 7, p: 4990 }, { d: 10, p: 7129 }, { d: 14, p: 9980 }, { d: 21, p: 14970 }, { d: 30, p: 21386 }], private: [{ d: 7, p: 19900 }, { d: 10, p: 28429 }, { d: 14, p: 39800 }, { d: 21, p: 59700 }, { d: 30, p: 85286 }], proposal: [{ d: 3, p: 0 }] } as const;
+const rates = { freedom: [{ d: 7, p: 1490 }, { d: 10, p: 1990 }, { d: 14, p: 2590 }, { d: 21, p: 3690 }, { d: 30, p: 4990 }], signature: [{ d: 7, p: 2490 }, { d: 10, p: 3290 }, { d: 14, p: 4390 }], concierge: [{ d: 7, p: 4990 }, { d: 10, p: 7129 }, { d: 14, p: 9980 }, { d: 21, p: 14970 }, { d: 30, p: 21386 }], private: [{ d: 7, p: 19900 }, { d: 10, p: 28429 }, { d: 14, p: 39800 }, { d: 21, p: 59700 }, { d: 30, p: 85286 }], proposal: [{ d: 3, p: 0 }] } as const;
 const freedomPlusRates: Record<number, number> = { 7: 1790, 10: 2340, 14: 3040, 21: 4190, 30: 5490 };
 const hero: Record<string, string> = { freedom: "/collection-freedom-hero.png", signature: "/collection-signature-hero.png", concierge: "/collection-concierge-hero.png", private: "/collection-private-hero.png" };
 const dateIso = (value: Date) => value.toISOString().slice(0, 10);
