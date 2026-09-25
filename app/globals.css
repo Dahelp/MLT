@@ -430,8 +430,10 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-collection-card:hover > picture > img { transform: scale(1.035); }
 .collection-top, .collection-card-copy { position: absolute; z-index: 2; left: 28px; right: 28px; }
 .collection-top { top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
-.collection-top small { padding: 9px 12px; border: 1px solid rgba(255,255,255,.48); border-radius: 999px; }
-.collection-card-copy { bottom: 26px; }
+.collection-top { text-shadow: 0 2px 12px rgba(0,0,0,.9); }
+.collection-top small { padding: 9px 12px; border: 1px solid rgba(255,255,255,.62); border-radius: 999px; background: rgba(18,20,19,.3); }
+.collection-card-copy { bottom: 26px; text-shadow: 0 2px 14px rgba(0,0,0,.9); }
+.collection-card-copy::before { content: ""; position: absolute; z-index: -1; inset: -110px -28px -26px; background: linear-gradient(180deg, transparent 0%, rgba(11,12,11,.18) 25%, rgba(11,12,11,.72) 100%); pointer-events: none; }
 .collection-card-copy h3 { font: 400 clamp(32px, 3vw, 46px)/.98 Georgia, serif; }
 .collection-card-copy h3 em { color: #f0d8b7; font-weight: 400; }
 .collection-card-copy > p { max-width: 340px; margin-top: 16px; color: rgba(255,255,255,.82); font-size: 14px; line-height: 1.55; }
