@@ -18,9 +18,7 @@ export default function CookieConsent() {
   useEffect(() => {
     setOpen(!localStorage.getItem("mlt-cookie-consent"));
     const routeLocale = location.pathname.split("/")[1] as Locale;
-    const savedLocale = localStorage.getItem("mlt-locale") as Locale | null;
-    const browserLocale = navigator.language.toLowerCase().split("-")[0] as Locale;
-    setLocale(locales.includes(routeLocale) ? routeLocale : savedLocale && locales.includes(savedLocale) ? savedLocale : locales.includes(browserLocale) ? browserLocale : "en");
+    setLocale(locales.includes(routeLocale) ? routeLocale : "en");
   }, []);
   const t = copy[locale];
   const save = (choice: "essential" | "all") => { localStorage.setItem("mlt-cookie-consent", JSON.stringify({ choice, analytics: choice === "all", date: new Date().toISOString() })); setOpen(false); };
