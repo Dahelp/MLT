@@ -1,4 +1,4 @@
-export type Locale = "en" | "de";
+export type Locale = "en" | "de" | "ru";
 
 export const translations = {
   en: {
@@ -27,6 +27,19 @@ export const translations = {
     conversation: "Ein privates Gespräch", someJourneys: "Manche Reisen beginnen", yours: "Ihre beginnt hier.", speak: "Mit Concierge sprechen",
     privateRequest: "Ihre private Anfrage", compose: "Lassen Sie uns", theJourney: "Ihre Reise komponieren.", modalCopy: "Teilen Sie uns einige Details mit. Ihr MLT Concierge meldet sich mit einem sorgfältig ausgearbeiteten ersten Vorschlag.", expeditionOutline: "Reiseübersicht", firstName: "Vorname", lastName: "Nachname", email: "E-Mail", phone: "Telefon", preferred: "Bevorzugter Kontakt", bestTime: "Beste Kontaktzeit", exceptional: "Was würde diese Reise außergewöhnlich machen?", consent: "Ich stimme zu, dass MLT diese Angaben zur Vorbereitung und Besprechung meines Reiseangebots verwendet.", requestProposal: "Privates Angebot anfragen", sending: "Wird sicher gesendet...", noCommitment: "Ihre Angaben bleiben vertraulich. Keine Zahlung oder Verpflichtung erforderlich.", received: "Anfrage erhalten", thankYou: "Vielen Dank.", begun: "Ihre Reise hat begonnen.", successCopy: "Ein MLT Concierge prüft Ihre Wünsche und meldet sich innerhalb eines Werktages mit dem nächsten privaten Schritt.", returnMlt: "Zurück zu MLT",
   },
+  ru: {
+    collections: "Коллекции", fleet: "Автодома", smartMap: "Умная карта", experiences: "Сценарии", journeyDesigner: "Планировщик", concierge: "Связаться с консьержем",
+    kicker: "Индивидуальные автомобильные экспедиции", heroLine1: "Европа,", heroLine2: "без границ.", heroCopy: "Не аренда, а личный способ путешествовать по миру.", discover: "Открыть коллекции", film: "Смотреть фильм",
+    begin: "Начните путешествие", plan: "Спланировать экспедицию", startingCountry: "Страна старта", arrival: "Начало", departure: "Окончание", travellers: "Путешественники", availability: "Проверить доступность",
+    nowExploring: "Актуальные направления", firstDepartures: "Первые выезды", september: "Сентябрь 2026", philosophy: "Философия MLT", notRent: "Мы не сдаём", motorhomes: "автодома.", freedomLead: "Мы создаём свободу просыпаться в", extraordinary: "необычном месте.", philosophyCopy: "Каждая экспедиция MLT сочетает впечатляющие дороги, редкие места и безупречный сервис.",
+    privateFleet: "Частный автопарк", chooseHow: "Выберите, как", youMove: "вы путешествуете.", fleetCopy: "Исключительно оснащённые автодома для комфорта, приватности и независимости.", discoverMotorhome: "Открыть автодом",
+    ways: "Четыре способа путешествовать", chooseYour: "Выберите свою", collection: "коллекцию.", collectionCopy: "Каждая коллекция — это лучшие автодома, удивительные ландшафты и свобода путешествовать иначе.", duration: "Длительность", from: "От",
+    places: "Места, ради которых", changing: "стоит изменить маршрут.", mapCopy: "Выберите особенные места, а MLT соединит их в путешествие.", selectedRoute: "Ваш маршрут", selectedPlaces: "мест", suggestedDuration: "Рекомендуемая длительность", buildRoute: "Создать маршрут с консьержем",
+    beyond: "Больше, чем дорога", additional: "Дополнительные", experienceWord: "впечатления.", experienceCopy: "Редкие места, особенные люди и личные моменты как часть вашего маршрута.", askConcierge: "Спросить консьержа",
+    assembled: "Ваше путешествие", buildChapter: "Создайте первую главу", expedition: "вашей экспедиции.", designerCopy: "Выберите коллекцию, ландшафт и темп — мы создадим личный маршрут.", selectCollection: "Выбрать коллекцию", landscape: "Ландшафт", yourCollection: "Ваша коллекция", beginningIn: "Старт", indicativeRate: "Ориентировочная цена", continueJourney: "Продолжить",
+    conversation: "Личный разговор", someJourneys: "Некоторые путешествия начинаются", yours: "Ваше начинается здесь.", speak: "Связаться с консьержем",
+    privateRequest: "Ваш личный запрос", compose: "Давайте создадим", theJourney: "ваше путешествие.", modalCopy: "Расскажите нам о своих планах.", expeditionOutline: "Описание экспедиции", firstName: "Имя", lastName: "Фамилия", email: "Email", phone: "Телефон", preferred: "Удобный способ связи", bestTime: "Лучшее время", exceptional: "Что сделает эту поездку особенной?", consent: "Я согласен на использование данных для подготовки предложения.", requestProposal: "Получить предложение", sending: "Отправляем...", noCommitment: "Ваши данные останутся конфиденциальными.", received: "Запрос получен", thankYou: "Спасибо.", begun: "Ваше путешествие началось.", successCopy: "Консьерж MLT изучит ваши пожелания и свяжется с вами.", returnMlt: "Вернуться в MLT",
+  },
 } as const;
 
 export const collectionDe: Record<string, { eyebrow: string; days: string; mode: string; inclusions: string[] }> = {
@@ -35,4 +48,12 @@ export const collectionDe: Record<string, { eyebrow: string; days: string; mode:
   concierge: { eyebrow: "Immer einen Schritt voraus", days: "7–15 Tage", mode: "24/7 begleitet", inclusions: ["Flexible Routenänderung", "Restaurantreservierungen", "Ausflüge", "Pannenhilfe"] },
   private: { eyebrow: "Die exklusivste Art zu reisen", days: "7–21 Tage", mode: "Vollständig begleitet", inclusions: ["Privatfahrer & Techniker", "Koch & Service", "Halbpension", "VIP-Transfers & Concierge"] },
   proposal: { eyebrow: "Die Kunst, Ja zu sagen", days: "3–7 Tage", mode: "Schlüsselfertig", inclusions: ["Premium-Reisemobil", "Exklusiver privater Ort", "Proposal-Concierge rund um die Uhr", "Vollständige Koordination vor Ort"] },
+};
+
+export const collectionRu: Record<string, { eyebrow: string; days: string; mode: string; inclusions: string[] }> = {
+  freedom: { eyebrow: "Самостоятельные открытия", days: "7–30 дней", mode: "Независимо", inclusions: ["Люксовый автодом", "Курированная карта", "Приложение MLT", "Местные рекомендации"] },
+  signature: { eyebrow: "Продумано от начала до конца", days: "7–14 дней", mode: "Персонально", inclusions: ["Личный маршрут", "Забронированные стоянки", "Панорамные дороги", "Рестораны и впечатления"] },
+  concierge: { eyebrow: "Всегда на шаг впереди", days: "7–15 дней", mode: "Поддержка 24/7", inclusions: ["Изменения маршрута", "Бронирование ресторанов", "Экскурсии", "Помощь в дороге"] },
+  private: { eyebrow: "Самый эксклюзивный формат", days: "7–21 день", mode: "Полное сопровождение", inclusions: ["Личный водитель и техник", "Повар и сервис", "Полупансион", "VIP-трансферы и консьерж"] },
+  proposal: { eyebrow: "Искусство сказать «да»", days: "3–7 дней", mode: "Под ключ", inclusions: ["Премиальный автодом", "Эксклюзивная локация", "Консьерж 24/7", "Полная координация"] },
 };

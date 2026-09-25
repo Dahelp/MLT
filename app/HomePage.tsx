@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import RealRouteMap from "./plan/RealRouteMap";
 import { mapPoints } from "../content/mlt";
+import { LanguageMenu } from "./LanguageMenu";
 
 type SiteLocale = "en" | "de" | "ru";
 
@@ -94,7 +95,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
         <a href="#about" onClick={(event) => scrollToSection(event, "about")}>{t.nav[3]}</a>
       </nav>
       <div className="light-actions">
-        <div className="light-language" aria-label="Language"><button className={locale === "en" ? "active" : ""} onClick={() => changeLocale("en")}>EN</button><button className={locale === "de" ? "active" : ""} onClick={() => changeLocale("de")}>DE</button><button className={locale === "ru" ? "active" : ""} onClick={() => changeLocale("ru")}>RU</button></div>
+        <LanguageMenu locale={locale} onChange={changeLocale} />
         <a className="nav-concierge" href="#contact" onClick={(event) => scrollToSection(event, "contact")}>{t.concierge}</a>
         <button className="light-menu" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu"><span /><span /></button>
       </div>
