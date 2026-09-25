@@ -55,7 +55,7 @@ export default function PlanPage({ initialLocale = "en" }: { initialLocale?: Pla
   };
   const startPayment = async (provider: "stripe" | "paypal") => {
     setPaymentLoading(provider); setPaymentError("");
-    try { const response = await fetch("/api/payment", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ provider, collection, days: duration, signatureTailored, reference }) }); const result = await response.json(); if (!response.ok || !result.url) throw new Error(result.error || "Unable to start payment."); window.location.assign(result.url); } catch (err) { setPaymentError(err instanceof Error ? err.message : "Unable to start payment."); setPaymentLoading(""); }
+    try { const response = await fetch("/api/payment.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ provider, collection, days: duration, signatureTailored, reference }) }); const result = await response.json(); if (!response.ok || !result.url) throw new Error(result.error || "Unable to start payment."); window.location.assign(result.url); } catch (err) { setPaymentError(err instanceof Error ? err.message : "Unable to start payment."); setPaymentLoading(""); }
   };
 
   return <main className="planner-page">

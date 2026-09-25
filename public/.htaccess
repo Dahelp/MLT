@@ -19,3 +19,7 @@ Options -Indexes
 <FilesMatch "\.(env|log|ini|ya?ml|lock)$">
   Require all denied
 </FilesMatch>
+
+<Files "paypal-config.php">
+  Require all denied
+</Files>
