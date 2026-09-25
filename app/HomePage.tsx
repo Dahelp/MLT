@@ -135,7 +135,6 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
             <source srcSet={item.image.replace(".jpg", ".webp")} type="image/webp" />
             <img src={item.image} alt={locale === "ru" ? `Коллекция MLT «${localizedItem.name}»` : `MLT ${item.name} Collection`} loading="lazy" decoding="async" />
           </picture>
-          <div className="collection-shade" />
           <div className="collection-top"><span>0{(index % collections.length) + 1}</span><small>{localizedItem.eyebrow}</small></div>
           <div className="collection-card-copy"><h3>MLT {localizedItem.name}<br /><em>{locale === "ru" ? "Коллекция" : "Collection"}</em></h3><p>{localizedItem.copy}</p><div><span>{item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
         </article></a></SwiperSlide>; })}
