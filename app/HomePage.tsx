@@ -57,7 +57,6 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [locale, setLocale] = useState<SiteLocale>(initialLocale);
   const [menuOpen, setMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
-  const [activeCollection, setActiveCollection] = useState(3);
   const [mapCountry, setMapCountry] = useState("All");
   const [mapSelection, setMapSelection] = useState<string[]>(["dolomites", "como"]);
   const carousel = useRef<SwiperInstance | null>(null);
@@ -126,8 +125,10 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     </section>
 
     <section className="light-collections" id="collections">
-      <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Четыре способа путешествовать" : locale === "de" ? "Vier Arten zu reisen" : "Four ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p><div className="rail-controls"><button onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button><span>{String(activeCollection + 1).padStart(2, "0")} / {String(collections.length).padStart(2, "0")}</span><button onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button></div></div></div>
-      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={carouselMiddleStart + 3} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={850} grabCursor keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; setActiveCollection(instance.activeIndex % collections.length); }} onSlideChange={(instance) => setActiveCollection(instance.activeIndex % collections.length)} onSlideChangeTransitionEnd={(instance) => { if (instance.activeIndex < collections.length * 2 || instance.activeIndex >= collections.length * (carouselCopies - 2)) instance.slideTo(carouselMiddleStart + (instance.activeIndex % collections.length), 0, false); }} aria-label="MLT collections">
+      <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Четыре способа путешествовать" : locale === "de" ? "Vier Arten zu reisen" : "Four ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p></div></div>
+      <div className="collection-rail-shell">
+      <button className="carousel-side-arrow carousel-side-arrow-prev" onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button>
+      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={carouselMiddleStart + 3} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={850} grabCursor keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; }} onSlideChangeTransitionEnd={(instance) => { if (instance.activeIndex < collections.length * 2 || instance.activeIndex >= collections.length * (carouselCopies - 2)) instance.slideTo(carouselMiddleStart + (instance.activeIndex % collections.length), 0, false); }} aria-label="MLT collections">
         {carouselCollections.map((item, index) => { const localizedItem = locale === "ru" ? russianCollections[index % collections.length] : item; return <SwiperSlide className="collection-slide" key={`${item.id}-${index}`}><a className="collection-card-link" href={localPath(`/collections/${item.id}`)} aria-label={locale === "ru" ? `Открыть коллекцию MLT «${localizedItem.name}»` : `Open MLT ${item.name} Collection`}><article className="light-collection-card">
           <picture>
             <source srcSet={item.image.replace(".jpg", ".avif")} type="image/avif" />
@@ -139,6 +140,8 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
           <div className="collection-card-copy"><h3>MLT {localizedItem.name}<br /><em>{locale === "ru" ? "Коллекция" : "Collection"}</em></h3><p>{localizedItem.copy}</p><div><span>{item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
         </article></a></SwiperSlide>; })}
       </SwiperCarousel>
+      <button className="carousel-side-arrow carousel-side-arrow-next" onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button>
+      </div>
     </section>
 
     <section className="light-experiences" id="experiences">
