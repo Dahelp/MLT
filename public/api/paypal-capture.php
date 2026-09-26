@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-$settingsPath = dirname(__DIR__, 2) . '/paypal-config.php';
+$settingsPath = dirname(__DIR__) . '/paypal-config.php';
 $reference = substr(trim((string)($_GET['reference'] ?? '')), 0, 80);
 $orderId = substr(trim((string)($_GET['token'] ?? '')), 0, 128);
 $redirect = static function (string $result) use ($reference): void {

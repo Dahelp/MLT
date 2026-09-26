@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$settingsPath = dirname(__DIR__, 2) . '/paypal-config.php';
+$settingsPath = dirname(__DIR__) . '/paypal-config.php';
 if (!is_file($settingsPath)) {
     http_response_code(503);
     echo json_encode(['error' => 'PayPal is not configured yet.']);
