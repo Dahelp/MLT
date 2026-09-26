@@ -70,7 +70,7 @@ if ($tokenStatus < 200 || $tokenStatus >= 300 || !$token) {
     exit;
 }
 $origin = 'https://mlt-lifestyle.com';
-$order = ['intent' => 'CAPTURE', 'purchase_units' => [['reference_id' => $reference, 'custom_id' => $reference, 'description' => 'MLT ' . ucfirst($collection) . ' Collection · ' . $days . ' days', 'amount' => ['currency_code' => 'EUR', 'value' => number_format((float)$amount, 2, '.', '')]]], 'application_context' => ['return_url' => $origin . '/api/paypal-capture.php?reference=' . rawurlencode($reference), 'cancel_url' => $origin . '/plan/?payment=cancelled&reference=' . rawurlencode($reference), 'user_action' => 'PAY_NOW']];
+$order = ['intent' => 'CAPTURE', 'purchase_units' => [['reference_id' => $reference, 'custom_id' => $reference, 'description' => 'MLT ' . ucfirst($collection) . ' Collection · ' . $days . ' days', 'amount' => ['currency_code' => 'EUR', 'value' => number_format((float)$amount, 2, '.', '')]]], 'application_context' => ['return_url' => $origin . '/api/paypal-capture.php?reference=' . rawurlencode($reference), 'cancel_url' => $origin . '/account/?payment=cancelled&reference=' . rawurlencode($reference), 'user_action' => 'PAY_NOW']];
 [$orderStatus, $orderResult] = $request($apiBase . '/v2/checkout/orders', ['Authorization: Bearer ' . $token, 'Content-Type: application/json'], json_encode($order));
 $approvalUrl = '';
 foreach ((is_array($orderResult) ? ($orderResult['links'] ?? []) : []) as $link) if (($link['rel'] ?? '') === 'approve') $approvalUrl = (string)($link['href'] ?? '');

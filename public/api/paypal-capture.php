@@ -6,7 +6,7 @@ $settingsPath = dirname(__DIR__) . '/paypal-config.php';
 $reference = substr(trim((string)($_GET['reference'] ?? '')), 0, 80);
 $orderId = substr(trim((string)($_GET['token'] ?? '')), 0, 128);
 $redirect = static function (string $result) use ($reference): void {
-    header('Location: https://mlt-lifestyle.com/plan/?payment=' . $result . '&reference=' . rawurlencode($reference), true, 303);
+    header('Location: https://mlt-lifestyle.com/account/?payment=' . $result . '&reference=' . rawurlencode($reference), true, 303);
     exit;
 };
 if (!is_file($settingsPath) || !$orderId || !preg_match('/^MLT-[A-Z0-9-]+$/', $reference)) $redirect('error');
