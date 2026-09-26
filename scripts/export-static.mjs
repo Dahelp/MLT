@@ -8,6 +8,7 @@ const port = 4173;
 const origin = `http://127.0.0.1:${port}`;
 const pageRoutes = [
   "",
+  "/account",
   "/plan",
   "/proposal",
   "/collections/freedom",
