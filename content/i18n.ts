@@ -45,7 +45,7 @@ export const translations = {
 export const collectionDe: Record<string, { eyebrow: string; days: string; mode: string; inclusions: string[] }> = {
   freedom: { eyebrow: "Selbstbestimmt entdecken", days: "7–30 Tage", mode: "Unabhängig", inclusions: ["Luxus-Reisemobil", "Kuratierte Karte", "MLT Routen-App", "Lokale Empfehlungen"] },
   signature: { eyebrow: "Von Anfang bis Ende kuratiert", days: "7–14 Tage", mode: "Maßgeschneidert", inclusions: ["Persönliche Route", "Reservierte Stellplätze", "Panoramastraßen", "Restaurants & Aktivitäten"] },
-  concierge: { eyebrow: "Immer einen Schritt voraus", days: "7–15 Tage", mode: "24/7 begleitet", inclusions: ["Flexible Routenänderung", "Restaurantreservierungen", "Ausflüge", "Pannenhilfe"] },
+  concierge: { eyebrow: "Immer einen Schritt voraus", days: "7–14 Tage", mode: "24/7 begleitet", inclusions: ["Online-Concierge rund um die Uhr", "Flexible Routenänderungen", "Alle Campingplätze reserviert", "Ausflugs- & Restaurantreservierungen", "Technischer Support", "Großes Reisemobil für 2–5 Personen"] },
   private: { eyebrow: "Die exklusivste Art zu reisen", days: "7–21 Tage", mode: "Vollständig begleitet", inclusions: ["Privatfahrer & Techniker", "Koch & Service", "Halbpension", "VIP-Transfers & Concierge"] },
   proposal: { eyebrow: "Die Kunst, Ja zu sagen", days: "3–7 Tage", mode: "Schlüsselfertig", inclusions: ["Premium-Reisemobil", "Exklusiver privater Ort", "Proposal-Concierge rund um die Uhr", "Vollständige Koordination vor Ort"] },
 };
@@ -53,7 +53,7 @@ export const collectionDe: Record<string, { eyebrow: string; days: string; mode:
 export const collectionRu: Record<string, { eyebrow: string; days: string; mode: string; inclusions: string[] }> = {
   freedom: { eyebrow: "Самостоятельные открытия", days: "7–30 дней", mode: "Независимо", inclusions: ["Люксовый автодом", "Курированная карта", "Приложение MLT", "Местные рекомендации"] },
   signature: { eyebrow: "Продумано от начала до конца", days: "7–14 дней", mode: "Персонально", inclusions: ["Личный маршрут", "Забронированные стоянки", "Панорамные дороги", "Рестораны и впечатления"] },
-  concierge: { eyebrow: "Всегда на шаг впереди", days: "7–15 дней", mode: "Поддержка 24/7", inclusions: ["Изменения маршрута", "Бронирование ресторанов", "Экскурсии", "Помощь в дороге"] },
+  concierge: { eyebrow: "Всегда на шаг впереди", days: "7–14 дней", mode: "Поддержка 24/7", inclusions: ["Онлайн-консьерж 24/7", "Изменения маршрута в реальном времени", "Все кемпинги забронированы", "Бронирование экскурсий и ресторанов", "Техническая поддержка", "Большой автодом для 2–5 человек"] },
   private: { eyebrow: "Самый эксклюзивный формат", days: "7–21 день", mode: "Полное сопровождение", inclusions: ["Личный водитель и техник", "Повар и сервис", "Полупансион", "VIP-трансферы и консьерж"] },
   proposal: { eyebrow: "Искусство сказать «да»", days: "3–7 дней", mode: "Под ключ", inclusions: ["Премиальный автодом", "Эксклюзивная локация", "Консьерж 24/7", "Полная координация"] },
 };
