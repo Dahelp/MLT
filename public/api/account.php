@@ -1,0 +1,20 @@
+<?php
+declare(strict_types=1);
+header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: no-store, max-age=0'); header('X-Content-Type-Options: nosniff');
+require_once __DIR__ . '/booking.php';
+$body = json_decode(file_get_contents('php://input'), true); if (!is_array($body)) $body = [];
+$db = mlt_db(mlt_settings()); if (!$db) { http_response_code(503); echo json_encode(['error' => 'Account service is unavailable.']); exit; }
+$action = (string)($body['action'] ?? ''); $clean = static fn($v, $n = 160) => mb_substr(trim((string)$v), 0, $n);
+$token = preg_replace('/^Bearer\s+/i', '', (string)($_SERVER['HTTP_AUTHORIZATION'] ?? ''));
+$userForToken = static function (PDO $db, string $token): ?array { if (!$token) return null; $q = $db->prepare('SELECT id,email,first_name,last_name,phone,locale FROM mlt_users WHERE session_hash = ? AND session_expires_at > NOW() LIMIT 1'); $q->execute([hash('sha256', $token)]); return $q->fetch() ?: null; };
+$public = static fn(array $u) => ['id'=>(int)$u['id'],'email'=>$u['email'],'firstName'=>$u['first_name'],'lastName'=>$u['last_name'],'phone'=>$u['phone'] ?? '', 'locale'=>$u['locale']];
+if ($action === 'register' || $action === 'login') {
+  $email = strtolower($clean($body['email'] ?? '')); $password = (string)($body['password'] ?? ''); if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 8) { http_response_code(400); echo json_encode(['error'=>'Enter a valid email and a password of at least 8 characters.']); exit; }
+  if ($action === 'register') { $first = $clean($body['firstName'] ?? '',80); $last = $clean($body['lastName'] ?? '',80); if (!$first || !$last) { http_response_code(400); echo json_encode(['error'=>'Enter your first and last name.']); exit; } try { $q=$db->prepare('INSERT INTO mlt_users (email,password_hash,first_name,last_name,phone,locale) VALUES (?,?,?,?,?,?)'); $q->execute([$email,password_hash($password,PASSWORD_DEFAULT),$first,$last,$clean($body['phone'] ?? '',80),in_array($body['locale'] ?? '', ['en','de','ru'], true) ? $body['locale'] : 'en']); } catch (Throwable $e) { http_response_code(409); echo json_encode(['error'=>'An account with this email already exists. Please sign in.']); exit; } }
+  $q=$db->prepare('SELECT * FROM mlt_users WHERE email=? LIMIT 1'); $q->execute([$email]); $user=$q->fetch(); if (!$user || !password_verify($password,$user['password_hash'])) { http_response_code(401); echo json_encode(['error'=>'Incorrect email or password.']); exit; }
+  $newToken=bin2hex(random_bytes(32)); $q=$db->prepare('UPDATE mlt_users SET session_hash=?,session_expires_at=DATE_ADD(NOW(), INTERVAL 30 DAY) WHERE id=?'); $q->execute([hash('sha256',$newToken),$user['id']]); echo json_encode(['ok'=>true,'token'=>$newToken,'user'=>$public($user)]); exit;
+}
+$user = $userForToken($db, $token); if (!$user) { http_response_code(401); echo json_encode(['error'=>'Please sign in again.']); exit; }
+if ($action === 'profile') { $first=$clean($body['firstName'] ?? $user['first_name'],80); $last=$clean($body['lastName'] ?? $user['last_name'],80); $locale=in_array($body['locale'] ?? '', ['en','de','ru'],true) ? $body['locale'] : $user['locale']; $q=$db->prepare('UPDATE mlt_users SET first_name=?,last_name=?,phone=?,locale=? WHERE id=?'); $q->execute([$first,$last,$clean($body['phone'] ?? $user['phone'],80),$locale,$user['id']]); $user=array_merge($user,['first_name'=>$first,'last_name'=>$last,'phone'=>$clean($body['phone'] ?? $user['phone'],80),'locale'=>$locale]); echo json_encode(['ok'=>true,'user'=>$public($user)]); exit; }
+if ($action === 'orders') { $q=$db->prepare('SELECT reference_code,status,amount,currency,collection_name,country_name,guests,travel_days,arrival_date,departure_date,route_json,created_at,paid_at FROM mlt_orders WHERE user_id=? OR customer_email=? ORDER BY created_at DESC'); $q->execute([$user['id'],$user['email']]); echo json_encode(['ok'=>true,'user'=>$public($user),'orders'=>$q->fetchAll()]); exit; }
+echo json_encode(['ok'=>true,'user'=>$public($user)]);
