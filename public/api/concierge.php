@@ -3,6 +3,7 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex, nofollow, noarchive');
 header('Cache-Control: no-store, max-age=0');
 header('X-Content-Type-Options: nosniff');
+require_once __DIR__ . '/booking.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -43,11 +44,15 @@ if (!$firstName || !$lastName || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 $reference = 'MLT-' . strtoupper(substr(base_convert((string)round(microtime(true) * 1000), 10, 36), -8));
-$token = getenv('TELEGRAM_BOT_TOKEN') ?: '';
-$chatId = getenv('TELEGRAM_CHAT_ID') ?: '';
+$settings = mlt_settings();
+$database = mlt_db($settings);
+if ($database) mlt_create_order($database, $reference, $body, ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $clean($body['phone'] ?? '', 80)]);
+$token = (string)($settings['telegram_bot_token'] ?? (getenv('TELEGRAM_BOT_TOKEN') ?: ''));
+$chatId = (string)($settings['telegram_chat_id'] ?? (getenv('TELEGRAM_CHAT_ID') ?: ''));
 
 if ($token && $chatId) {
     $route = array_slice(array_filter(array_map($clean, is_array($body['route'] ?? null) ? $body['route'] : [])), 0, 12);
+    $extras = array_slice(array_filter(array_map($clean, is_array($body['extras'] ?? null) ? $body['extras'] : [])), 0, 12);
     $lines = [
         '◆ NEW MLT PRIVATE REQUEST',
         'Reference: ' . $reference,
@@ -57,11 +62,14 @@ if ($token && $chatId) {
         'Phone: ' . ($clean($body['phone'] ?? '', 80) ?: 'Not provided'),
         '',
         'Collection: ' . $clean($body['collection'] ?? '', 80),
+        'Vehicle: ' . ($clean($body['vehicle'] ?? '', 80) ?: 'To be confirmed'),
         'Starting country: ' . $clean($body['country'] ?? '', 80),
+        'Travel dates: ' . ($clean($body['arrival'] ?? '', 20) ?: '—') . ' — ' . ($clean($body['departure'] ?? '', 20) ?: '—'),
         'Travellers: ' . $clean($body['guests'] ?? '', 40),
         'Duration: ' . $clean($body['days'] ?? '', 20) . ' days',
         'Indicative rate: ' . $clean($body['rate'] ?? '', 80),
         'Route: ' . ($route ? implode(' → ', $route) : 'To be curated'),
+        'Experiences: ' . ($extras ? implode(', ', $extras) : 'None'),
         '',
         'Notes: ' . ($clean($body['notes'] ?? '', 800) ?: 'No additional notes'),
     ];

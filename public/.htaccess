@@ -23,3 +23,7 @@ Options -Indexes
 <Files "paypal-config.php">
   Require all denied
 </Files>
+
+<Files "booking.php">
+  Require all denied
+</Files>
