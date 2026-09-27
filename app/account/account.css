@@ -53,6 +53,5 @@
 .journey-detail-modal dt { margin-bottom: 6px; color: #896d59; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .journey-detail-modal dd { margin: 0; font-size: 17px; line-height: 1.35; }
 .journey-detail-close { position: absolute; top: 14px; right: 18px; border: 0; background: transparent; color: #282521; font-size: 28px; cursor: pointer; }
-.journey-pay-balance { min-height: 52px; margin-top: 30px; padding: 0 20px; color: #2a241f; border: 0; border-radius: 7px; background: #e5b083; font-size: 15px; font-weight: 900; cursor: pointer; }
 
 @media (max-width: 560px) { .client-panel .journey-row { grid-template-columns: 1fr; gap: 12px; } .client-panel .journey-row > button { justify-self: start; } .journey-detail-modal > section { padding: 34px 24px; } .journey-detail-modal dl { grid-template-columns: 1fr; gap: 15px; } }
