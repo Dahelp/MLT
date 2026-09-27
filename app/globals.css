@@ -897,6 +897,8 @@ footer .brand-line { font-size: 12px; }
 
 /* Account dashboard: a calm, practical workspace for repeat bookings. */
 .account-loading { min-height: 100vh; background: #f7f2ea; }
+/* The React loading state now prevents auth flicker; never hide the real form. */
+.account-page .account-auth { visibility: visible; }
 .account-dashboard { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 26px; align-items: start; }
 .account-sidebar { position: sticky; top: 24px; padding: 27px 22px; color: #f5ede3; background: #292b28; border: 1px solid #4a4c47; box-shadow: 0 20px 50px rgba(48,38,29,.14); }
 .account-sidebar .account-eyebrow { color: #d6a27c; }.account-sidebar > strong { display: block; margin: 4px 0; font: 400 24px Georgia,serif; }.account-sidebar > small { display: block; overflow-wrap: anywhere; color: #bbb4aa; font-size: 12px; }
