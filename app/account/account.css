@@ -76,6 +76,14 @@
 .documents-grid small { display: block; margin-bottom: 12px; color: #a06f50; font-size: 11px; font-weight: 900; letter-spacing: .12em; }
 .documents-grid b { display: block; color: #292521; font: 400 27px/1.05 Georgia,serif; }
 .documents-grid p { margin: 13px 0 0; color: #75685d; font-size: 14px; line-height: 1.45; }
+.account-premium .account-profile-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; max-width: 900px; margin: 0 0 30px; }
+.account-premium .account-profile-grid label { display: grid; gap: 9px; color: #725e4e; font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+.account-premium .account-profile-grid input,
+.account-premium .account-profile-grid select { box-sizing: border-box; width: 100%; height: 54px; padding: 0 16px; color: #292521; border: 1px solid #d4c3b2; border-radius: 8px; outline: 0; background: #fffdf9; font: 400 17px Georgia,serif; }
+.account-premium .account-profile-grid input:focus,
+.account-premium .account-profile-grid select:focus { border-color: #ad7652; box-shadow: 0 0 0 3px rgba(173,118,82,.13); }
+.account-premium .account-profile-grid select { color-scheme: light; cursor: pointer; }
+.account-premium .account-profile-grid option { color: #292521; background: #fffdf9; }
 
-@media (max-width: 700px) { .open-order-card { grid-template-columns: 1fr; min-height: auto; padding: 26px; } .open-order-card dl { gap: 14px; margin-top: 24px; } .documents-grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .open-order-card { grid-template-columns: 1fr; min-height: auto; padding: 26px; } .open-order-card dl { gap: 14px; margin-top: 24px; } .documents-grid,.account-premium .account-profile-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .client-panel .journey-row { grid-template-columns: 1fr; gap: 12px; } .client-panel .journey-row > button { justify-self: start; } .journey-detail-modal > section { padding: 34px 24px; } .journey-detail-modal dl { grid-template-columns: 1fr; gap: 15px; } }
