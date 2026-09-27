@@ -9,6 +9,7 @@ const origin = `http://127.0.0.1:${port}`;
 const pageRoutes = [
   "",
   "/account",
+  "/account/documents",
   "/account/journeys",
   "/account/profile",
   "/plan",
