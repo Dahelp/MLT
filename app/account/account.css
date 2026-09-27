@@ -24,7 +24,6 @@
 .client-panel .journey-row > div:nth-child(2) b { font-size: 20px !important; }
 .client-panel .journey-row > button { font-size: 15px !important; }
 
-/* The inline photo gradient needs to preserve readable copy, but not conceal the collection image. */
-.travel-feature { position: relative; isolation: isolate; }
-.travel-feature::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; background: rgba(255,255,255,.26); pointer-events: none; }
-.travel-feature > div { position: relative; z-index: 1; }
+.client-side nav a { display: flex; align-items: center; gap: 13px; height: 49px; padding: 0 12px; color: #bcbab2; border-radius: 8px; font-size: 14px; font-weight: 800; letter-spacing: .015em; text-align: left; text-decoration: none; }
+.client-side nav a:hover, .client-side nav a.active { color: #fff; background: #343631; }
+.client-side nav a.active svg { color: #e7b283; }

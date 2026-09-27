@@ -1,2 +1,2 @@
 import AccountPage from "../page";
-export default function JourneyHistoryPage() { return <AccountPage />; }
+export default function JourneyHistoryPage() { return <AccountPage initialTab="journeys" />; }

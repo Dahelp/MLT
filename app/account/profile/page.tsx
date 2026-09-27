@@ -1,2 +1,2 @@
 import AccountPage from "../page";
-export default function AccountProfilePage() { return <AccountPage />; }
+export default function AccountProfilePage() { return <AccountPage initialTab="profile" />; }
