@@ -84,6 +84,8 @@
 .account-premium .account-profile-grid select:focus { border-color: #ad7652; box-shadow: 0 0 0 3px rgba(173,118,82,.13); }
 .account-premium .account-profile-grid select { color-scheme: light; cursor: pointer; }
 .account-premium .account-profile-grid option { color: #292521; background: #fffdf9; }
+.account-premium .client-panel > .bronze-button { display: inline-flex; align-items: center; justify-content: center; min-width: 230px; border: 0; cursor: pointer; }
+.account-premium .client-panel > .bronze-button:disabled { opacity: .6; cursor: wait; }
 
 @media (max-width: 700px) { .open-order-card { grid-template-columns: 1fr; min-height: auto; padding: 26px; } .open-order-card dl { gap: 14px; margin-top: 24px; } .documents-grid,.account-premium .account-profile-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .client-panel .journey-row { grid-template-columns: 1fr; gap: 12px; } .client-panel .journey-row > button { justify-self: start; } .journey-detail-modal > section { padding: 34px 24px; } .journey-detail-modal dl { grid-template-columns: 1fr; gap: 15px; } }
