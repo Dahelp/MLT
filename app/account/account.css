@@ -39,12 +39,12 @@
 .account-premium.is-collapsed .client-side nav { margin-top: 74px; }
 .account-premium.is-collapsed .client-side nav a { justify-content: center; padding: 0; }
 
-.client-panel .journey-row { grid-template-columns: minmax(360px,600px) minmax(240px,280px) minmax(150px,180px); justify-content: start; column-gap: 42px; }
+.client-panel .journey-row { grid-template-columns: minmax(330px,500px) minmax(210px,250px) max-content; justify-content: start; column-gap: 26px; }
 .client-panel .journey-row > div:nth-child(2) { justify-self: start; min-width: 185px; text-align: left; }
 .client-panel .journey-row > div:nth-child(2) b + small { margin-top: 8px; }
 .client-panel .journey-row > div:nth-child(2) b + small,
 .client-panel .journey-row > div:nth-child(2) b + small + small { display: block; color: #75685d; font-size: 13px !important; line-height: 1.45; }
-.client-panel .journey-row > button { justify-self: end; min-width: 135px; text-align: left; }
+.client-panel .journey-row > button { justify-self: start; min-width: 135px; text-align: left; }
 
 .journey-detail-modal { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(22,23,20,.65); backdrop-filter: blur(7px); }
 .journey-detail-modal > section { position: relative; width: min(620px,100%); padding: 42px; border-radius: 16px; color: #282521; background: #fffdf9; box-shadow: 0 32px 90px rgba(0,0,0,.32); }
