@@ -1,3 +1,9 @@
+/* Account typography system: shared labels use one component class and scale. */
+.account-premium { --account-eyebrow-size: 14px; --account-section-eyebrow-size: 16px; --account-eyebrow-tracking: .1em; }
+.account-premium .account-eyebrow { font-size: var(--account-eyebrow-size); letter-spacing: var(--account-eyebrow-tracking); line-height: 1.35; }
+.account-premium .section-eye,
+.account-premium .client-panel > .account-eyebrow { margin-bottom: 18px; font-size: var(--account-section-eyebrow-size); }
+
 /* Readability pass requested during the visual review. */
 .client-side nav button { font-size: 14px; letter-spacing: .015em; }
 .client-support { font-size: 13px; }
@@ -16,7 +22,6 @@
 /* The dashboard is currently presented in Russian; this label follows that choice. */
 .client-widgets article:nth-child(2) p { font-size: 0; }
 .client-widgets article:nth-child(2) p::after { content: "Оплат пока нет"; font-size: 14px; }
-.client-main .section-eye { margin-bottom: 18px; font-size: 15px; letter-spacing: .1em; }
 .client-panel .journey-row { min-height: 112px !important; padding-block: 24px !important; }
 .client-panel .journey-row > div:first-child b { font-size: 20px !important; line-height: 1.3; }
 .client-panel .journey-row > div:first-child small,
@@ -28,7 +33,7 @@
 .client-side nav a:hover, .client-side nav a.active { color: #fff; background: #343631; }
 .client-side nav a.active svg { color: #e7b283; }
 
-.pay-modal .account-eyebrow { font-size: 15px; letter-spacing: .1em; line-height: 1.35; }
+.pay-modal .account-eyebrow { font-size: 15px; }
 
 .account-premium.is-collapsed .side-toggle { background: #272925; }
 .account-premium.is-collapsed .client-side nav { margin-top: 74px; }
