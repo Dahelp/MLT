@@ -13,8 +13,11 @@ function mlt_db(array $settings): ?PDO {
     try {
         $pdo = new PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['name'] . ';charset=utf8mb4', $db['user'], $db['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
         $pdo->exec('CREATE TABLE IF NOT EXISTS mlt_users (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, email VARCHAR(160) NOT NULL UNIQUE, password_hash VARCHAR(255) NOT NULL, first_name VARCHAR(80) NOT NULL, last_name VARCHAR(80) NOT NULL, phone VARCHAR(80) NULL, locale VARCHAR(8) NOT NULL DEFAULT "en", session_hash CHAR(64) NULL, session_expires_at DATETIME NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
-        $pdo->exec('CREATE TABLE IF NOT EXISTS mlt_orders (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, user_id BIGINT UNSIGNED NULL, reference_code VARCHAR(80) NOT NULL UNIQUE, status VARCHAR(24) NOT NULL DEFAULT "requested", paypal_order_id VARCHAR(128) NULL, paypal_capture_id VARCHAR(128) NULL, amount DECIMAL(12,2) NULL, currency CHAR(3) NOT NULL DEFAULT "EUR", first_name VARCHAR(80) NOT NULL, last_name VARCHAR(80) NOT NULL, customer_email VARCHAR(160) NOT NULL, phone VARCHAR(80) NULL, collection_name VARCHAR(120) NULL, vehicle_name VARCHAR(120) NULL, country_name VARCHAR(80) NULL, guests VARCHAR(40) NULL, travel_days SMALLINT NULL, arrival_date DATE NULL, departure_date DATE NULL, route_json TEXT NULL, extras_json TEXT NULL, notes TEXT NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, paid_at DATETIME NULL, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, INDEX mlt_orders_user_id (user_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+        $pdo->exec('CREATE TABLE IF NOT EXISTS mlt_orders (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, user_id BIGINT UNSIGNED NULL, reference_code VARCHAR(80) NOT NULL UNIQUE, status VARCHAR(24) NOT NULL DEFAULT "requested", payment_provider VARCHAR(24) NULL, payment_id VARCHAR(160) NULL, paypal_order_id VARCHAR(128) NULL, paypal_capture_id VARCHAR(128) NULL, amount DECIMAL(12,2) NULL, currency CHAR(3) NOT NULL DEFAULT "EUR", first_name VARCHAR(80) NOT NULL, last_name VARCHAR(80) NOT NULL, customer_email VARCHAR(160) NOT NULL, phone VARCHAR(80) NULL, collection_name VARCHAR(120) NULL, vehicle_name VARCHAR(120) NULL, country_name VARCHAR(80) NULL, guests VARCHAR(40) NULL, travel_days SMALLINT NULL, arrival_date DATE NULL, departure_date DATE NULL, route_json TEXT NULL, extras_json TEXT NULL, notes TEXT NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, paid_at DATETIME NULL, archived_at DATETIME NULL, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, INDEX mlt_orders_user_id (user_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN user_id BIGINT UNSIGNED NULL AFTER id, ADD INDEX mlt_orders_user_id (user_id)'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN payment_provider VARCHAR(24) NULL AFTER status'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN payment_id VARCHAR(160) NULL AFTER payment_provider'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN archived_at DATETIME NULL AFTER paid_at'); } catch (Throwable $error) {}
         return $pdo;
     } catch (Throwable $error) { error_log('MLT database unavailable: ' . $error->getMessage()); return null; }
 }
@@ -35,8 +38,17 @@ function mlt_mark_order_paid(PDO $db, string $reference, string $paypalOrderId, 
     $amount = $capture['purchase_units'][0]['payments']['captures'][0]['amount']['value'] ?? null;
     $currency = $capture['purchase_units'][0]['payments']['captures'][0]['amount']['currency_code'] ?? 'EUR';
     $captureId = $capture['purchase_units'][0]['payments']['captures'][0]['id'] ?? null;
-    $update = $db->prepare('UPDATE mlt_orders SET status = "paid", paypal_order_id = ?, paypal_capture_id = ?, amount = ?, currency = ?, paid_at = NOW() WHERE reference_code = ? AND status <> "paid"');
-    $update->execute([$paypalOrderId, $captureId, $amount, $currency, $reference]);
+    $update = $db->prepare('UPDATE mlt_orders SET status = "paid", payment_provider = "paypal", payment_id = ?, paypal_order_id = ?, paypal_capture_id = ?, amount = ?, currency = ?, paid_at = NOW() WHERE reference_code = ? AND status <> "paid"');
+    $update->execute([$captureId ?: $paypalOrderId, $paypalOrderId, $captureId, $amount, $currency, $reference]);
+    if ($update->rowCount() !== 1) return null;
+    $select = $db->prepare('SELECT * FROM mlt_orders WHERE reference_code = ?'); $select->execute([$reference]);
+    return $select->fetch() ?: null;
+}
+
+function mlt_mark_stripe_order_paid(PDO $db, string $reference, string $sessionId, string $paymentId, int $amountCents, string $currency): ?array {
+    $amount = number_format($amountCents / 100, 2, '.', '');
+    $update = $db->prepare('UPDATE mlt_orders SET status = "paid", payment_provider = "stripe", payment_id = ?, amount = ?, currency = ?, paid_at = NOW() WHERE reference_code = ? AND status <> "paid"');
+    $update->execute([$paymentId ?: $sessionId, $amount, strtoupper($currency ?: 'EUR'), $reference]);
     if ($update->rowCount() !== 1) return null;
     $select = $db->prepare('SELECT * FROM mlt_orders WHERE reference_code = ?'); $select->execute([$reference]);
     return $select->fetch() ?: null;
@@ -45,7 +57,8 @@ function mlt_mark_order_paid(PDO $db, string $reference, string $paypalOrderId, 
 function mlt_notify_paid(array $order, array $settings): void {
     $route = implode(' → ', json_decode($order['route_json'] ?: '[]', true) ?: []) ?: 'To be confirmed';
     $extras = implode(', ', json_decode($order['extras_json'] ?: '[]', true) ?: []) ?: 'None';
-    $message = "◆ PAYPAL PAYMENT RECEIVED\nReference: {$order['reference_code']}\nAmount: {$order['amount']} {$order['currency']}\n\nClient: {$order['first_name']} {$order['last_name']}\nEmail: {$order['customer_email']}\nPhone: " . ($order['phone'] ?: 'Not provided') . "\n\nCollection: {$order['collection_name']}\nVehicle: " . ($order['vehicle_name'] ?: 'To be confirmed') . "\nDates: " . ($order['arrival_date'] ?: '—') . ' — ' . ($order['departure_date'] ?: '—') . "\nTravellers: " . ($order['guests'] ?: '—') . "\nRoute: {$route}\nExperiences: {$extras}";
+    $provider = strtoupper((string)($order['payment_provider'] ?: 'payment'));
+    $message = "◆ {$provider} PAYMENT RECEIVED\nReference: {$order['reference_code']}\nAmount: {$order['amount']} {$order['currency']}\n\nClient: {$order['first_name']} {$order['last_name']}\nEmail: {$order['customer_email']}\nPhone: " . ($order['phone'] ?: 'Not provided') . "\n\nCollection: {$order['collection_name']}\nVehicle: " . ($order['vehicle_name'] ?: 'To be confirmed') . "\nDates: " . ($order['arrival_date'] ?: '—') . ' — ' . ($order['departure_date'] ?: '—') . "\nTravellers: " . ($order['guests'] ?: '—') . "\nRoute: {$route}\nExperiences: {$extras}";
     $token = (string)($settings['telegram_bot_token'] ?? (getenv('TELEGRAM_BOT_TOKEN') ?: ''));
     $chatId = (string)($settings['telegram_chat_id'] ?? (getenv('TELEGRAM_CHAT_ID') ?: ''));
     if ($token && $chatId) {
