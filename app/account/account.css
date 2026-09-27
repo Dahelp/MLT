@@ -39,7 +39,7 @@
 .account-premium.is-collapsed .client-side nav { margin-top: 74px; }
 .account-premium.is-collapsed .client-side nav a { justify-content: center; padding: 0; }
 
-.client-panel .journey-row { grid-template-columns: minmax(0,1fr) minmax(185px,230px) minmax(135px,max-content); column-gap: 42px; }
+.client-panel .journey-row { grid-template-columns: minmax(360px,600px) minmax(240px,280px) minmax(150px,180px); justify-content: start; column-gap: 42px; }
 .client-panel .journey-row > div:nth-child(2) { justify-self: start; min-width: 185px; text-align: left; }
 .client-panel .journey-row > div:nth-child(2) b + small { margin-top: 8px; }
 .client-panel .journey-row > div:nth-child(2) b + small,
