@@ -22,6 +22,9 @@ function mlt_db(array $settings): ?PDO {
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN archived_at DATETIME NULL AFTER paid_at'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN total_amount DECIMAL(12,2) NULL AFTER amount'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN paid_amount DECIMAL(12,2) NOT NULL DEFAULT 0 AFTER total_amount'); } catch (Throwable $error) {}
+        /* Bring legacy paid test applications into the same ledger shape as new payments. */
+        $pdo->exec('UPDATE mlt_orders SET total_amount = CASE collection_name WHEN "freedom" THEN CASE travel_days WHEN 7 THEN 1490 WHEN 10 THEN 1990 WHEN 14 THEN 2590 WHEN 21 THEN 3690 WHEN 30 THEN 4990 END WHEN "signature" THEN CASE travel_days WHEN 7 THEN 2490 WHEN 10 THEN 4290 WHEN 14 THEN 5890 END WHEN "concierge" THEN CASE travel_days WHEN 7 THEN 4990 WHEN 10 THEN 6590 WHEN 14 THEN 8990 END WHEN "private" THEN CASE travel_days WHEN 7 THEN 19900 WHEN 10 THEN 28429 WHEN 14 THEN 39800 WHEN 21 THEN 59700 WHEN 30 THEN 85286 END END WHERE status IN ("paid","partially_paid") AND (total_amount IS NULL OR total_amount=0)');
+        $pdo->exec('UPDATE mlt_orders SET amount=total_amount, paid_amount=total_amount WHERE status="paid" AND total_amount>0 AND (paid_amount IS NULL OR paid_amount=0)');
         return $pdo;
     } catch (Throwable $error) { error_log('MLT database unavailable: ' . $error->getMessage()); return null; }
 }

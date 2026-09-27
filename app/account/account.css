@@ -17,3 +17,4 @@
 .client-widgets article:nth-child(2) p { font-size: 0; }
 .client-widgets article:nth-child(2) p::after { content: "Оплат пока нет"; font-size: 14px; }
 .client-main .section-eye { margin-bottom: 18px; font-size: 15px; letter-spacing: .1em; }
+.journey-row { min-height: 92px; }.journey-row > div:first-child b { font-size: 17px; }.journey-row > div:first-child small { font-size: 13px; }.journey-row > div:nth-child(2) small { font-size: 13px; }.journey-row > div:nth-child(2) b { font-size: 17px; }.journey-row > button { font-size: 13px; }
