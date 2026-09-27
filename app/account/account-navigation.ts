@@ -13,6 +13,8 @@ if (typeof window !== "undefined") {
     const buttons = [...document.querySelectorAll<HTMLButtonElement>(".client-side nav button")];
     const index = buttons.indexOf(button);
     const destination = index === 1 ? `${localePrefix}/account/journeys/` : index === 2 ? `${localePrefix}/account/profile/` : `${localePrefix}/account/`;
-    if (window.location.pathname !== destination) window.location.assign(destination);
+    const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+    const destinationPath = destination.replace(/\/+$/, "") || "/";
+    if (currentPath !== destinationPath) window.location.assign(destination);
   });
 }

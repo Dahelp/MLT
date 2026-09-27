@@ -23,3 +23,8 @@
 .client-panel .journey-row > div:nth-child(2) small { font-size: 15px !important; line-height: 1.5; }
 .client-panel .journey-row > div:nth-child(2) b { font-size: 20px !important; }
 .client-panel .journey-row > button { font-size: 15px !important; }
+
+/* The inline photo gradient needs to preserve readable copy, but not conceal the collection image. */
+.travel-feature { position: relative; isolation: isolate; }
+.travel-feature::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; background: rgba(255,255,255,.26); pointer-events: none; }
+.travel-feature > div { position: relative; z-index: 1; }
