@@ -5,8 +5,9 @@ require_once __DIR__ . '/booking.php';
 $settingsPath = dirname(__DIR__) . '/paypal-config.php';
 $reference = substr(trim((string)($_GET['reference'] ?? '')), 0, 80);
 $orderId = substr(trim((string)($_GET['token'] ?? '')), 0, 128);
-$redirect = static function (string $result) use ($reference): void {
-    header('Location: https://mlt-lifestyle.com/account/?payment=' . $result . '&reference=' . rawurlencode($reference), true, 303);
+$kind=in_array($_GET['kind']??'', ['deposit','full','balance'],true)?$_GET['kind']:'full';
+$redirect = static function (string $result) use ($reference, &$kind): void {
+    header('Location: https://mlt-lifestyle.com/account/?payment=' . $result . '&reference=' . rawurlencode($reference) . '&kind=' . rawurlencode($kind ?? 'full'), true, 303);
     exit;
 };
 if (!is_file($settingsPath) || !$orderId || !preg_match('/^MLT-[A-Z0-9-]+$/', $reference)) $redirect('error');
@@ -28,5 +29,5 @@ if ($tokenStatus < 200 || $tokenStatus >= 300 || !$token) $redirect('error');
 [$captureStatus, $captureResult] = $call($apiBase . '/v2/checkout/orders/' . rawurlencode($orderId) . '/capture', ['Authorization: Bearer ' . $token, 'Content-Type: application/json'], '{}');
 if ($captureStatus < 200 || $captureStatus >= 300 || !is_array($captureResult)) $redirect('error');
 $database = mlt_db($settings);
-if ($database) { $order = mlt_mark_order_paid($database, $reference, $orderId, $captureResult); if ($order) mlt_notify_paid($order, $settings); }
-$redirect('success');
+if ($database) { $order = mlt_mark_order_paid($database, $reference, $orderId, $captureResult, $kind); if ($order) mlt_notify_paid($order, $settings); }
+$redirect($kind === 'deposit' ? 'partial' : 'success');

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, max-age=0');
+require_once __DIR__ . '/booking.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_encode(['error' => 'Method not allowed']); exit; }
 $settingsPath = dirname(__DIR__) . '/paypal-config.php';
@@ -15,8 +16,10 @@ $tailored = [7=>2990,10=>4290,14=>5890];
 $collection = strtolower(substr(trim((string)($body['collection'] ?? '')), 0, 30)); $days = (int)($body['days'] ?? 0); $reference = substr(trim((string)($body['reference'] ?? '')), 0, 80);
 $amount = !empty($body['signatureTailored']) && $collection === 'signature' ? ($tailored[$days] ?? 0) : ($prices[$collection][$days] ?? 0);
 if (!$amount || !preg_match('/^MLT-[A-Z0-9-]+$/', $reference)) { http_response_code(400); echo json_encode(['error'=>'This journey cannot be paid online yet. Please contact MLT Concierge.']); exit; }
+if (empty($body['consent'])) { http_response_code(400); echo json_encode(['error'=>'Please accept the booking and privacy terms.']); exit; }
+$kind=in_array($body['paymentKind']??'', ['deposit','full','balance'],true)?$body['paymentKind']:'full';$db=mlt_db($settings);$quote=$db?mlt_payment_quote($db,$reference,(float)$amount,$kind):null;if(!$quote){http_response_code(400);echo json_encode(['error'=>'This application has already been paid.']);exit;}$amount=(float)$quote['amount'];$kind=$quote['kind'];
 $origin = 'https://mlt-lifestyle.com';
-$fields = ['mode'=>'payment','client_reference_id'=>$reference,'success_url'=>$origin.'/api/stripe-capture.php?reference='.rawurlencode($reference).'&session_id={CHECKOUT_SESSION_ID}','cancel_url'=>$origin.'/account/?payment=cancelled&reference='.rawurlencode($reference),'payment_method_types[0]'=>'card','metadata[reference]'=>$reference,'metadata[collection]'=>$collection,'line_items[0][price_data][currency]'=>'eur','line_items[0][price_data][unit_amount]'=>(string)($amount * 100),'line_items[0][price_data][product_data][name]'=>'MLT '.ucfirst($collection).' Collection · '.$days.' days','line_items[0][quantity]'=>'1'];
+$fields = ['mode'=>'payment','client_reference_id'=>$reference,'success_url'=>$origin.'/api/stripe-capture.php?reference='.rawurlencode($reference).'&kind='.rawurlencode($kind).'&session_id={CHECKOUT_SESSION_ID}','cancel_url'=>$origin.'/account/?payment=cancelled&reference='.rawurlencode($reference),'payment_method_types[0]'=>'card','metadata[reference]'=>$reference,'metadata[payment_kind]'=>$kind,'metadata[collection]'=>$collection,'line_items[0][price_data][currency]'=>'eur','line_items[0][price_data][unit_amount]'=>(string)round($amount * 100),'line_items[0][price_data][product_data][name]'=>'MLT '.ucfirst($collection).' Collection · '.$days.' days','line_items[0][quantity]'=>'1'];
 $curl = curl_init('https://api.stripe.com/v1/checkout/sessions');
 curl_setopt_array($curl,[CURLOPT_POST=>true,CURLOPT_POSTFIELDS=>http_build_query($fields),CURLOPT_HTTPHEADER=>['Authorization: Basic '.base64_encode($secret.':'),'Content-Type: application/x-www-form-urlencoded'],CURLOPT_RETURNTRANSFER=>true,CURLOPT_TIMEOUT=>25]);
 $raw = curl_exec($curl); $status=(int)curl_getinfo($curl,CURLINFO_RESPONSE_CODE); curl_close($curl); $result=is_string($raw)?json_decode($raw,true):null;
