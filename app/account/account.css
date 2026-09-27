@@ -41,7 +41,9 @@
 
 .client-panel .journey-row { grid-template-columns: minmax(0,1fr) minmax(185px,230px) minmax(135px,max-content); column-gap: 42px; }
 .client-panel .journey-row > div:nth-child(2) { justify-self: start; min-width: 185px; text-align: left; }
-.client-panel .journey-row > div:nth-child(2) small:last-child { margin-top: 6px; color: #75685d; font-size: 13px !important; }
+.client-panel .journey-row > div:nth-child(2) b + small { margin-top: 8px; }
+.client-panel .journey-row > div:nth-child(2) b + small,
+.client-panel .journey-row > div:nth-child(2) b + small + small { display: block; color: #75685d; font-size: 13px !important; line-height: 1.45; }
 .client-panel .journey-row > button { justify-self: end; min-width: 135px; text-align: left; }
 
 .journey-detail-modal { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(22,23,20,.65); backdrop-filter: blur(7px); }
