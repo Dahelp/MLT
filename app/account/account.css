@@ -30,4 +30,5 @@
 
 .pay-modal .account-eyebrow { font-size: 15px; letter-spacing: .1em; line-height: 1.35; }
 
-.account-premium.is-collapsed .side-toggle { background: transparent; }
+.account-premium.is-collapsed .side-toggle { background: #272925; }
+.account-premium.is-collapsed .client-side nav { margin-top: 74px; }
