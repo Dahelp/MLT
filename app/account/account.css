@@ -29,3 +29,5 @@
 .client-side nav a.active svg { color: #e7b283; }
 
 .pay-modal .account-eyebrow { font-size: 15px; letter-spacing: .1em; line-height: 1.35; }
+
+.account-premium.is-collapsed .side-toggle { background: transparent; }
