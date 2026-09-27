@@ -26,6 +26,7 @@ const pageRoutes = [
 const locales = ["en", "de", "ru"];
 const routes = [
   "/",
+  "/concierge",
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
 ];
