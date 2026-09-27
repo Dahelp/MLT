@@ -69,6 +69,13 @@
 .open-order-actions b,.open-order-actions small { color: #fff; }
 .open-order-actions button { min-height: 51px; border: 0; border-radius: 7px; color: #29241f; background: #e5b083; font-size: 14px; font-weight: 900; cursor: pointer; }
 .open-order-actions .open-order-full { color: #29241f; border: 1px solid #e5b083; background: #f4d5b9; }
+.documents-intro { max-width: 620px; margin: -8px 0 28px; color: #75685d; font-size: 16px; line-height: 1.55; }
+.documents-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.documents-grid article { min-height: 190px; display: grid; grid-template-columns: 42px 1fr; gap: 20px; padding: 27px; border: 1px solid #ded2c4; border-radius: 14px; background: #fffdf9; }
+.documents-grid article > span { color: #ad7652; font: 400 26px Georgia,serif; }
+.documents-grid small { display: block; margin-bottom: 12px; color: #a06f50; font-size: 11px; font-weight: 900; letter-spacing: .12em; }
+.documents-grid b { display: block; color: #292521; font: 400 27px/1.05 Georgia,serif; }
+.documents-grid p { margin: 13px 0 0; color: #75685d; font-size: 14px; line-height: 1.45; }
 
-@media (max-width: 700px) { .open-order-card { grid-template-columns: 1fr; min-height: auto; padding: 26px; } .open-order-card dl { gap: 14px; margin-top: 24px; } }
+@media (max-width: 700px) { .open-order-card { grid-template-columns: 1fr; min-height: auto; padding: 26px; } .open-order-card dl { gap: 14px; margin-top: 24px; } .documents-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .client-panel .journey-row { grid-template-columns: 1fr; gap: 12px; } .client-panel .journey-row > button { justify-self: start; } .journey-detail-modal > section { padding: 34px 24px; } .journey-detail-modal dl { grid-template-columns: 1fr; gap: 15px; } }
