@@ -352,7 +352,6 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-brand { width: 132px; height: 48px; display: block; overflow: visible; }
 .light-brand img { display: block; width: 132px; height: 48px; object-fit: contain; object-position: center; }
 .light-links { display: flex; justify-content: center; gap: clamp(20px, 2.6vw, 42px); }
-.mobile-language-switch { display: none; }
 .light-links a, .nav-concierge { color: #fff; text-decoration: none; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .035em; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,.85); }
 .light-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
 .light-language { display: flex; gap: 7px; }
@@ -502,10 +501,6 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
   .light-links { position: absolute; top: 78px; left: 16px; right: 16px; display: none; padding: 28px; border-radius: 18px; background: rgba(26,26,29,.95); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
   .light-links.open { display: grid; }
   .light-actions { gap: 6px; }
-  .light-actions .header-language-menu { display: none; }
-  .mobile-language-switch { display: flex; gap: 6px; margin-top: 8px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.18); }
-  .mobile-language-switch button { min-width: 52px; min-height: 36px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: rgba(255,255,255,.72); background: transparent; font: 600 11px/1 "Helvetica Neue", Arial, sans-serif; letter-spacing: .08em; cursor: pointer; }
-  .mobile-language-switch button.active { border-color: var(--mlt-bronze); color: #fff; background: var(--mlt-bronze); }
   .light-nav .account-nav-link, .light-nav .light-menu { width: 38px; height: 38px; }
   .light-menu { display: block; }
   .light-hero { min-height: 760px; height: 100svh; }
