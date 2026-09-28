@@ -109,7 +109,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div className="light-hero-copy">
         <p className="light-eyebrow"><span />{t.eyebrow}</p>
         <p>{t.hero}</p>
-        <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections">{t.choose}</a></div>
+        <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={(event) => scrollToSection(event, "collections")}>{t.choose}</a></div>
       </div>
       <div className="hero-bottom-bar">
         <a className="light-scroll" href="#about"><span>{t.scroll}</span><i>↓</i></a>
