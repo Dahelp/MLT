@@ -20,9 +20,7 @@ const collections = [
   { id: "honeymoon", name: "Honeymoon", image: "/collection-honeymoon.jpg", eyebrow: "A private journey for two", copy: "Romantic roads, private stays and beautiful moments composed entirely around the two of you.", rate: "From €5,900 for 7 days", days: "7–14 days" },
 ] as const;
 
-const carouselCopies = 9;
-const carouselMiddleStart = collections.length * Math.floor(carouselCopies / 2);
-const carouselCollections = Array.from({ length: carouselCopies }, () => collections).flat();
+const carouselCollections = collections;
 
 const experiences = [
   ["01", "Family expedition", "Routes created around wonder — lakes, mountains, castles and unhurried evenings."],
@@ -37,6 +35,14 @@ const russianCollections = [
   { name: "Консьерж", eyebrow: "Всегда на шаг впереди", copy: "Ваше путешествие с личным консьержем MLT, который доступен круглосуточно.", rate: "От €4 990 за 7 дней" },
   { name: "Приватная", eyebrow: "Личный мир в движении", copy: "Пятизвёздочная резиденция на колёсах с водителем, персональной командой и сервисом, полностью созданным для вас.", rate: "От €19 900 за 7 дней" },
   { name: "Honeymoon", eyebrow: "Личное путешествие для двоих", copy: "Романтические дороги, приватные стоянки и прекрасные моменты, созданные только для вас двоих.", rate: "От €5 900 за 7 дней" },
+] as const;
+
+const germanCollections = [
+  { name: "Freedom", eyebrow: "Selbstbestimmt entdecken", copy: "Ein vollständig ausgestattetes Premium-Reisemobil, eine kuratierte Karte und die Freiheit, dem eigenen Rhythmus zu folgen.", rate: "Ab 1.490 € für 7 Tage" },
+  { name: "Signature", eyebrow: "Von Anfang bis Ende kuratiert", copy: "Eine persönliche Route, reservierte Stellplätze und besondere Straßen — alle wichtigen Details sind vorbereitet.", rate: "Ab 2.490 € für 7 Tage" },
+  { name: "Concierge", eyebrow: "Immer einen Schritt voraus", copy: "Ihre Reise mit einem persönlichen MLT Concierge, der rund um die Uhr erreichbar ist.", rate: "Ab 4.990 € für 7 Tage" },
+  { name: "Private", eyebrow: "Eine private Welt in Bewegung", copy: "Eine Fünf-Sterne-Residenz auf Rädern mit Fahrer, privatem Team und vollständig persönlichem Service.", rate: "Ab 19.900 € für 7 Tage" },
+  { name: "Honeymoon", eyebrow: "Eine private Reise zu zweit", copy: "Romantische Straßen, private Stellplätze und besondere Momente — nur für Sie beide komponiert.", rate: "Ab 5.900 € für 7 Tage" },
 ] as const;
 
 const russianExperiences = [
@@ -130,15 +136,15 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Пять способов путешествовать" : locale === "de" ? "Fünf Arten zu reisen" : "Five ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p></div></div>
       <div className="collection-rail-shell">
       <button className="carousel-side-arrow carousel-side-arrow-prev" onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button>
-      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={carouselMiddleStart + 3} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={850} grabCursor keyboard={{ enabled: true }} allowTouchMove touchStartPreventDefault={false} touchMoveStopPropagation={false} touchAngle={30} threshold={10} touchReleaseOnEdges coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; }} onSlideChangeTransitionEnd={(instance) => { if (instance.activeIndex < collections.length * 2 || instance.activeIndex >= collections.length * (carouselCopies - 2)) instance.slideTo(carouselMiddleStart + (instance.activeIndex % collections.length), 0, false); }} aria-label="MLT collections">
-        {carouselCollections.map((item, index) => { const localizedItem = locale === "ru" ? russianCollections[index % collections.length] : item; return <SwiperSlide className="collection-slide" key={`${item.id}-${index}`}><a className="collection-card-link" href={localPath(`/collections/${item.id}`)} aria-label={locale === "ru" ? `Открыть коллекцию MLT «${localizedItem.name}»` : `Open MLT ${item.name} Collection`}><article className="light-collection-card">
+      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={0} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={650} loop simulateTouch={false} keyboard={{ enabled: true }} allowTouchMove touchAngle={35} threshold={8} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; }} aria-label="MLT collections">
+        {carouselCollections.map((item, index) => { const localizedItem = locale === "ru" ? russianCollections[index % collections.length] : locale === "de" ? germanCollections[index % collections.length] : item; return <SwiperSlide className="collection-slide" key={`${item.id}-${index}`}><a className="collection-card-link" href={localPath(`/collections/${item.id}`)} aria-label={locale === "ru" ? `Открыть коллекцию MLT «${localizedItem.name}»` : `Open MLT ${item.name} Collection`}><article className="light-collection-card">
           <picture>
             <source srcSet={item.image.replace(".jpg", ".avif")} type="image/avif" />
             <source srcSet={item.image.replace(".jpg", ".webp")} type="image/webp" />
-            <img src={item.image} alt={locale === "ru" ? `Коллекция MLT «${localizedItem.name}»` : `MLT ${item.name} Collection`} loading="lazy" decoding="async" />
+            <img src={item.image} alt={locale === "ru" ? `Коллекция MLT «${localizedItem.name}»` : `MLT ${item.name} Collection`} loading="lazy" decoding="async" draggable="false" />
           </picture>
           <div className="collection-top"><span>0{(index % collections.length) + 1}</span><small>{localizedItem.eyebrow}</small></div>
-          <div className="collection-card-copy"><h3>MLT {localizedItem.name}<br /><em>{locale === "ru" ? "Коллекция" : "Collection"}</em></h3><p>{localizedItem.copy}</p><div><span>{item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
+          <div className="collection-card-copy"><h3>MLT {localizedItem.name}<br /><em>{locale === "ru" ? "Коллекция" : locale === "de" ? "Kollektion" : "Collection"}</em></h3><p>{localizedItem.copy}</p><div><span>{locale === "ru" ? item.days.replace("days", "дней") : locale === "de" ? item.days.replace("days", "Tage") : item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
         </article></a></SwiperSlide>; })}
       </SwiperCarousel>
       <button className="carousel-side-arrow carousel-side-arrow-next" onClick={() => carousel.current?.slideNext()} aria-label="Next collection">→</button>

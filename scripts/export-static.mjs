@@ -18,6 +18,7 @@ const pageRoutes = [
   "/collections/signature",
   "/collections/concierge",
   "/collections/private",
+  "/collections/honeymoon",
   "/collections/proposal",
   "/fleet/explorer",
   "/fleet/granduca",

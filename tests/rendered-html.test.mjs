@@ -34,7 +34,7 @@ test("renders all public MVP routes", async () => {
   const routes = [
     "/en/", "/de/", "/ru/",
     "/en/plan/", "/de/plan/", "/ru/plan/", "/en/proposal/",
-    "/en/collections/freedom/", "/en/collections/signature/", "/en/collections/concierge/", "/en/collections/private/", "/en/collections/proposal/",
+    "/en/collections/freedom/", "/en/collections/signature/", "/en/collections/concierge/", "/en/collections/private/", "/en/collections/honeymoon/", "/en/collections/proposal/",
     "/de/fleet/explorer/", "/en/fleet/granduca/", "/ru/fleet/compatto/",
     "/en/legal/imprint/", "/de/legal/privacy/", "/ru/legal/terms/",
   ];
