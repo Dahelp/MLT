@@ -6,7 +6,7 @@ $reference = substr(trim((string)($_GET['reference'] ?? '')),0,80); $sessionId=s
 $kind=in_array($_GET['kind']??'', ['deposit','full','balance'],true)?$_GET['kind']:'full';
 $redirect = static function(string $result) use($reference,&$kind): void { header('Location: https://mlt-lifestyle.com/account/?payment='.$result.'&reference='.rawurlencode($reference).'&kind='.rawurlencode($kind??'full'),true,303); exit; };
 $settings=mlt_settings(); $secret=(string)($settings['stripe_secret_key']??'');
-if (!$sessionId || !preg_match('/^MLT-[A-Z0-9-]+$/',$reference) || !str_starts_with($secret,'sk_')) $redirect('error');
+if (!$sessionId || !preg_match('/^MLT-[A-Z0-9-]+$/',$reference) || !preg_match('/^(?:sk|rk)_(?:test|live)_/', $secret)) $redirect('error');
 $curl=curl_init('https://api.stripe.com/v1/checkout/sessions/'.rawurlencode($sessionId));
 curl_setopt_array($curl,[CURLOPT_HTTPHEADER=>['Authorization: Basic '.base64_encode($secret.':')],CURLOPT_RETURNTRANSFER=>true,CURLOPT_TIMEOUT=>25]);
 $raw=curl_exec($curl); $status=(int)curl_getinfo($curl,CURLINFO_RESPONSE_CODE); curl_close($curl); $session=is_string($raw)?json_decode($raw,true):null;

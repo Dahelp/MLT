@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_
 $settingsPath = dirname(__DIR__) . '/paypal-config.php';
 $settings = is_file($settingsPath) ? require $settingsPath : [];
 $secret = is_array($settings) ? (string)($settings['stripe_secret_key'] ?? '') : '';
-if (!str_starts_with($secret, 'sk_test_') && !str_starts_with($secret, 'sk_live_')) { http_response_code(503); echo json_encode(['error' => 'Stripe is not configured yet.']); exit; }
+if (!preg_match('/^(?:sk|rk)_(?:test|live)_/', $secret)) { http_response_code(503); echo json_encode(['error' => 'Stripe is not configured yet.']); exit; }
 $body = json_decode(file_get_contents('php://input'), true); if (!is_array($body)) $body = [];
 $prices = ['freedom'=>[7=>1490,10=>1990,14=>2590,21=>3690,30=>4990], 'signature'=>[7=>2490,10=>4290,14=>5890], 'concierge'=>[7=>4990,10=>6590,14=>8990], 'private'=>[7=>19900,10=>28429,14=>39800,21=>59700,30=>85286]];
 $tailored = [7=>2990,10=>4290,14=>5890];
