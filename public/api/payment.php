@@ -75,8 +75,16 @@ $order = ['intent' => 'CAPTURE', 'purchase_units' => [['reference_id' => $refere
 $approvalUrl = '';
 foreach ((is_array($orderResult) ? ($orderResult['links'] ?? []) : []) as $link) if (($link['rel'] ?? '') === 'approve') $approvalUrl = (string)($link['href'] ?? '');
 if ($orderStatus < 200 || $orderStatus >= 300 || !$approvalUrl) {
+    $detail = is_array($orderResult) && isset($orderResult['details'][0]) && is_array($orderResult['details'][0]) ? $orderResult['details'][0] : [];
+    $issue = preg_replace('/[^A-Z0-9_]/', '', (string)($detail['issue'] ?? ''));
+    $description = trim((string)($detail['description'] ?? ''));
+    $debugId = preg_replace('/[^a-zA-Z0-9]/', '', (string)($orderResult['debug_id'] ?? ''));
+    error_log('PayPal checkout failed: status=' . $orderStatus . ' issue=' . $issue . ' debug_id=' . $debugId);
     http_response_code(502);
-    echo json_encode(['error' => 'PayPal checkout could not be started. Please try Stripe or contact MLT Concierge.']);
+    $message = $issue ? 'PayPal: ' . $issue : 'PayPal checkout could not be started.';
+    if ($description) $message .= ' ' . $description;
+    if ($debugId) $message .= ' (Debug ID: ' . $debugId . ')';
+    echo json_encode(['error' => $message . ' Please try Stripe or contact MLT Concierge.']);
     exit;
 }
 echo json_encode(['url' => $approvalUrl]);
