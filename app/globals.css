@@ -424,7 +424,7 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .carousel-side-arrow:hover { background: rgba(28,30,30,.78); box-shadow: 0 13px 34px rgba(0,0,0,.3); transform: translateY(-50%) scale(1.06); }
 .carousel-side-arrow-prev { left: 22px; }
 .carousel-side-arrow-next { right: 22px; }
-.collection-rail { width: 100%; padding: 12px 0 38px; overflow: hidden; touch-action: pan-y; }
+.collection-rail { width: 100%; padding: 12px 0 38px; overflow: hidden; touch-action: pan-y; user-select: none; }
 .collection-slide { width: min(420px, 68vw) !important; height: auto; opacity: .68; transform-origin: center; transition: opacity .55s ease, filter .55s ease; filter: saturate(.8) brightness(.92); }
 .collection-slide.swiper-slide-active { opacity: 1; filter: none; }
 .collection-card-link { display: block; color: inherit; text-decoration: none; cursor: pointer; }
