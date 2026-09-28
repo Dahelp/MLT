@@ -108,7 +108,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div className="light-hero-wash" />
       <div className="light-hero-copy">
         <p className="light-eyebrow"><span />{t.eyebrow}</p>
-        <h1 className={locale === "ru" ? "hero-title-ru" : undefined}>{t.titleA}<br /><em>{t.titleB}</em></h1>
+        {locale !== "en" && <h1 className={locale === "ru" ? "hero-title-ru" : undefined}>{t.titleA}<br /><em>{t.titleB}</em></h1>}
         <p>{t.hero}</p>
         <div className="light-hero-buttons"><a className="bronze-button" href="#collections">{t.choose}<span>↗</span></a></div>
       </div>
