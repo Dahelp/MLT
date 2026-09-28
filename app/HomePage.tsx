@@ -17,6 +17,7 @@ const collections = [
   { id: "signature", name: "Signature", image: "/collection-signature.jpg", eyebrow: "Curated end to end", copy: "A personal route, reserved stays and remarkable roads — every essential detail already considered.", rate: "From €2,490 for 7 days", days: "7–14 days" },
   { id: "concierge", name: "Concierge", image: "/collection-concierge.jpg", eyebrow: "Always one step ahead", copy: "Your journey, supported by a dedicated MLT concierge, available around the clock.", rate: "From €4,990 for 7 days", days: "7–14 days" },
   { id: "private", name: "Private", image: "/collection-private.jpg", eyebrow: "A private world in motion", copy: "A five-star travelling residence with driver, private team and service shaped entirely around you.", rate: "From €19,900 for 7 days", days: "7–21 days" },
+  { id: "honeymoon", name: "Honeymoon", image: "/collection-honeymoon.jpg", eyebrow: "A private journey for two", copy: "Romantic roads, private stays and beautiful moments composed entirely around the two of you.", rate: "From €5,900 for 7 days", days: "7–14 days" },
 ] as const;
 
 const carouselCopies = 9;
@@ -35,6 +36,7 @@ const russianCollections = [
   { name: "Фирменная", eyebrow: "Продумано от начала до конца", copy: "Персональный маршрут, забронированные места и удивительные дороги — каждая важная деталь уже учтена.", rate: "От €2 490 за 7 дней" },
   { name: "Консьерж", eyebrow: "Всегда на шаг впереди", copy: "Ваше путешествие с личным консьержем MLT, который доступен круглосуточно.", rate: "От €4 990 за 7 дней" },
   { name: "Приватная", eyebrow: "Личный мир в движении", copy: "Пятизвёздочная резиденция на колёсах с водителем, персональной командой и сервисом, полностью созданным для вас.", rate: "От €19 900 за 7 дней" },
+  { name: "Honeymoon", eyebrow: "Личное путешествие для двоих", copy: "Романтические дороги, приватные стоянки и прекрасные моменты, созданные только для вас двоих.", rate: "От €5 900 за 7 дней" },
 ] as const;
 
 const russianExperiences = [
@@ -125,7 +127,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     </section>
 
     <section className="light-collections" id="collections">
-      <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Четыре способа путешествовать" : locale === "de" ? "Vier Arten zu reisen" : "Four ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p></div></div>
+      <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Пять способов путешествовать" : locale === "de" ? "Fünf Arten zu reisen" : "Five ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p></div></div>
       <div className="collection-rail-shell">
       <button className="carousel-side-arrow carousel-side-arrow-prev" onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button>
       <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={carouselMiddleStart + 3} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={850} grabCursor keyboard={{ enabled: true }} allowTouchMove touchStartPreventDefault={false} touchMoveStopPropagation={false} touchAngle={30} threshold={10} touchReleaseOnEdges coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; }} onSlideChangeTransitionEnd={(instance) => { if (instance.activeIndex < collections.length * 2 || instance.activeIndex >= collections.length * (carouselCopies - 2)) instance.slideTo(carouselMiddleStart + (instance.activeIndex % collections.length), 0, false); }} aria-label="MLT collections">

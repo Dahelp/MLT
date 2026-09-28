@@ -16,6 +16,12 @@ if ($action === 'register' || $action === 'login') {
   $newToken=bin2hex(random_bytes(32)); $q=$db->prepare('UPDATE mlt_users SET session_hash=?,session_expires_at=DATE_ADD(NOW(), INTERVAL 30 DAY) WHERE id=?'); $q->execute([hash('sha256',$newToken),$user['id']]); echo json_encode(['ok'=>true,'token'=>$newToken,'user'=>$public($user)]); exit;
 }
 $user = $userForToken($db, $token); if (!$user) { http_response_code(401); echo json_encode(['error'=>'Please sign in again.']); exit; }
+if($action==='create_application'&&strtolower($clean($body['collection']??'',30))==='honeymoon'){
+ if(in_array($user['role']??'',['admin','concierge'],true)){http_response_code(403);echo json_encode(['error'=>'Operators cannot create client applications.']);exit;}
+ $days=(int)($body['days']??0);$prices=[7=>5900,10=>7000,14=>8900];$base=$prices[$days]??0;if(!$base){http_response_code(400);echo json_encode(['error'=>'Invalid Honeymoon journey selection.']);exit;}
+ $q=$db->prepare('SELECT reference_code FROM mlt_orders WHERE (user_id=? OR customer_email=?) AND archived_at IS NULL AND status NOT IN ("completed","cancelled") ORDER BY created_at DESC LIMIT 1');$q->execute([$user['id'],$user['email']]);$existing=$q->fetchColumn();if($existing){echo json_encode(['ok'=>true,'created'=>false,'reference'=>$existing]);exit;}
+ $guests=max(1,min(2,(int)($body['guests']??2)));$reference='MLT-'.strtoupper(substr(base_convert((string)round(microtime(true)*1000),10,36),-8));mlt_create_order($db,$reference,['collection'=>'honeymoon','country'=>$clean($body['country']??'',80),'days'=>$days,'arrival'=>$clean($body['arrival']??'',20),'departure'=>$clean($body['departure']??'',20),'guests'=>(string)$guests,'vehicle'=>$clean($body['vehicle']??'MLT motorhome',120),'route'=>[$clean($body['route']??'',160)],'extras'=>[],'notes'=>'Honeymoon Collection application'],['firstName'=>$user['first_name'],'lastName'=>$user['last_name'],'email'=>$user['email'],'phone'=>$user['phone']??'']);$db->prepare('UPDATE mlt_orders SET total_amount=? WHERE reference_code=?')->execute([$base,$reference]);echo json_encode(['ok'=>true,'created'=>true,'reference'=>$reference]);exit;
+}
 if ($action === 'reset_all_orders') {
   if (($user['role'] ?? '') !== 'admin') { http_response_code(403); echo json_encode(['error'=>'Administrator access required.']); exit; }
   try {

@@ -7,6 +7,7 @@ const prices: Record<string, Record<number, number>> = {
   signature: { 7: 2490, 10: 3290, 14: 4390 },
   concierge: { 7: 4990, 10: 7129, 14: 9980, 21: 14970, 30: 21386 },
   private: { 7: 19900, 10: 28429, 14: 39800, 21: 59700, 30: 85286 },
+  honeymoon: { 7: 5900, 10: 7000, 14: 8900 },
 };
 const freedomPlusPrices: Record<number, number> = { 7: 1790, 10: 2340, 14: 3040, 21: 4190, 30: 5490 };
 const signatureTailoredPrices: Record<number, number> = { 7: 2990, 10: 4290, 14: 5890 };

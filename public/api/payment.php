@@ -35,6 +35,7 @@ $prices = [
     'signature' => [7 => 2490, 10 => 4290, 14 => 5890],
     'concierge' => [7 => 4990, 10 => 6590, 14 => 8990],
     'private' => [7 => 19900, 10 => 28429, 14 => 39800, 21 => 59700, 30 => 85286],
+    'honeymoon' => [7 => 5900, 10 => 7000, 14 => 8900],
 ];
 $signatureTailored = [7 => 2990, 10 => 4290, 14 => 5890];
 $collection = strtolower(substr(trim((string)($body['collection'] ?? '')), 0, 30));
