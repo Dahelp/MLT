@@ -375,12 +375,13 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-hero-wash { background: linear-gradient(90deg, rgba(15,17,16,.35) 0%, rgba(15,17,16,.08) 38%, rgba(15,17,16,.1) 76%), linear-gradient(180deg, rgba(12,13,13,.31) 0%, transparent 36%), linear-gradient(0deg, rgba(12,13,13,.48), transparent 42%); }
 .light-hero-copy { position: absolute; z-index: 2; top: 51%; left: 50%; width: min(760px, calc(100% - 48px)); text-align: center; transform: translate(-50%, -45%); }
 .light-eyebrow, .light-section-label { display: flex; align-items: center; gap: 12px; margin-bottom: 28px !important; color: var(--mlt-bronze); font-size: 12px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
-.light-eyebrow { color: #fff; }
-.light-eyebrow span { width: 42px; height: 1px; background: var(--mlt-sand); }
+.light-eyebrow { justify-content: center; margin-bottom: 20px !important; color: #fff; font-size: clamp(12px, .95vw, 15px); font-weight: 600; letter-spacing: .09em; }
+.light-eyebrow span { width: 42px; height: 1px; background: rgba(255,255,255,.65); }
+.light-eyebrow::after { width: 42px; height: 1px; content: ""; background: rgba(255,255,255,.65); }
 .light-hero h1 { max-width: 760px; font: 600 clamp(58px, 7.2vw, 110px)/.88 Georgia, "Times New Roman", serif; letter-spacing: -.045em; text-wrap: balance; text-shadow: 0 4px 28px rgba(0,0,0,.64); }
 .light-hero h1 em { color: #f0d8b7; font-weight: 400; }
 .light-hero h1.hero-title-ru { max-width: 940px; font-size: clamp(43px, 4.7vw, 74px); line-height: .98; }
-.light-hero-copy > p:not(.light-eyebrow) { max-width: 650px; margin: 22px auto 0; font-size: clamp(17px, 1.3vw, 20px); font-weight: 600; line-height: 1.58; text-shadow: 0 3px 18px rgba(0,0,0,.9); }
+.light-hero-copy > p:not(.light-eyebrow) { max-width: 650px; margin: 20px auto 0; font-size: clamp(16px, 1.22vw, 19px); font-weight: 400; line-height: 1.48; text-shadow: 0 3px 18px rgba(0,0,0,.82); }
 .light-hero-buttons { display: flex; justify-content: center; align-items: center; gap: 28px; margin-top: 30px; }
 .bronze-button, .text-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 54px; padding: 0 22px; color: #fff; text-decoration: none; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .bronze-button { min-width: 244px; border: 1px solid var(--mlt-bronze); border-radius: 999px; background: var(--mlt-bronze); box-shadow: 0 10px 28px rgba(60,31,11,.26); }
