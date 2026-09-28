@@ -495,13 +495,13 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 }
 
 @media (max-width: 760px) {
-  .light-nav { position: absolute; top: 12px; left: 16px; width: calc(100% - 32px); height: 66px; grid-template-columns: minmax(0, 1fr) auto; padding-inline: 12px; transform: none; }
+  .light-nav { position: absolute; top: 12px; left: 16px; width: calc(100% - 32px); height: 66px; grid-template-columns: minmax(0, 1fr) auto; gap: 0; padding-inline: 12px; transform: none; }
   .light-brand { width: 110px; height: 42px; }
   .light-brand img { width: 110px; height: 42px; }
   .light-links { position: absolute; top: 78px; left: 16px; right: 16px; display: none; padding: 28px; border-radius: 18px; background: rgba(26,26,29,.95); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
   .light-links.open { display: grid; }
   .light-actions { gap: 6px; }
-  .account-nav-link, .light-menu { width: 38px; height: 38px; }
+  .light-nav .account-nav-link, .light-nav .light-menu { width: 38px; height: 38px; }
   .light-menu { display: block; }
   .light-hero { min-height: 760px; height: 100svh; }
   .light-hero-image { object-position: 54% center; }
