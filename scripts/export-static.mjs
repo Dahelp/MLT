@@ -30,6 +30,11 @@ const locales = ["en", "de", "ru"];
 const routes = [
   "/",
   "/concierge",
+  "/concierge/overview",
+  "/concierge/applications",
+  "/concierge/payments",
+  "/concierge/catalog",
+  "/concierge/team",
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
 ];
