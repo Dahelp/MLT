@@ -92,6 +92,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
         <a href="#experiences" onClick={(event) => scrollToSection(event, "experiences")}>{t.nav[1]}</a>
         <a href="#smart-map" onClick={(event) => scrollToSection(event, "smart-map")}>{t.nav[2]}</a>
         <a href="#about" onClick={(event) => scrollToSection(event, "about")}>{t.nav[3]}</a>
+        <div className="mobile-language-switch" aria-label={locale === "ru" ? "Выбор языка" : "Language selection"}>{(["en", "de", "ru"] as SiteLocale[]).map((language) => <button type="button" className={locale === language ? "active" : ""} onClick={() => changeLocale(language)} key={language}>{language.toUpperCase()}</button>)}</div>
       </nav>
       <div className="light-actions">
         <LanguageMenu locale={locale} onChange={changeLocale} /><a className="account-nav-link" href={localPath("/account")} aria-label={locale === "ru" ? "Личный кабинет" : "My account"}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M4.5 20c.8-3.7 3.3-5.5 7.5-5.5s6.7 1.8 7.5 5.5" /></svg></a>
