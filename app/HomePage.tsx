@@ -95,16 +95,15 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       </nav>
       <div className="light-actions">
         <LanguageMenu locale={locale} onChange={changeLocale} /><a className="account-nav-link" href={localPath("/account")} aria-label={locale === "ru" ? "Личный кабинет" : "My account"}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M4.5 20c.8-3.7 3.3-5.5 7.5-5.5s6.7 1.8 7.5 5.5" /></svg></a>
-        <a className="nav-concierge" href="#contact" onClick={(event) => scrollToSection(event, "contact")}>{t.concierge}</a>
         <button className="light-menu" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu"><span /><span /></button>
       </div>
     </header>
 
     <section className="light-hero" id="top">
       <picture>
-        <source srcSet="/hero-coast-motorhome.avif" type="image/avif" />
-        <source srcSet="/hero-coast-motorhome.webp" type="image/webp" />
-        <img className="light-hero-image" src="/hero-coast-motorhome.jpg" alt="MLT motorhome overlooking the Mediterranean coast at sunset" fetchPriority="high" decoding="async" />
+        <source srcSet="/hero-mediterranean-sunset.avif" type="image/avif" />
+        <source srcSet="/hero-mediterranean-sunset.webp" type="image/webp" />
+        <img className="light-hero-image" src="/hero-mediterranean-sunset.jpg" alt="MLT motorhome overlooking the Mediterranean coast at sunset" fetchPriority="high" decoding="async" />
       </picture>
       <div className="light-hero-wash" />
       <div className="light-hero-copy">
@@ -113,9 +112,11 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
         <p>{t.hero}</p>
         <div className="light-hero-buttons"><a className="bronze-button" href="#collections">{t.choose}<span>↗</span></a></div>
       </div>
-      <button className="light-chat" onClick={() => setChatOpen(!chatOpen)} aria-expanded={chatOpen} aria-label={locale === "ru" ? "Открыть чат" : "Open concierge chat"}><span className="chat-icon"><i /><i /><i /></span><b>{locale === "ru" ? "Чат" : locale === "de" ? "Chat" : "Chat"}</b></button>
+      <div className="hero-bottom-bar">
+        <a className="light-scroll" href="#about"><span>{t.scroll}</span><i>↓</i></a>
+        <button className="light-chat" onClick={() => setChatOpen(!chatOpen)} aria-expanded={chatOpen} aria-label={locale === "ru" ? "Открыть чат" : "Open concierge chat"}><b>{locale === "ru" ? "Чат" : "Chat"}</b><span className="chat-icon"><i /><i /><i /></span></button>
+      </div>
       {chatOpen && <aside className="hero-chat-panel"><button className="chat-close" onClick={() => setChatOpen(false)} aria-label={locale === "ru" ? "Закрыть чат" : "Close chat"}>×</button><small>{locale === "ru" ? "Консьерж MLT" : "MLT Concierge"}</small><strong>{locale === "ru" ? "Давайте обсудим ваше путешествие" : locale === "de" ? "Lassen Sie uns Ihre Reise besprechen" : "Let’s discuss your journey"}</strong><p>{locale === "ru" ? "Ответим и поможем выбрать коллекцию." : "A personal MLT concierge will help you choose the right collection."}</p><a href="mailto:concierge@mlt-travel.com">{locale === "ru" ? "Написать консьержу" : "Message the concierge"}<span>↗</span></a></aside>}
-      <a className="light-scroll" href="#about"><span>{t.scroll}</span><i>↓</i></a>
     </section>
 
     <section className="light-philosophy" id="about">
