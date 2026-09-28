@@ -13,18 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $settingsPath = dirname(__DIR__) . '/paypal-config.php';
-if (!is_file($settingsPath)) {
-    http_response_code(503);
-    echo json_encode(['error' => 'PayPal is not configured yet.']);
-    exit;
-}
-$settings = require $settingsPath;
-$clientId = is_array($settings) ? (string)($settings['client_id'] ?? '') : '';
-$secret = is_array($settings) ? (string)($settings['client_secret'] ?? '') : '';
-$mode = is_array($settings) ? (string)($settings['mode'] ?? 'sandbox') : 'sandbox';
+$settings = is_file($settingsPath) ? require $settingsPath : [];
+$clientId = is_array($settings) ? (string)($settings['client_id'] ?? getenv('PAYPAL_CLIENT_ID') ?: '') : (string)(getenv('PAYPAL_CLIENT_ID') ?: '');
+$secret = is_array($settings) ? (string)($settings['client_secret'] ?? getenv('PAYPAL_CLIENT_SECRET') ?: '') : (string)(getenv('PAYPAL_CLIENT_SECRET') ?: '');
+$mode = is_array($settings) ? (string)($settings['mode'] ?? getenv('PAYPAL_MODE') ?: 'sandbox') : (string)(getenv('PAYPAL_MODE') ?: 'sandbox');
 if (!$clientId || !$secret) {
     http_response_code(503);
-    echo json_encode(['error' => 'PayPal is not configured yet.']);
+    echo json_encode(['error' => 'PayPal is temporarily unavailable. Please try Stripe or contact MLT Concierge.']);
     exit;
 }
 
@@ -71,7 +66,7 @@ $request = static function (string $url, array $headers, string $payload): array
 $token = is_array($tokenResult) ? ($tokenResult['access_token'] ?? '') : '';
 if ($tokenStatus < 200 || $tokenStatus >= 300 || !$token) {
     http_response_code(502);
-    echo json_encode(['error' => 'Unable to authenticate with PayPal.']);
+    echo json_encode(['error' => 'PayPal is temporarily unavailable. Please try Stripe or contact MLT Concierge.']);
     exit;
 }
 $origin = 'https://mlt-lifestyle.com';
@@ -81,7 +76,7 @@ $approvalUrl = '';
 foreach ((is_array($orderResult) ? ($orderResult['links'] ?? []) : []) as $link) if (($link['rel'] ?? '') === 'approve') $approvalUrl = (string)($link['href'] ?? '');
 if ($orderStatus < 200 || $orderStatus >= 300 || !$approvalUrl) {
     http_response_code(502);
-    echo json_encode(['error' => 'Unable to start PayPal checkout.']);
+    echo json_encode(['error' => 'PayPal checkout could not be started. Please try Stripe or contact MLT Concierge.']);
     exit;
 }
 echo json_encode(['url' => $approvalUrl]);
