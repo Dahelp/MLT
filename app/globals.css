@@ -377,7 +377,7 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-hero-copy { position: absolute; z-index: 2; isolation: isolate; top: 51%; left: 50%; width: min(760px, calc(100% - 48px)); text-align: center; transform: translate(-50%, -45%); }
 .light-hero-copy::before { position: absolute; z-index: -1; inset: -54px -88px -48px; content: ""; background: radial-gradient(ellipse at center, rgba(13,14,13,.6) 0%, rgba(13,14,13,.38) 48%, rgba(13,14,13,0) 75%); pointer-events: none; }
 .light-eyebrow, .light-section-label { display: flex; align-items: center; gap: 12px; margin-bottom: 28px !important; color: var(--mlt-bronze); font-size: 12px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
-.light-eyebrow { justify-content: center; margin-bottom: 20px !important; color: #fff; font-size: clamp(12px, .95vw, 15px); font-weight: 600; letter-spacing: .09em; }
+.light-eyebrow { justify-content: center; margin-bottom: 20px !important; color: #fff; font-size: clamp(14px, 1.1vw, 17px); font-weight: 600; letter-spacing: .09em; }
 .light-eyebrow span { width: 42px; height: 1px; background: rgba(255,255,255,.65); }
 .light-eyebrow::after { width: 42px; height: 1px; content: ""; background: rgba(255,255,255,.65); }
 .light-hero h1 { max-width: 760px; font: 600 clamp(58px, 7.2vw, 110px)/.88 Georgia, "Times New Roman", serif; letter-spacing: -.045em; text-wrap: balance; text-shadow: 0 4px 28px rgba(0,0,0,.64); }
