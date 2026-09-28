@@ -1,7 +1,8 @@
-.concierge-side nav a{display:block;padding:13px 12px;border-radius:8px;color:#d7d5cb;text-decoration:none;font-size:12px;font-weight:800}
+.concierge-side nav a{display:block;padding:15px 13px;border-radius:8px;color:#d7d5cb;text-decoration:none;font-size:15px;font-weight:800;line-height:1.25}
 .concierge-side nav a.active,.concierge-side nav a:hover{color:#242522;background:#e4b087}
-.concierge-side nav a span{display:inline-grid;width:18px;place-items:center;margin-right:8px;color:#e4b087;font-size:16px}
+.concierge-side nav a span{display:inline-grid;width:21px;place-items:center;margin-right:9px;color:#e4b087;font-size:19px}
 .concierge-side nav a.active span,.concierge-side nav a:hover span{color:inherit}
-.concierge-side nav a em{float:right;padding-top:2px;color:#948f85;font-size:9px;font-style:normal;font-weight:700}
-.concierge-logout{width:100%;padding:12px;border:1px solid #716b61;border-radius:8px;color:#e8b084;background:transparent;font-size:12px;font-weight:800;text-align:left;cursor:pointer}
+.concierge-side nav a em{float:right;padding-top:2px;color:#948f85;font-size:11px;font-style:normal;font-weight:700}
+.operations-language{display:flex;align-items:center;gap:5px;margin:0 0 18px;padding:11px 10px;border:1px solid #4e504a;border-radius:8px;color:#c9c5bc;font-size:12px;font-weight:800}.operations-language span{margin-right:auto}.operations-language button{min-width:31px;padding:6px 4px;border:1px solid transparent;border-radius:5px;color:#c9c5bc;background:transparent;font-size:11px;font-weight:800;cursor:pointer}.operations-language button:hover,.operations-language button.active{color:#20221f;background:#e4b087}
+.concierge-logout{width:100%;padding:14px;border:1px solid #716b61;border-radius:8px;color:#e8b084;background:transparent;font-size:14px;font-weight:800;text-align:left;cursor:pointer}
 .concierge-logout:hover{border-color:#e4b087;color:#fff}
