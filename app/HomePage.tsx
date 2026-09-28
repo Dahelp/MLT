@@ -20,7 +20,10 @@ const collections = [
   { id: "honeymoon", name: "Honeymoon", image: "/collection-honeymoon.jpg", eyebrow: "A private journey for two", copy: "Romantic roads, private stays and beautiful moments composed entirely around the two of you.", rate: "From €5,900 for 7 days", days: "7–14 days" },
 ] as const;
 
-const carouselCollections = collections;
+// Keep enough real slides around the active card to fill wide screens in both
+// directions. Swiper still owns the loop; unlike the old implementation there
+// is no transition-end recentering, so dragging remains stable.
+const carouselCollections = Array.from({ length: 3 }, () => collections).flat();
 
 const experiences = [
   ["01", "Family expedition", "Routes created around wonder — lakes, mountains, castles and unhurried evenings."],
@@ -136,7 +139,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Пять способов путешествовать" : locale === "de" ? "Fünf Arten zu reisen" : "Five ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p></div></div>
       <div className="collection-rail-shell">
       <button className="carousel-side-arrow carousel-side-arrow-prev" onClick={() => carousel.current?.slidePrev()} aria-label="Previous collection">←</button>
-      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={0} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={650} loop loopAdditionalSlides={collections.length} simulateTouch grabCursor allowTouchMove touchAngle={35} threshold={10} longSwipesRatio={0.2} preventClicks preventClicksPropagation keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; }} aria-label="MLT collections">
+      <SwiperCarousel className="collection-rail" modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={collections.length} centeredSlides centeredSlidesBounds={false} slidesPerView="auto" speed={650} loop loopAdditionalSlides={collections.length} simulateTouch grabCursor allowTouchMove touchAngle={35} threshold={10} longSwipesRatio={0.2} preventClicks preventClicksPropagation keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={(instance) => { carousel.current = instance; }} aria-label="MLT collections">
         {carouselCollections.map((item, index) => { const localizedItem = locale === "ru" ? russianCollections[index % collections.length] : locale === "de" ? germanCollections[index % collections.length] : item; return <SwiperSlide className="collection-slide" key={`${item.id}-${index}`}><a className="collection-card-link" href={localPath(`/collections/${item.id}`)} aria-label={locale === "ru" ? `Открыть коллекцию MLT «${localizedItem.name}»` : `Open MLT ${item.name} Collection`}><article className="light-collection-card">
           <picture>
             <source srcSet={item.image.replace(".jpg", ".avif")} type="image/avif" />
