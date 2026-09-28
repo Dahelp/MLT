@@ -5,6 +5,7 @@
 .operations-language{display:flex;align-items:center;gap:5px;margin:0 0 18px;padding:11px 10px;border:1px solid #4e504a;border-radius:8px;color:#c9c5bc;font-size:12px;font-weight:800}.operations-language span{margin-right:auto}.operations-language button{min-width:31px;padding:6px 4px;border:1px solid transparent;border-radius:5px;color:#c9c5bc;background:transparent;font-size:11px;font-weight:800;cursor:pointer}.operations-language button:hover,.operations-language button.active{color:#20221f;background:#e4b087}
 .concierge-logout{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;border:1px solid #716b61;border-radius:8px;color:#e8b084;background:transparent;font-size:14px;font-weight:800;text-align:left;cursor:pointer}.concierge-logout svg{width:17px}
 .concierge-logout:hover{border-color:#e4b087;color:#fff}
+.concierge-side nav a em{display:none}
 
 /* Operations toolbar refinement */
 .operator-card .concierge-avatar{display:grid;place-items:center;line-height:1}
