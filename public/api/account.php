@@ -16,6 +16,22 @@ if ($action === 'register' || $action === 'login') {
   $newToken=bin2hex(random_bytes(32)); $q=$db->prepare('UPDATE mlt_users SET session_hash=?,session_expires_at=DATE_ADD(NOW(), INTERVAL 30 DAY) WHERE id=?'); $q->execute([hash('sha256',$newToken),$user['id']]); echo json_encode(['ok'=>true,'token'=>$newToken,'user'=>$public($user)]); exit;
 }
 $user = $userForToken($db, $token); if (!$user) { http_response_code(401); echo json_encode(['error'=>'Please sign in again.']); exit; }
+if ($action === 'reset_all_orders') {
+  if (($user['role'] ?? '') !== 'admin') { http_response_code(403); echo json_encode(['error'=>'Administrator access required.']); exit; }
+  try {
+    $db->beginTransaction();
+    $payments = (int)$db->query('SELECT COUNT(*) FROM mlt_payments')->fetchColumn();
+    $orders = (int)$db->query('SELECT COUNT(*) FROM mlt_orders')->fetchColumn();
+    $db->exec('DELETE FROM mlt_payments');
+    $db->exec('DELETE FROM mlt_orders');
+    $db->commit();
+    echo json_encode(['ok'=>true,'orders_deleted'=>$orders,'payments_deleted'=>$payments]);
+  } catch (Throwable $error) {
+    if ($db->inTransaction()) $db->rollBack();
+    http_response_code(500); echo json_encode(['error'=>'Could not reset applications.']);
+  }
+  exit;
+}
 if ($action === 'profile') { $first=$clean($body['firstName'] ?? $user['first_name'],80); $last=$clean($body['lastName'] ?? $user['last_name'],80); $locale=in_array($body['locale'] ?? '', ['en','de','ru'],true) ? $body['locale'] : $user['locale']; $q=$db->prepare('UPDATE mlt_users SET first_name=?,last_name=?,phone=?,locale=? WHERE id=?'); $q->execute([$first,$last,$clean($body['phone'] ?? $user['phone'],80),$locale,$user['id']]); $user=array_merge($user,['first_name'=>$first,'last_name'=>$last,'phone'=>$clean($body['phone'] ?? $user['phone'],80),'locale'=>$locale]); echo json_encode(['ok'=>true,'user'=>$public($user)]); exit; }
 if ($action === 'cleanup_legacy_test_orders') { $q=$db->prepare('SELECT id FROM mlt_orders WHERE (user_id=? OR customer_email=?) AND archived_at IS NULL AND LOWER(collection_name) LIKE "%freedom%" AND (total_amount=1990 OR amount=1990) ORDER BY created_at DESC LIMIT 1'); $q->execute([$user['id'],$user['email']]); $keep=(int)$q->fetchColumn(); if($keep){$db->prepare('UPDATE mlt_orders SET archived_at=NOW() WHERE (user_id=? OR customer_email=?) AND archived_at IS NULL AND id<>?')->execute([$user['id'],$user['email'],$keep]);} echo json_encode(['ok'=>true]); exit; }
 if (in_array($action,['create_application','orders'],true)) { $db->prepare('UPDATE mlt_orders SET status="completed" WHERE (user_id=? OR customer_email=?) AND status="paid" AND departure_date IS NOT NULL AND departure_date<CURDATE()')->execute([$user['id'],$user['email']]); }
