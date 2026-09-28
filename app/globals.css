@@ -386,6 +386,7 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-hero-buttons { display: flex; justify-content: center; align-items: center; gap: 28px; margin-top: 30px; }
 .bronze-button, .text-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 54px; padding: 0 22px; color: #fff; text-decoration: none; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .bronze-button { min-width: 244px; border: 1px solid var(--mlt-bronze); border-radius: 999px; background: var(--mlt-bronze); box-shadow: 0 10px 28px rgba(60,31,11,.26); }
+.hero-collection-button { justify-content: center; }
 .bronze-button:hover { background: #985821; border-color: #985821; }
 .text-button { min-width: 190px; padding-inline: 0; border-bottom: 1px solid rgba(255,255,255,.72); }
 .text-button.dark { color: var(--mlt-ink); border-color: rgba(26,26,29,.35); }
