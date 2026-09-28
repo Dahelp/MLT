@@ -22,6 +22,11 @@ function mlt_db(array $settings): ?PDO {
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN archived_at DATETIME NULL AFTER paid_at'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN total_amount DECIMAL(12,2) NULL AFTER amount'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN paid_amount DECIMAL(12,2) NOT NULL DEFAULT 0 AFTER total_amount'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN client_note TEXT NULL AFTER notes'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN concierge_note TEXT NULL AFTER client_note'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN route_points_json TEXT NULL AFTER route_json'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN service_items_json TEXT NULL AFTER extras_json'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN extras_amount DECIMAL(12,2) NOT NULL DEFAULT 0 AFTER total_amount'); } catch (Throwable $error) {}
         return $pdo;
     } catch (Throwable $error) { error_log('MLT database unavailable: ' . $error->getMessage()); return null; }
 }
