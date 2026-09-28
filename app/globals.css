@@ -424,7 +424,7 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .carousel-side-arrow:hover { background: rgba(28,30,30,.78); box-shadow: 0 13px 34px rgba(0,0,0,.3); transform: translateY(-50%) scale(1.06); }
 .carousel-side-arrow-prev { left: 22px; }
 .carousel-side-arrow-next { right: 22px; }
-.collection-rail { width: 100%; padding: 12px 0 38px; overflow: hidden; }
+.collection-rail { width: 100%; padding: 12px 0 38px; overflow: hidden; touch-action: pan-y; }
 .collection-slide { width: min(420px, 68vw) !important; height: auto; opacity: .68; transform-origin: center; transition: opacity .55s ease, filter .55s ease; filter: saturate(.8) brightness(.92); }
 .collection-slide.swiper-slide-active { opacity: 1; filter: none; }
 .collection-card-link { display: block; color: inherit; text-decoration: none; cursor: pointer; }
@@ -525,7 +525,15 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
   .carousel-side-arrow { width: 48px; height: 48px; font-size: 22px; }
   .carousel-side-arrow-prev { left: 8px; }
   .carousel-side-arrow-next { right: 8px; }
-  .light-collection-card { flex-basis: 84vw; border-radius: 18px; }
+  .collection-rail { padding: 12px 0 48px; }
+  .collection-slide { width: 84vw !important; }
+  .light-collection-card { min-height: 500px; aspect-ratio: .65; border-radius: 18px; }
+  .collection-top, .collection-card-copy { left: 22px; right: 22px; }
+  .collection-top { top: 22px; }
+  .collection-card-copy { bottom: 22px; }
+  .collection-card-copy h3 { font-size: 32px; }
+  .collection-card-copy > p { margin-top: 12px; font-size: 13px; line-height: 1.45; }
+  .collection-card-copy > div { margin: 14px 0; padding: 12px 0; }
   .experience-intro { position: static; }
   .experience-list article { grid-template-columns: 34px 1fr 22px; gap: 12px; padding: 20px 0; }
   .map-photo { min-height: 500px; }
