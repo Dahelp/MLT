@@ -11,13 +11,13 @@ type CatalogItem={id:number;item_type:"collection"|"product"|"route"|"extra";col
 type View = "overview"|"applications"|"payments"|"team"|"catalog";
 
 export default function ConciergePage({initialView="overview"}:{initialView?:View}){
- const [data,setData]=useState<Data|null>(null),[error,setError]=useState(""),[view]=useState<View>(initialView),[filter,setFilter]=useState("all"),[selected,setSelected]=useState<Order|null>(null),[saving,setSaving]=useState(false),[team,setTeam]=useState<TeamMember[]|null>(null),[locale,setLocale]=useState<OperationsLocale>("en"),[collapsed,setCollapsed]=useState(false),[languageOpen,setLanguageOpen]=useState(false);
+ const [data,setData]=useState<Data|null>(null),[error,setError]=useState(""),[view]=useState<View>(initialView),[filter,setFilter]=useState("all"),[selected,setSelected]=useState<Order|null>(null),[saving,setSaving]=useState(false),[team,setTeam]=useState<TeamMember[]|null>(null),[locale,setLocale]=useState<OperationsLocale>("en"),[collapsed,setCollapsed]=useState(false),[languageOpen,setLanguageOpen]=useState(false),[refreshing,setRefreshing]=useState(false);
  useEffect(()=>{const stored=localStorage.getItem("mlt-operations-locale");if(operationsLocales.includes(stored as OperationsLocale))setLocale(stored as OperationsLocale)},[]);
  const changeLocale=(value:OperationsLocale)=>{setLocale(value);localStorage.setItem("mlt-operations-locale",value)};
  const t=operationsTranslations[locale];
- const api=async(action:string,payload:object={})=>{const token=localStorage.getItem("mlt-account-token")||"";const r=await fetch("/api/concierge-account.php",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`},body:JSON.stringify({action,...payload})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Request failed");return j};
+ const api=async(action:string,payload:object={})=>{const token=localStorage.getItem("mlt-account-token")||"";const r=await fetch("/api/concierge-account.php",{method:"POST",cache:"no-store",headers:{"Content-Type":"application/json","Cache-Control":"no-cache",Authorization:`Bearer ${token}`},body:JSON.stringify({action,...payload})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Request failed");return j};
  const catalogApi=async(action:string,payload:object={})=>{const token=localStorage.getItem("mlt-account-token")||"";const r=await fetch("/api/catalog.php",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`},body:JSON.stringify({action,...payload})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Request failed");return j};
- const load=()=>api("overview").then(setData).catch(e=>setError(e.message));
+ const load=async()=>{setRefreshing(true);try{setData(await api("overview"));setError("")}catch(e){setError(e instanceof Error?e.message:"Request failed")}finally{setRefreshing(false)}};
  useEffect(()=>{load()},[]);
  useEffect(()=>{if(view==="team"&&team===null)api("team").then(j=>setTeam(j.team)).catch(e=>setError(e.message))},[view,team]);
  const update=async(status:string)=>{if(!selected)return;setSaving(true);try{await api("status",{reference:selected.reference_code,status});setSelected({...selected,status});await load()}finally{setSaving(false)}};
