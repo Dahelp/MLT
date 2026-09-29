@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import "./globals.css";
 import CookieConsent from "./CookieConsent";
 
@@ -30,19 +30,14 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#e9e4da",
-  colorScheme: "light",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" style={{ backgroundColor: "#e9e4da" }}>
-      <body style={{ backgroundColor: "#e9e4da" }}>{children}<CookieConsent /></body>
+    <html lang="en">
+      <body>{children}<CookieConsent /></body>
     </html>
   );
 }
