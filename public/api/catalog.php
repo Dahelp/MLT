@@ -59,6 +59,12 @@ if($action==='save'){
   }
   $dataPayload['packageVariants']=$variants;
  }
+ if($type==='collection'&&array_key_exists('departureRule',$body)){
+  $rule=is_array($body['departureRule'])?$body['departureRule']:[];$weekdays=[];
+  foreach(is_array($rule['weekdays']??null)?$rule['weekdays']:[] as $day){$day=(int)$day;if($day>=0&&$day<=6&&!in_array($day,$weekdays,true))$weekdays[]=$day;}
+  $cleanDates=static function($value){$dates=[];foreach(is_array($value)?$value:[] as $date){$date=(string)$date;if(preg_match('/^\d{4}-\d{2}-\d{2}$/',$date))$dates[]=$date;}return array_values(array_unique($dates));};
+  $dataPayload['departureRule']=['mode'=>($rule['mode']??'')==='weekdays'?'weekdays':'any','weekdays'=>$weekdays,'blockedDates'=>$cleanDates($rule['blockedDates']??[]),'allowedDates'=>$cleanDates($rule['allowedDates']??[])];
+ }
  $dataJson=$dataPayload?json_encode($dataPayload,JSON_UNESCAPED_UNICODE):null;
  $values=[(string)($body['collectionId']??'')?:null,$slug,$title,mb_substr(trim((string)($body['subtitle']??'')),0,255)?:null,mb_substr(trim((string)($body['imagePath']??'')),0,255)?:null,$price,$priceTo,$daysFrom,$daysTo,json_encode(is_array($body['points']??null)?$body['points']:[],JSON_UNESCAPED_UNICODE),$dataJson,(int)($body['sortOrder']??0),(int)!empty($body['active'])];
  if($id){$u=$db->prepare('UPDATE mlt_catalog_items SET collection_id=?,slug=?,title=?,subtitle=?,image_path=?,price=?,price_to=?,days_from=?,days_to=?,points_json=?,data_json=COALESCE(?,data_json),sort_order=?,is_active=? WHERE id=?');$u->execute([...$values,$id]);}
