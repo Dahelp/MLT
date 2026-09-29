@@ -46,7 +46,20 @@ if($action==='save'){
  }
  $prices=array_column($pricing,'price');$days=array_column($pricing,'days');
  $price=$pricing?min($prices):(is_numeric($body['price']??null)?(float)$body['price']:null);$priceTo=$pricing?max($prices):(is_numeric($body['priceTo']??null)?(float)$body['priceTo']:null);$daysFrom=$pricing?min($days):(is_numeric($body['daysFrom']??null)?(int)$body['daysFrom']:null);$daysTo=$pricing?max($days):(is_numeric($body['daysTo']??null)?(int)$body['daysTo']:null);
- $dataJson=$pricing?json_encode(['pricing'=>$pricing],JSON_UNESCAPED_UNICODE):null;
+ $existingData=[];
+ if($id){$existing=$db->prepare('SELECT data_json FROM mlt_catalog_items WHERE id=? LIMIT 1');$existing->execute([$id]);$decoded=json_decode((string)$existing->fetchColumn(),true);if(is_array($decoded))$existingData=$decoded;}
+ $dataPayload=$existingData;
+ if($pricing)$dataPayload['pricing']=$pricing;
+ if($type==='collection'&&array_key_exists('packageVariants',$body)){
+  $variants=[];
+  foreach(is_array($body['packageVariants'])?$body['packageVariants']:[] as $index=>$variant){
+   if(!is_array($variant))continue;$variantTitle=mb_substr(trim((string)($variant['title']??'')),0,120);if($variantTitle==='')continue;
+   $cleanList=static fn($value)=>array_values(array_filter(array_map(static fn($item)=>mb_substr(trim((string)$item),0,180),is_array($value)?$value:[])));
+   $variants[]=['id'=>preg_replace('/[^a-z0-9-]/','',strtolower((string)($variant['id']??'package-'.($index+1)))),'title'=>$variantTitle,'subtitle'=>mb_substr(trim((string)($variant['subtitle']??'')),0,180),'description'=>mb_substr(trim((string)($variant['description']??'')),0,1000),'benefits'=>$cleanList($variant['benefits']??[]),'interests'=>$cleanList($variant['interests']??[]),'supplement'=>mb_substr(trim((string)($variant['supplement']??'')),0,180)];
+  }
+  $dataPayload['packageVariants']=$variants;
+ }
+ $dataJson=$dataPayload?json_encode($dataPayload,JSON_UNESCAPED_UNICODE):null;
  $values=[(string)($body['collectionId']??'')?:null,$slug,$title,mb_substr(trim((string)($body['subtitle']??'')),0,255)?:null,mb_substr(trim((string)($body['imagePath']??'')),0,255)?:null,$price,$priceTo,$daysFrom,$daysTo,json_encode(is_array($body['points']??null)?$body['points']:[],JSON_UNESCAPED_UNICODE),$dataJson,(int)($body['sortOrder']??0),(int)!empty($body['active'])];
  if($id){$u=$db->prepare('UPDATE mlt_catalog_items SET collection_id=?,slug=?,title=?,subtitle=?,image_path=?,price=?,price_to=?,days_from=?,days_to=?,points_json=?,data_json=COALESCE(?,data_json),sort_order=?,is_active=? WHERE id=?');$u->execute([...$values,$id]);}
  else{$u=$db->prepare('INSERT INTO mlt_catalog_items(collection_id,slug,title,subtitle,image_path,price,price_to,days_from,days_to,points_json,data_json,sort_order,is_active,item_type) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)');$u->execute([...$values,$type]);}
