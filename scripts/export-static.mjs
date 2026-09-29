@@ -36,6 +36,7 @@ const routes = [
   "/concierge/payments",
   "/concierge/catalog",
   "/concierge/team",
+  "/mobile-preview/freedom",
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
 ];
