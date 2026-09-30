@@ -107,3 +107,8 @@
 .prev,.next{display:flex;align-items:center;justify-content:center;padding:0 0 4px;border:1px solid #ffffff8f;background:#ffffffa8;color:#6f513d;line-height:1;box-shadow:0 5px 18px #28201624;backdrop-filter:blur(5px)}
 .travellers>div{transform:translateX(25px)}
 .compare article+article{background:#efe3d1}
+.products{margin:0 -14px;padding:38px 0 30px;background:#1b1e1a;color:#f7f2e9}
+.products>.eyebrow{margin-left:26px;color:#d7a27d}
+.track{width:100%;padding:18px 0 20px;overflow:hidden;box-sizing:border-box}
+.slide{width:210px!important;height:292px!important}
+.slide .card,.slide .card[data-active="true"]{position:relative;inset:auto;width:100%;height:100%;transform:none;opacity:1}

@@ -1,6 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Swiper as SwiperCarousel, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { EffectCoverflow, Keyboard } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
 import styles from "./preview.module.css";
 
 type IconName = "globe" | "user" | "menu" | "chevron" | "compass" | "pin" | "calendar" | "travellers";
@@ -25,6 +30,7 @@ const products = [
   { n: "04", title: "Wine Roads Horizon", copy: "Wine roads and terroirs", image: "/route-wine-roads.jpg" },
   { n: "05", title: "Mediterranean Coastline", copy: "Sea breeze and hidden coves", image: "/route-mediterranean.jpg" },
 ];
+const carouselProducts = Array.from({ length: 3 }, () => products).flat();
 
 const prices: Record<number, number> = { 7: 1490, 10: 1990, 14: 2590, 21: 3690, 30: 4990 };
 type PackageVariant = { id: string; title: string; subtitle?: string; benefits?: string[]; supplement?: string };
@@ -50,11 +56,10 @@ export default function FreedomMobilePreview() {
   const [languageOpen, setLanguageOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [packages, setPackages] = useState<PackageVariant[]>(defaultPackages);
-  const dragStart = useRef<number | null>(null);
+  const productCarousel = useRef<SwiperInstance | null>(null);
   const total = useMemo(() => prices[days] + (plus ? 300 : 0) + Math.max(0, guests - 2) * 190, [days, guests, plus]);
   const returnDate = useMemo(() => addDays(departure, days), [departure, days]);
   const money = new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(total);
-  const move = (step: number) => setActive((active + step + products.length) % products.length);
   useEffect(() => { fetch("/api/catalog.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "list" }) }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { const item = Array.isArray(data.items) ? data.items.find((entry: { item_type?: string; slug?: string }) => entry.item_type === "collection" && entry.slug === "freedom") : null; const parsed = item?.data_json ? JSON.parse(item.data_json) : {}; if (Array.isArray(parsed.packageVariants) && parsed.packageVariants.length >= 2) setPackages(parsed.packageVariants); }).catch(() => {}); }, []);
   const freedomPackage = packages[0] || defaultPackages[0];
   const freedomPlusPackage = packages[1] || defaultPackages[1];
@@ -95,14 +100,14 @@ export default function FreedomMobilePreview() {
       <section className={styles.products}>
         <p className={styles.eyebrow}>Select your experience:</p>
         <div className={styles.carousel}>
-          <button className={styles.prev} onClick={() => move(-1)} aria-label="Previous">←</button>
-          <div className={styles.track} onPointerDown={(event) => { dragStart.current = event.clientX; event.currentTarget.setPointerCapture(event.pointerId); }} onPointerUp={(event) => { if (dragStart.current === null) return; const distance = event.clientX - dragStart.current; dragStart.current = null; if (Math.abs(distance) > 35) move(distance < 0 ? 1 : -1); }} onPointerCancel={() => { dragStart.current = null; }}>{products.map((product, index) => {
-            let delta = index - active; if (delta > 2) delta -= products.length; if (delta < -2) delta += products.length;
-            return <button key={product.n} className={styles.card} data-active={delta === 0} aria-pressed={delta === 0} style={{ "--x": delta, zIndex: 10 - Math.abs(delta) } as React.CSSProperties} onClick={() => setActive(index)}>
-              <img src={product.image} alt=""/><span>{product.n}</span><em>{delta === 0 ? "Selected" : "Choose"}</em><div><strong>{product.title}</strong><small>{product.copy}</small></div>
-            </button>;
-          })}</div>
-          <button className={styles.next} onClick={() => move(1)} aria-label="Next">→</button>
+          <button className={styles.prev} onClick={() => productCarousel.current?.slidePrev()} aria-label="Previous">←</button>
+          <SwiperCarousel className={styles.track} modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={products.length + 2} centeredSlides slidesPerView="auto" speed={650} loop loopAdditionalSlides={products.length} simulateTouch grabCursor allowTouchMove touchAngle={35} threshold={10} longSwipesRatio={0.2} preventClicks preventClicksPropagation keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={instance => { productCarousel.current = instance; }} onSlideChange={instance => setActive(instance.realIndex % products.length)}>{carouselProducts.map((product, index) => {
+            const productIndex = index % products.length;
+            return <SwiperSlide className={styles.slide} key={`${product.n}-${index}`}><button className={styles.card} data-active={productIndex === active} aria-pressed={productIndex === active} onClick={() => setActive(productIndex)}>
+              <img src={product.image} alt=""/><span>{product.n}</span><em>{productIndex === active ? "Selected" : "Choose"}</em><div><strong>{product.title}</strong><small>{product.copy}</small></div>
+            </button></SwiperSlide>;
+          })}</SwiperCarousel>
+          <button className={styles.next} onClick={() => productCarousel.current?.slideNext()} aria-label="Next">→</button>
         </div>
       </section>
 
