@@ -107,13 +107,13 @@
 .prev,.next{display:flex;align-items:center;justify-content:center;padding:0 0 4px;border:1px solid #ffffff8f;background:#ffffffa8;color:#6f513d;line-height:1;box-shadow:0 5px 18px #28201624;backdrop-filter:blur(5px)}
 .travellers>div{transform:translateX(25px)}
 .compare article+article{background:#efe3d1}
-.products{margin:14px -14px 0;padding:38px 0 30px;background:#1b1e1a;color:#f7f2e9}
+.products{margin:24px -15px -18px;padding:28px 0 30px;border-top:1px solid #ffffff20;border-radius:0 0 17px 17px;background:#1b1e1a;color:#f7f2e9}
 .products>.eyebrow{margin-left:26px;color:#d7a27d}
 .track{width:100%;padding:18px 0 20px;overflow:hidden;box-sizing:border-box}
 .slide{width:210px!important;height:292px!important}
 .slide .card,.slide .card[data-active="true"]{position:relative;inset:auto;width:100%;height:100%;transform:none;opacity:1}
-.hero{height:232px}
-.hero>img{object-position:58% 58%}
+.hero{height:190px}
+.hero>img{object-position:66% 72%}
 .booking h2{margin-bottom:16px}
 .prev,.next{width:42px;height:42px;padding:0;border:1px solid #fff;border-radius:50%;background:#ffffff66;color:#fff;box-shadow:0 5px 18px #0002;opacity:.6;backdrop-filter:blur(5px)}
-.prev span,.next span{display:block;font:24px/1 Arial,sans-serif;transform:translateY(-1px)}
+.prev svg,.next svg{display:block;width:21px;height:21px;stroke-width:1.8}

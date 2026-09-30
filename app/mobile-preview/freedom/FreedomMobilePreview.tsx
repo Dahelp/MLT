@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import styles from "./preview.module.css";
 
-type IconName = "globe" | "user" | "menu" | "chevron" | "compass" | "pin" | "calendar" | "travellers";
+type IconName = "globe" | "user" | "menu" | "chevron" | "arrow-left" | "arrow-right" | "compass" | "pin" | "calendar" | "travellers";
 
 function Icon({ name }: { name: IconName }) {
   return <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -16,6 +16,8 @@ function Icon({ name }: { name: IconName }) {
     {name === "user" && <><circle cx="12" cy="8" r="3.5"/><path d="M5 21c.7-4.2 3.1-6.3 7-6.3s6.3 2.1 7 6.3"/></>}
     {name === "menu" && <path d="M5 8h14M5 16h14"/>}
     {name === "chevron" && <path d="m7 9.5 5 5 5-5"/>}
+    {name === "arrow-left" && <path d="m15.5 5-7 7 7 7M9 12h10"/>}
+    {name === "arrow-right" && <path d="m8.5 5 7 7-7 7M15 12H5"/>}
     {name === "compass" && <><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.1 5.5-5.5 2.1 2.1-5.5 5.5-2.1Z"/></>}
     {name === "pin" && <><path d="M20 10c0 5.2-8 11-8 11S4 15.2 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></>}
     {name === "calendar" && <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7 14h2M11 14h2M15 14h2M7 18h2M11 18h2"/></>}
@@ -94,20 +96,19 @@ export default function FreedomMobilePreview() {
           <label><i><Icon name="calendar"/></i><span>Return</span><input type="date" value={returnDate} readOnly /></label>
           <div className={styles.travellers}><i><Icon name="travellers"/></i><span>Travellers</span><div><button onClick={() => setGuests(Math.max(1, guests - 1))}>−</button><b>{guests}</b><button onClick={() => setGuests(Math.min(8, guests + 1))}>+</button></div><small>1–2 guests included · +€190 from the 3rd guest</small></div>
         </div>
-      </section>
-
-      <section className={styles.products}>
-        <p className={styles.eyebrow}>Select your experience:</p>
-        <div className={styles.carousel}>
-          <button className={styles.prev} onClick={() => productCarousel.current?.slidePrev()} aria-label="Previous"><span aria-hidden="true">←</span></button>
-          <SwiperCarousel className={styles.track} modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={products.length + 2} centeredSlides slidesPerView="auto" speed={650} loop loopAdditionalSlides={products.length} simulateTouch grabCursor allowTouchMove touchAngle={35} threshold={10} longSwipesRatio={0.2} preventClicks preventClicksPropagation keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={instance => { productCarousel.current = instance; }} onSlideChange={instance => setActive(instance.realIndex % products.length)}>{carouselProducts.map((product, index) => {
-            const productIndex = index % products.length;
-            return <SwiperSlide className={styles.slide} key={`${product.n}-${index}`}><button className={styles.card} data-active={productIndex === active} aria-pressed={productIndex === active} onClick={() => setActive(productIndex)}>
-              <img src={product.image} alt=""/><span>{product.n}</span><em>{productIndex === active ? "Selected" : "Choose"}</em><div><strong>{product.title}</strong><small>{product.copy}</small></div>
-            </button></SwiperSlide>;
-          })}</SwiperCarousel>
-          <button className={styles.next} onClick={() => productCarousel.current?.slideNext()} aria-label="Next"><span aria-hidden="true">→</span></button>
-        </div>
+        <section className={styles.products}>
+          <p className={styles.eyebrow}>Select your experience:</p>
+          <div className={styles.carousel}>
+            <button className={styles.prev} onClick={() => productCarousel.current?.slidePrev()} aria-label="Previous"><Icon name="arrow-left"/></button>
+            <SwiperCarousel className={styles.track} modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={products.length + 2} centeredSlides slidesPerView="auto" speed={650} loop loopAdditionalSlides={products.length} simulateTouch grabCursor allowTouchMove touchAngle={35} threshold={10} longSwipesRatio={0.2} preventClicks preventClicksPropagation keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={instance => { productCarousel.current = instance; }} onSlideChange={instance => setActive(instance.realIndex % products.length)}>{carouselProducts.map((product, index) => {
+              const productIndex = index % products.length;
+              return <SwiperSlide className={styles.slide} key={`${product.n}-${index}`}><button className={styles.card} data-active={productIndex === active} aria-pressed={productIndex === active} onClick={() => setActive(productIndex)}>
+                <img src={product.image} alt=""/><span>{product.n}</span><em>{productIndex === active ? "Selected" : "Choose"}</em><div><strong>{product.title}</strong><small>{product.copy}</small></div>
+              </button></SwiperSlide>;
+            })}</SwiperCarousel>
+            <button className={styles.next} onClick={() => productCarousel.current?.slideNext()} aria-label="Next"><Icon name="arrow-right"/></button>
+          </div>
+        </section>
       </section>
 
       <section className={styles.ideal}><p className={styles.eyebrow}>Ideal for</p><p>For independent travelers who value top-tier equipment and expert guidance, keeping their journey completely flexible.</p></section>
