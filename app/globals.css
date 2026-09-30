@@ -735,6 +735,7 @@ footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }
 .booking-route-carousel { width: calc(100% + 60px); margin-left: -30px; padding: 8px 30px 18px; overflow: hidden; }.booking-route-carousel .swiper-wrapper { align-items: center; }.booking-route-slide { width: min(420px, 68vw) !important; height: auto !important; aspect-ratio: .78; flex-shrink: 0; opacity: .68; filter: saturate(.8) brightness(.92); transform-origin: center; transition: opacity .55s ease, filter .55s ease; }.booking-route-slide.swiper-slide-active { opacity: 1; filter: none; }
 .collection-unified .hero-booking > .booking-route-picker { display: none; }
 .collection-data-packages .package-description { grid-column: 1 / -1; margin: 0; padding: 16px 18px; color: #ddd4ca; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; line-height: 1.55; }
+.collection-db-packages.collection-freedom .freedom-comparison { display: none; }
 .catalog-packages { grid-column: 1 / -1; }
 .catalog-package-row { margin-bottom: 14px; padding: 14px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; border: 1px solid #ddd2c8; border-radius: 12px; }
 .catalog-package-row textarea { min-height: 92px; }

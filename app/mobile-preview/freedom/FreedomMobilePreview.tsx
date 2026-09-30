@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./preview.module.css";
 
 type IconName = "globe" | "user" | "menu" | "chevron" | "compass" | "pin" | "calendar" | "travellers";
@@ -27,6 +27,11 @@ const products = [
 ];
 
 const prices: Record<number, number> = { 7: 1490, 10: 1990, 14: 2590, 21: 3690, 30: 4990 };
+type PackageVariant = { id: string; title: string; subtitle?: string; benefits?: string[]; supplement?: string };
+const defaultPackages: PackageVariant[] = [
+  { id: "freedom", title: "Freedom", subtitle: "Independent journey", benefits: ["Motorhome", "Basic Road Book", "MLT My Profile", "Technical support"] },
+  { id: "freedom-plus", title: "Freedom+", subtitle: "Route & recommendations", benefits: ["Everything in Freedom", "Author route", "Digital guide", "Panoramic roads", "Restaurant & location recommendations"], supplement: "+ €300–500" },
+];
 
 function addDays(date: string, days: number) {
   if (!date) return "";
@@ -44,11 +49,15 @@ export default function FreedomMobilePreview() {
   const [locale, setLocale] = useState<"EN" | "DE" | "RU">("EN");
   const [languageOpen, setLanguageOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [packages, setPackages] = useState<PackageVariant[]>(defaultPackages);
   const dragStart = useRef<number | null>(null);
   const total = useMemo(() => prices[days] + (plus ? 300 : 0) + Math.max(0, guests - 2) * 190, [days, guests, plus]);
   const returnDate = useMemo(() => addDays(departure, days), [departure, days]);
   const money = new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(total);
   const move = (step: number) => setActive((active + step + products.length) % products.length);
+  useEffect(() => { fetch("/api/catalog.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "list" }) }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { const item = Array.isArray(data.items) ? data.items.find((entry: { item_type?: string; slug?: string }) => entry.item_type === "collection" && entry.slug === "freedom") : null; const parsed = item?.data_json ? JSON.parse(item.data_json) : {}; if (Array.isArray(parsed.packageVariants) && parsed.packageVariants.length >= 2) setPackages(parsed.packageVariants); }).catch(() => {}); }, []);
+  const freedomPackage = packages[0] || defaultPackages[0];
+  const freedomPlusPackage = packages[1] || defaultPackages[1];
 
   return <main className={styles.stage}>
     <div className={styles.phone}>
@@ -71,8 +80,8 @@ export default function FreedomMobilePreview() {
         <h2>Build your journey:</h2>
         <p className={styles.label}><i><Icon name="compass"/></i>Journey type</p>
         <div className={styles.types}>
-          <button className={!plus ? styles.selected : ""} onClick={() => setPlus(false)}><b>Freedom</b><small><span>✓</span> Motorhome</small><small><span>✓</span> Basic Road Book</small><small><span>✓</span> MLT My Profile</small><small><span>✓</span> Technical support</small></button>
-          <button className={plus ? styles.selected : ""} onClick={() => setPlus(true)}><b>Freedom+</b><small><span>✓</span> Everything in Freedom</small><small><span>✓</span> Author route</small><small><span>✓</span> Digital guide</small><small><span>✓</span> Panoramic roads</small><small><span>✓</span> Restaurant & location recommendations</small></button>
+          <button className={!plus ? styles.selected : ""} onClick={() => setPlus(false)}><b>{freedomPackage.title}</b>{(freedomPackage.benefits || []).map(item => <small key={item}><span>✓</span> {item}</small>)}</button>
+          <button className={plus ? styles.selected : ""} onClick={() => setPlus(true)}><b>{freedomPlusPackage.title}</b>{(freedomPlusPackage.benefits || []).map(item => <small key={item}><span>✓</span> {item}</small>)}</button>
         </div>
         <div className={styles.fields}>
           <label><i><Icon name="pin"/></i><span>Country</span><select><option>Italy</option></select></label>
@@ -99,7 +108,7 @@ export default function FreedomMobilePreview() {
 
       <section className={styles.ideal}><p className={styles.eyebrow}>Ideal for</p><p>For independent travelers who value top-tier equipment and expert guidance, keeping their journey completely flexible.</p></section>
       <section className={styles.shapes}><p className={styles.eyebrow}>What shapes the journey?</p><div>{["Luxury motorhome", "Curated map", "MLT route app", "Local recommendations"].map(x => <span key={x}>✓ &nbsp;{x}</span>)}</div></section>
-      <section className={styles.compare}><article><h3>Freedom</h3>{["Motorhome", "Basic Road Book", "MLT My Profile", "Technical support"].map(x=><p key={x}>✓ &nbsp;{x}</p>)}</article><article><h3>Freedom+</h3>{["Everything in Freedom", "Author route", "Digital guide", "Panoramic roads", "Restaurant & location recommendations", "+ €300–500"].map(x=><p key={x}>✓ &nbsp;{x}</p>)}</article></section>
+      <section className={styles.compare}>{[freedomPackage, freedomPlusPackage].map(item => <article key={item.id}><h3>{item.title}</h3>{[...(item.benefits || []), ...(item.supplement ? [item.supplement] : [])].map(entry=><p key={entry}>✓ &nbsp;{entry}</p>)}</article>)}</section>
       <section className={styles.cta}><img src="/collection-freedom-hero-mobile-v2.webp" alt=""/><div><p className={styles.eyebrow}>MLT Freedom</p><h2>Begin a Freedom journey</h2><p>Tell us where you would like to begin. We will prepare the motorhome, the essentials and your first recommendations.</p><a href="mailto:concierge@mlt-travel.com">Talk to a concierge <span>→</span></a></div></section>
       <footer className={styles.footer}><div className={styles.footerBrand}><img src="/mlt-logo.svg" alt="MLT"/><p>Individual Road Expeditions<br/>across Europe.</p></div><div className={styles.footerLinks}><div><strong>Explore</strong><a href="/#collections">Collections</a><a href="/#experiences">Experiences</a><a href="/plan">Smart map</a></div><div><strong>Contact</strong><a href="mailto:concierge@mlt-travel.com">Email us</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div></div><div className={styles.footerBottom}><span>© 2026 MLT</span><a href="/legal/privacy">Privacy</a><a href="/legal/imprint">Imprint</a></div></footer>
       <div className={styles.sticky}><span>Total <b>{money}</b></span><button onClick={() => alert("Preview only — payment is not connected.")}>Sign in & pay →</button></div>
