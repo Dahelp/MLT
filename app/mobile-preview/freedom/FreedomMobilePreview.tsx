@@ -28,9 +28,17 @@ const products = [
 
 const prices: Record<number, number> = { 7: 1490, 10: 1990, 14: 2590, 21: 3690, 30: 4990 };
 
+function addDays(date: string, days: number) {
+  if (!date) return "";
+  const value = new Date(`${date}T12:00:00`);
+  value.setDate(value.getDate() + days);
+  return value.toISOString().slice(0, 10);
+}
+
 export default function FreedomMobilePreview() {
   const [plus, setPlus] = useState(false);
   const [days, setDays] = useState(7);
+  const [departure, setDeparture] = useState("2026-10-12");
   const [guests, setGuests] = useState(1);
   const [active, setActive] = useState(2);
   const [locale, setLocale] = useState<"EN" | "DE" | "RU">("EN");
@@ -38,6 +46,7 @@ export default function FreedomMobilePreview() {
   const [menuOpen, setMenuOpen] = useState(false);
   const dragStart = useRef<number | null>(null);
   const total = useMemo(() => prices[days] + (plus ? 300 : 0) + Math.max(0, guests - 2) * 190, [days, guests, plus]);
+  const returnDate = useMemo(() => addDays(departure, days), [departure, days]);
   const money = new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(total);
   const move = (step: number) => setActive((active + step + products.length) % products.length);
 
@@ -68,8 +77,8 @@ export default function FreedomMobilePreview() {
         <div className={styles.fields}>
           <label><i><Icon name="pin"/></i><span>Country</span><select><option>Italy</option></select></label>
           <label><i><Icon name="calendar"/></i><span>Choose your travel dates</span><select value={days} onChange={(e) => setDays(Number(e.target.value))}>{Object.keys(prices).map(d => <option key={d} value={d}>{d} days</option>)}</select><small className={styles.fieldPrice}>{new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(prices[days] + (plus ? 300 : 0))}</small></label>
-          <label><i><Icon name="calendar"/></i><span>Departure</span><input type="date" defaultValue="2026-10-12" /></label>
-          <label><i><Icon name="calendar"/></i><span>Return</span><input type="date" defaultValue="2026-10-19" /></label>
+          <label><i><Icon name="calendar"/></i><span>Departure</span><input type="date" value={departure} onChange={(event) => setDeparture(event.target.value)} /></label>
+          <label><i><Icon name="calendar"/></i><span>Return</span><input type="date" value={returnDate} readOnly /></label>
           <div className={styles.travellers}><i><Icon name="travellers"/></i><span>Travellers</span><div><button onClick={() => setGuests(Math.max(1, guests - 1))}>−</button><b>{guests}</b><button onClick={() => setGuests(Math.min(8, guests + 1))}>+</button></div><small>1–2 guests included · +€190 from the 3rd guest</small></div>
         </div>
       </section>
