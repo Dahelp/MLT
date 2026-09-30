@@ -99,3 +99,7 @@
 .fields span,.travellers>span{font-size:10px}
 .fields select,.fields input{color:#eee7dc;font:16px Georgia,serif;line-height:normal}
 .travellers small{font-size:12px}
+.types button{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;height:auto;padding-top:15px;text-align:left}
+.types button b{flex:0 0 auto;margin-top:0;line-height:1.1}
+.fields label:has(.fieldPrice)>select,.fields label>input[type="date"]{font-size:16px;line-height:normal}
+.fields .fieldPrice{font-size:12px}
