@@ -117,7 +117,7 @@
 .booking h2{margin-bottom:16px}
 .prev,.next{width:42px;height:42px;padding:0;border:1px solid #fff;border-radius:50%;background:#ffffff66;color:#fff;box-shadow:0 5px 18px #0002;opacity:.6;backdrop-filter:blur(5px)}
 .prev svg,.next svg{display:block;width:21px;height:21px;stroke-width:1.8}
-.products>.eyebrow{font-size:13px}
+.products>.eyebrow{color:#f7f2e9;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.18em}
 .prev{left:12px}.next{right:12px}
 .prev,.next{z-index:50;box-sizing:border-box;overflow:visible}
 .prev svg,.next svg{overflow:visible}
@@ -126,9 +126,9 @@
 .calendarField>i svg,.returnField>i svg{width:17px;height:17px}
 .returnField{padding:13px 10px 10px 48px}
 .returnField>span{display:block;margin-bottom:7px;text-transform:uppercase;letter-spacing:.13em;color:#bcb5ab;font-size:10px}
-.returnField>strong{display:block;margin-top:9px;white-space:nowrap;font:16px Georgia,serif;text-transform:none}
+.returnField>strong{display:block;margin-top:9px;white-space:nowrap;font:15px Georgia,serif;text-transform:none}
 .calendarField :global(.departure-calendar){position:relative;height:100%;padding:13px 9px 10px 48px;box-sizing:border-box}
 .calendarField :global(.departure-calendar)>span{display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.13em;color:#bcb5ab;font-size:10px}
-.calendarField :global(.departure-calendar-trigger){width:100%;min-height:29px;padding:3px 0;border:0;background:transparent;color:#eee7dc;font:16px Georgia,serif;text-align:left;text-transform:none;cursor:pointer}
+.calendarField :global(.departure-calendar-trigger){width:100%;min-height:29px;padding:3px 0;border:0;background:transparent;color:#eee7dc;white-space:nowrap;font:15px Georgia,serif;text-align:left;text-transform:none;cursor:pointer}
 .calendarField :global(.departure-calendar-trigger) i{display:none}
-.calendarField :global(.departure-calendar-popover){z-index:180;top:74px;left:-48px;width:min(340px,calc(100vw - 56px));box-sizing:border-box}
+.calendarField :global(.departure-calendar-popover){z-index:180;top:74px;left:-18px;width:min(330px,calc(100vw - 84px));box-sizing:border-box}
