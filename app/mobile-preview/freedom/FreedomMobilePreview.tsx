@@ -55,11 +55,11 @@ export default function FreedomMobilePreview() {
 
       <section className={styles.hero}>
         <img src="/collection-freedom-hero-mobile-v2.webp" alt="MLT Freedom expedition" />
-        <div><span>MLT / 01</span><h1>MLT Freedom<br/><i>Collection</i></h1><p>Crafted for those who seek independent discoveries, a true spirit of adventure, absolute flexibility, and drive on every mile of the road.</p></div>
+        <div><span>MLT / 01</span><h1><strong>MLT Freedom</strong><br/><i>Collection</i></h1></div>
       </section>
 
       <section className={styles.booking}>
-        <h2>Your journey</h2>
+        <h2>Build your journey</h2>
         <p className={styles.label}><i><Icon name="compass"/></i>Journey type</p>
         <div className={styles.types}>
           <button className={!plus ? styles.selected : ""} onClick={() => setPlus(false)}><b>Freedom</b><small>Independent journey</small></button>
