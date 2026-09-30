@@ -83,7 +83,6 @@ export default function FreedomMobilePreview() {
 
       <section className={styles.booking}>
         <h2>Build your journey:</h2>
-        <p className={styles.label}><i><Icon name="compass"/></i>Journey type</p>
         <div className={styles.types}>
           <button className={!plus ? styles.selected : ""} onClick={() => setPlus(false)}><b>{freedomPackage.title}</b>{(freedomPackage.benefits || []).map(item => <small key={item}><span>✓</span> {item}</small>)}</button>
           <button className={plus ? styles.selected : ""} onClick={() => setPlus(true)}><b>{freedomPlusPackage.title}</b>{(freedomPlusPackage.benefits || []).map(item => <small key={item}><span>✓</span> {item}</small>)}</button>
@@ -100,14 +99,14 @@ export default function FreedomMobilePreview() {
       <section className={styles.products}>
         <p className={styles.eyebrow}>Select your experience:</p>
         <div className={styles.carousel}>
-          <button className={styles.prev} onClick={() => productCarousel.current?.slidePrev()} aria-label="Previous">←</button>
+          <button className={styles.prev} onClick={() => productCarousel.current?.slidePrev()} aria-label="Previous"><span aria-hidden="true">←</span></button>
           <SwiperCarousel className={styles.track} modules={[EffectCoverflow, Keyboard]} effect="coverflow" initialSlide={products.length + 2} centeredSlides slidesPerView="auto" speed={650} loop loopAdditionalSlides={products.length} simulateTouch grabCursor allowTouchMove touchAngle={35} threshold={10} longSwipesRatio={0.2} preventClicks preventClicksPropagation keyboard={{ enabled: true }} coverflowEffect={{ rotate: 0, stretch: 8, depth: 90, modifier: 1, slideShadows: false }} onSwiper={instance => { productCarousel.current = instance; }} onSlideChange={instance => setActive(instance.realIndex % products.length)}>{carouselProducts.map((product, index) => {
             const productIndex = index % products.length;
             return <SwiperSlide className={styles.slide} key={`${product.n}-${index}`}><button className={styles.card} data-active={productIndex === active} aria-pressed={productIndex === active} onClick={() => setActive(productIndex)}>
               <img src={product.image} alt=""/><span>{product.n}</span><em>{productIndex === active ? "Selected" : "Choose"}</em><div><strong>{product.title}</strong><small>{product.copy}</small></div>
             </button></SwiperSlide>;
           })}</SwiperCarousel>
-          <button className={styles.next} onClick={() => productCarousel.current?.slideNext()} aria-label="Next">→</button>
+          <button className={styles.next} onClick={() => productCarousel.current?.slideNext()} aria-label="Next"><span aria-hidden="true">→</span></button>
         </div>
       </section>
 

@@ -112,3 +112,8 @@
 .track{width:100%;padding:18px 0 20px;overflow:hidden;box-sizing:border-box}
 .slide{width:210px!important;height:292px!important}
 .slide .card,.slide .card[data-active="true"]{position:relative;inset:auto;width:100%;height:100%;transform:none;opacity:1}
+.hero{height:232px}
+.hero>img{object-position:58% 58%}
+.booking h2{margin-bottom:16px}
+.prev,.next{width:42px;height:42px;padding:0;border:1px solid #fff;border-radius:50%;background:#ffffff66;color:#fff;box-shadow:0 5px 18px #0002;opacity:.4;backdrop-filter:blur(5px)}
+.prev span,.next span{display:block;font:24px/1 Arial,sans-serif;transform:translateY(-1px)}
