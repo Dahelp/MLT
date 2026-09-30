@@ -10,7 +10,10 @@
 .label{display:flex;align-items:center;gap:9px}
 .label>i{display:grid;place-items:center;width:29px;height:29px;border:1px solid #cf9364;border-radius:50%;color:#d7a27d}
 .label svg{width:17px;height:17px}
-.types button{min-height:80px}
+.types button{min-height:154px;align-self:stretch}
+.types b{margin-bottom:9px}
+.types button small{position:relative;margin-top:5px;padding-left:15px;font-size:10px;line-height:1.25}
+.types button small span{position:absolute;left:0;top:0;color:#d7a27d;font-family:Arial,sans-serif}
 .fields label,.travellers{position:relative;height:84px;box-sizing:border-box;background:#252823;border-color:#484b45}
 .fields label{padding:13px 10px 10px 48px}
 .fields label>i,.travellers>i{position:absolute;left:11px;top:16px;display:grid;place-items:center;width:28px;height:28px;border:1px solid #cf9364;border-radius:50%;color:#d7a27d}
