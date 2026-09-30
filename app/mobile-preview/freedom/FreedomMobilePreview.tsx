@@ -33,6 +33,9 @@ export default function FreedomMobilePreview() {
   const [days, setDays] = useState(7);
   const [guests, setGuests] = useState(1);
   const [active, setActive] = useState(2);
+  const [locale, setLocale] = useState<"EN" | "DE" | "RU">("EN");
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const dragStart = useRef<number | null>(null);
   const total = useMemo(() => prices[days] + (plus ? 300 : 0) + Math.max(0, guests - 2) * 190, [days, guests, plus]);
   const money = new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(total);
@@ -42,8 +45,13 @@ export default function FreedomMobilePreview() {
     <div className={styles.phone}>
       <header className={styles.header}>
         <a href="/" aria-label="MLT home"><img src="/mlt-logo.svg" alt="MLT" /></a>
-        <div><button className={styles.language}><Icon name="globe"/><span>EN</span><Icon name="chevron"/></button><button aria-label="Account"><Icon name="user"/></button><button aria-label="Menu"><Icon name="menu"/></button></div>
+        <div className={styles.headerActions}>
+          <div className={styles.languageWrap}><button className={styles.language} aria-expanded={languageOpen} onClick={() => { setLanguageOpen(!languageOpen); setMenuOpen(false); }}><Icon name="globe"/><span>{locale}</span><Icon name="chevron"/></button>{languageOpen && <div className={styles.languageMenu}>{(["EN","DE","RU"] as const).map(code => <button key={code} className={locale === code ? styles.activeLanguage : ""} onClick={() => { setLocale(code); setLanguageOpen(false); }}>{code}<span>{locale === code ? "✓" : ""}</span></button>)}</div>}</div>
+          <a className={styles.iconButton} href="/account" aria-label="Account"><Icon name="user"/></a>
+          <button aria-label="Menu" aria-expanded={menuOpen} onClick={() => { setMenuOpen(!menuOpen); setLanguageOpen(false); }}><Icon name="menu"/></button>
+        </div>
       </header>
+      {menuOpen && <div className={styles.mobileMenu}><div className={styles.mobileMenuHead}><img src="/mlt-logo.svg" alt="MLT"/><button aria-label="Close menu" onClick={() => setMenuOpen(false)}>×</button></div><p>Explore MLT</p><nav><a href="/#collections"><span>01</span>Collections</a><a href="/#routes"><span>02</span>Journeys</a><a href="/#fleet"><span>03</span>Vehicles</a><a href="/#experiences"><span>04</span>Experiences</a><a href="/plan"><span>05</span>Smart map</a></nav><div className={styles.mobileMenuBottom}><a href="/account">Sign in</a><a href="mailto:concierge@mlt-travel.com">Contact concierge →</a></div></div>}
 
       <section className={styles.hero}>
         <img src="/collection-freedom-hero-mobile-v2.webp" alt="MLT Freedom expedition" />

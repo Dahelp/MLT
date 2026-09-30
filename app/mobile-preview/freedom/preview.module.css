@@ -69,3 +69,24 @@
 .fields .fieldPrice{bottom:6px;font-size:11px;line-height:1}
 .card[data-active="true"]{border:2px solid #cf9364;box-shadow:0 17px 38px #6d4c354f,0 0 0 3px #cf936426}
 .card[data-active="true"]>em{top:10px;right:10px;padding:5px 7px;border-radius:5px;background:#b8784b;color:#fff;font-style:normal}
+.header{position:relative;z-index:220}
+.headerActions{position:relative;display:flex;gap:7px;align-items:center}
+.header .iconButton{display:grid;place-items:center;width:38px;height:38px;box-sizing:border-box;border:1px solid #aca69d;border-radius:50%;color:#171816}
+.header .iconButton svg{width:18px;height:18px}
+.languageWrap{position:relative}
+.language[aria-expanded="true"]{border-color:#b7794d;background:#f1e3d4}
+.language[aria-expanded="true"] svg:last-child{transform:rotate(180deg)}
+.languageMenu{position:absolute;z-index:240;top:45px;left:0;width:88px;padding:5px;border:1px solid #c8b49f;border-radius:10px;background:#f8f3eb;box-shadow:0 12px 28px #3c31252e}
+.languageMenu button{width:100%;height:34px;justify-content:space-between;border:0;border-radius:7px;padding:0 9px;font-size:11px}
+.languageMenu .activeLanguage{background:#252823;color:#fff}
+.mobileMenu{position:absolute;z-index:300;top:0;left:0;right:0;min-height:610px;padding:23px 25px 35px;background:#171a17;color:#eee7dc;box-shadow:0 25px 60px #0006}
+.mobileMenuHead{display:flex;align-items:center;justify-content:space-between;padding-bottom:34px;border-bottom:1px solid #ffffff1f}
+.mobileMenuHead img{width:112px;filter:brightness(1.2)}
+.mobileMenuHead button{width:40px;height:40px;border:1px solid #766b60;border-radius:50%;background:transparent;color:#eee7dc;font-size:28px;line-height:1}
+.mobileMenu>p{margin:30px 0 14px;color:#b98560;text-transform:uppercase;letter-spacing:.18em;font-size:9px}
+.mobileMenu nav{display:flex;flex-direction:column}
+.mobileMenu nav a{display:flex;align-items:center;gap:18px;padding:17px 2px;border-bottom:1px solid #ffffff19;color:#eee7dc;text-decoration:none;font:27px Georgia,serif}
+.mobileMenu nav span{color:#9b765b;font:9px Arial,sans-serif;letter-spacing:.12em}
+.mobileMenuBottom{display:flex;justify-content:space-between;gap:12px;margin-top:35px}
+.mobileMenuBottom a{padding:12px 15px;border:1px solid #9b765b;border-radius:8px;color:#e5c2a6;text-decoration:none;text-transform:uppercase;letter-spacing:.09em;font-size:9px}
+.mobileMenuBottom a:last-child{background:#b7794d;color:white}
