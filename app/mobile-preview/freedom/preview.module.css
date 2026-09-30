@@ -104,5 +104,5 @@
 .fields label:has(.fieldPrice)>select,.fields label>input[type="date"]{font-size:16px;line-height:normal}
 .fields .fieldPrice{font-size:12px}
 .card{opacity:1}
-.prev,.next{border:1px solid #ffffffb8;background:#ffffffe0;color:#6f513d;box-shadow:0 5px 18px #28201624;backdrop-filter:blur(5px)}
+.prev,.next{display:flex;align-items:center;justify-content:center;padding:0 0 4px;border:1px solid #ffffff8f;background:#ffffffa8;color:#6f513d;line-height:1;box-shadow:0 5px 18px #28201624;backdrop-filter:blur(5px)}
 .travellers>div{transform:translateX(25px)}

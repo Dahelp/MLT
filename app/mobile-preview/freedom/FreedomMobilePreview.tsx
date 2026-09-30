@@ -68,7 +68,7 @@ export default function FreedomMobilePreview() {
       </section>
 
       <section className={styles.booking}>
-        <h2>Build your journey</h2>
+        <h2>Build your journey:</h2>
         <p className={styles.label}><i><Icon name="compass"/></i>Journey type</p>
         <div className={styles.types}>
           <button className={!plus ? styles.selected : ""} onClick={() => setPlus(false)}><b>Freedom</b><small><span>✓</span> Motorhome</small><small><span>✓</span> Basic Road Book</small><small><span>✓</span> MLT My Profile</small><small><span>✓</span> Technical support</small></button>
@@ -84,7 +84,7 @@ export default function FreedomMobilePreview() {
       </section>
 
       <section className={styles.products}>
-        <p className={styles.eyebrow}>Collection products</p>
+        <p className={styles.eyebrow}>Select your experience:</p>
         <div className={styles.carousel}>
           <button className={styles.prev} onClick={() => move(-1)} aria-label="Previous">←</button>
           <div className={styles.track} onPointerDown={(event) => { dragStart.current = event.clientX; event.currentTarget.setPointerCapture(event.pointerId); }} onPointerUp={(event) => { if (dragStart.current === null) return; const distance = event.clientX - dragStart.current; dragStart.current = null; if (Math.abs(distance) > 35) move(distance < 0 ? 1 : -1); }} onPointerCancel={() => { dragStart.current = null; }}>{products.map((product, index) => {
