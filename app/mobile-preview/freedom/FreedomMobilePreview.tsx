@@ -58,6 +58,7 @@ export default function FreedomMobilePreview() {
   const [locale, setLocale] = useState<"EN" | "DE" | "RU">("EN");
   const [languageOpen, setLanguageOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeField, setActiveField] = useState<"country" | "duration" | "dates" | null>(null);
   const [packages, setPackages] = useState<PackageVariant[]>(defaultPackages);
   const [departureRule, setDepartureRule] = useState<DepartureRule>({ mode: "any", weekdays: [], blockedDates: [], allowedDates: [] });
   const productCarousel = useRef<SwiperInstance | null>(null);
@@ -67,7 +68,7 @@ export default function FreedomMobilePreview() {
   useEffect(() => { fetch("/api/catalog.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "list" }) }).then(response => response.ok ? response.json() : Promise.reject()).then(data => { const item = Array.isArray(data.items) ? data.items.find((entry: { item_type?: string; slug?: string }) => entry.item_type === "collection" && entry.slug === "freedom") : null; const parsed = item?.data_json ? JSON.parse(item.data_json) : {}; if (Array.isArray(parsed.packageVariants) && parsed.packageVariants.length >= 2) setPackages(parsed.packageVariants); const rule = parsed.departureRule; if (rule && typeof rule === "object") setDepartureRule({ mode: rule.mode === "weekdays" ? "weekdays" : "any", weekdays: Array.isArray(rule.weekdays) ? rule.weekdays.map(Number) : [], blockedDates: Array.isArray(rule.blockedDates) ? rule.blockedDates.map(String) : [], allowedDates: Array.isArray(rule.allowedDates) ? rule.allowedDates.map(String) : [] }); }).catch(() => {}); }, []);
   const freedomPackage = packages[0] || defaultPackages[0];
   const freedomPlusPackage = packages[1] || defaultPackages[1];
-  const displayDate = (value: string) => new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${value}T12:00:00`));
+  const displayDate = (value: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${value}T12:00:00`));
 
   return <main className={styles.stage}>
     <div className={styles.phone}>
@@ -93,10 +94,10 @@ export default function FreedomMobilePreview() {
           <button className={plus ? styles.selected : ""} onClick={() => setPlus(true)}><b>{freedomPlusPackage.title}</b>{(freedomPlusPackage.benefits || []).map(item => <small key={item}><span>✓</span> {item}</small>)}</button>
         </div>
         <div className={styles.fields}>
-          <label><i><Icon name="pin"/></i><span>Country</span><select><option>Italy</option></select></label>
-          <label><i><Icon name="calendar"/></i><span>Choose your travel dates</span><select value={days} onChange={(e) => setDays(Number(e.target.value))}>{Object.keys(prices).map(d => <option key={d} value={d}>{d} days</option>)}</select><small className={styles.fieldPrice}>{new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(prices[days] + (plus ? 300 : 0))}</small></label>
-          <div className={styles.calendarField} onClick={(event) => { if (!(event.target as HTMLElement).closest("button")) event.currentTarget.querySelector("button")?.click(); }}><i><Icon name="calendar"/></i><DepartureCalendar value={departure} onChange={setDeparture} rule={departureRule} locale="ru" calendarLocale="en" label="Departure"/></div>
-          <div className={styles.returnField}><i><Icon name="calendar"/></i><span>Return</span><strong>{displayDate(returnDate)}</strong></div>
+          <label className={activeField === "country" ? styles.activeField : ""} onClick={() => setActiveField("country")}><i><Icon name="pin"/></i><span>Country</span><select><option>Italy</option></select></label>
+          <label className={activeField === "duration" ? styles.activeField : ""} onClick={() => setActiveField("duration")}><i><Icon name="calendar"/></i><span>Choose your travel dates</span><select value={days} onChange={(e) => setDays(Number(e.target.value))}>{Object.keys(prices).map(d => <option key={d} value={d}>{d} days</option>)}</select><small className={styles.fieldPrice}>{new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(prices[days] + (plus ? 300 : 0))}</small></label>
+          <div className={`${styles.calendarField} ${activeField === "dates" ? styles.activeField : ""}`} onClick={(event) => { setActiveField("dates"); if (!(event.target as HTMLElement).closest("button")) event.currentTarget.querySelector("button")?.click(); }}><i><Icon name="calendar"/></i><DepartureCalendar value={departure} onChange={setDeparture} rule={departureRule} locale="en" calendarLocale="en" label="Departure"/></div>
+          <div className={`${styles.returnField} ${activeField === "dates" ? styles.activeField : ""}`}><i><Icon name="calendar"/></i><span>Return</span><strong>{displayDate(returnDate)}</strong></div>
           <div className={styles.travellers}><i><Icon name="travellers"/></i><span>Travellers</span><div><button onClick={() => setGuests(Math.max(1, guests - 1))}>−</button><b>{guests}</b><button onClick={() => setGuests(Math.min(8, guests + 1))}>+</button></div><small>1–2 guests included · +€190 from the 3rd guest</small></div>
         </div>
         <section className={styles.products}>

@@ -145,7 +145,7 @@
 .footerLinks a{font-size:14px;line-height:1.35}
 .footerBottom{font-size:11px}
 .fields select{outline:0;box-shadow:none}
-.fields label:focus-within,.calendarField:focus-within{border-color:#cf9364;box-shadow:inset 0 0 0 1px #cf9364}
+.fields .activeField,.activeField{border-color:#cf9364;box-shadow:inset 0 0 0 1px #cf9364}
 .fields label,.calendarField{cursor:pointer}
 .fields label>i,.calendarField>i{pointer-events:none}
 .returnField>strong{position:absolute;left:48px;right:9px;top:49px;margin:0;line-height:20px}
