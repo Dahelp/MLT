@@ -95,7 +95,7 @@ export default function FreedomMobilePreview() {
         <div className={styles.fields}>
           <label><i><Icon name="pin"/></i><span>Country</span><select><option>Italy</option></select></label>
           <label><i><Icon name="calendar"/></i><span>Choose your travel dates</span><select value={days} onChange={(e) => setDays(Number(e.target.value))}>{Object.keys(prices).map(d => <option key={d} value={d}>{d} days</option>)}</select><small className={styles.fieldPrice}>{new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(prices[days] + (plus ? 300 : 0))}</small></label>
-          <div className={styles.calendarField}><i><Icon name="calendar"/></i><DepartureCalendar value={departure} onChange={setDeparture} rule={departureRule} locale="ru" label="Departure"/></div>
+          <div className={styles.calendarField} onClick={(event) => { if (!(event.target as HTMLElement).closest("button")) event.currentTarget.querySelector("button")?.click(); }}><i><Icon name="calendar"/></i><DepartureCalendar value={departure} onChange={setDeparture} rule={departureRule} locale="ru" calendarLocale="en" label="Departure"/></div>
           <div className={styles.returnField}><i><Icon name="calendar"/></i><span>Return</span><strong>{displayDate(returnDate)}</strong></div>
           <div className={styles.travellers}><i><Icon name="travellers"/></i><span>Travellers</span><div><button onClick={() => setGuests(Math.max(1, guests - 1))}>−</button><b>{guests}</b><button onClick={() => setGuests(Math.min(8, guests + 1))}>+</button></div><small>1–2 guests included · +€190 from the 3rd guest</small></div>
         </div>
