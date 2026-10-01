@@ -28,6 +28,7 @@ const pageRoutes = [
   "/legal/terms",
 ];
 const locales = ["en", "de", "ru"];
+const mobilePreviewCollections = ["signature", "concierge", "private", "honeymoon"];
 const routes = [
   "/",
   "/concierge",
@@ -37,8 +38,10 @@ const routes = [
   "/concierge/catalog",
   "/concierge/team",
   "/mobile-preview/freedom",
+  ...mobilePreviewCollections.map((slug) => `/mobile-preview/${slug}`),
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
+  ...locales.flatMap((locale) => mobilePreviewCollections.map((slug) => `/${locale}/collections/${slug}/mobile-preview`)),
 ];
 
 await rm(output, { recursive: true, force: true });
