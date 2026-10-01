@@ -13,11 +13,11 @@ import { LanguageMenu } from "./LanguageMenu";
 type SiteLocale = "en" | "de" | "ru";
 
 const collections = [
-  { id: "freedom", name: "Freedom", image: "/collection-freedom.jpg", eyebrow: "Self-directed discovery", copy: "A fully equipped premium motorhome, a curated map and the freedom to follow your own rhythm.", rate: "From €1,490 for 7 days", days: "7–30 days" },
-  { id: "signature", name: "Signature", image: "/collection-signature.jpg", eyebrow: "Curated end to end", copy: "A personal route, reserved stays and remarkable roads — every essential detail already considered.", rate: "From €2,490 for 7 days", days: "7–14 days" },
-  { id: "concierge", name: "Concierge", image: "/collection-concierge.jpg", eyebrow: "Always one step ahead", copy: "Your journey, supported by a dedicated MLT concierge, available around the clock.", rate: "From €4,990 for 7 days", days: "7–14 days" },
-  { id: "private", name: "Private", image: "/collection-private.jpg", eyebrow: "A private world in motion", copy: "A five-star travelling residence with driver, private team and service shaped entirely around you.", rate: "From €19,900 for 7 days", days: "7–21 days" },
-  { id: "honeymoon", name: "Honeymoon", image: "/collection-honeymoon.jpg", eyebrow: "A private journey for two", copy: "Romantic roads, private stays and beautiful moments composed entirely around the two of you.", rate: "From €5,900 for 7 days", days: "7–14 days" },
+  { id: "freedom", name: "Freedom", image: "/collection-freedom-carousel-v2.jpg", eyebrow: "Self-directed discovery", copy: "A fully equipped premium motorhome, a curated map and the freedom to follow your own rhythm.", rate: "From €1,490 for 7 days", days: "7–30 days" },
+  { id: "signature", name: "Signature", image: "/collection-signature-carousel-v2.jpg", eyebrow: "Curated end to end", copy: "A personal route, reserved stays and remarkable roads — every essential detail already considered.", rate: "From €2,490 for 7 days", days: "7–14 days" },
+  { id: "concierge", name: "Concierge", image: "/collection-concierge-carousel-v2.jpg", eyebrow: "Always one step ahead", copy: "Your journey, supported by a dedicated MLT concierge, available around the clock.", rate: "From €4,990 for 7 days", days: "7–14 days" },
+  { id: "private", name: "Private", image: "/collection-private-carousel-v2.jpg", eyebrow: "A private world in motion", copy: "A five-star travelling residence with driver, private team and service shaped entirely around you.", rate: "From €19,900 for 7 days", days: "7–21 days" },
+  { id: "honeymoon", name: "Honeymoon", image: "/collection-honeymoon-carousel-v2.jpg", eyebrow: "A private journey for two", copy: "Romantic roads, private stays and beautiful moments composed entirely around the two of you.", rate: "From €5,900 for 7 days", days: "7–14 days" },
 ] as const;
 
 // Keep enough real slides around the active card to fill wide screens in both
@@ -144,7 +144,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
           <picture>
             <source srcSet={item.image.replace(".jpg", ".avif")} type="image/avif" />
             <source srcSet={item.image.replace(".jpg", ".webp")} type="image/webp" />
-            <img src={item.image} alt={`MLT ${item.name} Collection`} loading="lazy" decoding="async" draggable="false" />
+            <picture><img src={item.image} alt={`MLT ${item.name} Collection`} loading="lazy" decoding="async" draggable="false" /></picture>
           </picture>
           <div className="collection-top"><span>0{(index % collections.length) + 1}</span><small>{localizedItem.eyebrow}</small></div>
           <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{localizedItem.copy}</p><div><span>{locale === "ru" ? item.days.replace("days", "дней") : locale === "de" ? item.days.replace("days", "Tage") : item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
