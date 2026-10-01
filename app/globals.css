@@ -418,7 +418,6 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .philosophy-grid > p, .light-section-head > div > p:not(.light-section-label), .experience-intro > p:not(.light-section-label), .map-copy > p:not(.light-section-label), .light-contact > div > p:not(.light-section-label) { color: var(--mlt-muted); font-size: clamp(17px, 1.35vw, 21px); line-height: 1.75; }
 .value-row { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: clamp(62px, 8vw, 110px); border-top: 1px solid #d9d2c8; border-bottom: 1px solid #d9d2c8; }
 .value-row article { min-height: 190px; padding: 30px 34px; border-right: 1px solid #d9d2c8; }
-.value-row article > img { display: none; }
 .value-row article:last-child { border-right: 0; }
 .value-row span { color: var(--mlt-bronze); font: 500 12px/1 Arial; letter-spacing: .12em; }
 .value-row h3 { max-width: none; margin-top: 58px; font: 400 clamp(20px, 1.35vw, 25px)/1.25 Georgia, serif; text-wrap: balance; }
@@ -454,17 +453,11 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .experience-intro > p { margin: 28px 0 30px; }
 .experience-list { border-top: 1px solid #d7d0c6; }
 .experience-list article { display: grid; grid-template-columns: 44px 1fr 34px; gap: 24px; align-items: center; min-height: 155px; border-bottom: 1px solid #d7d0c6; }
-.experience-list article > img { display: none; }
 .experience-list article > span { color: var(--mlt-bronze); font-size: 12px; letter-spacing: .12em; }
 .experience-list h3 { font: 400 clamp(25px, 2.5vw, 37px)/1.15 Georgia, serif; }
 .experience-list p { max-width: 560px; margin-top: 9px; color: var(--mlt-muted); font-size: 15px; line-height: 1.55; }
 .experience-list i { color: var(--mlt-bronze); font: normal 22px/1 Arial; }
-.light-map { display: grid; grid-template-columns: 1.16fr .84fr; grid-template-rows: auto 1fr; min-height: 780px; background: #f3eee6; border-block: 1px solid rgba(118,91,68,.12); }
-.light-map .smart-map-canvas { grid-column: 1; grid-row: 1 / 3; }
-.light-map .map-copy { grid-column: 2; grid-row: 1; padding-bottom: 26px; }
-.map-details { grid-column: 2; grid-row: 2; padding: 0 clamp(64px, 6.5vw, 100px) clamp(58px, 6vw, 92px); background: rgba(255,252,247,.7); }
-.route-distance { margin: -10px 0 26px; color: #754529; font: 400 24px/1.25 Georgia, serif; }
-.mobile-map-link { display: none; }
+.light-map { display: grid; grid-template-columns: 1.16fr .84fr; min-height: 780px; background: #f3eee6; border-block: 1px solid rgba(118,91,68,.12); }
 .map-photo { position: relative; min-height: 680px; overflow: hidden; }
 .map-photo > img { width: 100%; height: 100%; object-fit: cover; }
 .map-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 62%, rgba(229,221,209,.28)); }
@@ -912,8 +905,7 @@ footer .brand-line { font-size: 12px; }
 .smart-map-country-tabs button { min-height: 38px; padding: 0 14px; border: 0; color: #71685f; background: transparent; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
 .smart-map-country-tabs button.active { color: #fff; background: #9a6643; }
 .smart-map-selection { margin: 2px 0 30px; padding: 20px; border: 1px solid rgba(113,87,65,.22); background: rgba(255,255,255,.72); box-shadow: 0 14px 38px rgba(55,43,32,.08); backdrop-filter: blur(10px); }
-.smart-map-selection > small { display: flex; justify-content: space-between; margin-bottom: 10px; color: #8b6043; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.smart-map-selection > small b { color: #756b62; font-weight: 500; letter-spacing: .04em; }
+.smart-map-selection > small { display: block; margin-bottom: 10px; color: #8b6043; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .smart-map-selection > div { display: grid; gap: 8px; }
 .smart-map-selection button { width: 100%; min-height: 42px; display: flex; align-items: center; gap: 10px; padding: 6px 12px 6px 7px; color: #403a34; border: 1px solid #d2c4b4; border-radius: 999px; background: #fffdf9; font-size: 12px; text-align: left; cursor: pointer; }
 .smart-map-selection button b { margin-left: auto; }
@@ -932,77 +924,6 @@ footer .brand-line { font-size: 12px; }
 @keyframes route-pulse { to { opacity: .25; } }
 @media (max-width: 900px) { .light-map { grid-template-columns: 1fr; }.smart-map-canvas { min-height: 680px; }.map-copy { min-height: 620px; } }
 @media (max-width: 600px) { .smart-map-canvas { min-height: 620px; }.smart-map-country-tabs { left: 12px; right: 12px; top: 12px; overflow-x: auto; }.smart-map-country-tabs button { flex: 1 0 auto; padding-inline: 10px; }.route-calculation-status { top: 70px; left: 12px; }.smart-map-selection { margin-bottom: 26px; }.smart-map-selection button { font-size: 11px; }.smart-map-canvas .real-map-marker b { display: none; } }
-
-/* Mobile homepage — follows the accepted collection-page language and proportions. */
-@media (max-width: 760px) {
-  .home-light { background: #f7f3eb; }
-  .home-light .light-nav { top: 14px; left: 14px; width: calc(100% - 28px); height: 70px; padding: 0 12px 0 17px; border-color: rgba(255,255,255,.32); border-radius: 28px; background: rgba(29,28,26,.54); backdrop-filter: blur(15px); }
-  .home-light .light-brand, .home-light .light-brand img { width: 112px; height: 46px; }
-  .home-light .header-language-trigger { color: #fff; border-color: rgba(255,255,255,.34); background: rgba(30,29,27,.2); }
-  .home-light .account-nav-link, .home-light .light-menu { color: #fff; border-color: rgba(255,255,255,.34); background: rgba(30,29,27,.2); }
-  .home-light .light-hero { min-height: 760px; height: 100svh; }
-  .home-light .light-hero-image { object-position: 61% center; }
-  .home-light .light-hero-wash { background: linear-gradient(180deg, rgba(18,16,14,.4), rgba(18,16,14,.06) 34%, rgba(13,12,11,.46)); }
-  .home-light .light-hero-copy { top: 38%; left: 24px; width: calc(100% - 48px); text-align: center; transform: translateY(-16%); }
-  .home-light .light-hero-copy .light-eyebrow { justify-content: center; max-width: 310px; margin: 0 auto; font-size: 23px; line-height: 1.3; letter-spacing: .075em; }
-  .home-light .light-hero-copy > p:not(.light-eyebrow) { max-width: 340px; margin-top: 28px; font-size: 17px; line-height: 1.5; }
-  .home-light .hero-collection-button { width: min(330px, 100%); min-height: 60px; margin-inline: auto; border-radius: 18px; font-size: 14px; }
-  .home-light .hero-bottom-bar { position: absolute; right: 20px; bottom: 24px; left: auto; width: 64px; height: 64px; padding: 0; border: 0; background: transparent; box-shadow: none; }
-  .home-light .light-chat b { display: none; }
-  .home-light .chat-icon { width: 64px; height: 64px; border-color: rgba(255,255,255,.72); background: rgba(103,57,24,.82); box-shadow: 0 12px 30px rgba(0,0,0,.28); }
-  .home-light .chat-icon::before { content: ""; position: absolute; width: 29px; height: 22px; border: 2px solid #fff; border-radius: 50%; }
-  .home-light .chat-icon::after { content: ""; position: absolute; width: 7px; height: 7px; margin: 19px 0 0 -19px; border-left: 2px solid #fff; transform: rotate(-24deg); }
-  .home-light .chat-icon i { position: relative; z-index: 1; width: 3px; height: 3px; }
-
-  .home-light .light-philosophy { padding: 76px 20px 70px; }
-  .home-light .light-section-label { font-size: 11px; letter-spacing: .17em; }
-  .home-light .philosophy-grid { display: block; }
-  .home-light .philosophy-grid h2, .home-light .light-section-head h2, .home-light .experience-intro h2, .home-light .map-copy h2 { margin-top: 18px; font-size: clamp(42px, 12.5vw, 55px); line-height: .99; }
-  .home-light .philosophy-grid > p { margin-top: 25px; font-size: 17px; line-height: 1.55; }
-  .home-light .value-row { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin-top: 36px; border: 0; }
-  .home-light .value-row article { min-height: 255px; padding: 6px 6px 16px; border: 1px solid #ddd3c5; border-radius: 14px; background: rgba(255,255,255,.65); }
-  .home-light .value-row article > img { display: block; width: 100%; aspect-ratio: .9; object-fit: cover; border-radius: 10px; }
-  .home-light .value-row span { display: none; }
-  .home-light .value-row h3 { margin: 15px 4px 0; font-size: 16px; line-height: 1.12; }
-
-  .home-light .light-collections { padding: 76px 0 62px; }
-  .home-light .light-section-head { padding: 0 20px 34px; }
-  .home-light .light-section-head > div:last-child p { font-size: 17px; line-height: 1.5; }
-  .home-light .collection-slide { width: 82vw !important; }
-  .home-light .light-collection-card { min-height: 520px; border-radius: 22px; }
-  .home-light .carousel-side-arrow { width: 46px; height: 46px; border-color: rgba(255,255,255,.6); background: rgba(34,31,28,.48); font-size: 20px; }
-
-  .home-light .light-experiences { display: block; padding: 76px 20px; }
-  .home-light .experience-intro > p:not(.light-section-label) { margin: 24px 0 34px; font-size: 17px; line-height: 1.5; }
-  .home-light .experience-intro .text-button { display: none; }
-  .home-light .experience-list { display: grid; gap: 10px; border: 0; }
-  .home-light .experience-list article { grid-template-columns: 42% 1fr; min-height: 132px; gap: 0; padding: 0; overflow: hidden; border: 1px solid #e2d9cc; border-radius: 18px; background: rgba(255,255,255,.72); }
-  .home-light .experience-list article > img { display: block; width: 100%; height: 100%; min-height: 132px; object-fit: cover; }
-  .home-light .experience-list article > span, .home-light .experience-list article > i { display: none; }
-  .home-light .experience-list article > div { padding: 16px 14px; }
-  .home-light .experience-list h3 { font-size: 23px; line-height: 1.02; }
-  .home-light .experience-list p { margin-top: 9px; font-size: 13px; line-height: 1.4; }
-
-  .home-light .light-map { display: grid; grid-template-columns: 1fr; grid-template-rows: auto 330px auto; gap: 24px; min-height: 0; padding: 76px 18px 82px; background: #f7f3eb; }
-  .home-light .light-map .map-copy { grid-column: 1; grid-row: 1; padding: 0; background: transparent; }
-  .home-light .map-copy > p:not(.light-section-label) { margin: 23px 0 4px; font-size: 17px; line-height: 1.55; }
-  .home-light .light-map .smart-map-canvas { grid-column: 1; grid-row: 2; min-height: 330px; border: 1px solid #d7caba; border-radius: 22px; box-shadow: 0 18px 42px rgba(85,64,45,.13); }
-  .home-light .smart-map-canvas::after { border-radius: 22px; box-shadow: inset 0 0 45px rgba(86,65,48,.08); }
-  .home-light .mobile-map-link { position: absolute; z-index: 9; top: 14px; right: 14px; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; color: #28231f; border: 1px solid rgba(126,102,82,.25); border-radius: 999px; background: rgba(255,253,249,.92); box-shadow: 0 8px 24px rgba(65,48,34,.12); text-decoration: none; font: 600 13px/1 Arial,sans-serif; }
-  .home-light .mobile-map-link span { margin-left: 4px; }
-  .home-light .smart-map-country-tabs { top: auto; bottom: 12px; left: 12px; right: 12px; padding: 3px; border-radius: 999px; }
-  .home-light .smart-map-country-tabs button { min-height: 32px; padding: 0 9px; font-size: 9px; }
-  .home-light .route-calculation-status { top: 66px; left: 12px; padding: 7px 9px; font-size: 9px; }
-  .home-light .smart-map-canvas .maplibregl-ctrl-bottom-left, .home-light .smart-map-canvas .maplibregl-ctrl-bottom-right { display: none; }
-  .home-light .map-details { grid-column: 1; grid-row: 3; padding: 0; background: transparent; }
-  .home-light .smart-map-selection { margin: 0 0 18px; padding: 18px; border-radius: 20px; background: rgba(255,255,255,.74); }
-  .home-light .smart-map-selection > small { margin-bottom: 14px; font-size: 11px; }
-  .home-light .smart-map-selection button { min-height: 52px; padding: 6px 15px 6px 8px; font: 400 18px/1 Georgia,serif; }
-  .home-light .smart-map-selection button span { width: 36px; height: 36px; font: 400 15px/1 Arial,sans-serif; }
-  .home-light .route-distance { margin: 0 0 26px; padding: 18px 20px; border: 1px solid #d4c4b2; border-radius: 18px; background: #efe4d4; font-size: 23px; text-align: center; }
-  .home-light .map-stats { display: none; }
-  .home-light .map-details > .bronze-button { min-height: 62px; border-radius: 999px; }
-}
 
 /* Private account and collection-to-payment flow. */
 .account-page { min-height: 100vh; padding: 30px clamp(24px, 7vw, 120px) 70px; color: #29231f; background: radial-gradient(circle at 80% 0, #e7d5c2, transparent 34%), #f7f2ea; }
