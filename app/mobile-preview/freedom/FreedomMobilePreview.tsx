@@ -49,13 +49,13 @@ function addDays(date: string, days: number) {
   return value.toISOString().slice(0, 10);
 }
 
-export default function FreedomMobilePreview() {
+export default function FreedomMobilePreview({ initialLocale = "EN" }: { initialLocale?: "EN" | "DE" | "RU" }) {
   const [plus, setPlus] = useState(false);
   const [days, setDays] = useState(7);
   const [departure, setDeparture] = useState("2026-10-12");
   const [guests, setGuests] = useState(1);
   const [active, setActive] = useState(2);
-  const [locale, setLocale] = useState<"EN" | "DE" | "RU">("EN");
+  const [locale, setLocale] = useState<"EN" | "DE" | "RU">(initialLocale);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeField, setActiveField] = useState<"country" | "duration" | "dates" | null>(null);
@@ -75,7 +75,7 @@ export default function FreedomMobilePreview() {
       <header className={styles.header}>
         <a href="/" aria-label="MLT home"><img src="/mlt-logo.svg" alt="MLT" /></a>
         <div className={styles.headerActions}>
-          <div className={styles.languageWrap}><button className={styles.language} aria-expanded={languageOpen} onClick={() => { setLanguageOpen(!languageOpen); setMenuOpen(false); }}><Icon name="globe"/><span>{locale}</span><Icon name="chevron"/></button>{languageOpen && <div className={styles.languageMenu}>{(["EN","DE","RU"] as const).map(code => <button key={code} className={locale === code ? styles.activeLanguage : ""} onClick={() => { setLocale(code); setLanguageOpen(false); }}>{code}<span>{locale === code ? "✓" : ""}</span></button>)}</div>}</div>
+          <div className={styles.languageWrap}><button className={styles.language} aria-expanded={languageOpen} onClick={() => { setLanguageOpen(!languageOpen); setMenuOpen(false); }}><Icon name="globe"/><span>{locale}</span><Icon name="chevron"/></button>{languageOpen && <div className={styles.languageMenu}>{(["EN","DE","RU"] as const).map(code => <button key={code} className={locale === code ? styles.activeLanguage : ""} onClick={() => { setLocale(code); setLanguageOpen(false); const parts=location.pathname.split("/"); if(["en","de","ru"].includes(parts[1])){parts[1]=code.toLowerCase();location.href=parts.join("/");} }}>{code}<span>{locale === code ? "✓" : ""}</span></button>)}</div>}</div>
           <a className={styles.iconButton} href="/account" aria-label="Account"><Icon name="user"/></a>
           <button aria-label="Menu" aria-expanded={menuOpen} onClick={() => { setMenuOpen(!menuOpen); setLanguageOpen(false); }}><Icon name="menu"/></button>
         </div>
