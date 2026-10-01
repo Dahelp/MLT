@@ -32,6 +32,16 @@ export function parseDepartureRule(dataJson?: string | null): DepartureRule {
   }
 }
 
+export function nextAllowedDeparture(value: string, rule: DepartureRule): string {
+  const date = new Date(`${value}T12:00:00`);
+  for (let offset = 0; offset < 370; offset += 1) {
+    const key = date.toISOString().slice(0, 10);
+    if (rule.allowedDates.includes(key) || (!rule.blockedDates.includes(key) && (rule.mode === "any" || rule.weekdays.includes(date.getDay())))) return key;
+    date.setDate(date.getDate() + 1);
+  }
+  return value;
+}
+
 export function useCatalogItems(): CatalogItem[] {
   const [items, setItems] = useState<CatalogItem[]>([]);
   useEffect(() => {

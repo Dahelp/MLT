@@ -7,7 +7,7 @@ import { EffectCoverflow, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import { collectionDetails } from "../../../content/collection-details";
-import { parseDepartureRule, useCatalogItems } from "../../../content/catalog-client";
+import { nextAllowedDeparture, parseDepartureRule, useCatalogItems } from "../../../content/catalog-client";
 import { journeyRoutes } from "../../../content/mlt";
 import type { Locale } from "../../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../../collections/[slug]/DepartureCalendar";
@@ -76,6 +76,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN" }: { initial
   const money = new Intl.NumberFormat(language==="en"?"en-GB":language==="de"?"de-DE":"ru-RU", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(total);
   const dbCollection = catalogItems.find(entry => entry.item_type === "collection" && entry.slug === "freedom");
   const departureRule = parseDepartureRule(dbCollection?.data_json);
+  useEffect(() => { if (dbCollection?.data_json) setDeparture(current => nextAllowedDeparture(current, departureRule)); }, [dbCollection?.data_json]);
   useEffect(() => { const parsed = dbCollection?.data_json ? JSON.parse(dbCollection.data_json) : {}; if (Array.isArray(parsed.packageVariants) && parsed.packageVariants.length >= 2) setPackages(parsed.packageVariants); }, [dbCollection]);
   const displayedPackages=locale==="EN"?packages:localizedPackages[language];
   const freedomPackage = displayedPackages[0] || localizedPackages[language][0];

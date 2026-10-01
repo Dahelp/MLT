@@ -7,7 +7,7 @@ import { EffectCoverflow, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import { collectionDetails } from "../../content/collection-details";
-import { parseDepartureRule, useCatalogItems } from "../../content/catalog-client";
+import { nextAllowedDeparture, parseDepartureRule, useCatalogItems } from "../../content/catalog-client";
 import { collections, journeyRoutes } from "../../content/mlt";
 import type { Locale } from "../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../collections/[slug]/DepartureCalendar";
@@ -84,6 +84,7 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
   const total=prices[days]+(config.packages[variant]?.supplement||0)+Math.max(0,guests-2)*190, returned=addDays(departure,days);
   const dbCollection=catalogItems.find(x=>x.item_type==="collection"&&x.slug===collectionId);
   const effectiveDepartureRule:DepartureRule=parseDepartureRule(dbCollection?.data_json);
+  useEffect(()=>{if(dbCollection?.data_json)setDeparture(current=>nextAllowedDeparture(current,effectiveDepartureRule));},[dbCollection?.data_json]);
   const money=(value:number)=>new Intl.NumberFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(value);
   const displayDate=(value:string)=>new Intl.DateTimeFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{day:"numeric",month:"short",year:"numeric"}).format(new Date(`${value}T12:00:00`));
   const chooseLocale=(code:Locale)=>{setLocale(code);setLanguageOpen(false);const parts=location.pathname.split("/");if(parts[1]==="en"||parts[1]==="de"||parts[1]==="ru"){parts[1]=code;location.href=parts.join("/");return;}const url=new URL(location.href);url.searchParams.set("lang",code);history.replaceState(null,"",url);};
