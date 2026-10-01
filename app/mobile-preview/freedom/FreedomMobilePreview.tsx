@@ -17,8 +17,8 @@ function Icon({ name }: { name: IconName }) {
     {name === "user" && <><circle cx="12" cy="8" r="3.5"/><path d="M5 21c.7-4.2 3.1-6.3 7-6.3s6.3 2.1 7 6.3"/></>}
     {name === "menu" && <path d="M5 8h14M5 16h14"/>}
     {name === "chevron" && <path d="m7 9.5 5 5 5-5"/>}
-    {name === "arrow-left" && <path d="m15.5 5-7 7 7 7M9 12h10"/>}
-    {name === "arrow-right" && <path d="m8.5 5 7 7-7 7M15 12H5"/>}
+    {name === "arrow-left" && <path d="m14 6-6 6 6 6M8 12h8"/>}
+    {name === "arrow-right" && <path d="m10 6 6 6-6 6M16 12H8"/>}
     {name === "compass" && <><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.1 5.5-5.5 2.1 2.1-5.5 5.5-2.1Z"/></>}
     {name === "pin" && <><path d="M20 10c0 5.2-8 11-8 11S4 15.2 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></>}
     {name === "calendar" && <><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7 14h2M11 14h2M15 14h2M7 18h2M11 18h2"/></>}
