@@ -32,6 +32,18 @@ $knownRanges=['freedom'=>[7,30,1490,4990],'signature'=>[7,14,2490,5890],'concier
 foreach($knownRanges as $knownSlug=>$range){$fill=$db->prepare('UPDATE mlt_catalog_items SET days_from=COALESCE(days_from,?),days_to=COALESCE(days_to,?),price=COALESCE(price,?),price_to=COALESCE(price_to,?) WHERE item_type="collection" AND slug=?');$fill->execute([$range[0],$range[1],$range[2],$range[3],$knownSlug]);}
 $knownPricing=['freedom'=>[[7,1490],[10,1990],[14,2590],[21,3690],[30,4990]],'signature'=>[[7,2490],[10,4290],[14,5890]],'concierge'=>[[7,4990],[10,6590],[14,8990]],'private'=>[[7,19900],[10,28429],[14,39800],[21,59700]],'honeymoon'=>[[7,5900],[10,7000],[14,8900]]];
 foreach($knownPricing as $knownSlug=>$rows){$fill=$db->prepare('UPDATE mlt_catalog_items SET data_json=? WHERE item_type="collection" AND slug=? AND (data_json IS NULL OR data_json="")');$fill->execute([json_encode(['pricing'=>array_map(fn($row)=>['days'=>$row[0],'price'=>$row[1]],$rows)],JSON_UNESCAPED_UNICODE),$knownSlug]);}
+$defaultDepartureRules=[
+ 'freedom'=>['mode'=>'any','weekdays'=>[],'blockedDates'=>[],'allowedDates'=>[]],
+ 'signature'=>['mode'=>'weekdays','weekdays'=>[3,6],'blockedDates'=>[],'allowedDates'=>[]],
+ 'concierge'=>['mode'=>'weekdays','weekdays'=>[3,6],'blockedDates'=>[],'allowedDates'=>[]],
+ 'private'=>['mode'=>'any','weekdays'=>[],'blockedDates'=>[],'allowedDates'=>[]],
+ 'honeymoon'=>['mode'=>'any','weekdays'=>[],'blockedDates'=>[],'allowedDates'=>[]],
+];
+foreach($defaultDepartureRules as $knownSlug=>$rule){
+ $read=$db->prepare('SELECT id,data_json FROM mlt_catalog_items WHERE item_type="collection" AND slug=? LIMIT 1');$read->execute([$knownSlug]);$row=$read->fetch();if(!$row)continue;
+ $payload=json_decode((string)($row['data_json']??''),true);if(!is_array($payload))$payload=[];
+ if(!array_key_exists('departureRule',$payload)){$payload['departureRule']=$rule;$write=$db->prepare('UPDATE mlt_catalog_items SET data_json=? WHERE id=?');$write->execute([json_encode($payload,JSON_UNESCAPED_UNICODE),$row['id']]);}
+}
 $defaultPackageVariants=[
  'freedom'=>[
   ['id'=>'freedom','title'=>'Freedom','subtitle'=>'Independent journey','description'=>'','benefits'=>['Motorhome','Basic Road Book','MLT My Profile','Technical support'],'interests'=>[],'supplement'=>''],

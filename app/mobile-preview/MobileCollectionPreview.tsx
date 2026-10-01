@@ -7,6 +7,7 @@ import { EffectCoverflow, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import { collectionDetails } from "../../content/collection-details";
+import { parseDepartureRule, useCatalogItems } from "../../content/catalog-client";
 import { collections, journeyRoutes } from "../../content/mlt";
 import type { Locale } from "../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../collections/[slug]/DepartureCalendar";
@@ -67,7 +68,6 @@ const tailoredInterests = [
 ] as const;
 function productsFor(id: CollectionId): Product[] { return journeyRoutes.slice(0,5).map((route,index)=>({n:String(index+1).padStart(2,"0"),title:route.name.replace("Freedom Journey",id === "honeymoon" ? "Romantic Journey" : "Journey"),copy:route.tagline,image:`/${productAssets[id][index]}`})); }
 function addDays(date:string,days:number){const value=new Date(`${date}T12:00:00`);value.setDate(value.getDate()+days);return value.toISOString().slice(0,10);}
-function nextSignatureDeparture(date:string){const value=new Date(`${date}T12:00:00`);while(value.getDay()!==3&&value.getDay()!==6)value.setDate(value.getDate()+1);return value.toISOString().slice(0,10);}
 
 export default function MobileCollectionPreview({ collectionId, initialLocale = "en" }: { collectionId: CollectionId; initialLocale?: Locale }) {
   const config=configs[collectionId], collection=collections.find(x=>x.id===collectionId)!, detail=collectionDetails[collectionId];
@@ -75,14 +75,15 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
   const [variant,setVariant]=useState(0), [prices,setPrices]=useState(fallbackPrices[collectionId]), [days,setDays]=useState(Number(Object.keys(fallbackPrices[collectionId])[0]));
   const [departure,setDeparture]=useState("2026-10-12"), [guests,setGuests]=useState(1), [active,setActive]=useState(2);
   const [selectedInterests,setSelectedInterests]=useState<string[]>([]);
-  const [activeField,setActiveField]=useState<"country"|"duration"|"dates"|null>(null), [departureRule,setDepartureRule]=useState<DepartureRule>({mode:"any",weekdays:[],blockedDates:[],allowedDates:[]});
+  const [activeField,setActiveField]=useState<"country"|"duration"|"dates"|null>(null);
   const [apiProducts,setApiProducts]=useState<Product[]>([]); const productCarousel=useRef<SwiperInstance|null>(null);
+  const catalogItems=useCatalogItems();
   useEffect(()=>{const value=new URLSearchParams(location.search).get("lang");if(value==="en"||value==="de"||value==="ru")setLocale(value);},[]);
-  useEffect(()=>{if(collectionId==="signature"&&variant===1)setDeparture(current=>nextSignatureDeparture(current));},[collectionId,variant]);
-  useEffect(()=>{fetch("/api/catalog.php",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"list"})}).then(r=>r.ok?r.json():Promise.reject()).then(data=>{const items=Array.isArray(data.items)?data.items:[];const item=items.find((x:{item_type?:string;slug?:string})=>x.item_type==="collection"&&x.slug===collectionId);const parsed=item?.data_json?JSON.parse(item.data_json):{};if(parsed.pricing&&typeof parsed.pricing==="object"){const rows=Array.isArray(parsed.pricing)?parsed.pricing.map((row:{days?:unknown;price?:unknown})=>[Number(row.days),Number(row.price)]):Object.entries(parsed.pricing).map(([k,v])=>[Number(k),Number(v)]);const next=Object.fromEntries(rows.filter(([d,p]:number[])=>Number.isFinite(d)&&d>0&&Number.isFinite(p)&&p>=0));if(Object.keys(next).length){setPrices(next);setDays(Number(Object.keys(next)[0]));}}const rule=parsed.departureRule;if(rule)setDepartureRule({mode:rule.mode==="weekdays"?"weekdays":"any",weekdays:Array.isArray(rule.weekdays)?rule.weekdays.map(Number):[],blockedDates:Array.isArray(rule.blockedDates)?rule.blockedDates.map(String):[],allowedDates:Array.isArray(rule.allowedDates)?rule.allowedDates.map(String):[]});const found=items.filter((x:{item_type?:string;collection_id?:string})=>x.item_type==="product"&&x.collection_id===collectionId).map((x:{title:string;image_path?:string;data_json?:string},i:number)=>{const p=x.data_json?JSON.parse(x.data_json):{};return{n:String(i+1).padStart(2,"0"),title:x.title,copy:{en:p.description||"",de:p.description_de||p.description||"",ru:p.description_ru||p.description||""},image:x.image_path||p.image||config.hero};});if(found.length)setApiProducts(found);}).catch(()=>{});},[collectionId,config.hero]);
+  useEffect(()=>{const item=catalogItems.find(x=>x.item_type==="collection"&&x.slug===collectionId);const parsed=item?.data_json?JSON.parse(item.data_json):{};if(parsed.pricing&&typeof parsed.pricing==="object"){const rows=Array.isArray(parsed.pricing)?parsed.pricing.map((row:{days?:unknown;price?:unknown})=>[Number(row.days),Number(row.price)]):Object.entries(parsed.pricing).map(([k,v])=>[Number(k),Number(v)]);const next=Object.fromEntries(rows.filter(([d,p]:number[])=>Number.isFinite(d)&&d>0&&Number.isFinite(p)&&p>=0));if(Object.keys(next).length){setPrices(next);setDays(Number(Object.keys(next)[0]));}}const found=catalogItems.filter(x=>x.item_type==="product"&&x.collection_id===collectionId).map((x,i)=>{const p=x.data_json?JSON.parse(x.data_json):{};return{n:String(i+1).padStart(2,"0"),title:String(x.title||""),copy:{en:p.description||"",de:p.description_de||p.description||"",ru:p.description_ru||p.description||""},image:String(x.image_path||p.image||config.hero)};});if(found.length)setApiProducts(found);},[catalogItems,collectionId,config.hero]);
   const copy=detail[locale], ui=tr[locale], products=apiProducts.length?apiProducts:productsFor(collectionId), carousel=Array.from({length:3},()=>products).flat();
   const total=prices[days]+(config.packages[variant]?.supplement||0)+Math.max(0,guests-2)*190, returned=addDays(departure,days);
-  const effectiveDepartureRule:DepartureRule=collectionId==="signature"&&variant===1?{mode:"weekdays",weekdays:[3,6],blockedDates:[],allowedDates:[]}:departureRule;
+  const dbCollection=catalogItems.find(x=>x.item_type==="collection"&&x.slug===collectionId);
+  const effectiveDepartureRule:DepartureRule=parseDepartureRule(dbCollection?.data_json);
   const money=(value:number)=>new Intl.NumberFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(value);
   const displayDate=(value:string)=>new Intl.DateTimeFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{day:"numeric",month:"short",year:"numeric"}).format(new Date(`${value}T12:00:00`));
   const chooseLocale=(code:Locale)=>{setLocale(code);setLanguageOpen(false);const parts=location.pathname.split("/");if(parts[1]==="en"||parts[1]==="de"||parts[1]==="ru"){parts[1]=code;location.href=parts.join("/");return;}const url=new URL(location.href);url.searchParams.set("lang",code);history.replaceState(null,"",url);};

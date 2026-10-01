@@ -9,6 +9,7 @@ import "swiper/css/effect-coverflow";
 import { journeyRoutes, type Collection } from "../../../content/mlt";
 import { collectionDe, collectionRu, type Locale } from "../../../content/i18n";
 import { collectionDetails } from "../../../content/collection-details";
+import { parseDepartureRule, useCatalogItems } from "../../../content/catalog-client";
 import { LanguageMenu } from "../../LanguageMenu";
 import { DepartureCalendar, type DepartureRule } from "./DepartureCalendar";
 
@@ -81,14 +82,13 @@ export function CollectionDetail({ collection }: { collection: Collection }) {
   const routeCarousel = useRef<SwiperInstance | null>(null);
   const fallbackOptions = rates[collection.id as keyof typeof rates];
   const [locale, setLocale] = useState<Locale>("en");
-  const [catalogItems, setCatalogItems] = useState<CatalogItem[]>([]);
+  const catalogItems = useCatalogItems() as CatalogItem[];
   const [days, setDays] = useState(fallbackOptions[0].d); const [start, setStart] = useState(""); const [guests, setGuests] = useState(1); const [plus, setPlus] = useState(false); const [customPackage, setCustomPackage] = useState(0); const [menuOpen, setMenuOpen] = useState(false); const [selectedRoute, setSelectedRoute] = useState(""); const [tailoredInterests, setTailoredInterests] = useState<string[]>([]); const [error, setError] = useState(""); const [country, setCountry] = useState("Italy");
   useEffect(() => { const pathLocale = location.pathname.split("/")[1]; const savedLocale = localStorage.getItem("mlt-locale"); if (["en", "de", "ru"].includes(pathLocale)) setLocale(pathLocale as Locale); else if (["en", "de", "ru"].includes(savedLocale || "")) setLocale(savedLocale as Locale); }, [collection.id]);
-  useEffect(() => { let alive = true; fetch("/api/catalog.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "list" }) }).then((response) => response.ok ? response.json() : Promise.reject()).then((data) => { if (alive && Array.isArray(data.items)) setCatalogItems(data.items); }).catch(() => {}); return () => { alive = false; }; }, [collection.id]);
   const dbCollection = catalogItems.find((entry) => entry.item_type === "collection" && entry.slug === collection.id && Boolean(entry.is_active));
   const options = useMemo(() => { if (!dbCollection?.data_json) return fallbackOptions; try { const parsed = JSON.parse(dbCollection.data_json) as { pricing?: Array<{ days?: unknown; price?: unknown }> }; const rows = (parsed.pricing || []).map((row) => ({ d: Number(row.days), p: Number(row.price) })).filter((row) => Number.isFinite(row.d) && row.d > 0 && Number.isFinite(row.p) && row.p >= 0).sort((a, b) => a.d - b.d); return rows.length ? rows : fallbackOptions; } catch { return fallbackOptions; } }, [dbCollection, fallbackOptions]);
   const customPackages = useMemo<PackageVariant[]>(() => { if (!dbCollection?.data_json) return []; try { const rows = (JSON.parse(dbCollection.data_json) as { packageVariants?: unknown }).packageVariants; if (!Array.isArray(rows)) return []; return rows.filter((row): row is PackageVariant => Boolean(row && typeof row === "object" && "title" in row && String((row as PackageVariant).title).trim())); } catch { return []; } }, [dbCollection]);
-  const departureRule = useMemo<DepartureRule>(() => { const fallback:DepartureRule = ["signature","concierge"].includes(collection.id)?{mode:"weekdays",weekdays:[3,6],blockedDates:[],allowedDates:[]}:{mode:"any",weekdays:[],blockedDates:[],allowedDates:[]}; if(!dbCollection?.data_json)return fallback;try{const value=(JSON.parse(dbCollection.data_json) as {departureRule?:Partial<DepartureRule>}).departureRule;if(!value)return fallback;return{mode:value.mode==="weekdays"?"weekdays":"any",weekdays:Array.isArray(value.weekdays)?value.weekdays.map(Number).filter(day=>day>=0&&day<=6):fallback.weekdays,blockedDates:Array.isArray(value.blockedDates)?value.blockedDates.map(String):[],allowedDates:Array.isArray(value.allowedDates)?value.allowedDates.map(String):[]}}catch{return fallback}},[collection.id,dbCollection]);
+  const departureRule = useMemo<DepartureRule>(() => parseDepartureRule(dbCollection?.data_json), [dbCollection]);
   useEffect(() => { if (!options.some((option) => option.d === days)) setDays(options[0].d); }, [days, options]);
   const localizedItem = locale === "de" ? { ...collection, ...collectionDe[collection.id] } : locale === "ru" ? { ...collection, ...collectionRu[collection.id] } : collection;
   const item = dbCollection ? { ...localizedItem, name: dbCollection.title.replace(/^MLT\s+/i, "").replace(/\s+Collection$/i, ""), eyebrow: dbCollection.subtitle || localizedItem.eyebrow } : localizedItem;
