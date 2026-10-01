@@ -31,6 +31,8 @@ const experiences = [
   ["03", "Wine journey", "Private vineyards, meetings with winemakers and the finest roads between them."],
   ["04", "CEO escape", "No inbox. No schedule. Just quiet roads, mountains and room to think again."],
 ] as const;
+const pillarImages = ["/route-mediterranean.jpg", "/experience-transfer-v2.webp", "/experience-wine-v2.webp"] as const;
+const experienceImages = ["/concierge-family-dolomites.jpg", "/collection-honeymoon-carousel-v2.jpg", "/experience-wine-v2.webp", "/route-alpine.jpg"] as const;
 
 const russianCollections = [
   { eyebrow: "Самостоятельные открытия", copy: "Полностью оборудованный премиальный автодом, продуманная карта и свобода следовать собственному ритму.", rate: "От €1 490 за 7 дней" },
@@ -67,9 +69,9 @@ const copy = {
 export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [locale, setLocale] = useState<SiteLocale>(initialLocale);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
   const [mapCountry, setMapCountry] = useState("All");
   const [mapSelection, setMapSelection] = useState<string[]>(["dolomites", "como"]);
+  const [routeDistance, setRouteDistance] = useState<number | null>(null);
   const carousel = useRef<SwiperInstance | null>(null);
   const t = copy[locale];
   const localizedExperiences = locale === "ru" ? russianExperiences : experiences;
@@ -77,9 +79,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   useEffect(() => {
     document.documentElement.lang = locale;
     localStorage.setItem("mlt-locale", locale);
-    const close = (event: KeyboardEvent) => event.key === "Escape" && setChatOpen(false);
-    document.addEventListener("keydown", close);
-    return () => { document.removeEventListener("keydown", close); document.body.style.overflow = ""; };
+    return () => { document.body.style.overflow = ""; };
   }, [locale]);
 
   const localPath = (path: string) => `/${locale}${path}`;
@@ -124,15 +124,14 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       </div>
       <div className="hero-bottom-bar">
         <a className="light-scroll" href="#about"><span>{t.scroll}</span><i>↓</i></a>
-        <button className="light-chat" onClick={() => setChatOpen(!chatOpen)} aria-expanded={chatOpen} aria-label={locale === "ru" ? "Открыть чат" : "Open concierge chat"}><b>{locale === "ru" ? "Чат" : "Chat"}</b><span className="chat-icon"><i /><i /><i /></span></button>
+        <button className="light-chat" type="button" aria-disabled="true" aria-label={locale === "ru" ? "Чат скоро появится" : "Chat coming soon"}><b>{locale === "ru" ? "Чат" : "Chat"}</b><span className="chat-icon"><i /><i /><i /></span></button>
       </div>
-      {chatOpen && <aside className="hero-chat-panel"><button className="chat-close" onClick={() => setChatOpen(false)} aria-label={locale === "ru" ? "Закрыть чат" : "Close chat"}>×</button><small>{locale === "ru" ? "Консьерж MLT" : "MLT Concierge"}</small><strong>{locale === "ru" ? "Давайте обсудим ваше путешествие" : locale === "de" ? "Lassen Sie uns Ihre Reise besprechen" : "Let’s discuss your journey"}</strong><p>{locale === "ru" ? "Ответим и поможем выбрать коллекцию." : "A personal MLT concierge will help you choose the right collection."}</p><a href="mailto:concierge@mlt-travel.com">{locale === "ru" ? "Написать консьержу" : "Message the concierge"}<span>↗</span></a></aside>}
     </section>
 
     <section className="light-philosophy" id="about">
       <p className="light-section-label">01 / {t.philosophy}</p>
       <div className="philosophy-grid"><h2>{t.freedom}</h2><p>{t.freedomCopy}</p></div>
-      <div className="value-row">{t.pillars.map((item, index) => <article key={item}><span>0{index + 1}</span><h3>{item}</h3></article>)}</div>
+      <div className="value-row">{t.pillars.map((item, index) => <article key={item}><img src={pillarImages[index]} alt="" loading="lazy"/><span>0{index + 1}</span><h3>{item}</h3></article>)}</div>
     </section>
 
     <section className="light-collections" id="collections">
@@ -144,7 +143,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
           <picture>
             <source srcSet={item.image.replace(".jpg", ".avif")} type="image/avif" />
             <source srcSet={item.image.replace(".jpg", ".webp")} type="image/webp" />
-            <picture><img src={item.image} alt={`MLT ${item.name} Collection`} loading="lazy" decoding="async" draggable="false" /></picture>
+            <img src={item.image} alt={`MLT ${item.name} Collection`} loading="lazy" decoding="async" draggable="false" />
           </picture>
           <div className="collection-top"><span>0{(index % collections.length) + 1}</span><small>{localizedItem.eyebrow}</small></div>
           <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{localizedItem.copy}</p><div><span>{locale === "ru" ? item.days.replace("days", "дней") : locale === "de" ? item.days.replace("days", "Tage") : item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
@@ -156,15 +155,17 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
 
     <section className="light-experiences" id="experiences">
       <div className="experience-intro"><p className="light-section-label">03 / {locale === "ru" ? "Сценарии" : "Experiences"}</p><h2>{t.reason}</h2><p>{t.reasonCopy}</p><a className="text-button dark" href="#contact">{t.story}<span>→</span></a></div>
-      <div className="experience-list">{localizedExperiences.map(([number, title, body]) => <article key={number}><span>{number}</span><div><h3>{title}</h3><p>{body}</p></div><i>↗</i></article>)}</div>
+      <div className="experience-list">{localizedExperiences.map(([number, title, body], index) => <article key={number}><img src={experienceImages[index]} alt="" loading="lazy"/><span>{number}</span><div><h3>{title}</h3><p>{body}</p></div><i>↗</i></article>)}</div>
     </section>
 
     <section className="light-map" id="smart-map">
+      <div className="map-copy"><p className="light-section-label">04 / {t.mapLabel}</p><h2>{t.mapTitle}</h2><p>{t.mapCopy}</p></div>
       <div className="smart-map-canvas">
+        <a className="mobile-map-link" href={localPath("/plan")}>⌑ &nbsp;{t.openMap}<span>→</span></a>
         <div className="smart-map-country-tabs" aria-label={locale === "ru" ? "Выбор страны" : "Choose country"}>{["All", "Italy", "Austria", "Germany"].map((item) => <button key={item} className={mapCountry === item ? "active" : ""} onClick={() => setMapCountry(item)}>{locale === "ru" ? ({ All: "Все", Italy: "Италия", Austria: "Австрия", Germany: "Германия" } as Record<string, string>)[item] : locale === "de" && item === "All" ? "Alle" : item}</button>)}</div>
-        <RealRouteMap selected={mapSelection} country={mapCountry} onToggle={toggleMapPoint} locale={locale} className="home-route-map" />
+        <RealRouteMap selected={mapSelection} country={mapCountry} onToggle={toggleMapPoint} onRouteDistance={setRouteDistance} locale={locale} className="home-route-map" />
       </div>
-      <div className="map-copy"><p className="light-section-label">04 / {t.mapLabel}</p><h2>{t.mapTitle}</h2><p>{t.mapCopy}</p><div className="smart-map-selection"><small>{locale === "ru" ? "Выбранные места" : locale === "de" ? "Ausgewählte Orte" : "Selected places"}</small><div>{mapSelection.length ? mapSelection.map((id, index) => { const point = mapPoints.find((item) => item.id === id); return point && <button key={id} onClick={() => toggleMapPoint(id)}><span>{index + 1}</span>{point.name}<b>×</b></button>; }) : <p>{locale === "ru" ? "Выберите точки на карте" : locale === "de" ? "Wählen Sie Orte auf der Karte" : "Choose places on the map"}</p>}</div></div><div className="map-stats"><div><strong>30+</strong><span>{locale === "ru" ? "отобранных мест" : "curated places"}</span></div><div><strong>3</strong><span>{locale === "ru" ? "страны на старте" : "countries at launch"}</span></div></div><a className="bronze-button" href="#collections">{locale === "ru" ? "Выбрать коллекцию" : "Choose a collection"}<span>↗</span></a></div>
+      <div className="map-details"><div className="smart-map-selection"><small>{locale === "ru" ? "Выбранные места" : locale === "de" ? "Ausgewählte Orte" : "Selected places"}<b>{mapSelection.length} / {mapPoints.length}</b></small><div>{mapSelection.length ? mapSelection.map((id, index) => { const point = mapPoints.find((item) => item.id === id); return point && <button key={id} onClick={() => toggleMapPoint(id)}><span>{index + 1}</span>{point.name}<b>×</b></button>; }) : <p>{locale === "ru" ? "Выберите точки на карте" : locale === "de" ? "Wählen Sie Orte auf der Karte" : "Choose places on the map"}</p>}</div></div><p className="route-distance">{routeDistance !== null ? (locale === "ru" ? `Вы проедете ${routeDistance.toLocaleString("ru-RU")} км` : locale === "de" ? `Ihre Route: ${routeDistance.toLocaleString("de-DE")} km` : `Your route: ${routeDistance.toLocaleString("en-GB")} km`) : (locale === "ru" ? "Выберите минимум две точки" : locale === "de" ? "Wählen Sie mindestens zwei Orte" : "Choose at least two places")}</p><div className="map-stats"><div><strong>30+</strong><span>{locale === "ru" ? "отобранных мест" : "curated places"}</span></div><div><strong>3</strong><span>{locale === "ru" ? "страны на старте" : "countries at launch"}</span></div></div><a className="bronze-button" href="#collections">{locale === "ru" ? "Выбрать коллекцию" : "Choose a collection"}<span>↗</span></a></div>
     </section>
 
     <section className="light-quote"><p>“{t.quote}”</p><span>{locale === "ru" ? "MLT — Двигайся. Живи. Путешествуй." : "MLT — Move. Live. Travel."}</span></section>
