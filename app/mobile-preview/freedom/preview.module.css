@@ -150,3 +150,5 @@
 .fields label>i,.calendarField>i{pointer-events:none}
 .returnField>strong{position:absolute;left:48px;right:9px;top:49px;margin:0;line-height:20px}
 .cta{height:380px}
+.singleType{grid-template-columns:1fr}
+.singleType button{min-height:0}
