@@ -31,6 +31,7 @@ const locales = ["en", "de", "ru"];
 const mobilePreviewCollections = ["freedom", "signature", "concierge", "private", "honeymoon"];
 const routes = [
   "/",
+  "/mobile-preview",
   "/concierge",
   "/concierge/overview",
   "/concierge/applications",
@@ -39,6 +40,7 @@ const routes = [
   "/concierge/team",
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
+  ...locales.map((locale) => `/${locale}/mobile-preview`),
   ...locales.flatMap((locale) => mobilePreviewCollections.map((slug) => `/${locale}/collections/${slug}/mobile-preview`)),
 ];
 
