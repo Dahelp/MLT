@@ -5,7 +5,7 @@ const pages = {
     title: "Impressum",
     intro: "Angaben gemäß § 5 TMG",
     sections: [
-      ["Anbieter", "MLT Maschinenhandel GmbH Import-Export\nBauernweg 17\n01109 Dresden\nDeutschland"],
+      ["Anbieter", "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nDeutschland"],
       ["Vertretung", "Vertreten durch die Geschäftsführerin Elena Bokova."],
       ["Kontakt", "Telefon: +49 176 325 23 799\nMobil: +49 176 303 35 242\nE-Mail: dresden@mlt-maschinen.de\nInternet: www.mlt-maschinen.de"],
       ["Registereintrag", "Eingetragen im Handelsregister beim Amtsgericht Dresden.\nRegisternummer: HRB 14693"],
@@ -17,7 +17,7 @@ const pages = {
     title: "Datenschutzerklärung",
     intro: "Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst.",
     sections: [
-      ["Verantwortliche Stelle", "MLT Maschinenhandel GmbH Import-Export\nBauernweg 17, 01109 Dresden, Deutschland\nVertreten durch: Elena Bokova\nE-Mail: dresden@mlt-maschinen.de"],
+      ["Verantwortliche Stelle", "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37, 01239 Dresden, Deutschland\nVertreten durch: Elena Bokova\nE-Mail: dresden@mlt-maschinen.de"],
       ["Erhebung und Verarbeitung", "Wir erheben personenbezogene Daten nur, soweit dies für unsere Dienstleistungen, die Vertragsabwicklung oder gesetzliche Pflichten erforderlich ist. Dazu können Kontakt-, Identitäts-, Führerschein-, Buchungs- und Zahlungsdaten gehören. Vollständige Kreditkartendaten werden nicht in unseren Systemen gespeichert."],
       ["Zweck der Verarbeitung", "Die Verarbeitung dient vorvertraglichen Maßnahmen und der Vertragserfüllung, der Identitätsprüfung, gesetzlichen Dokumentationspflichten sowie der Sicherheit unserer Fahrzeuge und Unterkünfte."],
       ["Weitergabe an Dritte", "Daten werden nur weitergegeben, wenn dies für die Vertragsabwicklung erforderlich ist, etwa an Zahlungsdienstleister oder Versicherungen, oder wenn eine gesetzliche Verpflichtung besteht."],
