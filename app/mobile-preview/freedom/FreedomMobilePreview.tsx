@@ -12,6 +12,7 @@ import { journeyRoutes } from "../../../content/mlt";
 import type { Locale } from "../../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../../collections/[slug]/DepartureCalendar";
 import MobilePreviewHeader from "../MobilePreviewHeader";
+import MobilePreviewFooter from "../MobilePreviewFooter";
 import styles from "./preview.module.css";
 
 type IconName = "arrow-left" | "arrow-right" | "compass" | "pin" | "calendar" | "travellers";
@@ -119,7 +120,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN" }: { initial
       <section className={styles.shapes}><p className={styles.eyebrow}>{detail.includes}</p><div>{detail.signature.map(x => <span key={x}>✓ &nbsp;{x}</span>)}</div></section>
       <section className={styles.compare}>{[freedomPackage, freedomPlusPackage].map(item => <article key={item.id}><h3>{item.title}</h3>{[...(item.benefits || []), ...(item.supplement ? [item.supplement] : [])].map(entry=><p key={entry}>✓ &nbsp;{entry}</p>)}</article>)}</section>
       <section className={styles.cta}><img src="/collection-freedom-hero-mobile-v2.webp" alt=""/><div><p className={styles.eyebrow}>MLT Freedom</p><h2>{detail.cta}</h2><p>{ui.prepared}</p><a href="mailto:concierge@mlt-travel.com">{ui.concierge}<span>→</span></a></div></section>
-      <footer className={styles.footer}><div className={styles.footerBrand}><img src="/mlt-logo.svg" alt="MLT"/><p>{ui.europe}</p></div><div className={styles.footerLinks}><div><strong>{ui.explore}</strong><a href={`/${language}/#collections`}>{ui.collections}</a><a href={`/${language}/#experiences`}>{ui.experiences}</a><a href={`/${language}/plan`}>{ui.map}</a></div><div><strong>{ui.contact}</strong><a href="mailto:concierge@mlt-travel.com">{ui.email}</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div></div><div className={styles.footerBottom}><span>© 2026 MLT</span><a href={`/${language}/legal/privacy`}>{ui.privacy}</a><a href={`/${language}/legal/imprint`}>{ui.imprint}</a></div></footer>
+      <MobilePreviewFooter locale={language} withStickyBar/>
       <div className={styles.sticky}><span>{ui.total}<b>{money}</b></span><button onClick={() => alert("Preview only — payment is not connected.")}>{ui.pay}</button></div>
     </div>
   </main>;

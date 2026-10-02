@@ -12,6 +12,7 @@ import { collections, journeyRoutes } from "../../content/mlt";
 import type { Locale } from "../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../collections/[slug]/DepartureCalendar";
 import MobilePreviewHeader from "./MobilePreviewHeader";
+import MobilePreviewFooter from "./MobilePreviewFooter";
 import styles from "./freedom/preview.module.css";
 
 type CollectionId = "signature" | "concierge" | "private" | "honeymoon";
@@ -99,7 +100,7 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
     </section>
     <section className={styles.ideal}><p className={styles.eyebrow}>{ui.ideal}</p><p>{copy.ideal}</p></section><section className={styles.shapes}><p className={styles.eyebrow}>{copy.includes}</p><div>{copy.signature.map(x=><span key={x}>✓ &nbsp;{x}</span>)}</div></section>
     <section className={styles.cta}><img src={config.hero} alt=""/><div><p className={styles.eyebrow}>MLT {collection.name}</p><h2>{copy.cta}</h2><p>{ui.prepared}</p><a href="mailto:concierge@mlt-travel.com">{ui.concierge}<span>→</span></a></div></section>
-    <footer className={styles.footer}><div className={styles.footerBrand}><img src="/mlt-logo.svg" alt="MLT"/><p>{ui.europe}</p></div><div className={styles.footerLinks}><div><strong>{ui.explore}</strong><a href="/#collections">{ui.collections}</a><a href="/#experiences">{ui.experiences}</a><a href="/plan">{ui.map}</a></div><div><strong>{ui.contact}</strong><a href="mailto:concierge@mlt-travel.com">{ui.email}</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div></div><div className={styles.footerBottom}><span>© 2026 MLT</span><a href="/legal/privacy">{ui.privacy}</a><a href="/legal/imprint">{ui.imprint}</a></div></footer>
+    <MobilePreviewFooter locale={locale} withStickyBar/>
     <div className={styles.sticky}><span>{ui.total}<b>{money(total)}</b></span><button onClick={()=>alert("Preview only — payment is not connected.")}>{ui.pay}</button></div>
   </div></main>;
 }

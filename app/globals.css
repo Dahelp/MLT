@@ -924,6 +924,7 @@ footer .brand-line { font-size: 12px; }
 @keyframes route-pulse { to { opacity: .25; } }
 @media (max-width: 900px) { .light-map { grid-template-columns: 1fr; }.smart-map-canvas { min-height: 680px; }.map-copy { min-height: 620px; } }
 @media (max-width: 600px) { .smart-map-canvas { min-height: 620px; }.smart-map-country-tabs { left: 12px; right: 12px; top: 12px; overflow-x: auto; }.smart-map-country-tabs button { flex: 1 0 auto; padding-inline: 10px; }.route-calculation-status { top: 70px; left: 12px; }.smart-map-selection { margin-bottom: 26px; }.smart-map-selection button { font-size: 11px; }.smart-map-canvas .real-map-marker b { display: none; } }
+.real-map-marker b{border-radius:7px}
 
 /* Private account and collection-to-payment flow. */
 .account-page { min-height: 100vh; padding: 30px clamp(24px, 7vw, 120px) 70px; color: #29231f; background: radial-gradient(circle at 80% 0, #e7d5c2, transparent 34%), #f7f2ea; }
