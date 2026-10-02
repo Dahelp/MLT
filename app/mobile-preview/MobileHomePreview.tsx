@@ -1,11 +1,7 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
-import { Swiper as SwiperCarousel, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperInstance } from "swiper";
-import { EffectCoverflow, Keyboard } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
+import { useCallback, useState } from "react";
+import CollectionCarousel from "../CollectionCarousel";
 import RealRouteMap from "../plan/RealRouteMap";
 import { mapPoints } from "../../content/mlt";
 import MobilePreviewHeader from "./MobilePreviewHeader";
@@ -19,7 +15,6 @@ const collections = [
   ["private", "Private", "/collection-private-carousel-v2.jpg", "7–21 days", "From €19,900 for 7 days"],
   ["honeymoon", "Honeymoon", "/collection-honeymoon-carousel-v2.jpg", "7–14 days", "From €5,900 for 7 days"],
 ] as const;
-const carouselCollections=Array.from({length:3},()=>collections).flat();
 const experienceImages = ["/concierge-family-dolomites.jpg", "/experience-wine-v2.webp", "/signature-route-mediterranean.jpg", "/route-alpine.jpg"];
 const philosophyImages = ["/route-mediterranean.jpg", "/collection-private-carousel-v2.jpg", "/experience-wine-v2.webp"];
 const text = {
@@ -32,13 +27,13 @@ const footerText={en:{tagline:"Individual Road Expeditions across Europe.",explo
 function ChatIcon() { return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 15a4 4 0 0 1-4 4H8l-4 2 1.2-4A8 8 0 1 1 20 15Z"/><path d="M9 12h.01M12 12h.01M15 12h.01"/></svg> }
 
 export default function MobileHomePreview({initialLocale="en"}:{initialLocale?:Locale}){
- const locale=initialLocale,[selected,setSelected]=useState(["dolomites","como"]),[distance,setDistance]=useState<number|null>(null); const carousel=useRef<SwiperInstance|null>(null); const t=text[locale],footer=footerText[locale];
+ const locale=initialLocale,[selected,setSelected]=useState(["dolomites","como"]),[distance,setDistance]=useState<number|null>(null); const t=text[locale],footer=footerText[locale];
  const toggle=(id:string)=>setSelected(current=>current.includes(id)?current.filter(x=>x!==id):[...current,id]);
  const onDistance=useCallback((value:number|null)=>setDistance(value),[]);
  return <main className={styles.stage}><div className={styles.phone}>
   <MobilePreviewHeader locale={locale}/><section className={styles.hero}><img src="/hero-mediterranean-sunset.jpg" alt=""/><div className={styles.heroCopy}><p>INDIVIDUAL ROAD<br/>EXPEDITIONS</p><span>{t.hero}</span><a href="#collections">{t.choose}</a></div></section>
   <section className={styles.section}><label>01 / {t.philosophy}</label><h1>{t.freedom}</h1><p className={styles.lead}>{t.freedomCopy}</p><div className={styles.pillars}>{t.pillars.map((x,i)=><article key={x}><img src={philosophyImages[i]} alt=""/><h3>{x}</h3></article>)}</div></section>
-  <section className={styles.section} id="collections"><label>02 / {t.ways}</label><h2>{t.level}</h2><p className={styles.lead}>{t.collectionCopy}</p><div className={styles.railWrap}><button onClick={()=>carousel.current?.slidePrev()} aria-label="Previous collection">‹</button><SwiperCarousel className={styles.slider} modules={[EffectCoverflow,Keyboard]} effect="coverflow" initialSlide={collections.length} centeredSlides slidesPerView="auto" speed={650} loop loopAdditionalSlides={collections.length} simulateTouch grabCursor allowTouchMove touchAngle={35} threshold={10} longSwipesRatio={.2} preventClicks preventClicksPropagation keyboard={{enabled:true}} coverflowEffect={{rotate:0,stretch:8,depth:90,modifier:1,slideShadows:false}} onSwiper={instance=>{carousel.current=instance}}>{carouselCollections.map((c,i)=><SwiperSlide className={styles.slide} key={`${c[0]}-${i}`}><a href={`/${locale}/collections/${c[0]}/mobile-preview/`}><img src={c[2]} alt="" draggable="false"/><div><small>0{(i%collections.length)+1}</small><h3>MLT {c[1]}<em>Collection</em></h3><p>{c[3]} · {c[4]}</p><b>EXPLORE COLLECTION →</b></div></a></SwiperSlide>)}</SwiperCarousel><button onClick={()=>carousel.current?.slideNext()} aria-label="Next collection">›</button></div></section>
+  <section className={styles.section} id="collections"><label>02 / {t.ways}</label><h2>{t.level}</h2><p className={styles.lead}>{t.collectionCopy}</p><CollectionCarousel items={collections} shellClassName={styles.railWrap} carouselClassName={styles.slider} slideClassName={styles.slide} arrowClassName={styles.sliderArrow} previousIcon="‹" nextIcon="›" renderSlide={(c,i)=><a href={`/${locale}/collections/${c[0]}/mobile-preview/`}><img src={c[2]} alt="" draggable="false"/><div><small>0{(i%collections.length)+1}</small><h3>MLT {c[1]}<em>Collection</em></h3><p>{c[3]} · {c[4]}</p><b>EXPLORE COLLECTION →</b></div></a>}/></section>
   <section className={styles.section} id="experiences"><label>03 / {t.experience}</label><h2>{t.reason}</h2><p className={styles.lead}>{t.reasonCopy}</p><div className={styles.experiences}>{t.experiences.map((x,i)=><article key={x}><img src={experienceImages[i]} alt=""/><div><h3>{x}</h3><p>{i===0?t.pillars[0]:i===1?t.pillars[2]:t.collectionCopy}</p></div></article>)}</div></section>
   <section className={`${styles.section} ${styles.mapSection}`} id="map"><label>04 / {t.map}</label><h2>{t.mapTitle}</h2><p className={styles.lead}>{t.mapCopy}</p><div className={styles.mapBox}><a href={`/${locale}/plan`}>{t.view} →</a><RealRouteMap selected={selected} country="All" onToggle={toggle} locale={locale} className={styles.map} onDistanceChange={onDistance}/></div><div className={styles.selection}><header><b>{t.selected}</b><span>{selected.length} / {mapPoints.length}</span></header>{selected.map((id,i)=>{const p=mapPoints.find(x=>x.id===id);return p&&<button key={id} onClick={()=>toggle(id)}><i>{i+1}</i>{p.name}<span>×</span></button>})}{distance!==null&&<strong>{t.distance} {distance.toLocaleString(locale)} km</strong>}</div><a className={styles.finalButton} href="#collections">{t.open} →</a></section>
   <footer className={styles.footer}><div className={styles.footerBrand}><img src="/mlt-logo.svg" alt="MLT"/><p>{footer.tagline}</p></div><div className={styles.footerLinks}><div><strong>{footer.explore}</strong><a href="#collections">{footer.collections}</a><a href="#experiences">{footer.experiences}</a><a href="#map">{footer.map}</a></div><div><strong>{footer.contact}</strong><a href="mailto:concierge@mlt-travel.com">{footer.email}</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div></div><div className={styles.footerBottom}><span>© 2026 MLT</span><a href={`/${locale}/legal/privacy`}>{footer.privacy}</a><a href={`/${locale}/legal/imprint`}>{footer.imprint}</a></div></footer>
