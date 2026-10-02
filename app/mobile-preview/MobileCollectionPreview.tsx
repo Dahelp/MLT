@@ -11,6 +11,7 @@ import { nextAllowedDeparture, parseDepartureRule, useCatalogItems } from "../..
 import { collections, journeyRoutes } from "../../content/mlt";
 import type { Locale } from "../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../collections/[slug]/DepartureCalendar";
+import MobilePreviewHeader from "./MobilePreviewHeader";
 import styles from "./freedom/preview.module.css";
 
 type CollectionId = "signature" | "concierge" | "private" | "honeymoon";
@@ -71,7 +72,7 @@ function addDays(date:string,days:number){const value=new Date(`${date}T12:00:00
 
 export default function MobileCollectionPreview({ collectionId, initialLocale = "en" }: { collectionId: CollectionId; initialLocale?: Locale }) {
   const config=configs[collectionId], collection=collections.find(x=>x.id===collectionId)!, detail=collectionDetails[collectionId];
-  const [locale,setLocale]=useState<Locale>(initialLocale), [languageOpen,setLanguageOpen]=useState(false), [menuOpen,setMenuOpen]=useState(false);
+  const [locale,setLocale]=useState<Locale>(initialLocale);
   const [variant,setVariant]=useState(0), [prices,setPrices]=useState(fallbackPrices[collectionId]), [days,setDays]=useState(Number(Object.keys(fallbackPrices[collectionId])[0]));
   const [departure,setDeparture]=useState("2026-10-12"), [guests,setGuests]=useState(1), [active,setActive]=useState(2);
   const [selectedInterests,setSelectedInterests]=useState<string[]>([]);
@@ -87,10 +88,8 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
   useEffect(()=>{if(dbCollection?.data_json)setDeparture(current=>nextAllowedDeparture(current,effectiveDepartureRule));},[dbCollection?.data_json]);
   const money=(value:number)=>new Intl.NumberFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(value);
   const displayDate=(value:string)=>new Intl.DateTimeFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{day:"numeric",month:"short",year:"numeric"}).format(new Date(`${value}T12:00:00`));
-  const chooseLocale=(code:Locale)=>{setLocale(code);setLanguageOpen(false);const parts=location.pathname.split("/");if(parts[1]==="en"||parts[1]==="de"||parts[1]==="ru"){parts[1]=code;location.href=parts.join("/");return;}const url=new URL(location.href);url.searchParams.set("lang",code);history.replaceState(null,"",url);};
   return <main className={styles.stage}><div className={styles.phone}>
-    <header className={styles.header}><a href="/" aria-label="MLT home"><img src="/mlt-logo.svg" alt="MLT"/></a><div className={styles.headerActions}><div className={styles.languageWrap}><button className={styles.language} onClick={()=>{setLanguageOpen(!languageOpen);setMenuOpen(false)}}><Icon name="globe"/><span>{locale.toUpperCase()}</span><Icon name="chevron"/></button>{languageOpen&&<div className={styles.languageMenu}>{(["en","de","ru"] as Locale[]).map(code=><button key={code} className={locale===code?styles.activeLanguage:""} onClick={()=>chooseLocale(code)}>{code.toUpperCase()}<span>{locale===code?"✓":""}</span></button>)}</div>}</div><a className={styles.iconButton} href="/account"><Icon name="user"/></a><button onClick={()=>{setMenuOpen(!menuOpen);setLanguageOpen(false)}}><Icon name="menu"/></button></div></header>
-    {menuOpen&&<div className={styles.mobileMenu}><div className={styles.mobileMenuHead}><img src="/mlt-logo.svg" alt="MLT"/><button onClick={()=>setMenuOpen(false)}>×</button></div><p>{ui.menu}</p><nav><a href="/#collections"><span>01</span>{ui.collections}</a><a href="/#routes"><span>02</span>{ui.journeys}</a><a href="/#fleet"><span>03</span>{ui.vehicles}</a><a href="/#experiences"><span>04</span>{ui.experiences}</a><a href="/plan"><span>05</span>{ui.map}</a></nav><div className={styles.mobileMenuBottom}><a href="/account">{ui.account}</a><a href="mailto:concierge@mlt-travel.com">{ui.contact} →</a></div></div>}
+    <MobilePreviewHeader locale={locale}/>
     <section className={styles.hero}><img src={config.hero} alt={`MLT ${collection.name}`}/><div><span>MLT / {collection.number}</span><h1><strong>MLT {collection.name}</strong><br/><i>Collection</i></h1></div></section>
     <section className={styles.booking}><h2>{ui.build}</h2><div className={`${styles.types} ${config.packages.length===1?styles.singleType:""}`}>{config.packages.map((item,index)=><button key={item.id} className={variant===index?styles.selected:""} onClick={()=>setVariant(index)}><b>{item.title}</b>{item.benefits[locale].map(x=><small key={x}><span>✓</span>{x}</small>)}</button>)}</div>
       {collectionId==="signature"&&variant===1&&<div className={styles.tailoredServices} aria-label={locale==="en"?"Choose interests":locale==="de"?"Interessen auswählen":"Выберите интересы"}>{tailoredInterests.map(interest=>{const selected=selectedInterests.includes(interest.id);return <button type="button" key={interest.id} className={selected?styles.interestSelected:""} aria-pressed={selected} onClick={()=>setSelectedInterests(current=>selected?current.filter(id=>id!==interest.id):[...current,interest.id])}>{selected&&<span>✓</span>}{interest[locale]}</button>})}</div>}
