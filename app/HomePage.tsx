@@ -4,7 +4,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 import RealRouteMap from "./plan/RealRouteMap";
 import { mapPoints } from "../content/mlt";
 import { LanguageMenu } from "./LanguageMenu";
-import CollectionCarousel from "./CollectionCarousel";
+import CollectionCarousel, { scrollCollectionCarouselIntoView } from "./CollectionCarousel";
 
 type SiteLocale = "en" | "de" | "ru";
 
@@ -113,7 +113,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div className="light-hero-copy">
         <p className="light-eyebrow"><span />{t.eyebrow}</p>
         <p>{t.hero}</p>
-        <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={(event) => scrollToSection(event, "collections")}>{t.choose}</a></div>
+        <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a></div>
       </div>
       <div className="hero-bottom-bar">
         <a className="light-scroll" href="#about"><span>{t.scroll}</span><i>↓</i></a>

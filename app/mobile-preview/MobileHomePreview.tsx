@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import CollectionCarousel from "../CollectionCarousel";
+import CollectionCarousel, { scrollCollectionCarouselIntoView } from "../CollectionCarousel";
 import RealRouteMap from "../plan/RealRouteMap";
 import { mapPoints } from "../../content/mlt";
 import MobilePreviewHeader from "./MobilePreviewHeader";
@@ -31,7 +31,7 @@ export default function MobileHomePreview({initialLocale="en"}:{initialLocale?:L
  const toggle=(id:string)=>setSelected(current=>current.includes(id)?current.filter(x=>x!==id):[...current,id]);
  const onDistance=useCallback((value:number|null)=>setDistance(value),[]);
  return <main className={styles.stage}><div className={styles.phone}>
-  <MobilePreviewHeader locale={locale}/><section className={styles.hero}><img src="/hero-mediterranean-sunset.jpg" alt=""/><div className={styles.heroCopy}><p>INDIVIDUAL ROAD<br/>EXPEDITIONS</p><span>{t.hero}</span><a href="#collections">{t.choose}</a></div></section>
+  <MobilePreviewHeader locale={locale}/><section className={styles.hero}><img src="/hero-mediterranean-sunset.jpg" alt=""/><div className={styles.heroCopy}><p>INDIVIDUAL ROAD<br/>EXPEDITIONS</p><span>{t.hero}</span><a href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a></div></section>
   <section className={styles.section}><label>01 / {t.philosophy}</label><h1>{t.freedom}</h1><p className={styles.lead}>{t.freedomCopy}</p><div className={styles.pillars}>{t.pillars.map((x,i)=><article key={x}><img src={philosophyImages[i]} alt=""/><h3>{x}</h3></article>)}</div></section>
   <section className={styles.section} id="collections"><label>02 / {t.ways}</label><h2>{t.level}</h2><p className={styles.lead}>{t.collectionCopy}</p><CollectionCarousel items={collections} shellClassName={styles.railWrap} carouselClassName={styles.slider} slideClassName={styles.slide} arrowClassName={styles.sliderArrow} previousIcon="‹" nextIcon="›" renderSlide={(c,i)=><a href={`/${locale}/collections/${c[0]}/mobile-preview/`}><img src={c[2]} alt="" draggable="false"/><div><small>0{(i%collections.length)+1}</small><h3>MLT {c[1]}<em>Collection</em></h3><p>{c[3]} · {c[4]}</p><b>EXPLORE COLLECTION →</b></div></a>}/></section>
   <section className={styles.section} id="experiences"><label>03 / {t.experience}</label><h2>{t.reason}</h2><p className={styles.lead}>{t.reasonCopy}</p><div className={styles.experiences}>{t.experiences.map((x,i)=><article key={x}><img src={experienceImages[i]} alt=""/><div><h3>{x}</h3><p>{i===0?t.pillars[0]:i===1?t.pillars[2]:t.collectionCopy}</p></div></article>)}</div></section>
