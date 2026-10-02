@@ -11,16 +11,13 @@ import { nextAllowedDeparture, parseDepartureRule, useCatalogItems } from "../..
 import { journeyRoutes } from "../../../content/mlt";
 import type { Locale } from "../../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../../collections/[slug]/DepartureCalendar";
+import MobilePreviewHeader from "../MobilePreviewHeader";
 import styles from "./preview.module.css";
 
-type IconName = "globe" | "user" | "menu" | "chevron" | "arrow-left" | "arrow-right" | "compass" | "pin" | "calendar" | "travellers";
+type IconName = "arrow-left" | "arrow-right" | "compass" | "pin" | "calendar" | "travellers";
 
 function Icon({ name }: { name: IconName }) {
   return <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-    {name === "globe" && <><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></>}
-    {name === "user" && <><circle cx="12" cy="8" r="3.5"/><path d="M5 21c.7-4.2 3.1-6.3 7-6.3s6.3 2.1 7 6.3"/></>}
-    {name === "menu" && <path d="M5 8h14M5 16h14"/>}
-    {name === "chevron" && <path d="m7 9.5 5 5 5-5"/>}
     {name === "arrow-left" && <path d="m14 6-6 6 6 6M8 12h8"/>}
     {name === "arrow-right" && <path d="m10 6 6 6-6 6M16 12H8"/>}
     {name === "compass" && <><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.1 5.5-5.5 2.1 2.1-5.5 5.5-2.1Z"/></>}
@@ -63,9 +60,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN" }: { initial
   const [departure, setDeparture] = useState("2026-10-12");
   const [guests, setGuests] = useState(1);
   const [active, setActive] = useState(2);
-  const [locale, setLocale] = useState<"EN" | "DE" | "RU">(initialLocale);
-  const [languageOpen, setLanguageOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [locale] = useState<"EN" | "DE" | "RU">(initialLocale);
   const [activeField, setActiveField] = useState<"country" | "duration" | "dates" | null>(null);
   const [packages, setPackages] = useState<PackageVariant[]>(defaultPackages);
   const catalogItems = useCatalogItems();
@@ -85,15 +80,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN" }: { initial
 
   return <main className={styles.stage}>
     <div className={styles.phone}>
-      <header className={styles.header}>
-        <a href="/" aria-label="MLT home"><img src="/mlt-logo.svg" alt="MLT" /></a>
-        <div className={styles.headerActions}>
-          <div className={styles.languageWrap}><button className={styles.language} aria-expanded={languageOpen} onClick={() => { setLanguageOpen(!languageOpen); setMenuOpen(false); }}><Icon name="globe"/><span>{locale}</span><Icon name="chevron"/></button>{languageOpen && <div className={styles.languageMenu}>{(["EN","DE","RU"] as const).map(code => <button key={code} className={locale === code ? styles.activeLanguage : ""} onClick={() => { setLocale(code); setLanguageOpen(false); const parts=location.pathname.split("/"); if(["en","de","ru"].includes(parts[1])){parts[1]=code.toLowerCase();location.href=parts.join("/");} }}>{code}<span>{locale === code ? "✓" : ""}</span></button>)}</div>}</div>
-          <a className={styles.iconButton} href="/account" aria-label="Account"><Icon name="user"/></a>
-          <button aria-label="Menu" aria-expanded={menuOpen} onClick={() => { setMenuOpen(!menuOpen); setLanguageOpen(false); }}><Icon name="menu"/></button>
-        </div>
-      </header>
-      {menuOpen && <div className={styles.mobileMenu}><div className={styles.mobileMenuHead}><img src="/mlt-logo.svg" alt="MLT"/><button aria-label="Close menu" onClick={() => setMenuOpen(false)}>×</button></div><p>{ui.menu}</p><nav><a href={`/${language}/#collections`}><span>01</span>{ui.collections}</a><a href={`/${language}/#routes`}><span>02</span>{ui.journeys}</a><a href={`/${language}/#fleet`}><span>03</span>{ui.vehicles}</a><a href={`/${language}/#experiences`}><span>04</span>{ui.experiences}</a><a href={`/${language}/plan`}><span>05</span>{ui.map}</a></nav><div className={styles.mobileMenuBottom}><a href={`/${language}/account`}>{ui.account}</a><a href="mailto:concierge@mlt-travel.com">{ui.contact} →</a></div></div>}
+      <MobilePreviewHeader locale={language} variant="light" />
 
       <section className={styles.hero}>
         <img src="/collection-freedom-hero-mobile-v2.webp" alt="MLT Freedom expedition" />
