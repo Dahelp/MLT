@@ -29,6 +29,8 @@ const pageRoutes = [
 ];
 const locales = ["en", "de", "ru"];
 const mobilePreviewCollections = ["freedom", "signature", "concierge", "private", "honeymoon"];
+const isMobileRoute = (route) => route === "/mobile-preview"
+  || /\/(mobile-preview|mobile-site)$/.test(route);
 const routes = [
   "/",
   "/mobile-preview",
@@ -78,7 +80,15 @@ try {
   for (const route of routes) {
     const response = await fetch(`${origin}${route}`);
     if (!response.ok) throw new Error(`Failed to render ${route}: ${response.status}`);
-    const html = await response.text();
+    let html = await response.text();
+    if (isMobileRoute(route)) {
+      html = html.replace(
+        /(<meta\s+name=["']viewport["']\s+content=["'][^"']*)(["'])/i,
+        (match, content, quote) => content.includes("viewport-fit=")
+          ? match
+          : `${content}, viewport-fit=cover${quote}`,
+      );
+    }
     const target = route === "/"
       ? path.join(output, "index.html")
       : path.join(output, route.slice(1), "index.html");
