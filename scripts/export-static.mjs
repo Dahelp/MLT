@@ -42,6 +42,8 @@ const routes = [
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
   ...locales.map((locale) => `/${locale}/mobile-preview`),
   ...locales.flatMap((locale) => mobilePreviewCollections.map((slug) => `/${locale}/collections/${slug}/mobile-preview`)),
+  ...locales.map((locale) => `/${locale}/mobile-site`),
+  ...locales.flatMap((locale) => mobilePreviewCollections.map((slug) => `/${locale}/collections/${slug}/mobile-site`)),
 ];
 
 await rm(output, { recursive: true, force: true });
