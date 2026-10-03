@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { collections } from "../../../content/mlt";
 import { CollectionDetail } from "./CollectionDetail";
+import PhoneLayoutSwitch from "../../PhoneLayoutSwitch";
+import MobileCollectionView, { mobileCollectionIds, type MobileCollectionId } from "../../MobileCollectionView";
+import type { Locale } from "../../../content/i18n";
 
 export function generateStaticParams() { return collections.filter((item) => item.id !== "proposal").map((item) => ({ slug: item.id })); }
 
@@ -10,9 +13,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: collection ? `${collection.name} Collection — MLT` : "MLT Collections", description: collection?.promise };
 }
 
-export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function CollectionPage({ params }: { params: Promise<{ slug: string; locale?: string }> }) {
+  const { slug, locale:routeLocale } = await params;
   const collection = collections.find((item) => item.id === slug);
   if (!collection || collection.id === "proposal") return <main className="not-found"><h1>Collection not found</h1><a href="/">Return to MLT</a></main>;
-  return <CollectionDetail collection={collection} />;
+  const locale:Locale=routeLocale==="de"||routeLocale==="ru"?routeLocale:"en";
+  if(!mobileCollectionIds.includes(slug as MobileCollectionId))return <CollectionDetail collection={collection}/>;
+  return <PhoneLayoutSwitch desktop={<CollectionDetail collection={collection}/>} mobile={<MobileCollectionView slug={slug as MobileCollectionId} locale={locale} previewMode={false}/>}/>;
 }

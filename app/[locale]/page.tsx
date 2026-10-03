@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Home from "../HomePage";
+import PhoneLayoutSwitch from "../PhoneLayoutSwitch";
+import MobileHomePreview from "../mobile-preview/MobileHomePreview";
 import { locales, type SiteLocale } from "./layout";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: SiteLocale }> }): Promise<Metadata> {
@@ -15,5 +17,5 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: S
 
 export default async function LocalizedHome({ params }: { params: Promise<{ locale: SiteLocale }> }) {
   const { locale } = await params;
-  return <Home initialLocale={locale} />;
+  return <PhoneLayoutSwitch desktop={<Home initialLocale={locale}/>} mobile={<MobileHomePreview initialLocale={locale} previewMode={false}/>}/>;
 }

@@ -71,7 +71,7 @@ const tailoredInterests = [
 function productsFor(id: CollectionId): Product[] { return journeyRoutes.slice(0,5).map((route,index)=>({n:String(index+1).padStart(2,"0"),title:route.name.replace("Freedom Journey",id === "honeymoon" ? "Romantic Journey" : "Journey"),copy:route.tagline,image:`/${productAssets[id][index]}`})); }
 function addDays(date:string,days:number){const value=new Date(`${date}T12:00:00`);value.setDate(value.getDate()+days);return value.toISOString().slice(0,10);}
 
-export default function MobileCollectionPreview({ collectionId, initialLocale = "en" }: { collectionId: CollectionId; initialLocale?: Locale }) {
+export default function MobileCollectionPreview({ collectionId, initialLocale = "en", previewMode = true }: { collectionId: CollectionId; initialLocale?: Locale; previewMode?: boolean }) {
   const config=configs[collectionId], collection=collections.find(x=>x.id===collectionId)!, detail=collectionDetails[collectionId];
   const [locale,setLocale]=useState<Locale>(initialLocale);
   const [variant,setVariant]=useState(0), [prices,setPrices]=useState(fallbackPrices[collectionId]), [days,setDays]=useState(Number(Object.keys(fallbackPrices[collectionId])[0]));
@@ -90,7 +90,7 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
   const money=(value:number)=>new Intl.NumberFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(value);
   const displayDate=(value:string)=>new Intl.DateTimeFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{day:"numeric",month:"short",year:"numeric"}).format(new Date(`${value}T12:00:00`));
   return <main className={styles.stage}><div className={styles.phone}>
-    <MobilePreviewHeader locale={locale} variant="light"/>
+    <MobilePreviewHeader locale={locale} variant="light" previewMode={previewMode}/>
     <section className={styles.hero}><img src={config.hero} alt={`MLT ${collection.name}`}/><div><span>MLT / {collection.number}</span><h1><strong>MLT {collection.name}</strong><br/><i>Collection</i></h1></div></section>
     <section className={styles.booking}><h2>{ui.build}</h2><div className={`${styles.types} ${config.packages.length===1?styles.singleType:""}`}>{config.packages.map((item,index)=><button key={item.id} className={variant===index?styles.selected:""} onClick={()=>setVariant(index)}><b>{item.title}</b>{item.benefits[locale].map(x=><small key={x}><span>✓</span>{x}</small>)}</button>)}</div>
       {collectionId==="signature"&&variant===1&&<div className={styles.tailoredServices} aria-label={locale==="en"?"Choose interests":locale==="de"?"Interessen auswählen":"Выберите интересы"}>{tailoredInterests.map(interest=>{const selected=selectedInterests.includes(interest.id);return <button type="button" key={interest.id} className={selected?styles.interestSelected:""} aria-pressed={selected} onClick={()=>setSelectedInterests(current=>selected?current.filter(id=>id!==interest.id):[...current,interest.id])}>{selected&&<span>✓</span>}{interest[locale]}</button>})}</div>}
@@ -100,7 +100,7 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
     </section>
     <section className={styles.ideal}><p className={styles.eyebrow}>{ui.ideal}</p><p>{copy.ideal}</p></section><section className={styles.shapes}><p className={styles.eyebrow}>{copy.includes}</p><div>{copy.signature.map(x=><span key={x}>✓ &nbsp;{x}</span>)}</div></section>
     <section className={styles.cta}><img src={config.hero} alt=""/><div><p className={styles.eyebrow}>MLT {collection.name}</p><h2>{copy.cta}</h2><p>{ui.prepared}</p><a href="mailto:concierge@mlt-travel.com">{ui.concierge}<span>→</span></a></div></section>
-    <MobilePreviewFooter locale={locale} withStickyBar/>
+    <MobilePreviewFooter locale={locale} withStickyBar previewMode={previewMode}/>
     <div className={styles.sticky}><span>{ui.total}<b>{money(total)}</b></span><button onClick={()=>alert("Preview only — payment is not connected.")}>{ui.pay}</button></div>
   </div></main>;
 }

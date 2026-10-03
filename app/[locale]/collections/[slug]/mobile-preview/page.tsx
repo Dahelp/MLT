@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { Locale } from "../../../../../content/i18n";
-import MobileCollectionPreview from "../../../../mobile-preview/MobileCollectionPreview";
-import FreedomMobilePreview from "../../../../mobile-preview/freedom/FreedomMobilePreview";
+import MobileCollectionView from "../../../../MobileCollectionView";
 
 const previewCollections = ["freedom", "signature", "concierge", "private", "honeymoon"] as const;
 type PreviewCollection = (typeof previewCollections)[number];
@@ -21,6 +20,5 @@ export function generateStaticParams() {
 export default async function Page({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
   if (!(locale === "en" || locale === "de" || locale === "ru") || !previewCollections.includes(slug as PreviewCollection)) notFound();
-  if (slug === "freedom") return <FreedomMobilePreview initialLocale={locale.toUpperCase() as "EN" | "DE" | "RU"} />;
-  return <MobileCollectionPreview collectionId={slug as Exclude<PreviewCollection, "freedom">} initialLocale={locale as Locale} />;
+  return <MobileCollectionView slug={slug as PreviewCollection} locale={locale as Locale}/>;
 }

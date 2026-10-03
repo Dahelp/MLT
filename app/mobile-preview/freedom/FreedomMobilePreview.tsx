@@ -55,7 +55,7 @@ function addDays(date: string, days: number) {
   return value.toISOString().slice(0, 10);
 }
 
-export default function FreedomMobilePreview({ initialLocale = "EN" }: { initialLocale?: "EN" | "DE" | "RU" }) {
+export default function FreedomMobilePreview({ initialLocale = "EN", previewMode = true }: { initialLocale?: "EN" | "DE" | "RU"; previewMode?: boolean }) {
   const [plus, setPlus] = useState(false);
   const [days, setDays] = useState(7);
   const [departure, setDeparture] = useState("2026-10-12");
@@ -81,7 +81,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN" }: { initial
 
   return <main className={styles.stage}>
     <div className={styles.phone}>
-      <MobilePreviewHeader locale={language} variant="light" />
+      <MobilePreviewHeader locale={language} variant="light" previewMode={previewMode}/>
 
       <section className={styles.hero}>
         <img src="/collection-freedom-hero-mobile-v2.webp" alt="MLT Freedom expedition" />
@@ -120,7 +120,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN" }: { initial
       <section className={styles.shapes}><p className={styles.eyebrow}>{detail.includes}</p><div>{detail.signature.map(x => <span key={x}>✓ &nbsp;{x}</span>)}</div></section>
       <section className={styles.compare}>{[freedomPackage, freedomPlusPackage].map(item => <article key={item.id}><h3>{item.title}</h3>{[...(item.benefits || []), ...(item.supplement ? [item.supplement] : [])].map(entry=><p key={entry}>✓ &nbsp;{entry}</p>)}</article>)}</section>
       <section className={styles.cta}><img src="/collection-freedom-hero-mobile-v2.webp" alt=""/><div><p className={styles.eyebrow}>MLT Freedom</p><h2>{detail.cta}</h2><p>{ui.prepared}</p><a href="mailto:concierge@mlt-travel.com">{ui.concierge}<span>→</span></a></div></section>
-      <MobilePreviewFooter locale={language} withStickyBar/>
+      <MobilePreviewFooter locale={language} withStickyBar previewMode={previewMode}/>
       <div className={styles.sticky}><span>{ui.total}<b>{money}</b></span><button onClick={() => alert("Preview only — payment is not connected.")}>{ui.pay}</button></div>
     </div>
   </main>;
