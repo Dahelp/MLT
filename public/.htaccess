@@ -4,6 +4,9 @@ Options -Indexes
   RewriteEngine On
   RewriteCond %{HTTP:Sec-CH-UA-Mobile} "^\?1$" [OR]
   RewriteCond %{HTTP_USER_AGENT} "(iPhone|iPod|Windows Phone|IEMobile|Opera Mini|Android.*Mobile)" [NC]
+  RewriteRule ^(index\.html)?$ en/mobile-site/index.html [L]
+  RewriteCond %{HTTP:Sec-CH-UA-Mobile} "^\?1$" [OR]
+  RewriteCond %{HTTP_USER_AGENT} "(iPhone|iPod|Windows Phone|IEMobile|Opera Mini|Android.*Mobile)" [NC]
   RewriteRule ^(en|de|ru)(/|/index\.html)?$ $1/mobile-site/index.html [L]
   RewriteCond %{HTTP:Sec-CH-UA-Mobile} "^\?1$" [OR]
   RewriteCond %{HTTP_USER_AGENT} "(iPhone|iPod|Windows Phone|IEMobile|Opera Mini|Android.*Mobile)" [NC]
