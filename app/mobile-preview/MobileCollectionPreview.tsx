@@ -13,6 +13,7 @@ import type { Locale } from "../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../collections/[slug]/DepartureCalendar";
 import MobilePreviewHeader from "./MobilePreviewHeader";
 import MobilePreviewFooter from "./MobilePreviewFooter";
+import { continueJourneyInAccount } from "../../content/account-draft";
 import styles from "./freedom/preview.module.css";
 
 type CollectionId = "signature" | "concierge" | "private" | "honeymoon";
@@ -89,6 +90,7 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
   useEffect(()=>{if(dbCollection?.data_json)setDeparture(current=>nextAllowedDeparture(current,effectiveDepartureRule));},[dbCollection?.data_json]);
   const money=(value:number)=>new Intl.NumberFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(value);
   const displayDate=(value:string)=>new Intl.DateTimeFormat(locale==="en"?"en-GB":locale==="de"?"de-DE":"ru-RU",{day:"numeric",month:"short",year:"numeric"}).format(new Date(`${value}T12:00:00`));
+  const continueToAccount=()=>continueJourneyInAccount({collection:collectionId,collectionName:`MLT ${collection.name} Collection`,country:"Italy",days,arrival:departure,departure:returned,guests,route:products[active]?.title||"MLT curated route",rate:money(total),signatureTailored:collectionId==="signature"&&variant===1,freedomPlus:false,tailoredInterests:selectedInterests,vehicle:"MLT motorhome"},locale);
   return <main className={styles.stage}><div className={styles.phone}>
     <MobilePreviewHeader locale={locale} variant="light" previewMode={previewMode}/>
     <section className={styles.hero}><img src={config.hero} alt={`MLT ${collection.name}`}/><div><span>MLT / {collection.number}</span><h1><strong>MLT {collection.name}</strong><br/><i>Collection</i></h1></div></section>
@@ -99,8 +101,8 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
       <section className={styles.products}><p className={styles.eyebrow}>{ui.experience}</p><div className={styles.carousel}><button className={styles.prev} onClick={()=>productCarousel.current?.slidePrev()}><Icon name="arrow-left"/></button><SwiperCarousel className={styles.track} modules={[EffectCoverflow,Keyboard]} effect="coverflow" initialSlide={products.length+2} centeredSlides slidesPerView="auto" speed={500} simulateTouch grabCursor allowTouchMove touchAngle={45} threshold={4} longSwipesRatio={.15} keyboard={{enabled:true}} coverflowEffect={{rotate:0,stretch:8,depth:90,modifier:1,slideShadows:false}} onSwiper={x=>{productCarousel.current=x}} onSlideChange={x=>{const index=((x.activeIndex%products.length)+products.length)%products.length;setActive(index);if(x.activeIndex<products.length||x.activeIndex>=products.length*2)requestAnimationFrame(()=>x.slideTo(products.length+index,0,false));}}>{carousel.map((product,slideIndex)=>{const index=slideIndex%products.length;return <SwiperSlide className={styles.slide} key={`${product.n}-${slideIndex}`}><button className={styles.card} data-active={index===active} onClick={()=>{setActive(index);productCarousel.current?.slideTo(products.length+index)}}><img src={product.image} alt=""/><span>{product.n}</span><em>{index===active?ui.selected:ui.choose}</em><div><strong>{product.title}</strong><small>{product.copy[locale]}</small></div></button></SwiperSlide>})}</SwiperCarousel><button className={styles.next} onClick={()=>productCarousel.current?.slideNext()}><Icon name="arrow-right"/></button></div></section>
     </section>
     <section className={styles.ideal}><p className={styles.eyebrow}>{ui.ideal}</p><p>{copy.ideal}</p></section><section className={styles.shapes}><p className={styles.eyebrow}>{copy.includes}</p><div>{copy.signature.map(x=><span key={x}>✓ &nbsp;{x}</span>)}</div></section>
-    <section className={styles.cta}><img src={config.hero} alt=""/><div><p className={styles.eyebrow}>MLT {collection.name}</p><h2>{copy.cta}</h2><p>{ui.prepared}</p><a href="mailto:concierge@mlt-travel.com">{ui.concierge}<span>→</span></a></div></section>
+    <section className={styles.cta}><img src={config.hero} alt=""/><div><p className={styles.eyebrow}>MLT {collection.name}</p><h2>{copy.cta}</h2><p>{ui.prepared}</p><a href="mailto:info@mlt-lifestyle.com">{ui.concierge}<span>→</span></a></div></section>
     <MobilePreviewFooter locale={locale} withStickyBar previewMode={previewMode}/>
-    <div className={styles.sticky}><span>{ui.total}<b>{money(total)}</b></span><button onClick={()=>alert("Preview only — payment is not connected.")}>{ui.pay}</button></div>
+    <div className={styles.sticky}><span>{ui.total}<b>{money(total)}</b></span><button onClick={continueToAccount}>{ui.pay}</button></div>
   </div></main>;
 }

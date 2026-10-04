@@ -13,6 +13,7 @@ import type { Locale } from "../../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../../collections/[slug]/DepartureCalendar";
 import MobilePreviewHeader from "../MobilePreviewHeader";
 import MobilePreviewFooter from "../MobilePreviewFooter";
+import { continueJourneyInAccount } from "../../../content/account-draft";
 import styles from "./preview.module.css";
 
 type IconName = "arrow-left" | "arrow-right" | "compass" | "pin" | "calendar" | "travellers";
@@ -78,6 +79,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
   const freedomPackage = displayedPackages[0] || localizedPackages[language][0];
   const freedomPlusPackage = displayedPackages[1] || localizedPackages[language][1];
   const displayDate = (value: string) => new Intl.DateTimeFormat(language==="en"?"en-GB":language==="de"?"de-DE":"ru-RU", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${value}T12:00:00`));
+  const continueToAccount = () => continueJourneyInAccount({ collection: "freedom", collectionName: "MLT Freedom Collection", country: "Italy", days, arrival: departure, departure: returnDate, guests, route: products[active]?.title || "MLT curated route", rate: money, freedomPlus: plus, signatureTailored: false, tailoredInterests: [], vehicle: "MLT motorhome" }, language);
 
   return <main className={styles.stage}>
     <div className={styles.phone}>
@@ -119,9 +121,9 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
       <section className={styles.ideal}><p className={styles.eyebrow}>{ui.ideal}</p><p>{detail.ideal}</p></section>
       <section className={styles.shapes}><p className={styles.eyebrow}>{detail.includes}</p><div>{detail.signature.map(x => <span key={x}>✓ &nbsp;{x}</span>)}</div></section>
       <section className={styles.compare}>{[freedomPackage, freedomPlusPackage].map(item => <article key={item.id}><h3>{item.title}</h3>{[...(item.benefits || []), ...(item.supplement ? [item.supplement] : [])].map(entry=><p key={entry}>✓ &nbsp;{entry}</p>)}</article>)}</section>
-      <section className={styles.cta}><img src="/collection-freedom-hero-mobile-v2.webp" alt=""/><div><p className={styles.eyebrow}>MLT Freedom</p><h2>{detail.cta}</h2><p>{ui.prepared}</p><a href="mailto:concierge@mlt-travel.com">{ui.concierge}<span>→</span></a></div></section>
+      <section className={styles.cta}><img src="/collection-freedom-hero-mobile-v2.webp" alt=""/><div><p className={styles.eyebrow}>MLT Freedom</p><h2>{detail.cta}</h2><p>{ui.prepared}</p><a href="mailto:info@mlt-lifestyle.com">{ui.concierge}<span>→</span></a></div></section>
       <MobilePreviewFooter locale={language} withStickyBar previewMode={previewMode}/>
-      <div className={styles.sticky}><span>{ui.total}<b>{money}</b></span><button onClick={() => alert("Preview only — payment is not connected.")}>{ui.pay}</button></div>
+      <div className={styles.sticky}><span>{ui.total}<b>{money}</b></span><button onClick={continueToAccount}>{ui.pay}</button></div>
     </div>
   </main>;
 }

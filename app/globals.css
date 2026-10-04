@@ -1031,5 +1031,6 @@ footer .brand-line { font-size: 12px; }
 .light-menu{border-color:rgba(162,114,80,.55);border-radius:10px;background:rgba(255,255,255,.72);box-shadow:0 5px 14px rgba(78,52,32,.08)}.light-menu span{background:var(--mlt-bronze-dark)}
 .carousel-side-arrow,.booking-route-arrow{border-color:rgba(255,255,255,.48);border-radius:12px;background:linear-gradient(135deg,rgba(162,114,80,.92),rgba(207,147,100,.92));box-shadow:0 10px 25px rgba(38,24,15,.24)}
 .carousel-side-arrow:hover,.booking-route-arrow:hover{background:var(--mlt-button-gradient);filter:brightness(1.08)}
+img[src="/mlt-logo.svg"]{filter:none!important}
 .map-country-tabs{gap:5px;padding:5px;border-color:rgba(162,114,80,.42);border-radius:12px}.map-country-tabs button{border:1px solid transparent;border-radius:8px;transition:color .18s ease,background .18s ease,border-color .18s ease}.map-country-tabs button:not(.active){border-color:rgba(162,114,80,.42);color:#d7b79e}.map-country-tabs button.active{border-color:var(--mlt-bronze-dark);background:var(--mlt-button-gradient);color:#fff}
 .booking-total .bronze-button{border:1px solid var(--mlt-bronze-dark)}
