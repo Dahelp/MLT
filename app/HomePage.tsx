@@ -90,7 +90,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   };
   return <main className="home-light">
     <header className="light-nav">
-      <a className="light-brand" href="#top" aria-label="MLT home"><img src="/mlt-logo.svg" alt="MLT — Move. Live. Travel." /></a>
+      <a className="light-brand" href="#top" aria-label="MLT home"><img src="/mlt-logo.svg?v=20261005-original" alt="MLT — Move. Live. Travel." /></a>
       <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
         <a href="#collections" onClick={(event) => scrollToSection(event, "collections")}>{t.nav[0]}</a>
         <a href="#experiences" onClick={(event) => scrollToSection(event, "experiences")}>{t.nav[1]}</a>
@@ -160,7 +160,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div><p className="light-section-label">05 / {t.conversation}</p><h2>{t.contactTitle}</h2></div><div><p>{t.contactCopy}</p><a className="bronze-button" href="mailto:info@mlt-lifestyle.com">{t.start}<span>↗</span></a></div>
     </section>
 
-    <footer className="light-footer"><div className="light-footer-logo"><img src="/mlt-logo.svg" alt="MLT — Move. Live. Travel." /><p>{t.footer}</p></div><div><strong>{locale === "ru" ? "Разделы" : "Explore"}</strong><a href="#collections">{t.nav[0]}</a><a href="#experiences">{t.nav[1]}</a><a href={localPath("/account")}>{locale === "ru" ? "Личный кабинет" : "My account"}</a></div><div><strong>{locale === "ru" ? "Документы" : "Legal"}</strong><a href={localPath("/legal/imprint")}>{locale === "ru" ? "Выходные данные" : "Impressum"}</a><a href={localPath("/legal/privacy")}>{locale === "ru" ? "Конфиденциальность" : "Datenschutz"}</a><a href={localPath("/legal/terms")}>{locale === "ru" ? "Условия" : "AGB"}</a></div><div><strong>{locale === "ru" ? "Контакты" : "Contact"}</strong><a href="mailto:info@mlt-lifestyle.com">info@mlt-lifestyle.com</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div><small>© 2026 MLT Maschinenhandel GmbH Import-Export</small></footer>
+    <footer className="light-footer"><div className="light-footer-logo"><img src="/mlt-logo.svg?v=20261005-original" alt="MLT — Move. Live. Travel." /><p>{t.footer}</p></div><div><strong>{locale === "ru" ? "Разделы" : "Explore"}</strong><a href="#collections">{t.nav[0]}</a><a href="#experiences">{t.nav[1]}</a><a href={localPath("/account")}>{locale === "ru" ? "Личный кабинет" : "My account"}</a></div><div><strong>{locale === "ru" ? "Документы" : "Legal"}</strong><a href={localPath("/legal/imprint")}>{locale === "ru" ? "Выходные данные" : "Impressum"}</a><a href={localPath("/legal/privacy")}>{locale === "ru" ? "Конфиденциальность" : "Datenschutz"}</a><a href={localPath("/legal/terms")}>{locale === "ru" ? "Условия" : "AGB"}</a></div><div><strong>{locale === "ru" ? "Контакты" : "Contact"}</strong><a href="mailto:info@mlt-lifestyle.com">info@mlt-lifestyle.com</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div><small>© 2026 MLT Maschinenhandel GmbH Import-Export</small></footer>
 
   </main>;
 }
