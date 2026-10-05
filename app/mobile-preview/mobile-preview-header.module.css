@@ -5,4 +5,4 @@
 .overlay .logo img,.light .logo img{width:96px}
 .chatButton svg{width:40px;height:40px}
 .chatButton{bottom:44px}.light .chatButton{bottom:108px}
-.overlay .logo img{filter:none}
+.logo img,.mobileMenuHead img{filter:none!important;opacity:1!important;mix-blend-mode:normal!important}
