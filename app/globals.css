@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  --mobile-content-gutter: 24px;
   --ink: #0a0b0b;
   --ink-soft: #111312;
   --paper: #e9e4da;

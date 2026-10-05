@@ -156,3 +156,7 @@
 .tailoredServices button{min-height:40px;padding:0 13px;border:1px solid #765b44;border-radius:10px;background:transparent;color:#d3cec6;font-size:12px}
 .tailoredServices button.interestSelected{border-color:#cf9364;background:#cf936426;color:#f5e9dc}
 .tailoredServices button span{margin-right:6px;color:#d7a27d}
+.phone{padding-inline:var(--mobile-content-gutter)}
+.ideal,.shapes{padding-inline:0}
+.rhythm,.cta{margin-inline:calc(var(--mobile-content-gutter) * -1)}
+.rhythm{padding-inline:var(--mobile-content-gutter)}
