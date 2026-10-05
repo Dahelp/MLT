@@ -6,4 +6,3 @@
 .chatButton svg{width:40px;height:40px}
 .chatButton{bottom:44px}.light .chatButton{bottom:108px}
 .logo img,.mobileMenuHead img{filter:none!important;opacity:1!important;mix-blend-mode:normal!important}
-.overlay{position:fixed;left:max(14px,calc((100vw - 430px)/2 + 14px));right:max(14px,calc((100vw - 430px)/2 + 14px))}
