@@ -1,24 +1,33 @@
 "use client";
 
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { experiences, journeyRoutes, mapPoints } from "../../content/mlt";
 
 type Targets={route:HTMLTextAreaElement;points:HTMLTextAreaElement;services:HTMLTextAreaElement};
 type Service={title:string;price:number};
+type Choice={id:string;label:string;value:string};
 const parseList=(value:string)=>{try{const parsed=JSON.parse(value||"[]");return Array.isArray(parsed)?parsed:[]}catch{return []}};
-const selectedValues=(node:HTMLTextAreaElement,options:Array<{id:string;name:string}>)=>{const current=parseList(node.value||node.defaultValue).map(String);return options.filter(option=>current.includes(option.id)||current.includes(option.name)).map(option=>option.name)};
+
+function ChoiceDropdown({choices,selected,onToggle,placeholder,selectedWord}:{choices:Choice[];selected:string[];onToggle:(choice:Choice,checked:boolean)=>void;placeholder:string;selectedWord:string}){
+ const selectedLabels=choices.filter(choice=>selected.includes(choice.value)).map(choice=>choice.label);
+ return <details className="journey-choice-dropdown"><summary><span>{selectedLabels.length?selectedLabels.slice(0,2).join(", "):placeholder}</span>{selectedLabels.length>2&&<b>+{selectedLabels.length-2}</b>}<i aria-hidden="true">⌄</i></summary><div>{choices.map(choice=><label key={choice.id}><input type="checkbox" checked={selected.includes(choice.value)} onChange={event=>onToggle(choice,event.target.checked)}/><span>{choice.label}</span></label>)}</div><small>{selectedLabels.length} {selectedWord}</small></details>;
+}
 
 export default function JourneyFieldEnhancer(){
  const [targets,setTargets]=useState<Targets|null>(null),[revision,setRevision]=useState(0);
  useEffect(()=>{const locate=()=>{const route=document.querySelector<HTMLTextAreaElement>('.concierge-detail textarea[name="route"]'),points=document.querySelector<HTMLTextAreaElement>('.concierge-detail textarea[name="points"]'),services=document.querySelector<HTMLTextAreaElement>('.concierge-detail textarea[name="services"]'),locale=localStorage.getItem("mlt-operations-locale")||"en",labels=locale==="ru"?["Маршруты","Места и точки карты","Дополнительные услуги"]:locale==="de"?["Routen","Orte und Kartenpunkte","Zusatzleistungen"]:["Routes","Places and map points","Additional services"];[route,points,services].forEach((node,index)=>{const text=node?.parentElement?.firstChild;if(text?.nodeType===Node.TEXT_NODE)text.nodeValue=labels[index]});setTargets(route&&points&&services?{route,points,services}:null)};locate();const observer=new MutationObserver(locate);observer.observe(document.body,{childList:true,subtree:true});return()=>observer.disconnect()},[]);
  if(!targets)return null;
- const routeOptions=journeyRoutes.map(item=>({id:item.id,name:item.name}));
- const pointOptions=mapPoints.filter(item=>!journeyRoutes.some(route=>route.id===item.id)).map(item=>({id:item.id,name:`${item.name} · ${item.country}`}));
+ const locale=localStorage.getItem("mlt-operations-locale")||"en";
+ const words=locale==="ru"?{choose:"Выберите варианты",selected:"выбрано"}:locale==="de"?{choose:"Optionen auswählen",selected:"ausgewählt"}:{choose:"Choose options",selected:"selected"};
+ const routeChoices:Choice[]=journeyRoutes.map(item=>({id:item.id,label:`${item.name} · ${item.country}`,value:item.name}));
+ const pointChoices:Choice[]=mapPoints.filter(item=>!journeyRoutes.some(route=>route.id===item.id)).map(item=>({id:item.id,label:`${item.name} · ${item.country}`,value:item.id}));
+ const routeSelected=parseList(targets.route.value||targets.route.defaultValue).map(String).map(value=>routeChoices.find(choice=>choice.id===value)?.value||value);
+ const pointSelected=parseList(targets.points.value||targets.points.defaultValue).map(String).map(value=>pointChoices.find(choice=>choice.label.startsWith(value))?.value||value);
  const currentServices=parseList(targets.services.value||targets.services.defaultValue).filter((item):item is Service=>item&&typeof item.title==="string");
- const serviceOptions=Array.from(new Map([...experiences.map(item=>[item.title,{title:item.title,price:0}] as const),...currentServices.map(item=>[item.title,item] as const)]).values());
- const locale=localStorage.getItem("mlt-operations-locale")||"en",hint=locale==="ru"?"Можно выбрать несколько вариантов":locale==="de"?"Mehrere Optionen können ausgewählt werden":"Multiple options can be selected";
- const syncSelect=(node:HTMLTextAreaElement,event:ChangeEvent<HTMLSelectElement>)=>{node.value=JSON.stringify(Array.from(event.currentTarget.selectedOptions,value=>value.value));setRevision(value=>value+1)};
- const toggleService=(service:Service,checked:boolean)=>{const chosen=parseList(targets.services.value||targets.services.defaultValue).filter((item):item is Service=>item&&typeof item.title==="string"&&item.title!==service.title);if(checked)chosen.push(service);targets.services.value=JSON.stringify(chosen);setRevision(value=>value+1)};
- return <>{createPortal(<><select className="journey-multi-select" multiple size={Math.min(7,routeOptions.length)} value={selectedValues(targets.route,routeOptions)} onChange={event=>syncSelect(targets.route,event)}>{routeOptions.map(item=><option key={item.id} value={item.name}>{item.name}</option>)}</select><small className="journey-field-hint">{hint}</small></>,targets.route.parentElement!)}{createPortal(<><select className="journey-multi-select" multiple size={Math.min(8,pointOptions.length)} value={selectedValues(targets.points,pointOptions)} onChange={event=>syncSelect(targets.points,event)}>{pointOptions.map(item=><option key={item.id} value={item.id}>{item.name}</option>)}</select><small className="journey-field-hint">{hint}</small></>,targets.points.parentElement!)}{createPortal(<div className="journey-service-list" data-revision={revision}>{serviceOptions.map(service=>{const checked=parseList(targets.services.value||targets.services.defaultValue).some((item:Service)=>item?.title===service.title);return <label key={service.title}><input type="checkbox" checked={checked} onChange={event=>toggleService(service,event.target.checked)}/><span>{service.title}</span></label>})}</div>,targets.services.parentElement!)}</>;
+ const services=Array.from(new Map([...experiences.map(item=>[item.title,{title:item.title,price:0}] as const),...currentServices.map(item=>[item.title,item] as const)]).values());
+ const serviceChoices:Choice[]=services.map(service=>({id:service.title,label:service.title,value:service.title})),serviceSelected=currentServices.map(item=>item.title);
+ const toggleArray=(node:HTMLTextAreaElement,choice:Choice,checked:boolean)=>{const current=parseList(node.value||node.defaultValue).map(String).filter(value=>value!==choice.value&&value!==choice.id);if(checked)current.push(choice.value);node.value=JSON.stringify(current);setRevision(value=>value+1)};
+ const toggleService=(choice:Choice,checked:boolean)=>{const current=parseList(targets.services.value||targets.services.defaultValue).filter((item):item is Service=>item&&typeof item.title==="string"&&item.title!==choice.value);if(checked)current.push(services.find(item=>item.title===choice.value)||{title:choice.value,price:0});targets.services.value=JSON.stringify(current);setRevision(value=>value+1)};
+ return <div hidden data-revision={revision}>{createPortal(<ChoiceDropdown choices={routeChoices} selected={routeSelected} onToggle={(choice,checked)=>toggleArray(targets.route,choice,checked)} placeholder={words.choose} selectedWord={words.selected}/>,targets.route.parentElement!)}{createPortal(<ChoiceDropdown choices={pointChoices} selected={pointSelected} onToggle={(choice,checked)=>toggleArray(targets.points,choice,checked)} placeholder={words.choose} selectedWord={words.selected}/>,targets.points.parentElement!)}{createPortal(<ChoiceDropdown choices={serviceChoices} selected={serviceSelected} onToggle={toggleService} placeholder={words.choose} selectedWord={words.selected}/>,targets.services.parentElement!)}</div>;
 }
