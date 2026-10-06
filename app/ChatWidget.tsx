@@ -20,7 +20,7 @@ export default function ChatWidget(){
   const locale=getLocale(pathname),t=copy[locale];
   const [open,setOpen]=useState(false),[state,setState]=useState<ChatState>({messages:[],unread:0,operatorsOnline:0}),[busy,setBusy]=useState(false),[error,setError]=useState("");
   const listRef=useRef<HTMLDivElement>(null);
-  const hidden=pathname.startsWith("/concierge")||pathname.startsWith("/mobile-preview");
+  const hidden=["/admin","/manager","/concierge"].some(section=>pathname===section||pathname.startsWith(`${section}/`))||pathname.startsWith("/mobile-preview");
   const sync=useCallback(async(markRead=false)=>{const token=localStorage.getItem("mlt-chat-token")||"";if(!token)return;try{const data=await api({action:"sync",token,markRead});setState(data);setError("");}catch{/* keep chat available during transient network errors */}},[]);
   useEffect(()=>{if(hidden)return;sync(open);const timer=window.setInterval(()=>sync(open),open?3000:9000);return()=>window.clearInterval(timer)},[hidden,open,sync]);
   useEffect(()=>{if(open)requestAnimationFrame(()=>{if(listRef.current)listRef.current.scrollTop=listRef.current.scrollHeight})},[open,state.messages.length]);
