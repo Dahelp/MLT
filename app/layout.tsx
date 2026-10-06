@@ -3,6 +3,7 @@ import "./globals.css";
 import "./chat.css";
 import CookieConsent from "./CookieConsent";
 import ChatWidget from "./ChatWidget";
+import JourneyFieldEnhancer from "./concierge/JourneyFieldEnhancer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mlt-lifestyle.com"),
@@ -39,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}<ChatWidget /><CookieConsent /></body>
+      <body>{children}<JourneyFieldEnhancer /><ChatWidget /><CookieConsent /></body>
     </html>
   );
 }
