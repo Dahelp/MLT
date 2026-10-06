@@ -140,7 +140,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
         <img className="light-hero-image" src="/hero-mediterranean-sunset.jpg" alt="MLT motorhome overlooking the Mediterranean coast at sunset" fetchPriority="high" decoding="async" />
       </picture>
       <div className="light-hero-wash" />
-      <div className="light-hero-copy" data-home-reveal="up">
+      <div className="light-hero-copy hero-copy-enter">
         <p className="light-eyebrow"><span />{t.eyebrow}</p>
         <p>{t.hero}</p>
         <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a></div>
