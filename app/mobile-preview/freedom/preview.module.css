@@ -58,7 +58,7 @@
 .cta a span{font-size:17px}
 .footer{display:block;margin:0 -14px;padding:35px 28px 92px;border:0;background:#171a17;color:#e8e0d5}
 .footerBrand{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:25px;border-bottom:1px solid #ffffff20}
-.footerBrand img{width:94px;filter:brightness(1.25)}
+.footerBrand img{width:96px;height:35.55px;object-fit:contain;filter:none}
 .footerBrand p{margin:0;color:#99958e;font:11px/1.5 Georgia,serif;text-align:right}
 .footerLinks{display:grid;grid-template-columns:1fr 1fr;gap:25px;padding:26px 0}
 .footerLinks div{display:flex;flex-direction:column;gap:9px}
@@ -84,7 +84,7 @@
 .languageMenu .activeLanguage{background:#252823;color:#fff}
 .mobileMenu{position:absolute;z-index:300;top:0;left:0;right:0;min-height:610px;padding:23px 25px 35px;background:#171a17;color:#eee7dc;box-shadow:0 25px 60px #0006}
 .mobileMenuHead{display:flex;align-items:center;justify-content:space-between;padding-bottom:34px;border-bottom:1px solid #ffffff1f}
-.mobileMenuHead img{width:112px;filter:brightness(1.2)}
+.mobileMenuHead img{width:96px;height:35.55px;object-fit:contain;filter:none}
 .mobileMenuHead button{width:40px;height:40px;border:1px solid #766b60;border-radius:50%;background:transparent;color:#eee7dc;font-size:28px;line-height:1}
 .mobileMenu>p{margin:30px 0 14px;color:#b98560;text-transform:uppercase;letter-spacing:.18em;font-size:9px}
 .mobileMenu nav{display:flex;flex-direction:column}
