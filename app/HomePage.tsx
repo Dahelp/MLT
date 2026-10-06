@@ -75,6 +75,30 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     return () => { document.removeEventListener("keydown", close); document.body.style.overflow = ""; };
   }, [locale]);
 
+  useEffect(() => {
+    const root = document.querySelector<HTMLElement>(".home-light");
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-home-reveal]"));
+    items.forEach((item) => {
+      if (item.getBoundingClientRect().top < window.innerHeight * 0.94) item.classList.add("is-visible");
+    });
+    root.classList.add("home-reveal-enabled");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    items.forEach((item) => {
+      if (!item.classList.contains("is-visible")) observer.observe(item);
+    });
+    return () => {
+      observer.disconnect();
+      root.classList.remove("home-reveal-enabled");
+    };
+  }, []);
+
   const localPath = (path: string) => `/${locale}${path}`;
   const toggleMapPoint = (id: string) => setMapSelection((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   const scrollToSection = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
@@ -110,7 +134,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
         <img className="light-hero-image" src="/hero-mediterranean-sunset.jpg" alt="MLT motorhome overlooking the Mediterranean coast at sunset" fetchPriority="high" decoding="async" />
       </picture>
       <div className="light-hero-wash" />
-      <div className="light-hero-copy">
+      <div className="light-hero-copy" data-home-reveal="up">
         <p className="light-eyebrow"><span />{t.eyebrow}</p>
         <p>{t.hero}</p>
         <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a></div>
@@ -123,9 +147,9 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     </section>
 
     <section className="light-philosophy" id="about">
-      <p className="light-section-label">01 / {t.philosophy}</p>
-      <div className="philosophy-grid"><h2>{t.freedom}</h2><p>{t.freedomCopy}</p></div>
-      <div className="value-row">{t.pillars.map((item, index) => <article key={item}><span>0{index + 1}</span><h3>{item}</h3></article>)}</div>
+      <p className="light-section-label" data-home-reveal="up">01 / {t.philosophy}</p>
+      <div className="philosophy-grid"><h2 data-home-reveal="left">{t.freedom}</h2><p data-home-reveal="right">{t.freedomCopy}</p></div>
+      <div className="value-row">{t.pillars.map((item, index) => <article key={item} data-home-reveal="up"><span>0{index + 1}</span><h3>{item}</h3></article>)}</div>
     </section>
 
     <section className="light-collections" id="collections">
@@ -142,25 +166,25 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     </section>
 
     <section className="light-experiences" id="experiences">
-      <div className="experience-intro"><p className="light-section-label">03 / {locale === "ru" ? "Сценарии" : "Experiences"}</p><h2>{t.reason}</h2><p>{t.reasonCopy}</p><a className="text-button dark" href="#contact">{t.story}<span>→</span></a></div>
-      <div className="experience-list">{localizedExperiences.map(([number, title, body]) => <article key={number}><span>{number}</span><div><h3>{title}</h3><p>{body}</p></div><i>↗</i></article>)}</div>
+      <div className="experience-intro" data-home-reveal="left"><p className="light-section-label">03 / {locale === "ru" ? "Сценарии" : "Experiences"}</p><h2>{t.reason}</h2><p>{t.reasonCopy}</p><a className="text-button dark" href="#contact">{t.story}<span>→</span></a></div>
+      <div className="experience-list">{localizedExperiences.map(([number, title, body]) => <article key={number} data-home-reveal="right"><span>{number}</span><div><h3>{title}</h3><p>{body}</p></div><i>↗</i></article>)}</div>
     </section>
 
     <section className="light-map" id="smart-map">
-      <div className="smart-map-canvas">
+      <div className="smart-map-canvas" data-home-reveal="scale">
         <div className="smart-map-country-tabs" aria-label={locale === "ru" ? "Выбор страны" : "Choose country"}>{["All", "Italy", "Austria", "Germany"].map((item) => <button key={item} className={mapCountry === item ? "active" : ""} onClick={() => setMapCountry(item)}>{locale === "ru" ? ({ All: "Все", Italy: "Италия", Austria: "Австрия", Germany: "Германия" } as Record<string, string>)[item] : locale === "de" && item === "All" ? "Alle" : item}</button>)}</div>
         <RealRouteMap selected={mapSelection} country={mapCountry} onToggle={toggleMapPoint} locale={locale} className="home-route-map" />
       </div>
-      <div className="map-copy"><p className="light-section-label">04 / {t.mapLabel}</p><h2>{t.mapTitle}</h2><p>{t.mapCopy}</p><div className="smart-map-selection"><small>{locale === "ru" ? "Выбранные места" : locale === "de" ? "Ausgewählte Orte" : "Selected places"}</small><div>{mapSelection.length ? mapSelection.map((id, index) => { const point = mapPoints.find((item) => item.id === id); return point && <button key={id} onClick={() => toggleMapPoint(id)}><span>{index + 1}</span>{point.name}<b>×</b></button>; }) : <p>{locale === "ru" ? "Выберите точки на карте" : locale === "de" ? "Wählen Sie Orte auf der Karte" : "Choose places on the map"}</p>}</div></div><div className="map-stats"><div><strong>30+</strong><span>{locale === "ru" ? "отобранных мест" : "curated places"}</span></div><div><strong>3</strong><span>{locale === "ru" ? "страны на старте" : "countries at launch"}</span></div></div><a className="bronze-button" href="#collections">{locale === "ru" ? "Выбрать коллекцию" : "Choose a collection"}<span>↗</span></a></div>
+      <div className="map-copy" data-home-reveal="right"><p className="light-section-label">04 / {t.mapLabel}</p><h2>{t.mapTitle}</h2><p>{t.mapCopy}</p><div className="smart-map-selection"><small>{locale === "ru" ? "Выбранные места" : locale === "de" ? "Ausgewählte Orte" : "Selected places"}</small><div>{mapSelection.length ? mapSelection.map((id, index) => { const point = mapPoints.find((item) => item.id === id); return point && <button key={id} onClick={() => toggleMapPoint(id)}><span>{index + 1}</span>{point.name}<b>×</b></button>; }) : <p>{locale === "ru" ? "Выберите точки на карте" : locale === "de" ? "Wählen Sie Orte auf der Karte" : "Choose places on the map"}</p>}</div></div><div className="map-stats"><div><strong>30+</strong><span>{locale === "ru" ? "отобранных мест" : "curated places"}</span></div><div><strong>3</strong><span>{locale === "ru" ? "страны на старте" : "countries at launch"}</span></div></div><a className="bronze-button" href="#collections">{locale === "ru" ? "Выбрать коллекцию" : "Choose a collection"}<span>↗</span></a></div>
     </section>
 
-    <section className="light-quote"><p>“{t.quote}”</p><span>{locale === "ru" ? "MLT — Двигайся. Живи. Путешествуй." : "MLT — Move. Live. Travel."}</span></section>
+    <section className="light-quote"><p data-home-reveal="up">“{t.quote}”</p><span data-home-reveal="up">{locale === "ru" ? "MLT — Двигайся. Живи. Путешествуй." : "MLT — Move. Live. Travel."}</span></section>
 
     <section className="light-contact" id="contact">
-      <div><p className="light-section-label">05 / {t.conversation}</p><h2>{t.contactTitle}</h2></div><div><p>{t.contactCopy}</p><a className="bronze-button" href="mailto:info@mlt-lifestyle.com">{t.start}<span>↗</span></a></div>
+      <div data-home-reveal="left"><p className="light-section-label">05 / {t.conversation}</p><h2>{t.contactTitle}</h2></div><div data-home-reveal="right"><p>{t.contactCopy}</p><a className="bronze-button" href="mailto:info@mlt-lifestyle.com">{t.start}<span>↗</span></a></div>
     </section>
 
-    <footer className="light-footer"><div className="light-footer-logo"><img src="/mlt-logo.svg?v=20261005-original" alt="MLT — Move. Live. Travel." /><p>{t.footer}</p></div><div><strong>{locale === "ru" ? "Разделы" : "Explore"}</strong><a href="#collections">{t.nav[0]}</a><a href="#experiences">{t.nav[1]}</a><a href={localPath("/account")}>{locale === "ru" ? "Личный кабинет" : "My account"}</a></div><div><strong>{locale === "ru" ? "Документы" : "Legal"}</strong><a href={localPath("/legal/imprint")}>{locale === "ru" ? "Выходные данные" : "Impressum"}</a><a href={localPath("/legal/privacy")}>{locale === "ru" ? "Конфиденциальность" : "Datenschutz"}</a><a href={localPath("/legal/terms")}>{locale === "ru" ? "Условия" : "AGB"}</a></div><div><strong>{locale === "ru" ? "Контакты" : "Contact"}</strong><a href="mailto:info@mlt-lifestyle.com">info@mlt-lifestyle.com</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div><small>© 2026 MLT Maschinenhandel GmbH Import-Export</small></footer>
+    <footer className="light-footer"><div className="light-footer-logo" data-home-reveal="up"><img src="/mlt-logo.svg?v=20261005-original" alt="MLT — Move. Live. Travel." loading="lazy" decoding="async" /><p>{t.footer}</p></div><div data-home-reveal="up"><strong>{locale === "ru" ? "Разделы" : "Explore"}</strong><a href="#collections">{t.nav[0]}</a><a href="#experiences">{t.nav[1]}</a><a href={localPath("/account")}>{locale === "ru" ? "Личный кабинет" : "My account"}</a></div><div data-home-reveal="up"><strong>{locale === "ru" ? "Документы" : "Legal"}</strong><a href={localPath("/legal/imprint")}>{locale === "ru" ? "Выходные данные" : "Impressum"}</a><a href={localPath("/legal/privacy")}>{locale === "ru" ? "Конфиденциальность" : "Datenschutz"}</a><a href={localPath("/legal/terms")}>{locale === "ru" ? "Условия" : "AGB"}</a></div><div data-home-reveal="up"><strong>{locale === "ru" ? "Контакты" : "Contact"}</strong><a href="mailto:info@mlt-lifestyle.com">info@mlt-lifestyle.com</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div><small data-home-reveal="up">© 2026 MLT Maschinenhandel GmbH Import-Export</small></footer>
 
   </main>;
 }

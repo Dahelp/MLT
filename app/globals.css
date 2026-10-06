@@ -485,6 +485,24 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-footer strong { margin-bottom: 8px; color: var(--mlt-sand); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 .light-footer a { color: #f8f5f0; text-decoration: none; font-size: 14px; line-height: 1.45; }
 .light-footer > small { grid-column: 1 / -1; margin-top: 35px; padding-top: 24px; border-top: 1px solid #3e3e3e; color: #8f8a83; }
+
+/* Progressive scroll reveals for the home page. The collections section is intentionally excluded. */
+.home-reveal-enabled [data-home-reveal] { opacity: 0; transition: opacity .82s cubic-bezier(.22,.72,.24,1), transform .82s cubic-bezier(.22,.72,.24,1); will-change: opacity, transform; }
+.home-reveal-enabled [data-home-reveal="up"] { transform: translate3d(0,28px,0); }
+.home-reveal-enabled [data-home-reveal="left"] { transform: translate3d(-32px,0,0); }
+.home-reveal-enabled [data-home-reveal="right"] { transform: translate3d(32px,0,0); }
+.home-reveal-enabled [data-home-reveal="scale"] { transform: scale(.975); }
+.home-reveal-enabled [data-home-reveal].is-visible { opacity: 1; transform: none; }
+.home-reveal-enabled .value-row [data-home-reveal]:nth-child(2),
+.home-reveal-enabled .experience-list [data-home-reveal]:nth-child(2),
+.home-reveal-enabled .light-footer > [data-home-reveal]:nth-child(2) { transition-delay: 90ms; }
+.home-reveal-enabled .value-row [data-home-reveal]:nth-child(3),
+.home-reveal-enabled .experience-list [data-home-reveal]:nth-child(3),
+.home-reveal-enabled .light-footer > [data-home-reveal]:nth-child(3) { transition-delay: 180ms; }
+.home-reveal-enabled .experience-list [data-home-reveal]:nth-child(4),
+.home-reveal-enabled .light-footer > [data-home-reveal]:nth-child(4) { transition-delay: 270ms; }
+.home-reveal-enabled .light-footer > small[data-home-reveal] { transition-delay: 180ms; }
+@media(prefers-reduced-motion:reduce){.home-light [data-home-reveal]{opacity:1!important;transform:none!important;transition:none!important}}
 .film-overlay { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 30px; background: rgba(11,11,13,.88); backdrop-filter: blur(12px); }
 .film-dialog { position: relative; width: min(1100px, 96vw); }
 .film-dialog video { display: block; width: 100%; max-height: 84vh; background: #000; box-shadow: 0 30px 100px rgba(0,0,0,.45); }
