@@ -79,6 +79,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     const root = document.querySelector<HTMLElement>(".home-light");
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const items = Array.from(root.querySelectorAll<HTMLElement>("[data-home-reveal]"));
+    const initialItems = items.filter((item) => item.getBoundingClientRect().top < window.innerHeight * 0.94);
     root.classList.add("home-reveal-enabled");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -88,15 +89,17 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
     items.forEach((item) => {
-      observer.observe(item);
+      if (!initialItems.includes(item)) observer.observe(item);
     });
-    const frame = window.requestAnimationFrame(() => {
-      items.forEach((item) => {
-        if (item.getBoundingClientRect().top < window.innerHeight * 0.94) item.classList.add("is-visible");
+    let revealFrame = 0;
+    const prepareFrame = window.requestAnimationFrame(() => {
+      revealFrame = window.requestAnimationFrame(() => {
+        initialItems.forEach((item) => item.classList.add("is-visible"));
       });
     });
     return () => {
-      window.cancelAnimationFrame(frame);
+      window.cancelAnimationFrame(prepareFrame);
+      window.cancelAnimationFrame(revealFrame);
       observer.disconnect();
       root.classList.remove("home-reveal-enabled");
     };
