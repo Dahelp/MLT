@@ -11,7 +11,7 @@ const parseList=(value:string)=>{try{const parsed=JSON.parse(value||"[]");return
 
 function ChoiceDropdown({choices,selected,onToggle,placeholder,selectedWord}:{choices:Choice[];selected:string[];onToggle:(choice:Choice,checked:boolean)=>void;placeholder:string;selectedWord:string}){
  const selectedLabels=choices.filter(choice=>selected.includes(choice.value)).map(choice=>choice.label);
- return <details className="journey-choice-dropdown"><summary><span>{selectedLabels.length?selectedLabels.slice(0,2).join(", "):placeholder}</span>{selectedLabels.length>2&&<b>+{selectedLabels.length-2}</b>}<i aria-hidden="true">⌄</i></summary><div>{choices.map(choice=><label key={choice.id}><input type="checkbox" checked={selected.includes(choice.value)} onChange={event=>onToggle(choice,event.target.checked)}/><span>{choice.label}</span></label>)}</div><small>{selectedLabels.length} {selectedWord}</small></details>;
+ return <details className="journey-choice-dropdown"><summary><span>{selectedLabels.length?`${selectedWord}: ${selectedLabels.length}`:placeholder}</span><i aria-hidden="true">⌄</i></summary><div>{choices.map(choice=><label key={choice.id}><input type="checkbox" checked={selected.includes(choice.value)} onChange={event=>onToggle(choice,event.target.checked)}/><span>{choice.label}</span></label>)}</div>{selectedLabels.length>0&&<small>{selectedLabels.join(" · ")}</small>}</details>;
 }
 
 export default function JourneyFieldEnhancer(){
