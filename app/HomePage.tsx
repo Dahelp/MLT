@@ -61,7 +61,6 @@ const copy = {
 export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [locale, setLocale] = useState<SiteLocale>(initialLocale);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
   const [mapCountry, setMapCountry] = useState("All");
   const [mapSelection, setMapSelection] = useState<string[]>(["dolomites", "como"]);
   const t = copy[locale];
@@ -70,9 +69,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   useEffect(() => {
     document.documentElement.lang = locale;
     localStorage.setItem("mlt-locale", locale);
-    const close = (event: KeyboardEvent) => event.key === "Escape" && setChatOpen(false);
-    document.addEventListener("keydown", close);
-    return () => { document.removeEventListener("keydown", close); document.body.style.overflow = ""; };
+    return () => { document.body.style.overflow = ""; };
   }, [locale]);
 
   useEffect(() => {
@@ -147,9 +144,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       </div>
       <div className="hero-bottom-bar">
         <a className="light-scroll" href="#about"><span>{t.scroll}</span><i>↓</i></a>
-        <button className="light-chat" onClick={() => setChatOpen(!chatOpen)} aria-expanded={chatOpen} aria-label={locale === "ru" ? "Открыть чат" : "Open concierge chat"}><b>{locale === "ru" ? "Чат" : "Chat"}</b><span className="chat-icon"><i /><i /><i /></span></button>
       </div>
-      {chatOpen && <aside className="hero-chat-panel"><button className="chat-close" onClick={() => setChatOpen(false)} aria-label={locale === "ru" ? "Закрыть чат" : "Close chat"}>×</button><small>{locale === "ru" ? "Консьерж MLT" : "MLT Concierge"}</small><strong>{locale === "ru" ? "Давайте обсудим ваше путешествие" : locale === "de" ? "Lassen Sie uns Ihre Reise besprechen" : "Let’s discuss your journey"}</strong><p>{locale === "ru" ? "Ответим и поможем выбрать коллекцию." : "A personal MLT concierge will help you choose the right collection."}</p><a href="mailto:info@mlt-lifestyle.com">{locale === "ru" ? "Написать консьержу" : "Message the concierge"}<span>↗</span></a></aside>}
     </section>
 
     <section className="light-philosophy" id="about">

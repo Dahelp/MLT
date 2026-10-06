@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./chat.css";
 import CookieConsent from "./CookieConsent";
+import ChatWidget from "./ChatWidget";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mlt-lifestyle.com"),
@@ -37,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}<CookieConsent /></body>
+      <body>{children}<ChatWidget /><CookieConsent /></body>
     </html>
   );
 }
