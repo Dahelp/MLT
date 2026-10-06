@@ -79,9 +79,6 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     const root = document.querySelector<HTMLElement>(".home-light");
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const items = Array.from(root.querySelectorAll<HTMLElement>("[data-home-reveal]"));
-    items.forEach((item) => {
-      if (item.getBoundingClientRect().top < window.innerHeight * 0.94) item.classList.add("is-visible");
-    });
     root.classList.add("home-reveal-enabled");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -91,9 +88,15 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
     items.forEach((item) => {
-      if (!item.classList.contains("is-visible")) observer.observe(item);
+      observer.observe(item);
+    });
+    const frame = window.requestAnimationFrame(() => {
+      items.forEach((item) => {
+        if (item.getBoundingClientRect().top < window.innerHeight * 0.94) item.classList.add("is-visible");
+      });
     });
     return () => {
+      window.cancelAnimationFrame(frame);
       observer.disconnect();
       root.classList.remove("home-reveal-enabled");
     };
