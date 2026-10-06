@@ -39,6 +39,7 @@ const routes = [
   "/concierge/applications",
   "/concierge/payments",
   "/concierge/catalog",
+  "/concierge/chat",
   "/concierge/team",
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
