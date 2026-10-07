@@ -163,8 +163,8 @@
 
 /* The compact booking cards use absolute positioning, so their height must grow with wrapped labels. */
 .fields label:has(.fieldPrice){height:112px}
-.fields label:has(.fieldPrice)>select{top:58px}
-.fields label:has(.fieldPrice) .fieldPrice{bottom:10px}
+.fields label:has(.fieldPrice)>select{top:38px}
+.fields label:has(.fieldPrice) .fieldPrice{bottom:30px}
 .fields label:not(:has(.fieldPrice)){height:auto;min-height:84px;align-self:stretch}
 .travellers{height:124px;min-height:124px;padding-top:12px}
 .travellers>div{top:38px;left:48px;right:12px;transform:none}
