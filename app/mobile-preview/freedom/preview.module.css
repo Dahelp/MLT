@@ -165,6 +165,7 @@
 .fields label:has(.fieldPrice){height:112px}
 .fields label:has(.fieldPrice)>select{top:58px}
 .fields label:has(.fieldPrice) .fieldPrice{bottom:10px}
+.fields label:not(:has(.fieldPrice)){height:auto;min-height:84px;align-self:stretch}
 .travellers{height:124px;min-height:124px;padding-top:12px}
 .travellers>div{top:38px;left:48px;right:12px;transform:none}
 .travellers small{right:14px;bottom:9px;line-height:1.35}
