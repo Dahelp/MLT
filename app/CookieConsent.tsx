@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const copy = {
   en: { title: "Your privacy,", accent: "considered.", body: "We use cookies to provide essential website functions. Analytics and marketing cookies are only activated with your explicit permission.", policy: "Privacy policy", essential: "Essential", essentialInfo: "Language, consent choice and essential website functions", analytics: "Analytics & marketing", analyticsInfo: "Optional insights and personalised content", only: "Essential only", preferences: "Preferences", close: "Close settings", all: "Accept all" },
@@ -15,11 +15,14 @@ export default function CookieConsent() {
   const [settings, setSettings] = useState(false);
   const [analytics, setAnalytics] = useState(false);
   const [locale, setLocale] = useState<Locale>("en");
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const languageMenu = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setOpen(!localStorage.getItem("mlt-cookie-consent"));
     const routeLocale = location.pathname.split("/")[1] as Locale;
     setLocale(locales.includes(routeLocale) ? routeLocale : "en");
   }, []);
+  useEffect(() => { const close = (event: MouseEvent) => { if (!languageMenu.current?.contains(event.target as Node)) setLanguageOpen(false); }; document.addEventListener("mousedown", close); return () => document.removeEventListener("mousedown", close); }, []);
   const t = copy[locale];
   const save = (choice: "essential" | "all") => { localStorage.setItem("mlt-cookie-consent", JSON.stringify({ choice, analytics: choice === "all", date: new Date().toISOString() })); setOpen(false); };
   const changeLocale = (next: Locale) => {
@@ -27,8 +30,9 @@ export default function CookieConsent() {
     const segments = location.pathname.split("/");
     if (locales.includes(segments[1] as Locale)) segments[1] = next;
     else segments.splice(1, 0, next);
+    setLanguageOpen(false);
     window.location.assign(`${segments.join("/")}${location.search}${location.hash}`);
   };
   if (!open) return null;
-  return <div className="cookie-overlay"><section className="cookie-panel" role="dialog" aria-modal="true" aria-label={locale === "ru" ? "Настройки cookies" : "Cookie preferences"}><div><div className="cookie-lang"><button className={locale === "en" ? "active" : ""} onClick={() => changeLocale("en")}>EN</button><button className={locale === "de" ? "active" : ""} onClick={() => changeLocale("de")}>DE</button><button className={locale === "ru" ? "active" : ""} onClick={() => changeLocale("ru")}>RU</button></div><p className="section-label">MLT / {locale === "ru" ? "Конфиденциальность" : "Privacy"}</p><h2>{t.title}<br /><em>{t.accent}</em></h2><p>{t.body}</p><a href={`/${locale}/legal/privacy/`}>{t.policy}</a></div>{settings && <div className="cookie-settings"><label><span><strong>{t.essential}</strong><small>{t.essentialInfo}</small></span><input type="checkbox" checked disabled /></label><label><span><strong>{t.analytics}</strong><small>{t.analyticsInfo}</small></span><input type="checkbox" checked={analytics} onChange={(event) => setAnalytics(event.target.checked)} /></label></div>}<div className="cookie-actions"><button onClick={() => save("essential")}>{t.only}</button><button onClick={() => setSettings(!settings)}>{settings ? t.close : t.preferences}</button><button onClick={() => save("all")}>{t.all}</button></div></section></div>;
+  return <div className="cookie-overlay"><section className="cookie-panel" role="dialog" aria-modal="true" aria-label={locale === "ru" ? "Настройки cookies" : "Cookie preferences"}><div><div className="cookie-lang" ref={languageMenu}><button type="button" className="cookie-lang-trigger" onClick={() => setLanguageOpen((value) => !value)} aria-expanded={languageOpen} aria-haspopup="menu"><span>{locale.toUpperCase()}</span><i aria-hidden="true" /></button>{languageOpen && <div className="cookie-lang-dropdown" role="menu">{locales.map((language) => <button type="button" role="menuitem" key={language} className={language === locale ? "active" : ""} onClick={() => changeLocale(language)}>{language.toUpperCase()}</button>)}</div>}</div><p className="section-label">MLT / {locale === "ru" ? "Конфиденциальность" : "Privacy"}</p><h2>{t.title}<br /><em>{t.accent}</em></h2><p>{t.body}</p><a href={`/${locale}/legal/privacy/`}>{t.policy}</a></div>{settings && <div className="cookie-settings"><label><span><strong>{t.essential}</strong><small>{t.essentialInfo}</small></span><input type="checkbox" checked disabled /></label><label><span><strong>{t.analytics}</strong><small>{t.analyticsInfo}</small></span><input type="checkbox" checked={analytics} onChange={(event) => setAnalytics(event.target.checked)} /></label></div>}<div className="cookie-actions"><button onClick={() => save("essential")}>{t.only}</button><button onClick={() => setSettings(!settings)}>{settings ? t.close : t.preferences}</button><button onClick={() => save("all")}>{t.all}</button></div></section></div>;
 }
