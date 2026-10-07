@@ -27,7 +27,7 @@ const pageRoutes = [
   "/legal/privacy",
   "/legal/terms",
 ];
-const locales = ["en", "de", "ru"];
+const locales = ["en", "de", "ru", "it", "pl"];
 const mobilePreviewCollections = ["freedom", "signature", "concierge", "private", "honeymoon"];
 const isMobileRoute = (route) => route === "/mobile-preview"
   || /\/(mobile-preview|mobile-site)$/.test(route);

@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export function generateStaticParams() {
-  return (["en", "de", "ru"] as Locale[]).flatMap((locale) =>
+  return (["en", "de", "ru", "it", "pl"] as Locale[]).flatMap((locale) =>
     previewCollections.map((slug) => ({ locale, slug })),
   );
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  if (!(locale === "en" || locale === "de" || locale === "ru") || !previewCollections.includes(slug as PreviewCollection)) notFound();
+  if (!(locale === "en" || locale === "de" || locale === "ru" || locale === "it" || locale === "pl") || !previewCollections.includes(slug as PreviewCollection)) notFound();
   return <MobileCollectionView slug={slug as PreviewCollection} locale={locale as Locale}/>;
 }

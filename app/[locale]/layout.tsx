@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-export const locales = ["en", "de", "ru"] as const;
+export const locales = ["en", "de", "ru", "it", "pl"] as const;
 export type SiteLocale = (typeof locales)[number];
 
 export function generateStaticParams() {

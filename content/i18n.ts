@@ -1,6 +1,6 @@
-export type Locale = "en" | "de" | "ru";
+export type Locale = "en" | "de" | "ru" | "it" | "pl";
 
-export const translations = {
+const baseTranslations = {
   en: {
     collections: "Collections", fleet: "Fleet", smartMap: "Smart map", experiences: "Experiences", journeyDesigner: "Journey designer", concierge: "Talk to a concierge",
     kicker: "Individual road expeditions", heroLine1: "Europe,", heroLine2: "without limits.", heroCopy: "Not a rental. A private way of moving through the world — composed around you.", discover: "Discover the collections", film: "Watch the film",
@@ -41,6 +41,12 @@ export const translations = {
     privateRequest: "Ваш личный запрос", compose: "Давайте создадим", theJourney: "ваше путешествие.", modalCopy: "Расскажите нам о своих планах.", expeditionOutline: "Описание экспедиции", firstName: "Имя", lastName: "Фамилия", email: "Email", phone: "Телефон", preferred: "Удобный способ связи", bestTime: "Лучшее время", exceptional: "Что сделает эту поездку особенной?", consent: "Я согласен на использование данных для подготовки предложения.", requestProposal: "Получить предложение", sending: "Отправляем...", noCommitment: "Ваши данные останутся конфиденциальными.", received: "Запрос получен", thankYou: "Спасибо.", begun: "Ваше путешествие началось.", successCopy: "Консьерж MLT изучит ваши пожелания и свяжется с вами.", returnMlt: "Вернуться в MLT",
   },
 } as const;
+
+export const translations = {
+  ...baseTranslations,
+  it: { ...baseTranslations.en, collections: "Collezioni", fleet: "Flotta", smartMap: "Mappa interattiva", experiences: "Esperienze", journeyDesigner: "Crea il tuo viaggio", concierge: "Parla con un concierge", discover: "Scopri le collezioni", chooseYour: "Scegli la tua", collection: "collezione.", begin: "Inizia il viaggio", plan: "Pianifica un viaggio", startingCountry: "Paese di partenza", arrival: "Partenza", departure: "Ritorno", travellers: "Viaggiatori", continueJourney: "Continua il viaggio", speak: "Parla con un concierge" },
+  pl: { ...baseTranslations.en, collections: "Kolekcje", fleet: "Flota", smartMap: "Interaktywna mapa", experiences: "Doświadczenia", journeyDesigner: "Zaplanuj podróż", concierge: "Porozmawiaj z concierge", discover: "Poznaj kolekcje", chooseYour: "Wybierz swoją", collection: "kolekcję.", begin: "Rozpocznij podróż", plan: "Zaplanuj wyprawę", startingCountry: "Kraj rozpoczęcia", arrival: "Wyjazd", departure: "Powrót", travellers: "Podróżni", continueJourney: "Kontynuuj podróż", speak: "Porozmawiaj z concierge" },
+};
 
 export const collectionDe: Record<string, { eyebrow: string; days: string; mode: string; inclusions: string[]; promise?: string }> = {
   freedom: { eyebrow: "Selbstbestimmt entdecken", days: "7–30 Tage", mode: "Unabhängig", inclusions: ["Luxus-Reisemobil", "Kuratierte Karte", "MLT Routen-App", "Lokale Empfehlungen"] },

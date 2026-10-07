@@ -6,7 +6,7 @@ import { mapPoints } from "../content/mlt";
 import { LanguageMenu } from "./LanguageMenu";
 import CollectionCarousel, { scrollCollectionCarouselIntoView } from "./CollectionCarousel";
 
-type SiteLocale = "en" | "de" | "ru";
+type SiteLocale = "en" | "de" | "ru" | "it" | "pl";
 
 const collections = [
   { id: "freedom", name: "Freedom", image: "/collection-freedom-carousel-v2.jpg", eyebrow: "Self-directed discovery", copy: "A fully equipped premium motorhome, a curated map and the freedom to follow your own rhythm.", rate: "From €1,490 for 7 days", days: "7–30 days" },
@@ -41,6 +41,20 @@ const germanCollections = [
   { eyebrow: "Eine private Welt in Bewegung", copy: "Eine Fünf-Sterne-Residenz auf Rädern mit Fahrer, privatem Team und vollständig persönlichem Service.", rate: "Ab 19.900 € für 7 Tage" },
   { eyebrow: "Eine private Reise zu zweit", copy: "Romantische Straßen, private Stellplätze und besondere Momente — nur für Sie beide komponiert.", rate: "Ab 5.900 € für 7 Tage" },
 ] as const;
+const italianCollections = [
+  { eyebrow:"Scoperte indipendenti", copy:"Un camper premium attrezzato, una mappa curata e la libertà di seguire il tuo ritmo.", rate:"Da €1.490 per 7 giorni" },
+  { eyebrow:"Curato in ogni dettaglio", copy:"Un itinerario personale, soste prenotate e strade straordinarie.", rate:"Da €2.490 per 7 giorni" },
+  { eyebrow:"Sempre un passo avanti", copy:"Un viaggio con il supporto di un concierge MLT dedicato, disponibile 24 ore su 24.", rate:"Da €4.990 per 7 giorni" },
+  { eyebrow:"Un mondo privato in movimento", copy:"Una residenza di lusso su ruote con autista, team privato e servizio su misura.", rate:"Da €19.900 per 7 giorni" },
+  { eyebrow:"Un viaggio privato per due", copy:"Strade romantiche, soste riservate e momenti pensati solo per voi.", rate:"Da €5.900 per 7 giorni" },
+] as const;
+const polishCollections = [
+  { eyebrow:"Niezależne odkrywanie", copy:"Wyposażony kamper premium, przygotowana mapa i wolność podróżowania we własnym tempie.", rate:"Od €1 490 za 7 dni" },
+  { eyebrow:"Wszystko dopracowane", copy:"Osobista trasa, zarezerwowane miejsca i niezwykłe drogi.", rate:"Od €2 490 za 7 dni" },
+  { eyebrow:"Zawsze krok naprzód", copy:"Podróż ze wsparciem osobistego concierge MLT, dostępnego przez całą dobę.", rate:"Od €4 990 za 7 dni" },
+  { eyebrow:"Prywatny świat w ruchu", copy:"Luksusowa rezydencja na kołach z kierowcą, prywatnym zespołem i obsługą na miarę.", rate:"Od €19 900 za 7 dni" },
+  { eyebrow:"Prywatna podróż we dwoje", copy:"Romantyczne drogi, prywatne postoje i chwile przygotowane tylko dla Was.", rate:"Od €5 900 za 7 dni" },
+] as const;
 
 const russianExperiences = [
   ["01", "Семейная экспедиция", "Маршруты, созданные для открытий: озёра, горы, замки и неспешные вечера."],
@@ -48,8 +62,10 @@ const russianExperiences = [
   ["03", "Винное путешествие", "Частные виноградники, встречи с виноделами и лучшие дороги между ними."],
   ["04", "Перезагрузка руководителя", "Без почты и расписания. Только тихие дороги, горы и пространство, чтобы снова ясно мыслить."],
 ] as const;
+const italianExperiences = [["01","Viaggio in famiglia","Laghi, montagne, castelli e serate senza fretta."],["02","Fuga romantica","Strade al tramonto, cene private e un orizzonte solo vostro."],["03","Viaggio nel vino","Vigneti privati, incontri con produttori e strade magnifiche."],["04","Pausa per dirigenti","Niente email o agenda. Solo strade tranquille e spazio per riflettere."]] as const;
+const polishExperiences = [["01","Rodzinna wyprawa","Jeziora, góry, zamki i spokojne wieczory."],["02","Romantyczny wyjazd","Drogi o zachodzie słońca i prywatne kolacje."],["03","Podróż winiarska","Prywatne winnice, spotkania z winiarzami i piękne drogi."],["04","Wypoczynek dla lidera","Bez poczty i terminarza. Tylko spokojne drogi i przestrzeń do myślenia."]] as const;
 
-const copy = {
+const baseCopy = {
   en: {
     nav: ["Collections", "Experiences", "Smart Map", "About"], concierge: "Talk to a concierge", eyebrow: "Individual road expeditions", titleA: "We don’t rent", titleB: "motorhomes.", hero: "We create moments that stay with you forever – through Europe’s most remarkable landscapes, with every detail considered.", choose: "Choose a collection", route: "Create your route", film: "Watch the film", scroll: "Discover MLT", philosophy: "The MLT philosophy", freedom: "Freedom, already taken care of.", freedomCopy: "Most companies sell you the freedom to do everything yourself. We create the freedom to simply live the moment. No planning. No stress. Only the road, the view and the people you love.", pillars: ["Curated routes, not maps", "A personal concierge, not a call centre", "Memories, not itineraries"], ways: "Four ways to travel", collectionTitle: "One standard. Your level of freedom.", collectionCopy: "Every MLT collection is a complete journey, shaped around the way you want to move.", details: "Explore collection", reason: "Every journey begins with a reason.", reasonCopy: "People do not buy a motorhome. They choose the story they will still be telling ten years from now.", story: "Find your story", mapLabel: "MLT Smart Map", mapTitle: "Remarkable places. One intelligent route.", mapCopy: "Explore curated campsites, vineyards, lakes, mountain passes and quiet coastlines. Choose what calls to you; MLT will compose the journey between them.", openMap: "Open the map", quote: "The most valuable memories cannot be bought. They can only be lived.", conversation: "A private conversation", contactTitle: "Your journey begins here.", contactCopy: "Tell us what you are imagining. Your MLT concierge will return with a considered first proposal.", start: "Start a conversation", footer: "Individual road expeditions across Europe" },
   de: {
@@ -57,6 +73,11 @@ const copy = {
   ru: {
     nav: ["Коллекции", "Впечатления", "Умная карта", "О MLT"], concierge: "Связаться с консьержем", eyebrow: "Индивидуальные автомобильные экспедиции", titleA: "", titleB: "", hero: "Мы создаём моменты, которые остаются с вами навсегда — среди самых удивительных пейзажей Европы, с вниманием к каждой детали.", choose: "Выбрать коллекцию", route: "Создать маршрут", film: "Смотреть фильм", scroll: "Открыть MLT", philosophy: "Философия MLT", freedom: "Свобода, о которой уже позаботились.", freedomCopy: "Большинство компаний продают вам свободу делать всё самим. Мы создаём свободу просто жить моментом. Без планирования. Без стресса. Только дорога, вид и люди, которых вы любите.", pillars: ["Курированные маршруты, а не карты", "Персональный консьерж, а не колл-центр", "Воспоминания, а не планы поездки"], ways: "Четыре способа путешествовать", collectionTitle: "Один стандарт. Ваш уровень свободы.", collectionCopy: "Каждая коллекция MLT — это целостное путешествие, созданное вокруг того, как вы хотите двигаться.", details: "Открыть коллекцию", reason: "Каждое путешествие начинается с причины.", reasonCopy: "Люди не покупают автодом. Они выбирают историю, которую будут рассказывать и через десять лет.", story: "Найти свою историю", mapLabel: "Умная карта MLT", mapTitle: "Особенные места. Один умный маршрут.", mapCopy: "Исследуйте отобранные кемпинги, виноградники, озёра, горные перевалы и тихие побережья. Выбирайте то, что откликается вам; MLT составит путешествие между этими точками.", openMap: "Открыть карту", quote: "Самые ценные воспоминания нельзя купить. Их можно только пережить.", conversation: "Личный разговор", contactTitle: "Ваше путешествие начинается здесь.", contactCopy: "Расскажите, каким вы видите своё путешествие. Консьерж MLT вернётся с продуманным первым предложением.", start: "Начать разговор", footer: "Индивидуальные автомобильные экспедиции по Европе" },
 } as const;
+const copy = {
+  ...baseCopy,
+  it: { nav: ["Collezioni", "Esperienze", "Mappa", "Chi siamo"], concierge: "Parla con un concierge", eyebrow: "Viaggi su strada su misura", titleA: "Non noleggiamo", titleB: "camper.", hero: "Creiamo momenti indimenticabili tra i paesaggi più straordinari d’Europa, curando ogni dettaglio.", choose: "Scegli una collezione", route: "Crea il tuo itinerario", film: "Guarda il film", scroll: "Scopri MLT", philosophy: "La filosofia MLT", freedom: "La libertà, già organizzata per te.", freedomCopy: "Molte aziende ti lasciano pianificare tutto da solo. Noi ti diamo la libertà di vivere il momento. Nessuno stress: solo la strada, il paesaggio e le persone che ami.", pillars: ["Itinerari curati, non semplici mappe", "Un concierge personale, non un call center", "Ricordi, non programmi"], ways: "Cinque modi di viaggiare", collectionTitle: "Un solo standard. La tua libertà.", collectionCopy: "Ogni collezione MLT è un viaggio completo, pensato per il tuo modo di viaggiare.", details: "Scopri la collezione", reason: "Ogni viaggio nasce da un motivo.", reasonCopy: "Non scegli un camper. Scegli la storia che racconterai ancora tra dieci anni.", story: "Trova la tua storia", mapLabel: "Mappa intelligente MLT", mapTitle: "Luoghi straordinari. Un itinerario intelligente.", mapCopy: "Scopri campeggi selezionati, vigneti, laghi, passi di montagna e coste tranquille. Scegli ciò che ti ispira; MLT creerà il percorso.", openMap: "Apri la mappa", quote: "I ricordi più preziosi non si possono comprare. Si possono solo vivere.", conversation: "Una conversazione privata", contactTitle: "Il tuo viaggio inizia qui.", contactCopy: "Raccontaci cosa immagini. Il tuo concierge MLT preparerà una prima proposta su misura.", start: "Inizia una conversazione", footer: "Viaggi su strada su misura in Europa" },
+  pl: { nav: ["Kolekcje", "Doświadczenia", "Mapa", "O nas"], concierge: "Porozmawiaj z concierge", eyebrow: "Indywidualne wyprawy drogowe", titleA: "Nie wynajmujemy", titleB: "kamperów.", hero: "Tworzymy niezapomniane chwile w najpiękniejszych zakątkach Europy, dbając o każdy szczegół.", choose: "Wybierz kolekcję", route: "Zaplanuj trasę", film: "Obejrzyj film", scroll: "Poznaj MLT", philosophy: "Filozofia MLT", freedom: "Wolność, o którą już zadbaliśmy.", freedomCopy: "Wiele firm zostawia planowanie w Twoich rękach. My dajemy Ci swobodę cieszenia się chwilą. Bez stresu: tylko droga, widoki i bliscy.", pillars: ["Starannie wybrane trasy, nie tylko mapy", "Osobisty concierge, nie infolinia", "Wspomnienia, nie harmonogramy"], ways: "Pięć sposobów podróżowania", collectionTitle: "Jeden standard. Twoja wolność.", collectionCopy: "Każda kolekcja MLT to kompletna podróż dopasowana do Twojego stylu.", details: "Poznaj kolekcję", reason: "Każda podróż zaczyna się od powodu.", reasonCopy: "Nie wybierasz kampera. Wybierasz historię, którą będziesz opowiadać przez lata.", story: "Znajdź swoją historię", mapLabel: "Inteligentna mapa MLT", mapTitle: "Niezwykłe miejsca. Jedna inteligentna trasa.", mapCopy: "Odkryj wybrane kempingi, winnice, jeziora, górskie przełęcze i spokojne wybrzeża. Wybierz to, co Cię inspiruje; MLT ułoży trasę.", openMap: "Otwórz mapę", quote: "Najcenniejszych wspomnień nie można kupić. Trzeba je przeżyć.", conversation: "Prywatna rozmowa", contactTitle: "Twoja podróż zaczyna się tutaj.", contactCopy: "Opowiedz nam o swoich planach. Concierge MLT przygotuje dla Ciebie pierwszą propozycję.", start: "Rozpocznij rozmowę", footer: "Indywidualne wyprawy drogowe po Europie" },
+};
 
 export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [locale, setLocale] = useState<SiteLocale>(initialLocale);
@@ -64,7 +85,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [mapCountry, setMapCountry] = useState("All");
   const [mapSelection, setMapSelection] = useState<string[]>(["dolomites", "como"]);
   const t = copy[locale];
-  const localizedExperiences = locale === "ru" ? russianExperiences : experiences;
+  const localizedExperiences = locale === "ru" ? russianExperiences : locale === "it" ? italianExperiences : locale === "pl" ? polishExperiences : experiences;
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -155,7 +176,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
 
     <section className="light-collections" id="collections">
       <div className="light-section-head"><div><p className="light-section-label">02 / {locale === "ru" ? "Пять способов путешествовать" : locale === "de" ? "Fünf Arten zu reisen" : "Five ways to travel"}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p></div></div>
-      <CollectionCarousel items={collections} shellClassName="collection-rail-shell" carouselClassName="collection-rail" slideClassName="collection-slide" arrowClassName="carousel-side-arrow" prevClassName="carousel-side-arrow-prev" nextClassName="carousel-side-arrow-next" renderSlide={(item,index)=>{const localizedItem=locale==="ru"?russianCollections[index%collections.length]:locale==="de"?germanCollections[index%collections.length]:item;return <a className="collection-card-link" href={localPath(`/collections/${item.id}`)} aria-label={locale==="ru"?`Открыть MLT ${item.name} Collection`:locale==="de"?`MLT ${item.name} Collection öffnen`:`Open MLT ${item.name} Collection`}><article className="light-collection-card">
+      <CollectionCarousel items={collections} shellClassName="collection-rail-shell" carouselClassName="collection-rail" slideClassName="collection-slide" arrowClassName="carousel-side-arrow" prevClassName="carousel-side-arrow-prev" nextClassName="carousel-side-arrow-next" renderSlide={(item,index)=>{const localizedItem=locale==="ru"?russianCollections[index%collections.length]:locale==="de"?germanCollections[index%collections.length]:locale==="it"?italianCollections[index%collections.length]:locale==="pl"?polishCollections[index%collections.length]:item;return <a className="collection-card-link" href={localPath(`/collections/${item.id}`)} aria-label={locale==="ru"?`Открыть MLT ${item.name} Collection`:locale==="de"?`MLT ${item.name} Collection öffnen`:locale==="it"?`Scopri MLT ${item.name} Collection`:locale==="pl"?`Poznaj MLT ${item.name} Collection`:`Open MLT ${item.name} Collection`}><article className="light-collection-card">
           <picture>
             <source srcSet={item.image.replace(".jpg", ".avif")} type="image/avif" />
             <source srcSet={item.image.replace(".jpg", ".webp")} type="image/webp" />

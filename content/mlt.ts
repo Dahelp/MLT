@@ -15,13 +15,13 @@ export const collections: Collection[] = [
 export const destinations = ["Dolomites", "Lake Como", "Tyrol", "Bavaria"];
 
 export const journeyRoutes = [
-  { id: "dolomites-grand-tour", number: "01", name: "Dolomites Freedom Journey", country: "Italy", image: "/route-dolomites.jpg", tagline: { en: "Iconic passes and pure driving", de: "Ikonische Pässe und Fahrspaß", ru: "Культовые перевалы и драйв" } },
-  { id: "lakes-of-bavaria", number: "02", name: "Bavaria Discovery Pass", country: "Germany", image: "/route-bavaria.jpg", tagline: { en: "Castles, lakes and freedom", de: "Schlösser, Seen und Freiheit", ru: "Замки, озера и свобода" } },
-  { id: "alpine-escape", number: "03", name: "Alpine Escape Express", country: "Austria", image: "/route-alpine.jpg", tagline: { en: "Mountain energy and trekking", de: "Bergenergie und Trekking", ru: "Энергия гор и треккинг" } },
-  { id: "wine-roads-collection", number: "04", name: "Wine Roads Horizon", country: "Italy", image: "/route-wine-roads.jpg", tagline: { en: "Wine roads and terroirs", de: "Weinstraßen und Terroirs", ru: "Винные дороги и терруары" } },
-  { id: "mediterranean-discovery", number: "05", name: "Mediterranean Coastline", country: "Italy", image: "/route-mediterranean.jpg", tagline: { en: "Sea breeze and hidden coves", de: "Meeresbrise und Buchten", ru: "Морской бриз и бухты" } },
-  { id: "winter-alps-expedition", number: "06", name: "Winter Alps Horizon", country: "Austria", image: "/route-winter-alps.jpg", tagline: { en: "Winter romance and ski slopes", de: "Winterromantik und Pisten", ru: "Зимняя романтика и трассы" } },
-  { id: "black-forest-experience", number: "07", name: "Black Forest Trail", country: "Germany", image: "/route-black-forest.jpg", tagline: { en: "Forest roads and thermal spas", de: "Waldstraßen und Thermen", ru: "Лесные дороги и термы" } },
+  { id: "dolomites-grand-tour", number: "01", name: "Dolomites Freedom Journey", country: "Italy", image: "/route-dolomites.jpg", tagline: { en: "Iconic passes and pure driving", de: "Ikonische Pässe und Fahrspaß", ru: "Культовые перевалы и драйв", it: "Passi iconici e puro piacere di guida", pl: "Kultowe przełęcze i radość z jazdy" } },
+  { id: "lakes-of-bavaria", number: "02", name: "Bavaria Discovery Pass", country: "Germany", image: "/route-bavaria.jpg", tagline: { en: "Castles, lakes and freedom", de: "Schlösser, Seen und Freiheit", ru: "Замки, озера и свобода", it: "Castelli, laghi e libertà", pl: "Zamki, jeziora i wolność" } },
+  { id: "alpine-escape", number: "03", name: "Alpine Escape Express", country: "Austria", image: "/route-alpine.jpg", tagline: { en: "Mountain energy and trekking", de: "Bergenergie und Trekking", ru: "Энергия гор и треккинг", it: "Energia delle montagne e trekking", pl: "Górska energia i trekking" } },
+  { id: "wine-roads-collection", number: "04", name: "Wine Roads Horizon", country: "Italy", image: "/route-wine-roads.jpg", tagline: { en: "Wine roads and terroirs", de: "Weinstraßen und Terroirs", ru: "Винные дороги и терруары", it: "Strade del vino e territori", pl: "Szlaki winne i wyjątkowe regiony" } },
+  { id: "mediterranean-discovery", number: "05", name: "Mediterranean Coastline", country: "Italy", image: "/route-mediterranean.jpg", tagline: { en: "Sea breeze and hidden coves", de: "Meeresbrise und Buchten", ru: "Морской бриз и бухты", it: "Brezza marina e calette nascoste", pl: "Morska bryza i ukryte zatoki" } },
+  { id: "winter-alps-expedition", number: "06", name: "Winter Alps Horizon", country: "Austria", image: "/route-winter-alps.jpg", tagline: { en: "Winter romance and ski slopes", de: "Winterromantik und Pisten", ru: "Зимняя романтика и трассы", it: "Romanticismo invernale e piste da sci", pl: "Zimowy romantyzm i stoki narciarskie" } },
+  { id: "black-forest-experience", number: "07", name: "Black Forest Trail", country: "Germany", image: "/route-black-forest.jpg", tagline: { en: "Forest roads and thermal spas", de: "Waldstraßen und Thermen", ru: "Лесные дороги и термы", it: "Strade nel bosco e terme", pl: "Leśne drogi i termalne spa" } },
 ] as const;
 
 export const mapPoints = [

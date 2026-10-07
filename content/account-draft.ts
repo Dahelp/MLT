@@ -1,6 +1,7 @@
 import type { Locale } from "./i18n";
 
 export type AccountJourneyDraft = {
+  confirmationId?: string;
   collection: string;
   collectionName: string;
   country: string;
@@ -17,6 +18,6 @@ export type AccountJourneyDraft = {
 };
 
 export function continueJourneyInAccount(draft: AccountJourneyDraft, locale: Locale) {
-  localStorage.setItem("mlt-account-draft", JSON.stringify(draft));
+  localStorage.setItem("mlt-account-draft", JSON.stringify({ ...draft, confirmationId: crypto.randomUUID() }));
   window.location.assign(`/${locale}/account/?next=checkout`);
 }

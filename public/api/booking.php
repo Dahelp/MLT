@@ -24,6 +24,7 @@ function mlt_db(array $settings): ?PDO {
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN deposit_amount DECIMAL(12,2) NULL AFTER total_amount'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN paid_amount DECIMAL(12,2) NOT NULL DEFAULT 0 AFTER total_amount'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN client_note TEXT NULL AFTER notes'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN confirmation_id CHAR(36) NULL UNIQUE AFTER reference_code'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN concierge_note TEXT NULL AFTER client_note'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN route_points_json TEXT NULL AFTER route_json'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN service_items_json TEXT NULL AFTER extras_json'); } catch (Throwable $error) {}
@@ -37,8 +38,8 @@ function mlt_create_order(PDO $db, string $reference, array $body, array $custom
         $route = array_values(array_filter(is_array($body['route'] ?? null) ? $body['route'] : [], 'is_string'));
         $extras = array_values(array_filter(is_array($body['extras'] ?? null) ? $body['extras'] : [], 'is_string'));
         $user = $db->prepare('SELECT id FROM mlt_users WHERE email = ? LIMIT 1'); $user->execute([$customer['email']]); $userId = $user->fetchColumn() ?: null;
-        $statement = $db->prepare('INSERT INTO mlt_orders (user_id, reference_code, first_name, last_name, customer_email, phone, collection_name, vehicle_name, country_name, guests, travel_days, arrival_date, departure_date, route_json, extras_json, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $statement->execute([$userId, $reference, $customer['firstName'], $customer['lastName'], $customer['email'], $customer['phone'], $body['collection'] ?? null, $body['vehicle'] ?? null, $body['country'] ?? null, $body['guests'] ?? null, (int)($body['days'] ?? 0) ?: null, $body['arrival'] ?? null, $body['departure'] ?? null, json_encode($route, JSON_UNESCAPED_UNICODE), json_encode($extras, JSON_UNESCAPED_UNICODE), $body['notes'] ?? null]);
+        $statement = $db->prepare('INSERT INTO mlt_orders (user_id, reference_code, confirmation_id, first_name, last_name, customer_email, phone, collection_name, vehicle_name, country_name, guests, travel_days, arrival_date, departure_date, route_json, extras_json, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $statement->execute([$userId, $reference, $body['confirmationId'] ?? null, $customer['firstName'], $customer['lastName'], $customer['email'], $customer['phone'], $body['collection'] ?? null, $body['vehicle'] ?? null, $body['country'] ?? null, $body['guests'] ?? null, (int)($body['days'] ?? 0) ?: null, $body['arrival'] ?? null, $body['departure'] ?? null, json_encode($route, JSON_UNESCAPED_UNICODE), json_encode($extras, JSON_UNESCAPED_UNICODE), $body['notes'] ?? null]);
     } catch (Throwable $error) {
         error_log('MLT order could not be saved: ' . $error->getMessage());
     }

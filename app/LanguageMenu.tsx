@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export type SiteLanguage = "en" | "de" | "ru";
+export type SiteLanguage = "en" | "de" | "ru" | "it" | "pl";
 
 export function LanguageMenu({ locale, onChange }: { locale: SiteLanguage; onChange: (locale: SiteLanguage) => void }) {
   const [open, setOpen] = useState(false);
@@ -17,6 +17,6 @@ export function LanguageMenu({ locale, onChange }: { locale: SiteLanguage; onCha
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
       <span>{locale.toUpperCase()}</span><i aria-hidden="true" />
     </button>
-    {open && <div className="header-language-dropdown" role="menu">{(["en", "de", "ru"] as SiteLanguage[]).map((language) => <button type="button" role="menuitem" key={language} className={language === locale ? "active" : ""} onClick={() => { setOpen(false); onChange(language); }}>{language.toUpperCase()}</button>)}</div>}
+    {open && <div className="header-language-dropdown" role="menu">{(["en", "de", "ru", "it", "pl"] as SiteLanguage[]).map((language) => <button type="button" role="menuitem" key={language} className={language === locale ? "active" : ""} onClick={() => { setOpen(false); onChange(language); }}>{language.toUpperCase()}</button>)}</div>}
   </div>;
 }

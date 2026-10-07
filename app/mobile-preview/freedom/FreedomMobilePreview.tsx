@@ -42,12 +42,19 @@ const localizedPackages:Record<Locale,PackageVariant[]>={
   en:defaultPackages,
   de:[{id:"freedom",title:"Freedom",benefits:["Reisemobil","Basis-Roadbook","MLT My Profile","Technischer Support"]},{id:"freedom-plus",title:"Freedom+",benefits:["Alles aus Freedom","Autorenroute","Digitaler Reiseführer","Panoramastraßen","Restaurant- & Ortsempfehlungen"],supplement:"+ €300–500"}],
   ru:[{id:"freedom",title:"Freedom",benefits:["Автодом","Базовый путеводитель","MLT My Profile","Техническая поддержка"]},{id:"freedom-plus",title:"Freedom+",benefits:["Всё из Freedom","Авторский маршрут","Цифровой гид","Панорамные дороги","Рекомендации ресторанов и мест"],supplement:"+ €300–500"}],
+  it:[{id:"freedom",title:"Freedom",benefits:["Camper","Road Book di base","MLT My Profile","Assistenza tecnica"]},{id:"freedom-plus",title:"Freedom+",benefits:["Tutto di Freedom","Itinerario d’autore","Guida digitale","Strade panoramiche","Consigli su ristoranti e luoghi"],supplement:"+ €300–500"}],
+  pl:[{id:"freedom",title:"Freedom",benefits:["Kamper","Podstawowy przewodnik","MLT My Profile","Wsparcie techniczne"]},{id:"freedom-plus",title:"Freedom+",benefits:["Wszystko z Freedom","Autorska trasa","Przewodnik cyfrowy","Drogi widokowe","Polecane restauracje i miejsca"],supplement:"+ €300–500"}],
 };
-const translations={
+const baseTranslations={
   en:{build:"Build your journey:",country:"Country",dates:"Choose your travel dates",departure:"Departure",return:"Return",travellers:"Travellers",included:"1–2 guests included · +€190 from the 3rd guest",experience:"Select your experience:",selected:"Selected",choose:"Choose",ideal:"Ideal for",total:"Total",pay:"Sign in & pay →",concierge:"Talk to a concierge",prepared:"Tell us where you would like to begin. We will prepare the motorhome, the essentials and your first recommendations.",explore:"Explore",collections:"Collections",experiences:"Experiences",map:"Smart map",contact:"Contact",email:"Email us",privacy:"Privacy",imprint:"Imprint",journeys:"Journeys",vehicles:"Vehicles",account:"Sign in",menu:"Explore MLT",europe:"Individual Road Expeditions across Europe.",days:"days"},
   de:{build:"Stellen Sie Ihre Reise zusammen:",country:"Land",dates:"Reisedauer wählen",departure:"Abreise",return:"Rückkehr",travellers:"Reisende",included:"1–2 Reisende inklusive · +190 € ab der 3. Person",experience:"Erlebnis auswählen:",selected:"Gewählt",choose:"Wählen",ideal:"Ideal für",total:"Gesamt",pay:"Anmelden & zahlen →",concierge:"Concierge kontaktieren",prepared:"Sagen Sie uns, wo Ihre Reise beginnen soll. Wir bereiten das Reisemobil, alles Wesentliche und Ihre ersten Empfehlungen vor.",explore:"Entdecken",collections:"Kollektionen",experiences:"Erlebnisse",map:"Smart Map",contact:"Kontakt",email:"E-Mail",privacy:"Datenschutz",imprint:"Impressum",journeys:"Reisen",vehicles:"Fahrzeuge",account:"Anmelden",menu:"MLT entdecken",europe:"Individuelle Road Expeditions durch Europa.",days:"Tage"},
   ru:{build:"Соберите путешествие:",country:"Страна",dates:"Выберите длительность",departure:"Отправление",return:"Возвращение",travellers:"Путешественники",included:"1–2 гостя включены · +€190 с 3-го гостя",experience:"Выберите впечатление:",selected:"Выбрано",choose:"Выбрать",ideal:"Идеально для",total:"Итого",pay:"Войти и оплатить →",concierge:"Связаться с консьержем",prepared:"Расскажите, откуда хотите начать. Мы подготовим автодом, всё необходимое и первые рекомендации.",explore:"Разделы",collections:"Коллекции",experiences:"Впечатления",map:"Карта",contact:"Контакты",email:"Написать нам",privacy:"Конфиденциальность",imprint:"Реквизиты",journeys:"Маршруты",vehicles:"Автодома",account:"Войти",menu:"Откройте MLT",europe:"Индивидуальные автопутешествия по Европе.",days:"дней"},
-} satisfies Record<Locale,Record<string,string>>;
+} satisfies Record<"en"|"de"|"ru",Record<string,string>>;
+const translations={
+  ...baseTranslations,
+  it:{...baseTranslations.en,build:"Crea il tuo viaggio:",country:"Paese",dates:"Scegli la durata",departure:"Partenza",return:"Ritorno",travellers:"Viaggiatori",included:"1–2 ospiti inclusi · +€190 dal 3° ospite",experience:"Scegli la tua esperienza:",selected:"Selezionato",choose:"Scegli",ideal:"Ideale per",total:"Totale",pay:"Accedi e paga →",concierge:"Parla con un concierge",days:"giorni"},
+  pl:{...baseTranslations.en,build:"Zaplanuj swoją podróż:",country:"Kraj",dates:"Wybierz czas podróży",departure:"Wyjazd",return:"Powrót",travellers:"Podróżni",included:"1–2 osoby w cenie · +€190 od 3. osoby",experience:"Wybierz doświadczenie:",selected:"Wybrano",choose:"Wybierz",ideal:"Idealne dla",total:"Razem",pay:"Zaloguj się i zapłać →",concierge:"Porozmawiaj z concierge",days:"dni"},
+};
 
 function addDays(date: string, days: number) {
   if (!date) return "";
@@ -56,13 +63,13 @@ function addDays(date: string, days: number) {
   return value.toISOString().slice(0, 10);
 }
 
-export default function FreedomMobilePreview({ initialLocale = "EN", previewMode = true }: { initialLocale?: "EN" | "DE" | "RU"; previewMode?: boolean }) {
+export default function FreedomMobilePreview({ initialLocale = "EN", previewMode = true }: { initialLocale?: "EN" | "DE" | "RU" | "IT" | "PL"; previewMode?: boolean }) {
   const [plus, setPlus] = useState(false);
   const [days, setDays] = useState(7);
   const [departure, setDeparture] = useState("2026-10-12");
   const [guests, setGuests] = useState(1);
   const [active, setActive] = useState(2);
-  const [locale] = useState<"EN" | "DE" | "RU">(initialLocale);
+  const [locale] = useState<"EN" | "DE" | "RU" | "IT" | "PL">(initialLocale);
   const [activeField, setActiveField] = useState<"country" | "duration" | "dates" | null>(null); const [reviewOpen, setReviewOpen] = useState(false);
   const [packages, setPackages] = useState<PackageVariant[]>(defaultPackages);
   const catalogItems = useCatalogItems();
@@ -70,7 +77,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
   const language=locale.toLowerCase() as Locale, ui=translations[language], detail=collectionDetails.freedom[language];
   const total = useMemo(() => prices[days] + (plus ? 300 : 0) + Math.max(0, guests - 2) * 190, [days, guests, plus]);
   const returnDate = useMemo(() => addDays(departure, days), [departure, days]);
-  const money = new Intl.NumberFormat(language==="en"?"en-GB":language==="de"?"de-DE":"ru-RU", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(total);
+  const money = new Intl.NumberFormat({en:"en-GB",de:"de-DE",ru:"ru-RU",it:"it-IT",pl:"pl-PL"}[language], { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(total);
   const dbCollection = catalogItems.find(entry => entry.item_type === "collection" && entry.slug === "freedom");
   const departureRule = parseDepartureRule(dbCollection?.data_json);
   useEffect(() => { if (dbCollection?.data_json) setDeparture(current => nextAllowedDeparture(current, departureRule)); }, [dbCollection?.data_json]);
@@ -80,7 +87,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
   const freedomPlusPackage = displayedPackages[1] || localizedPackages[language][1];
   const displayDate = (value: string) => new Intl.DateTimeFormat(language==="en"?"en-GB":language==="de"?"de-DE":"ru-RU", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${value}T12:00:00`));
   const continueToAccount = () => continueJourneyInAccount({ collection: "freedom", collectionName: "MLT Freedom Collection", country: "Italy", days, arrival: departure, departure: returnDate, guests, route: products[active]?.title || "MLT curated route", rate: money, freedomPlus: plus, signatureTailored: false, tailoredInterests: [], vehicle: "MLT motorhome" }, language);
-  const review = language === "ru" ? { title:"Проверьте выбор",copy:"Убедитесь, что все детали путешествия указаны верно.",collection:"Коллекция",package:"Пакет",route:"Маршрут",dates:"Даты",travellers:"Путешественники",confirm:"Подтвердить и перейти",cancel:"Изменить выбор",close:"Закрыть" } : language === "de" ? { title:"Auswahl prüfen",copy:"Bitte prüfen Sie die Reisedetails, bevor Sie fortfahren.",collection:"Kollektion",package:"Paket",route:"Route",dates:"Reisedaten",travellers:"Reisende",confirm:"Bestätigen & weiter",cancel:"Auswahl ändern",close:"Schließen" } : { title:"Review your selection",copy:"Please check the journey details before continuing.",collection:"Collection",package:"Package",route:"Route",dates:"Travel dates",travellers:"Travellers",confirm:"Confirm & continue",cancel:"Change selection",close:"Close" };
+  const review = language === "ru" ? { title:"Проверьте выбор",copy:"Убедитесь, что все детали путешествия указаны верно.",collection:"Коллекция",package:"Пакет",route:"Маршрут",dates:"Даты",travellers:"Путешественники",confirm:"Подтвердить и перейти",cancel:"Изменить выбор",close:"Закрыть" } : language === "de" ? { title:"Auswahl prüfen",copy:"Bitte prüfen Sie die Reisedetails, bevor Sie fortfahren.",collection:"Kollektion",package:"Paket",route:"Route",dates:"Reisedaten",travellers:"Reisende",confirm:"Bestätigen & weiter",cancel:"Auswahl ändern",close:"Schließen" } :language==="it"?{title:"Controlla la tua scelta",copy:"Controlla i dettagli del viaggio prima di continuare.",collection:"Collezione",package:"Pacchetto",route:"Itinerario",dates:"Date",travellers:"Viaggiatori",confirm:"Conferma e continua",cancel:"Modifica la scelta",close:"Chiudi"}:language==="pl"?{title:"Sprawdź swój wybór",copy:"Sprawdź szczegóły podróży przed przejściem dalej.",collection:"Kolekcja",package:"Pakiet",route:"Trasa",dates:"Daty",travellers:"Podróżni",confirm:"Potwierdź i kontynuuj",cancel:"Zmień wybór",close:"Zamknij"}: { title:"Review your selection",copy:"Please check the journey details before continuing.",collection:"Collection",package:"Package",route:"Route",dates:"Travel dates",travellers:"Travellers",confirm:"Confirm & continue",cancel:"Change selection",close:"Close" };
 
   return <main className={styles.stage}>
     <div className={styles.phone}>

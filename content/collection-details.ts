@@ -2,7 +2,7 @@ import type { Locale } from "./i18n";
 
 type DetailCopy = { manifesto: string; ideal: string; signature: string[]; flow: { label: string; title: string; copy: string }[]; cta: string; back: string; includes: string; itinerary: string; };
 
-export const collectionDetails: Record<string, Record<Locale, DetailCopy>> = {
+const baseCollectionDetails: Record<string, Record<"en" | "de" | "ru", DetailCopy>> = {
   freedom: {
     en: { manifesto: "Crafted for those who seek independent discoveries, a true spirit of adventure, absolute flexibility, and drive on every mile of the road.", ideal: "For independent travelers who value top-tier equipment and expert guidance, keeping their journey completely flexible.", signature: ["Standard motorhome", "Curated map", "MLT route app", "Local technical assistance"], itinerary: "Your rhythm", includes: "What shapes the journey?", cta: "Begin a Freedom journey", back: "All collections", flow: [{ label: "Day 01", title: "Collect & settle in", copy: "A private handover and complete vehicle introduction." }, { label: "Your days", title: "Follow what moves you", copy: "Use the MLT map or change direction whenever you wish." }, { label: "Always", title: "Recommendations nearby", copy: "Thoughtful places and roads remain close at hand." }] },
     de: { manifesto: "Geschaffen für alle, die unabhängige Entdeckungen, echten Abenteuergeist, absolute Flexibilität und Fahrfreude auf jedem Kilometer suchen.", ideal: "Für unabhängige Reisende, die außergewöhnliche Ausstattung und sorgfältige Empfehlungen ohne feste Route schätzen.", signature: ["Passendes Luxus-Reisemobil", "Kuratierte MLT Karte besonderer Orte", "Digitale Routenempfehlungen", "Persönliches Briefing vor Abreise"], itinerary: "Ihr Rhythmus", includes: "Was die Reise prägt", cta: "Freedom Reise beginnen", back: "Alle Kollektionen", flow: [{ label: "Tag 01", title: "Übernahme & Ankommen", copy: "Private Übergabe und ausführliche Fahrzeugeinweisung." }, { label: "Ihre Tage", title: "Folgen Sie Ihrer Neugier", copy: "Nutzen Sie die MLT Karte oder ändern Sie jederzeit die Richtung." }, { label: "Jederzeit", title: "Empfehlungen in Ihrer Nähe", copy: "Besondere Orte und Straßen bleiben immer griffbereit." }] },
@@ -34,3 +34,65 @@ export const collectionDetails: Record<string, Record<Locale, DetailCopy>> = {
     ru: { manifesto: "Искусство сказать «да» на краю света.", ideal: "Полностью организованное предложение за рубежом. Вы выбираете место и кольцо, MLT берёт на себя всё остальное.", signature: ["Премиальный автодом на 3–7 дней", "Точно подобранная частная локация в Европе", "Личный консьерж 24/7", "Маршрут и координация на месте"], itinerary: "Предложение под ключ", includes: "Основной пакет", cta: "Создать Proposal-путешествие", back: "Все коллекции", flow: [{ label: "Визуальная история", title: "Момент, сохранённый навсегда", copy: "Незаметный фотограф, кинематографичное видео и съёмка с дрона." }, { label: "Атмосфера и гастрономия", title: "Каждая деталь создаёт сцену", copy: "Флористика, свечи, шампанское, местные деликатесы и частный повар." }, { label: "Логистика и вау-эффект", title: "Незабываемое появление", copy: "Трансфер на вертолёте, ретроавтомобиль или электротранспорт." }] },
   },
 };
+
+const newLanguageCopy: Record<string, { it: Partial<DetailCopy>; pl: Partial<DetailCopy> }> = {
+  freedom: {
+    it: { manifesto: "Per chi ama scoprire in autonomia, con spirito d’avventura e la libertà di cambiare strada quando vuole.", ideal: "Per viaggiatori indipendenti che apprezzano un camper di qualità e consigli esperti, senza un itinerario rigido.", signature: ["Camper attrezzato", "Mappa curata", "App itinerari MLT", "Assistenza tecnica locale"], itinerary: "Il tuo ritmo", includes: "Cosa rende speciale il viaggio", cta: "Inizia un viaggio Freedom", back: "Tutte le collezioni" },
+    pl: { manifesto: "Dla tych, którzy kochają samodzielne odkrywanie, przygodę i swobodę zmiany trasy w każdej chwili.", ideal: "Dla niezależnych podróżników ceniących świetnie wyposażony kamper i fachowe wskazówki bez sztywnego planu.", signature: ["Wyposażony kamper", "Starannie przygotowana mapa", "Aplikacja tras MLT", "Lokalna pomoc techniczna"], itinerary: "Twój rytm", includes: "Co tworzy tę podróż", cta: "Rozpocznij podróż Freedom", back: "Wszystkie kolekcje" },
+  },
+  signature: {
+    it: { manifesto: "Un viaggio su strada pensato intorno ai tuoi gusti, con ogni dettaglio pronto prima della partenza.", ideal: "Per chi desidera indipendenza sulla strada e la tranquillità di avere tutto organizzato.", signature: ["Itinerario personale", "Campeggi premium prenotati", "Le migliori strade panoramiche", "Ristoranti, cultura e attività private"], itinerary: "Un viaggio su misura", includes: "Preparato per te", cta: "Richiedi una proposta Signature", back: "Tutte le collezioni" },
+    pl: { manifesto: "Podróż ułożona wokół Twoich upodobań, z każdym szczegółem gotowym jeszcze przed wyjazdem.", ideal: "Dla osób, które chcą zachować niezależność, wiedząc, że wszystko zostało już przygotowane.", signature: ["Osobista trasa", "Zarezerwowane kempingi premium", "Najpiękniejsze drogi widokowe", "Restauracje, kultura i prywatne atrakcje"], itinerary: "Podróż szyta na miarę", includes: "Przygotowane dla Ciebie", cta: "Poproś o ofertę Signature", back: "Wszystkie kolekcje" },
+  },
+  concierge: {
+    it: { manifesto: "La libertà della strada con il supporto di un concierge che conosce sempre la prossima mossa.", ideal: "Per chi vuole restare flessibile e affidare richieste e cambiamenti a un referente personale.", signature: ["Concierge online 24/7", "Modifiche dell’itinerario", "Campeggi prenotati", "Prenotazioni di ristoranti e attività", "Assistenza tecnica", "Camper per 2–5 persone"], itinerary: "Libertà con supporto", includes: "La collezione Concierge comprende", cta: "Conosci il tuo concierge", back: "Tutte le collezioni" },
+    pl: { manifesto: "Swoboda podróży z pomocą concierge, który zawsze zna najlepszy kolejny krok.", ideal: "Dla osób, które chcą zachować elastyczność, powierzając zmiany i prośby osobistemu opiekunowi.", signature: ["Concierge online 24/7", "Zmiany trasy na bieżąco", "Zarezerwowane kempingi", "Rezerwacje restauracji i atrakcji", "Wsparcie techniczne", "Kamper dla 2–5 osób"], itinerary: "Wolność ze wsparciem", includes: "Kolekcja Concierge obejmuje", cta: "Poznaj swojego concierge", back: "Wszystkie kolekcje" },
+  },
+  private: {
+    it: { manifesto: "Un’esperienza esclusiva basata sulla riservatezza assoluta e sull’accesso a luoghi nascosti.", ideal: "Per chi cerca il massimo lusso, un servizio impeccabile e accessi rari in tutta Europa.", signature: ["Itinerario personale e autista privato", "Tecnico, chef e staff di servizio", "Mezza pensione ed escursioni private", "Transfer VIP e concierge completo"], itinerary: "Un mondo tutto tuo", includes: "Il tuo team di viaggio", cta: "Parla di un viaggio Private", back: "Tutte le collezioni" },
+    pl: { manifesto: "Wyjątkowe doświadczenie oparte na pełnej prywatności i dostępie do ukrytych miejsc.", ideal: "Dla osób szukających najwyższego luksusu, bezbłędnej obsługi i niezwykłych doświadczeń w Europie.", signature: ["Indywidualna trasa i prywatny kierowca", "Technik, szef kuchni i obsługa", "Wyżywienie i prywatne wycieczki", "Transfery VIP i pełna opieka concierge"], itinerary: "Twój prywatny świat", includes: "Twój zespół w podróży", cta: "Porozmawiaj o wyprawie Private", back: "Wszystkie kolekcje" },
+  },
+  honeymoon: {
+    it: { manifesto: "Un viaggio privato per due, tra vicinanza, splendidi paesaggi e tempo soltanto vostro.", ideal: "Per coppie che desiderano privacy, romanticismo e un viaggio senza pensieri attraverso l’Europa.", signature: ["Camper premium per due", "Itinerario romantico su misura", "Soste private e panorami", "Prenotazioni di ristoranti ed esperienze", "Concierge MLT dedicato", "Viaggio personalizzato da €12.500"], itinerary: "La vostra storia insieme", includes: "La collezione Honeymoon comprende", cta: "Iniziate il vostro viaggio Honeymoon", back: "Tutte le collezioni" },
+    pl: { manifesto: "Prywatna podróż we dwoje, pełna bliskości, pięknych krajobrazów i czasu tylko dla Was.", ideal: "Dla par pragnących prywatności, romantycznych chwil i beztroskiej podróży po Europie.", signature: ["Kamper premium dla dwojga", "Romantyczna trasa dopasowana do Was", "Prywatne postoje i widoki", "Rezerwacje restauracji i atrakcji", "Osobisty concierge MLT", "Podróż indywidualna od €12 500"], itinerary: "Wasza wspólna historia", includes: "Kolekcja Honeymoon obejmuje", cta: "Rozpocznijcie podróż Honeymoon", back: "Wszystkie kolekcje" },
+  },
+  proposal: {
+    it: { manifesto: "L’arte di dire sì in un luogo indimenticabile.", ideal: "Una proposta all’estero organizzata in ogni dettaglio. Voi scegliete la destinazione e l’anello; MLT si occupa del resto.", signature: ["Camper premium per 3–7 giorni", "Location privata in Europa", "Concierge dedicato 24/7", "Itinerario e coordinamento sul posto"], itinerary: "La vostra proposta chiavi in mano", includes: "Il pacchetto essenziale", cta: "Create il vostro viaggio Proposal", back: "Tutte le collezioni" },
+    pl: { manifesto: "Sztuka powiedzenia „tak” w niezapomnianym miejscu.", ideal: "Zaręczyny za granicą dopracowane w każdym szczególe. Wybieracie miejsce i pierścionek; MLT zajmuje się resztą.", signature: ["Kamper premium na 3–7 dni", "Prywatne miejsce w Europie", "Osobisty concierge 24/7", "Trasa i koordynacja na miejscu"], itinerary: "Zaręczyny pod klucz", includes: "Pakiet podstawowy", cta: "Zaplanujcie podróż Proposal", back: "Wszystkie kolekcje" },
+  },
+};
+
+const newLanguageFlow: Record<string, { it: DetailCopy["flow"]; pl: DetailCopy["flow"] }> = {
+  freedom: {
+    it: [{ label:"Giorno 01",title:"Ritiro e partenza",copy:"Consegna privata e spiegazione completa del camper." },{ label:"Ogni giorno",title:"Segui la tua curiosità",copy:"Usa la mappa MLT o cambia direzione quando vuoi." },{ label:"Sempre",title:"Consigli lungo la strada",copy:"Luoghi e strade speciali sono sempre a portata di mano." }],
+    pl: [{ label:"Dzień 01",title:"Odbiór i rozpoczęcie",copy:"Prywatne przekazanie kampera i dokładne wprowadzenie." },{ label:"Każdego dnia",title:"Podążaj za ciekawością",copy:"Korzystaj z mapy MLT lub zmieniaj trasę, kiedy chcesz." },{ label:"Zawsze",title:"Polecane miejsca",copy:"Ciekawe miejsca i drogi są zawsze pod ręką." }],
+  },
+  signature: {
+    it: [{ label:"Prima",title:"Consulenza privata",copy:"Scopriamo il tuo ritmo, i tuoi interessi e i paesaggi che ami." },{ label:"L’itinerario",title:"Ogni dettaglio curato",copy:"Soste, strade ed esperienze diventano un unico viaggio." },{ label:"Partenza",title:"Mettiti al volante",copy:"Tutto è pronto quando inizia il viaggio." }],
+    pl: [{ label:"Przed podróżą",title:"Prywatna konsultacja",copy:"Poznajemy Twoje tempo, zainteresowania i ulubione krajobrazy." },{ label:"Trasa",title:"Dopiąć każdy szczegół",copy:"Noclegi, drogi i atrakcje łączą się w jedną podróż." },{ label:"Wyjazd",title:"Po prostu ruszaj",copy:"Wszystko jest gotowe, gdy zaczyna się podróż." }],
+  },
+  concierge: {
+    it: [{ label:"24 / 7",title:"Basta un messaggio",copy:"Il tuo referente resta disponibile per tutto il viaggio." },{ label:"In viaggio",title:"I piani possono cambiare",copy:"Itinerario e prenotazioni si adattano ai tuoi desideri." },{ label:"Quando serve",title:"Assistenza discreta",copy:"Coordiniamo assistenza tecnica e imprevisti." }],
+    pl: [{ label:"24 / 7",title:"Wystarczy wiadomość",copy:"Twój opiekun jest dostępny przez całą podróż." },{ label:"W drodze",title:"Plany mogą się zmieniać",copy:"Trasa i rezerwacje dostosowują się do Twoich życzeń." },{ label:"W razie potrzeby",title:"Dyskretna pomoc",copy:"Koordynujemy pomoc techniczną i nagłe sytuacje." }],
+  },
+  private: {
+    it: [{ label:"Il tuo team",title:"Il servizio viaggia con te",copy:"Autista, tecnico e staff lavorano come una squadra discreta." },{ label:"Ogni giorno",title:"Creato per il tuo gruppo",copy:"Cucina, escursioni e tempi sono completamente personali." },{ label:"Sempre",title:"Privacy senza compromessi",copy:"Ogni passaggio è gestito con precisione." }],
+    pl: [{ label:"Twój zespół",title:"Obsługa podróżuje z Tobą",copy:"Kierowca, technik i personel działają jako dyskretny zespół." },{ label:"Każdego dnia",title:"Dla Twojej grupy",copy:"Posiłki, wycieczki i czas są w pełni dopasowane." },{ label:"Przez cały czas",title:"Prywatność bez kompromisów",copy:"Każdy etap jest prowadzony z precyzją." }],
+  },
+  honeymoon: {
+    it: [{ label:"Prima",title:"Pensato per voi due",copy:"Scopriamo i paesaggi e i momenti che volete ricordare." },{ label:"Sulla strada",title:"Privacy senza pensieri",copy:"Soste e prenotazioni sono già organizzate." },{ label:"Sempre",title:"Un concierge vicino",copy:"L’assistenza è a un messaggio di distanza." }],
+    pl: [{ label:"Przed podróżą",title:"Stworzone dla Was",copy:"Poznajemy miejsca i chwile, które chcecie zapamiętać." },{ label:"W drodze",title:"Prywatność bez wysiłku",copy:"Postoje i rezerwacje są już przygotowane." },{ label:"Zawsze",title:"Concierge blisko Was",copy:"Pomoc jest dostępna przez jedną wiadomość." }],
+  },
+  proposal: {
+    it: [{ label:"Ricordi",title:"Un momento da conservare",copy:"Fotografo discreto, video e riprese dall’alto su richiesta." },{ label:"Atmosfera",title:"Ogni dettaglio conta",copy:"Fiori, candele, champagne e una cena privata." },{ label:"Arrivo",title:"Un ingresso indimenticabile",copy:"Transfer speciale per il momento della proposta." }],
+    pl: [{ label:"Wspomnienia",title:"Chwila na zawsze",copy:"Dyskretny fotograf, film i opcjonalne ujęcia z drona." },{ label:"Atmosfera",title:"Każdy szczegół ma znaczenie",copy:"Kwiaty, świece, szampan i prywatna kolacja." },{ label:"Przyjazd",title:"Niezapomniane wejście",copy:"Wyjątkowy transfer na moment zaręczyn." }],
+  },
+};
+
+export const collectionDetails: Record<string, Record<Locale, DetailCopy>> = Object.fromEntries(
+  Object.entries(baseCollectionDetails).map(([id, copy]) => [id, {
+    ...copy,
+    it: { ...copy.en, ...newLanguageCopy[id]?.it, flow: newLanguageFlow[id]?.it || copy.en.flow },
+    pl: { ...copy.en, ...newLanguageCopy[id]?.pl, flow: newLanguageFlow[id]?.pl || copy.en.flow },
+  }]),
+);

@@ -13,12 +13,14 @@ const views: Record<string, { center: [number, number]; zoom: number }> = {
   All: { center: [10.8, 46.2], zoom: 4.4 }, Italy: { center: [11.7, 43.7], zoom: 5.2 }, Austria: { center: [13.25, 47.55], zoom: 6.2 }, Germany: { center: [9.7, 49.6], zoom: 5.4 },
 };
 const countryFiles = ["italy", "austria", "germany"] as const;
-type Locale = "en" | "de" | "ru";
+type Locale = "en" | "de" | "ru" | "it" | "pl";
 type RouteGeometry = { type: "LineString"; coordinates: [number, number][] };
 const labels = {
   en: { loading: "Loading map…", error: "Map tiles are temporarily unavailable.", routing: "Building route on real roads…", ready: "Road route ready", routeError: "Road route is temporarily unavailable", add: "Add", remove: "Remove" },
   de: { loading: "Karte wird geladen…", error: "Die Kartenansicht ist vorübergehend nicht verfügbar.", routing: "Route über reale Straßen wird berechnet…", ready: "Straßenroute ist bereit", routeError: "Die Straßenroute ist vorübergehend nicht verfügbar", add: "Hinzufügen", remove: "Entfernen" },
   ru: { loading: "Загружаем карту…", error: "Карта временно недоступна.", routing: "Строим маршрут по реальным дорогам…", ready: "Маршрут по дорогам готов", routeError: "Маршрутизатор временно недоступен", add: "Добавить", remove: "Удалить" },
+  it: { loading: "Caricamento mappa…", error: "La mappa non è disponibile al momento.", routing: "Creazione del percorso…", ready: "Percorso pronto", routeError: "Il percorso non è disponibile al momento", add: "Aggiungi", remove: "Rimuovi" },
+  pl: { loading: "Ładowanie mapy…", error: "Mapa jest chwilowo niedostępna.", routing: "Wyznaczanie trasy…", ready: "Trasa jest gotowa", routeError: "Trasa jest chwilowo niedostępna", add: "Dodaj", remove: "Usuń" },
 } as const;
 
 export default function RealRouteMap({ selected, country, onToggle, locale = "en", className = "", onDistanceChange }: { selected: string[]; country: string; onToggle: (id: string) => void; locale?: Locale; className?: string; onDistanceChange?: (kilometres: number | null) => void }) {
