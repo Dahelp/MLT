@@ -63,7 +63,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
   const [guests, setGuests] = useState(1);
   const [active, setActive] = useState(2);
   const [locale] = useState<"EN" | "DE" | "RU">(initialLocale);
-  const [activeField, setActiveField] = useState<"country" | "duration" | "dates" | null>(null);
+  const [activeField, setActiveField] = useState<"country" | "duration" | "dates" | null>(null); const [reviewOpen, setReviewOpen] = useState(false);
   const [packages, setPackages] = useState<PackageVariant[]>(defaultPackages);
   const catalogItems = useCatalogItems();
   const productCarousel = useRef<SwiperInstance | null>(null);
@@ -80,6 +80,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
   const freedomPlusPackage = displayedPackages[1] || localizedPackages[language][1];
   const displayDate = (value: string) => new Intl.DateTimeFormat(language==="en"?"en-GB":language==="de"?"de-DE":"ru-RU", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${value}T12:00:00`));
   const continueToAccount = () => continueJourneyInAccount({ collection: "freedom", collectionName: "MLT Freedom Collection", country: "Italy", days, arrival: departure, departure: returnDate, guests, route: products[active]?.title || "MLT curated route", rate: money, freedomPlus: plus, signatureTailored: false, tailoredInterests: [], vehicle: "MLT motorhome" }, language);
+  const review = language === "ru" ? { title:"Проверьте выбор",copy:"Убедитесь, что все детали путешествия указаны верно.",collection:"Коллекция",package:"Пакет",route:"Маршрут",dates:"Даты",travellers:"Путешественники",confirm:"Подтвердить и перейти",cancel:"Изменить выбор",close:"Закрыть" } : language === "de" ? { title:"Auswahl prüfen",copy:"Bitte prüfen Sie die Reisedetails, bevor Sie fortfahren.",collection:"Kollektion",package:"Paket",route:"Route",dates:"Reisedaten",travellers:"Reisende",confirm:"Bestätigen & weiter",cancel:"Auswahl ändern",close:"Schließen" } : { title:"Review your selection",copy:"Please check the journey details before continuing.",collection:"Collection",package:"Package",route:"Route",dates:"Travel dates",travellers:"Travellers",confirm:"Confirm & continue",cancel:"Change selection",close:"Close" };
 
   return <main className={styles.stage}>
     <div className={styles.phone}>
@@ -123,7 +124,8 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
       <section className={styles.compare}>{[freedomPackage, freedomPlusPackage].map(item => <article key={item.id}><h3>{item.title}</h3>{[...(item.benefits || []), ...(item.supplement ? [item.supplement] : [])].map(entry=><p key={entry}>✓ &nbsp;{entry}</p>)}</article>)}</section>
       <section className={styles.cta}><img src="/collection-freedom-hero-mobile-v2.webp" alt=""/><div><p className={styles.eyebrow}>MLT Freedom</p><h2>{detail.cta}</h2><p>{ui.prepared}</p><a href="mailto:info@mlt-lifestyle.com">{ui.concierge}<span>→</span></a></div></section>
       <MobilePreviewFooter locale={language} withStickyBar previewMode={previewMode}/>
-      <div className={styles.sticky}><span>{ui.total}<b>{money}</b></span><button onClick={continueToAccount}>{ui.pay}</button></div>
+      <div className={styles.sticky}><span>{ui.total}<b>{money}</b></span><button onClick={() => setReviewOpen(true)}>{ui.pay}</button></div>
+      {reviewOpen && <div className="journey-review-overlay" role="presentation" onMouseDown={() => setReviewOpen(false)}><section className="journey-review-modal" role="dialog" aria-modal="true" aria-label={review.title} onMouseDown={event => event.stopPropagation()}><button className="journey-review-close" type="button" onClick={() => setReviewOpen(false)} aria-label={review.close}>×</button><p className="section-label">MLT / 01</p><h2>{review.title}</h2><p className="journey-review-copy">{review.copy}</p><dl><div><dt>{review.collection}</dt><dd>MLT Freedom Collection</dd></div><div><dt>{review.package}</dt><dd>{plus ? freedomPlusPackage.title : freedomPackage.title}</dd></div><div><dt>{review.route}</dt><dd>{products[active]?.title || "MLT curated route"}</dd></div><div><dt>{review.dates}</dt><dd>{displayDate(departure)} — {displayDate(returnDate)}</dd></div><div><dt>{review.travellers}</dt><dd>{days} {ui.days} · {guests}</dd></div></dl><div className="journey-review-total"><span>{ui.total}</span><strong>{money}</strong></div><div className="journey-review-actions"><button type="button" onClick={() => setReviewOpen(false)}>{review.cancel}</button><button type="button" className="bronze-button" onClick={continueToAccount}>{review.confirm}<span>↗</span></button></div></section></div>}
     </div>
   </main>;
 }
