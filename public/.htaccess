@@ -5,10 +5,10 @@ Options -Indexes
   RewriteRule ^(index\.html)?$ /en/ [R=301,L]
   RewriteCond %{HTTP:Sec-CH-UA-Mobile} "^\?1$" [OR]
   RewriteCond %{HTTP_USER_AGENT} "(iPhone|iPod|Windows Phone|IEMobile|Opera Mini|Android.*Mobile)" [NC]
-  RewriteRule ^(en|de|ru)(/|/index\.html)?$ $1/mobile-site/index.html [L]
+  RewriteRule ^(en|de|ru|it|pl)(/|/index\.html)?$ $1/mobile-site/index.html [L]
   RewriteCond %{HTTP:Sec-CH-UA-Mobile} "^\?1$" [OR]
   RewriteCond %{HTTP_USER_AGENT} "(iPhone|iPod|Windows Phone|IEMobile|Opera Mini|Android.*Mobile)" [NC]
-  RewriteRule ^(en|de|ru)/collections/(freedom|signature|concierge|private|honeymoon)(/|/index\.html)?$ $1/collections/$2/mobile-site/index.html [L]
+  RewriteRule ^(en|de|ru|it|pl)/collections/(freedom|signature|concierge|private|honeymoon)(/|/index\.html)?$ $1/collections/$2/mobile-site/index.html [L]
 </IfModule>
 
 <IfModule mod_headers.c>
