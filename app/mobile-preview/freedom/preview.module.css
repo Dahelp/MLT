@@ -160,3 +160,11 @@
 .ideal,.shapes{padding-inline:0}
 .rhythm,.cta{margin-inline:calc(var(--mobile-content-gutter) * -1)}
 .rhythm{padding-inline:var(--mobile-content-gutter)}
+
+/* The compact booking cards use absolute positioning, so their height must grow with wrapped labels. */
+.fields label:has(.fieldPrice){height:112px}
+.fields label:has(.fieldPrice)>select{top:58px}
+.fields label:has(.fieldPrice) .fieldPrice{bottom:10px}
+.travellers{height:124px;min-height:124px;padding-top:12px}
+.travellers>div{top:38px;left:48px;right:12px;transform:none}
+.travellers small{right:14px;bottom:9px;line-height:1.35}
