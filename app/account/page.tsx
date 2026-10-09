@@ -334,24 +334,29 @@ export default function Account({
       const hasOpen = (j.orders || []).some(
         (o: O) => !["completed", "cancelled"].includes(o.status),
       );
+      setUser(j.user);
+      setLocale(j.user.locale);
+      setOrders(j.orders || []);
       let next: D | null = null;
       try {
         next = JSON.parse(localStorage.getItem("mlt-account-draft") || "null");
       } catch {}
-      if (next && (j.user?.role === "agency" || !hasOpen)) {
-        const created = await api("create_application", next);
+      if (next && (j.user?.role === "agency" || !hasOpen) && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(next.confirmationId || "")) {
+        try {
+          const created = await api("create_application", next);
+          j = await api("orders");
+          setOrders(j.orders || []);
+          if (!created.created && j.user?.role !== "agency") setMessage(locale === "ru" ? "У вас уже есть текущая заявка. Новую можно оформить после завершения поездки." : "You can book a new journey after your current trip ends.");
+        } catch (error) {
+          setMessage(error instanceof Error ? error.message : "Could not save your journey selection.");
+        }
         localStorage.removeItem("mlt-account-draft");
         setDraft(null);
-        j = await api("orders");
-        if (!created.created && j.user?.role !== "agency") setMessage(locale === "ru" ? "У вас уже есть текущая заявка. Новую можно оформить после завершения поездки." : "You can book a new journey after your current trip ends.");
       } else if (next) {
         localStorage.removeItem("mlt-account-draft");
         setDraft(null);
-        setMessage(locale === "ru" ? "У вас уже есть текущая заявка. Новую можно оформить после завершения поездки." : "You can book a new journey after your current trip ends.");
+        if (next.confirmationId && hasOpen && j.user?.role !== "agency") setMessage(locale === "ru" ? "У вас уже есть текущая заявка. Новую можно оформить после завершения поездки." : "You can book a new journey after your current trip ends.");
       }
-      setUser(j.user);
-      setLocale(j.user.locale);
-      setOrders(j.orders || []);
     } catch (error) {
       if ((error as { status?: number }).status === 401) localStorage.removeItem("mlt-account-token");
       else setMessage(error instanceof Error ? error.message : "Could not load your journeys.");
