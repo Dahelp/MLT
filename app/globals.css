@@ -732,18 +732,18 @@ footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }
 .collection-booking-band .hero-booking { overflow: visible; }
 .collection-products { position: relative; z-index: 1; }
 @media (max-width: 580px) {
-  .collection-products + .detail-intro { padding: 42px 24px 48px; }
-  .collection-products + .detail-intro .section-label { margin-bottom: 14px; font-size: 11px; }
-  .collection-products + .detail-intro .detail-lead { font-size: 34px; line-height: 1.08; }
-  .collection-products + .detail-intro .detail-includes { margin-top: 34px; padding-top: 26px; gap: 20px; }
-  .collection-products + .detail-intro .detail-includes h2 { font-size: 30px; line-height: 1.08; }
-  .collection-products + .detail-intro .detail-includes ul { grid-template-columns: 1fr; gap: 0; }
-  .collection-products + .detail-intro .detail-includes li { padding: 14px 0; font-size: 16px; line-height: 1.35; }
-  .collection-products + .detail-intro .detail-includes li span { margin-right: 10px; }
-  .collection-products + .detail-intro .freedom-comparison { margin-top: 30px; gap: 10px; }
-  .collection-products + .detail-intro .freedom-comparison article { padding: 18px 14px; border-radius: 14px; }
-  .collection-products + .detail-intro .freedom-comparison h3 { margin-bottom: 12px; font-size: 24px; }
-  .collection-products + .detail-intro .freedom-comparison li { min-height: 0; padding: 9px 0; font-size: 13px; }
+  .collection-booking-band + .detail-intro { padding: 42px 24px 48px; }
+  .collection-booking-band + .detail-intro .section-label { margin-bottom: 14px; font-size: 11px; }
+  .collection-booking-band + .detail-intro .detail-lead { font-size: 34px; line-height: 1.08; }
+  .collection-booking-band + .detail-intro .detail-includes { margin-top: 34px; padding-top: 26px; gap: 20px; }
+  .collection-booking-band + .detail-intro .detail-includes h2 { font-size: 30px; line-height: 1.08; }
+  .collection-booking-band + .detail-intro .detail-includes ul { grid-template-columns: 1fr; gap: 0; }
+  .collection-booking-band + .detail-intro .detail-includes li { padding: 14px 0; font-size: 16px; line-height: 1.35; }
+  .collection-booking-band + .detail-intro .detail-includes li span { margin-right: 10px; }
+  .collection-booking-band + .detail-intro .freedom-comparison { margin-top: 30px; gap: 10px; }
+  .collection-booking-band + .detail-intro .freedom-comparison article { padding: 18px 14px; border-radius: 14px; }
+  .collection-booking-band + .detail-intro .freedom-comparison h3 { margin-bottom: 12px; font-size: 24px; }
+  .collection-booking-band + .detail-intro .freedom-comparison li { min-height: 0; padding: 9px 0; font-size: 13px; }
 }
 .collection-booking-band .booking-date input { position: static; width: 100%; min-height: 38px; padding: 5px 0; opacity: 1; cursor: pointer; }
 .collection-booking-band .booking-date-value, .collection-booking-band .booking-end strong { min-height: 28px; display: block; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -755,7 +755,7 @@ footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }
 .booking-route-picker { margin-top: 18px; padding-top: 17px; overflow: hidden; border-top: 1px solid rgba(255,255,255,.14); }
 .booking-route-head { margin-bottom: 13px; display: flex; align-items: end; gap: 20px; }.booking-route-head > div:first-child { display: grid; gap: 5px; }.booking-route-head span { color: #b7afa4; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }.booking-route-head strong { color: #f3e9dd; font: 400 27px/1.05 Georgia, serif; }.booking-route-carousel-shell { position: relative; }.booking-route-arrow { position: absolute; z-index: 8; top: 50%; width: 54px; height: 54px; padding: 0; display: grid; place-items: center; color: #fff; border: 1px solid rgba(255,255,255,.28); border-radius: 50%; background: rgba(28,30,30,.58); box-shadow: 0 10px 28px rgba(0,0,0,.22); font-family: Arial, sans-serif; font-size: 24px; line-height: 1; cursor: pointer; transform: translateY(-50%); transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }.booking-route-arrow:hover { background: rgba(28,30,30,.78); box-shadow: 0 13px 34px rgba(0,0,0,.3); transform: translateY(-50%) scale(1.06); }.booking-route-arrow-prev { left: 5px; }.booking-route-arrow-next { right: 5px; }
 .booking-route-carousel { width: calc(100% + 60px); margin-left: -30px; padding: 8px 30px 18px; overflow: hidden; }.booking-route-carousel .swiper-wrapper { align-items: center; }.booking-route-slide { width: min(420px, 68vw) !important; height: auto !important; aspect-ratio: .78; flex-shrink: 0; opacity: .68; filter: saturate(.8) brightness(.92); transform-origin: center; transition: opacity .55s ease, filter .55s ease; }.booking-route-slide.swiper-slide-active { opacity: 1; filter: none; }
-.collection-unified .hero-booking > .booking-route-picker { display: none; }
+.collection-unified .hero-booking > .booking-route-picker:not(.collection-products) { display: none; }
 .collection-data-packages .package-description { grid-column: 1 / -1; margin: 0; padding: 16px 18px; color: #ddd4ca; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; line-height: 1.55; }
 .collection-db-packages.collection-freedom .freedom-comparison { display: none; }
 .catalog-packages { grid-column: 1 / -1; }
@@ -765,6 +765,7 @@ footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }
 .catalog-package-row button { padding: 10px 14px; align-self: end; }
 @media (max-width: 700px) { .catalog-package-row { grid-template-columns: 1fr; } }
 .collection-products { padding: clamp(44px, 6vw, 88px) clamp(20px, 5vw, 88px); background: #22241f; color: #f6efe7; }
+.collection-booking-band .collection-products { margin-top: 18px; padding: 17px 0 0; border-top: 1px solid rgba(255,255,255,.14); background: transparent; }
 .booking-route-slide > button { position: relative; width: 100%; height: 100%; padding: 0; overflow: hidden; display: flex; align-items: flex-end; color: #fffaf2; border: 1px solid rgba(255,255,255,.18); border-radius: 17px; background: #171917; text-align: left; cursor: pointer; }.booking-route-slide > button.selected { border-color: #e0a578; box-shadow: 0 0 0 2px rgba(224,165,120,.7); }
 .booking-route-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }.booking-route-slide > button::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,7,6,.05) 24%, rgba(5,7,6,.88) 100%); }.booking-route-slide > button > span { position: absolute; z-index: 1; top: 22px; left: 22px; font-size: 13px; font-weight: 700; letter-spacing: .16em; }.booking-route-slide button > div { position: relative; z-index: 1; width: 100%; padding: 30px 24px 25px; display: grid; gap: 10px; }.booking-route-slide small { color: #efc6a3; font-size: 13px; font-weight: 700; letter-spacing: .04em; line-height: 1.4; }.booking-route-slide strong { font: 400 clamp(32px, 3vw, 46px)/.98 Georgia, serif; letter-spacing: -.035em; }.booking-route-slide i { position: absolute; z-index: 1; top: 22px; right: 22px; color: #fff5e8; font-size: 11px; font-style: normal; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }.booking-route-slide button.selected i { color: #f2b78b; }
 .collection-booking-band .package-switch small { font-size: 13px; }.collection-booking-band .package-benefits li { font-size: 14px; }.collection-booking-band .package-benefits .package-supplement { font-size: 13px; }.collection-booking-band .package-switch > span, .collection-booking-band .booking-main > div > span, .collection-booking-band .booking-date > span, .collection-booking-band .booking-end > span, .collection-booking-band .guest-stepper > span, .collection-booking-band .booking-total span { font-size: 12px; }.collection-booking-band .booking-duration small, .collection-booking-band .guest-stepper small { font-size: 13px; }

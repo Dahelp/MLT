@@ -169,3 +169,9 @@
 .travellers{height:124px;min-height:124px;padding-top:12px}
 .travellers>div{top:38px;left:48px;right:12px;transform:none}
 .travellers small{right:14px;bottom:9px;line-height:1.35}
+
+/* Align the comparison cards with the booking content and keep CTA space flexible. */
+.compare{padding-inline:0}
+.cta{height:auto;min-height:420px}
+.cta>img{position:absolute;inset:0}
+.cta>div{position:relative;top:auto;left:auto;width:74%;margin-left:var(--mobile-content-gutter);padding:45px 0 42px}
