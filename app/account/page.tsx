@@ -291,6 +291,7 @@ export default function Account({
     ),
     [ready, setReady] = useState(false),
     [collapsed, setCollapsed] = useState(false),
+    [mobileMenuOpen, setMobileMenuOpen] = useState(false),
     [modal, setModal] = useState<"deposit" | "full" | "balance" | null>(null),
     [consent, setConsent] = useState(false),
     [busy, setBusy] = useState(false),
@@ -582,6 +583,9 @@ export default function Account({
       className={`account-page account-premium ${collapsed ? "is-collapsed" : ""}`}
     >
       <aside className="client-side">
+        <button className="client-mobile-toggle" type="button" aria-expanded={mobileMenuOpen} aria-controls="client-navigation" aria-label={mobileMenuOpen ? "Close menu" : "Open menu"} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <span /><span /><span />
+        </button>
         <a className="account-brand" href="/">
           MLT
         </a>
@@ -592,7 +596,7 @@ export default function Account({
         >
           <Icon n="menu" />
         </button>
-        <nav>
+        <nav id="client-navigation" className={mobileMenuOpen ? "mobile-open" : ""} aria-label="Account navigation">
           <a
             className={tab === "home" ? "active" : ""}
             href={`${accountBase}/`}
@@ -621,6 +625,9 @@ export default function Account({
             <Icon n="user" />
             <span>{t.profile}</span>
           </a>
+          <button className="client-mobile-logout" type="button" onClick={() => { localStorage.removeItem("mlt-account-token"); setMobileMenuOpen(false); setUser(null); }}>
+            <Icon n="user" /><span>{t.logout}</span>
+          </button>
         </nav>
         <a className="client-support" href="mailto:info@mlt-lifestyle.com">
           {t.support} ↗
@@ -634,7 +641,7 @@ export default function Account({
               {t.welcome}, {user.firstName}.
             </h1>
           </div>
-          <button
+          <button className="client-desktop-logout"
             onClick={() => {
               localStorage.removeItem("mlt-account-token");
               setUser(null);
