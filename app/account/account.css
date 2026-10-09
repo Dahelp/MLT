@@ -39,6 +39,15 @@
 .account-premium.is-collapsed .client-side nav { margin-top: 74px; }
 .account-premium.is-collapsed .client-side nav a { justify-content: center; padding: 0; }
 
+@media(max-width:850px){
+  .account-premium .client-side,.account-premium.is-collapsed .client-side{position:sticky;top:0;z-index:100;height:72px;overflow:visible}
+  .account-premium .client-side .account-brand,.account-premium.is-collapsed .client-side .account-brand{order:0}
+  .account-premium .client-mobile-toggle{order:1;margin-left:auto}
+  .account-premium .client-side nav,.account-premium.is-collapsed .client-side nav{position:fixed;top:72px;left:0;right:0;z-index:101;max-height:calc(100dvh - 72px);overflow-y:auto;margin:0!important}
+  .account-premium .client-side nav.mobile-open,.account-premium.is-collapsed .client-side nav.mobile-open{display:grid}
+  .account-premium.is-collapsed .client-side nav a{justify-content:flex-start;padding:0 14px}
+}
+
 .client-panel .journey-row { grid-template-columns: minmax(0,1fr) minmax(240px,280px) 180px; column-gap: 32px; }
 .client-panel .journey-row > div:nth-child(2) { justify-self: start; min-width: 185px; text-align: left; }
 .client-panel .journey-row > div:nth-child(2) b + small { margin-top: 8px; }
