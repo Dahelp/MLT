@@ -954,6 +954,31 @@ footer .brand-line { font-size: 12px; }
 @media (max-width: 600px) { .smart-map-canvas { min-height: 620px; }.smart-map-country-tabs { left: 12px; right: 12px; top: 12px; overflow-x: auto; }.smart-map-country-tabs button { flex: 1 0 auto; padding-inline: 10px; }.route-calculation-status { top: 70px; left: 12px; }.smart-map-selection { margin-bottom: 26px; }.smart-map-selection button { font-size: 11px; }.smart-map-canvas .real-map-marker b { display: none; } }
 .real-map-marker b{border-radius:7px}
 
+/* Bring the desktop homepage content in line with the current mobile design. */
+.home-light .value-row { gap: 16px; border: 0; }
+.home-light .value-row article { min-width: 0; min-height: 0; overflow: hidden; padding: 0; border: 1px solid #d4cabd; border-radius: 16px; background: #f5efe6; }
+.home-light .value-row article img { display: block; width: 100%; height: clamp(170px, 17vw, 260px); object-fit: cover; }
+.home-light .value-row article > div { padding: 24px 28px 30px; }
+.home-light .value-row h3 { margin-top: 16px; }
+.home-light .experience-list { display: grid; gap: 14px; border: 0; }
+.home-light .experience-list article { grid-template-columns: minmax(140px, 34%) 34px minmax(0, 1fr); gap: 18px; min-height: 162px; overflow: hidden; padding: 0; border: 0; border-radius: 16px; background: #f0e9df; }
+.home-light .experience-list article img { width: 100%; height: 100%; min-height: 162px; object-fit: cover; }
+.home-light .experience-list article > div { padding: 18px 22px 18px 0; }
+.home-light .experience-list h3 { font-size: clamp(24px, 2.15vw, 34px); }
+.home-light .smart-map-open { position: absolute; z-index: 6; top: 24px; right: 24px; padding: 13px 18px; border: 1px solid rgba(113,87,65,.25); border-radius: 24px; color: #29251f; background: rgba(249,246,240,.94); text-decoration: none; font-size: 12px; font-weight: 700; box-shadow: 0 8px 24px rgba(55,43,32,.13); }
+.home-light .smart-map-selection-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.home-light .smart-map-selection-heading small, .home-light .smart-map-selection-heading span { color: #8b6043; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.home-light .smart-map-distance { display: block; margin-top: 16px; color: #645d55; text-align: center; font: 400 19px/1.4 Georgia, serif; }
+@media (max-width: 760px) {
+  .home-light .value-row { gap: 12px; }
+  .home-light .value-row article img { height: 180px; }
+  .home-light .experience-list article { grid-template-columns: 38% minmax(0, 1fr); gap: 0; }
+  .home-light .experience-list article > span { display: none; }
+  .home-light .experience-list article > div { padding: 14px; }
+  .home-light .experience-list article img { min-height: 150px; }
+  .home-light .smart-map-open { top: 70px; right: 12px; }
+}
+
 /* Private account and collection-to-payment flow. */
 .account-page { min-height: 100vh; padding: 30px clamp(24px, 7vw, 120px) 70px; color: #29231f; background: radial-gradient(circle at 80% 0, #e7d5c2, transparent 34%), #f7f2ea; }
 .account-brand { width: 132px; height: 48px; display: block; color: transparent; background: url('/mlt-logo.svg?v=20261006-vector') left center / contain no-repeat; font-size: 0; text-decoration: none; }.account-brand span { display: none; }
