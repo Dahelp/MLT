@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type MouseEvent } from "react";
 import RealRouteMap from "./plan/RealRouteMap";
 import { mapPoints } from "../content/mlt";
 import { LanguageMenu } from "./LanguageMenu";
+import { AcquisitionsDropdown, CollectionsDropdown, siteNavLabels } from "./SiteNavDropdown";
 import CollectionCarousel, { scrollCollectionCarouselIntoView } from "./CollectionCarousel";
 
 type SiteLocale = "en" | "de" | "ru" | "it" | "pl";
@@ -148,14 +149,14 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   };
   return <main className="home-light">
     <header className="light-nav">
-      <a className="light-brand" href="#top" aria-label="MLT home"><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT — Move. Live. Travel." /></a>
+      <span className="light-brand"><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT — Move. Live. Travel." /></span>
       <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
-        <a href="#collections" onClick={(event) => scrollToSection(event, "collections")}>{t.nav[0]}</a>
+        <CollectionsDropdown locale={locale} allHref="#collections" />
         <a href="#experiences" onClick={(event) => scrollToSection(event, "experiences")}>{t.nav[1]}</a>
         <a href="#smart-map" onClick={(event) => scrollToSection(event, "smart-map")}>{t.nav[2]}</a>
         <a href="#about" onClick={(event) => scrollToSection(event, "about")}>{t.nav[3]}</a>
-        <a href={localPath("/investments/")}>Investments</a>
-        <a href={localPath("/acquisitions/")}>Acquisitions</a>
+        <a href={localPath("/investments/")}>{siteNavLabels(locale).investments}</a>
+        <AcquisitionsDropdown locale={locale} />
       </nav>
       <div className="light-actions">
         <LanguageMenu locale={locale} onChange={changeLocale} /><a className="account-nav-link" href={localPath("/account")} aria-label={locale === "ru" ? "Личный кабинет" : "My account"}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M4.5 20c.8-3.7 3.3-5.5 7.5-5.5s6.7 1.8 7.5 5.5" /></svg></a>
