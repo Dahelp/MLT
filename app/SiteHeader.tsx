@@ -23,8 +23,8 @@ export default function SiteHeader({ locale, isHome = false }: { locale: SiteLan
       <CollectionsDropdown locale={locale} />
       <AcquisitionsDropdown locale={locale} />
       <a href={`/${locale}/investments/`}>{t.investments}</a>
-      <a href={`/${locale}/contact/`}>{t.contact}</a>
       <a href={`/${locale}/about/`}>{t.about}</a>
+      <a href={`/${locale}/contact/`}>{t.contact}</a>
     </nav>
     <div className="light-actions">
       <LanguageMenu locale={locale} onChange={changeLocale} />
