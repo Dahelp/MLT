@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import SiteHeader from "../../SiteHeader";
+import type { SiteLanguage } from "../../LanguageMenu";
 
 const pages = {
   imprint: {
@@ -49,9 +51,10 @@ const pages = {
 export function generateStaticParams() { return Object.keys(pages).map((slug) => ({ slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const page = pages[slug as keyof typeof pages]; return { title: `${page?.title || "Legal"} — MLT` }; }
 
-export default async function LegalPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function LegalPage({ params }: { params: Promise<{ slug: string; locale?: SiteLanguage }> }) {
+  const { slug, locale: requestedLocale } = await params;
+  const locale = requestedLocale || "de";
   const page = pages[slug as keyof typeof pages];
   if (!page) return <main className="not-found"><h1>Page not found</h1></main>;
-  return <main className="legal-page light-legal"><header className="legal-nav"><a className="legal-logo" href="/"><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT — Move. Live. Travel." /></a><a href="/">Zurück ×</a></header><article><p className="light-section-label">MLT / Rechtliches</p><h1>{page.title}</h1><p className="legal-intro">{page.intro}</p><div className="legal-sections">{page.sections.map(([title, text], index) => <section key={title}><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{text}</p></div></section>)}</div><footer><a href="/legal/privacy">Datenschutz</a><a href="/legal/imprint">Impressum</a><a href="/legal/terms">AGB</a><a href="/">MLT entdecken</a></footer></article></main>;
+  return <main className="legal-page light-legal legal-with-site-nav"><SiteHeader locale={locale} /><article><p className="light-section-label">MLT / Rechtliches</p><h1>{page.title}</h1><p className="legal-intro">{page.intro}</p><div className="legal-sections">{page.sections.map(([title, text], index) => <section key={title}><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{text}</p></div></section>)}</div><footer><a href={`/${locale}/legal/privacy/`}>Datenschutz</a><a href={`/${locale}/legal/imprint/`}>Impressum</a><a href={`/${locale}/legal/terms/`}>AGB</a><a href={`/${locale}/`}>MLT entdecken</a></footer></article></main>;
 }

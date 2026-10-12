@@ -50,7 +50,7 @@ const routes = [
   "/sales/acquisitions",
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
-  ...locales.flatMap((locale) => [`/${locale}/investments`, `/${locale}/acquisitions`]),
+  ...locales.flatMap((locale) => [`/${locale}/investments`, `/${locale}/acquisitions`, `/${locale}/contact`, `/${locale}/about`]),
   ...locales.map((locale) => `/${locale}/mobile-preview`),
   ...locales.flatMap((locale) => mobilePreviewCollections.map((slug) => `/${locale}/collections/${slug}/mobile-preview`)),
   ...locales.map((locale) => `/${locale}/mobile-site`),

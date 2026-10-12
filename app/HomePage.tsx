@@ -1,10 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState, type MouseEvent } from "react";
+import { useCallback, useEffect, useState } from "react";
 import RealRouteMap from "./plan/RealRouteMap";
 import { mapPoints } from "../content/mlt";
-import { LanguageMenu } from "./LanguageMenu";
-import { AcquisitionsDropdown, CollectionsDropdown, siteNavLabels } from "./SiteNavDropdown";
+import SiteHeader from "./SiteHeader";
 import CollectionCarousel, { scrollCollectionCarouselIntoView } from "./CollectionCarousel";
 
 type SiteLocale = "en" | "de" | "ru" | "it" | "pl";
@@ -90,7 +89,6 @@ const copy = {
 
 export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [locale, setLocale] = useState<SiteLocale>(initialLocale);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [mapCountry, setMapCountry] = useState("All");
   const [mapSelection, setMapSelection] = useState<string[]>(["dolomites", "como"]);
   const [mapDistance, setMapDistance] = useState<number | null>(null);
@@ -136,33 +134,8 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
 
   const localPath = (path: string) => `/${locale}${path}`;
   const toggleMapPoint = (id: string) => setMapSelection((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
-  const scrollToSection = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    event.preventDefault();
-    setMenuOpen(false);
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    history.replaceState(null, "", `${location.pathname}${location.search}`);
-    event.currentTarget.blur();
-  };
-  const changeLocale = (next: SiteLocale) => {
-    localStorage.setItem("mlt-locale", next);
-    window.location.assign(`/${next}/${window.location.hash}`);
-  };
   return <main className="home-light">
-    <header className="light-nav">
-      <span className="light-brand"><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT — Move. Live. Travel." /></span>
-      <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
-        <CollectionsDropdown locale={locale} allHref="#collections" />
-        <a href="#experiences" onClick={(event) => scrollToSection(event, "experiences")}>{t.nav[1]}</a>
-        <a href="#smart-map" onClick={(event) => scrollToSection(event, "smart-map")}>{t.nav[2]}</a>
-        <a href="#about" onClick={(event) => scrollToSection(event, "about")}>{t.nav[3]}</a>
-        <a href={localPath("/investments/")}>{siteNavLabels(locale).investments}</a>
-        <AcquisitionsDropdown locale={locale} />
-      </nav>
-      <div className="light-actions">
-        <LanguageMenu locale={locale} onChange={changeLocale} /><a className="account-nav-link" href={localPath("/account")} aria-label={locale === "ru" ? "Личный кабинет" : "My account"}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M4.5 20c.8-3.7 3.3-5.5 7.5-5.5s6.7 1.8 7.5 5.5" /></svg></a>
-        <button className="light-menu" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu"><span /><span /></button>
-      </div>
-    </header>
+    <SiteHeader locale={locale} isHome />
 
     <section className="light-hero" id="top">
       <picture>
