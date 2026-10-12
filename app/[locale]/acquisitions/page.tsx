@@ -1,7 +1,12 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import type { SiteLocale } from "../layout";
+import Acquisitions from "./Acquisitions";
 
-export default async function AcquisitionsPage({ params }: { params: Promise<{ locale: SiteLocale }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: SiteLocale }> }): Promise<Metadata> {
   const { locale } = await params;
-  return <main className="upcoming-page"><Link href={`/${locale}/`} className="upcoming-brand"><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT" /></Link><h1>Acquisitions</h1><p>Coming soon</p><Link href={`/${locale}/`}>← Back to MLT</Link></main>;
+  return { title: "Certified Motorhomes & Capsule Homes | MLT Acquisitions", description: "Explore certified pre-owned motorhomes and MLT capsule homes, or ask our team to source your ideal residence on wheels.", alternates: { canonical: `/${locale}/acquisitions/` } };
+}
+export default async function Page({ params }: { params: Promise<{ locale: SiteLocale }> }) {
+  const { locale } = await params;
+  return <Acquisitions locale={locale} />;
 }

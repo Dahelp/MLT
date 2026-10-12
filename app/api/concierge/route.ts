@@ -5,6 +5,7 @@ type ConciergeRequest = {
   preferredContact?: unknown; bestTime?: unknown; notes?: unknown;
   collection?: unknown; country?: unknown; guests?: unknown; days?: unknown;
   route?: unknown; rate?: unknown; website?: unknown;
+  source?: unknown; subject?: unknown; context?: unknown; privacyConsent?: unknown;
 };
 
 const clean = (value: unknown, max = 300) => String(value ?? "").trim().slice(0, max);
@@ -17,13 +18,15 @@ export async function POST(request: Request) {
   const firstName = clean(body.firstName, 80);
   const lastName = clean(body.lastName, 80);
   const email = clean(body.email, 160);
+  const source = clean(body.source, 100);
+  if ((["investments", "acquisitions"].includes(source) || /^listing_ID_[0-9]+$/.test(source)) && body.privacyConsent !== true) return NextResponse.json({ error: "Privacy consent is required" }, { status: 400 });
   if (!firstName || !lastName || !/^\S+@\S+\.\S+$/.test(email)) return NextResponse.json({ error: "Please provide a valid name and email" }, { status: 400 });
 
   const reference = `MLT-${Date.now().toString(36).toUpperCase()}`;
   const route = Array.isArray(body.route) ? body.route.map((item) => clean(item, 80)).filter(Boolean).slice(0, 12) : [];
   const lines = [
     "◆ NEW MLT PRIVATE REQUEST", `Reference: ${reference}`, "",
-    `Client: ${firstName} ${lastName}`, `Email: ${email}`, `Phone: ${clean(body.phone, 80) || "Not provided"}`,
+    `Client: ${firstName} ${lastName}`, `Email: ${email}`, `Phone: ${clean(body.phone, 80) || "Not provided"}`, `Subject: ${clean(body.subject, 120)}`, `Source: ${source}`, `Context: ${clean(body.context, 800)}`,
     `Preferred contact: ${clean(body.preferredContact, 40) || "Email"}`, `Best time: ${clean(body.bestTime, 40) || "Not specified"}`, "",
     `Collection: ${clean(body.collection, 80)}`, `Starting country: ${clean(body.country, 80)}`,
     `Travellers: ${clean(body.guests, 40)}`, `Duration: ${clean(body.days, 20)} days`, `Indicative rate: ${clean(body.rate, 80)}`,

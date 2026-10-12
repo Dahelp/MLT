@@ -264,6 +264,7 @@ export default function Account({
 }) {
   const operationsDestination = (role?: string) => {
     const next = new URLSearchParams(location.search).get("next") || "";
+    if (role === "salesmanager") return "/sales/acquisitions/";
     if (role === "manager") return "/manager/chat/";
     if (role === "admin") return "/admin/overview/";
     return /^\/concierge(?:\/|$)/.test(next) ? next : "/concierge/overview/";
@@ -325,7 +326,7 @@ export default function Account({
   const load = async () => {
     try {
       let j = await api("orders");
-    if (["admin", "concierge", "manager"].includes(j.user?.role)) {
+    if (["admin", "concierge", "manager", "salesmanager"].includes(j.user?.role)) {
       localStorage.removeItem("mlt-account-draft");
       setDraft(null);
       location.assign(operationsDestination(j.user?.role));

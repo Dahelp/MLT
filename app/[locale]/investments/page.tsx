@@ -1,7 +1,12 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import type { SiteLocale } from "../layout";
+import Investments from "./Investments";
 
-export default async function InvestmentsPage({ params }: { params: Promise<{ locale: SiteLocale }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: SiteLocale }> }): Promise<Metadata> {
   const { locale } = await params;
-  return <main className="upcoming-page"><Link href={`/${locale}/`} className="upcoming-brand"><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT" /></Link><h1>Investments</h1><p>Coming soon</p><Link href={`/${locale}/`}>← Back to MLT</Link></main>;
+  return { title: "Invest in MLT Motorhomes | MLT", description: "Explore premium motorhome investment with a personal MLT manager and calculate an illustrative 15% annual return.", alternates: { canonical: `/${locale}/investments/` } };
+}
+export default async function Page({ params }: { params: Promise<{ locale: SiteLocale }> }) {
+  const { locale } = await params;
+  return <Investments locale={locale} />;
 }

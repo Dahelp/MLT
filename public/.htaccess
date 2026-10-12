@@ -2,6 +2,7 @@ Options -Indexes
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule ^(en|de|ru|it|pl)/acquisitions/([a-z0-9-]+)/?$ /$1/acquisitions/index.html [L]
   RewriteRule ^(index\.html)?$ /en/ [R=301,L]
   RewriteCond %{HTTP:Sec-CH-UA-Mobile} "^\?1$" [OR]
   RewriteCond %{HTTP_USER_AGENT} "(iPhone|iPod|Windows Phone|IEMobile|Opera Mini|Android.*Mobile)" [NC]

@@ -37,6 +37,10 @@ if ($clean($body['website'] ?? '')) {
 $firstName = $clean($body['firstName'] ?? '', 80);
 $lastName = $clean($body['lastName'] ?? '', 80);
 $email = $clean($body['email'] ?? '', 160);
+$commercial = in_array($clean($body['source'] ?? '', 100), ['investments','acquisitions'], true) || preg_match('/^listing_ID_[0-9]+$/', $clean($body['source'] ?? '', 100));
+if ($commercial) {
+    if (empty($body['privacyConsent'])) { http_response_code(400); echo json_encode(['error' => 'Privacy consent is required']); exit; }
+}
 if (!$firstName || !$lastName || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode(['error' => 'Please provide a valid name and email']);
@@ -46,7 +50,13 @@ if (!$firstName || !$lastName || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $reference = 'MLT-' . strtoupper(substr(base_convert((string)round(microtime(true) * 1000), 10, 36), -8));
 $settings = mlt_settings();
 $database = mlt_db($settings);
-if ($database) mlt_create_order($database, $reference, $body, ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $clean($body['phone'] ?? '', 80)]);
+$stored = false;
+if ($database && $commercial) {
+    $database->exec('CREATE TABLE IF NOT EXISTS mlt_commercial_inquiries (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, reference_code VARCHAR(80) NOT NULL UNIQUE, source VARCHAR(100) NOT NULL, subject VARCHAR(120) NOT NULL, context_text TEXT NULL, first_name VARCHAR(80) NOT NULL, last_name VARCHAR(80) NOT NULL, email VARCHAR(160) NOT NULL, phone VARCHAR(80) NULL, notes TEXT NULL, privacy_consent_at DATETIME NOT NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+    $query = $database->prepare('INSERT INTO mlt_commercial_inquiries (reference_code,source,subject,context_text,first_name,last_name,email,phone,notes,privacy_consent_at) VALUES (?,?,?,?,?,?,?,?,?,NOW())');
+    $query->execute([$reference,$clean($body['source'] ?? '',100),$clean($body['subject'] ?? '',120),$clean($body['context'] ?? '',800),$firstName,$lastName,$email,$clean($body['phone'] ?? '',80),$clean($body['notes'] ?? '',800)]);
+    $stored = true;
+} elseif ($database) mlt_create_order($database, $reference, $body, ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $clean($body['phone'] ?? '', 80)]);
 $token = (string)($settings['telegram_bot_token'] ?? (getenv('TELEGRAM_BOT_TOKEN') ?: ''));
 $chatId = (string)($settings['telegram_chat_id'] ?? (getenv('TELEGRAM_CHAT_ID') ?: ''));
 
@@ -60,6 +70,9 @@ if ($token && $chatId) {
         'Client: ' . $firstName . ' ' . $lastName,
         'Email: ' . $email,
         'Phone: ' . ($clean($body['phone'] ?? '', 80) ?: 'Not provided'),
+        'Subject: ' . $clean($body['subject'] ?? '', 120),
+        'Source: ' . $clean($body['source'] ?? '', 100),
+        'Context: ' . $clean($body['context'] ?? '', 800),
         '',
         'Collection: ' . $clean($body['collection'] ?? '', 80),
         'Vehicle: ' . ($clean($body['vehicle'] ?? '', 80) ?: 'To be confirmed'),
@@ -95,4 +108,4 @@ if ($token && $chatId) {
     exit;
 }
 
-echo json_encode(['ok' => true, 'reference' => $reference, 'delivery' => 'demo']);
+echo json_encode(['ok' => true, 'reference' => $reference, 'delivery' => $stored ? 'database' : 'demo']);
