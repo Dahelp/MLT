@@ -1,6 +1,7 @@
 "use client";
 
 import type { SiteLanguage } from "./LanguageMenu";
+import type { SyntheticEvent } from "react";
 
 const labels = {
   en: { collections: "Collections", all: "All collections", investments: "Investments", acquisitions: "Acquisitions", motorhomes: "Motorhomes", capsules: "Capsule homes", home: "Home", concierge: "Concierge" },
@@ -17,12 +18,24 @@ const collectionNames = [
   ["private", "MLT Private"], ["honeymoon", "MLT Honeymoon"], ["proposal", "MLT Proposal"],
 ] as const;
 
+function closeOtherDropdowns(event: SyntheticEvent<HTMLDetailsElement>) {
+  const current = event.currentTarget;
+  if (!current.open) return;
+  current.closest("nav")?.querySelectorAll<HTMLDetailsElement>("details.mlt-nav-dropdown[open]").forEach(other => {
+    if (other !== current) other.open = false;
+  });
+}
+
+function ChevronIcon() {
+  return <i className="mlt-nav-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" focusable="false"><path d="m3.5 5.75 4.5 4.5 4.5-4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg></i>;
+}
+
 export function CollectionsDropdown({ locale, allHref }: { locale: SiteLanguage; allHref: string }) {
   const t = labels[locale];
-  return <details className="mlt-nav-dropdown"><summary>{t.collections}<span aria-hidden="true">⌄</span></summary><div className="mlt-nav-dropdown-menu"><a href={allHref}>{t.all}</a>{collectionNames.map(([slug, name]) => <a key={slug} href={slug === "proposal" ? `/${locale}/proposal/` : `/${locale}/collections/${slug}/`}>{name}</a>)}</div></details>;
+  return <details className="mlt-nav-dropdown" name="mlt-primary-navigation" onToggle={closeOtherDropdowns}><summary>{t.collections}<ChevronIcon/></summary><div className="mlt-nav-dropdown-menu"><a href={allHref}>{t.all}</a>{collectionNames.map(([slug, name]) => <a key={slug} href={slug === "proposal" ? `/${locale}/proposal/` : `/${locale}/collections/${slug}/`}>{name}</a>)}</div></details>;
 }
 
 export function AcquisitionsDropdown({ locale }: { locale: SiteLanguage }) {
   const t = labels[locale];
-  return <details className="mlt-nav-dropdown"><summary>{t.acquisitions}<span aria-hidden="true">⌄</span></summary><div className="mlt-nav-dropdown-menu"><a href={`/${locale}/acquisitions/`}>{t.motorhomes}</a><a href={`/${locale}/acquisitions/?category=capsule`}>{t.capsules}</a></div></details>;
+  return <details className="mlt-nav-dropdown" name="mlt-primary-navigation" onToggle={closeOtherDropdowns}><summary>{t.acquisitions}<ChevronIcon/></summary><div className="mlt-nav-dropdown-menu"><a href={`/${locale}/acquisitions/`}>{t.motorhomes}</a><a href={`/${locale}/acquisitions/?category=capsule`}>{t.capsules}</a></div></details>;
 }
