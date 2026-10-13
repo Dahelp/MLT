@@ -4,11 +4,11 @@ import type { SiteLanguage } from "./LanguageMenu";
 import type { PointerEvent, SyntheticEvent, MouseEvent } from "react";
 
 const labels = {
-  en: { collections: "Collections", investments: "Investments", acquisitions: "Acquisitions", motorhomes: "Motorhomes", capsules: "Capsule homes", home: "Home", contact: "Contact", about: "About", account: "My account", toggleMenu: "Toggle menu" },
-  de: { collections: "Kollektionen", investments: "Investitionen", acquisitions: "Fahrzeuge kaufen", motorhomes: "Reisemobile", capsules: "Kapselhäuser", home: "Startseite", contact: "Kontakt", about: "Über MLT", account: "Mein Konto", toggleMenu: "Menü öffnen" },
-  ru: { collections: "Коллекции", investments: "Инвестиции", acquisitions: "Покупка", motorhomes: "Автодома", capsules: "Капсульные дома", home: "Главная", contact: "Контакты", about: "О нас", account: "Личный кабинет", toggleMenu: "Открыть меню" },
-  it: { collections: "Collezioni", investments: "Investimenti", acquisitions: "Acquisti", motorhomes: "Camper", capsules: "Case modulari", home: "Home", contact: "Contatti", about: "Chi siamo", account: "Il mio account", toggleMenu: "Apri il menu" },
-  pl: { collections: "Kolekcje", investments: "Inwestycje", acquisitions: "Zakup", motorhomes: "Kampery", capsules: "Domy modułowe", home: "Strona główna", contact: "Kontakt", about: "O nas", account: "Moje konto", toggleMenu: "Otwórz menu" },
+  en: { collections: "Collections", investments: "Investments", acquisitions: "Acquisitions", motorhomes: "Motorhomes", capsules: "Capsule homes", smartMap: "Smart Map", home: "Home", contact: "Contact", about: "About", account: "My account", toggleMenu: "Toggle menu" },
+  de: { collections: "Kollektionen", investments: "Investitionen", acquisitions: "Fahrzeuge kaufen", motorhomes: "Reisemobile", capsules: "Kapselhäuser", smartMap: "Smart Map", home: "Startseite", contact: "Kontakt", about: "Über MLT", account: "Mein Konto", toggleMenu: "Menü öffnen" },
+  ru: { collections: "Коллекции", investments: "Инвестиции", acquisitions: "Покупка", motorhomes: "Автодома", capsules: "Капсульные дома", smartMap: "Умная карта", home: "Главная", contact: "Контакты", about: "О нас", account: "Личный кабинет", toggleMenu: "Открыть меню" },
+  it: { collections: "Collezioni", investments: "Investimenti", acquisitions: "Acquisti", motorhomes: "Camper", capsules: "Case modulari", smartMap: "Mappa intelligente", home: "Home", contact: "Contatti", about: "Chi siamo", account: "Il mio account", toggleMenu: "Apri il menu" },
+  pl: { collections: "Kolekcje", investments: "Inwestycje", acquisitions: "Zakup", motorhomes: "Kampery", capsules: "Domy modułowe", smartMap: "Inteligentna mapa", home: "Strona główna", contact: "Kontakt", about: "O nas", account: "Moje konto", toggleMenu: "Otwórz menu" },
 } as const;
 
 export function siteNavLabels(locale: SiteLanguage) { return labels[locale]; }

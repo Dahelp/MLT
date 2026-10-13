@@ -19,11 +19,10 @@ export default function SiteHeader({ locale, isHome = false }: { locale: SiteLan
   return <header className="light-nav mlt-site-header">
     {isHome ? <span className="light-brand">{logo}</span> : <a className="light-brand" href={home} aria-label="MLT home">{logo}</a>}
     <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
-      <a href={home} aria-current={isHome ? "page" : undefined}>{t.home}</a>
       <CollectionsDropdown locale={locale} />
       <AcquisitionsDropdown locale={locale} />
       <a href={`/${locale}/investments/`}>{t.investments}</a>
-      <a href={`/${locale}/about/`}>{t.about}</a>
+      <a href={`/${locale}/smart-map/`}>{t.smartMap}</a>
       <a href={`/${locale}/contact/`}>{t.contact}</a>
     </nav>
     <div className="light-actions">

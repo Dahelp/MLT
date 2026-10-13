@@ -1,6 +1,7 @@
 "use client";
 import { FormEvent, useEffect, useState } from "react";
 import RealRouteMap from "../plan/RealRouteMap";
+import ChevronIcon from "../ChevronIcon";
 import { mapPoints } from "../../content/mlt";
 import "./account.css";
 type L = "en" | "de" | "ru" | "it" | "pl";
@@ -571,7 +572,6 @@ export default function Account({
             </label>
             <button className="bronze-button">
               {auth === "login" ? t.login : t.register}
-              <span>→</span>
             </button>
           </form>
           <button
@@ -636,7 +636,7 @@ export default function Account({
           </button>
         </nav>
         <a className="client-support" href="mailto:info@mlt-lifestyle.com">
-          {t.support} ↗
+          {t.support}
         </a>
       </aside>
       <section className="client-main">
@@ -659,7 +659,7 @@ export default function Account({
         {toast}
         {tab === "home" && (
           <>
-            {agency && <a className="agency-new-tour bronze-button" href={`/${locale}/#collections`}>{locale === "ru" ? "Добавить новый тур" : locale === "it" ? "Aggiungi un viaggio" : locale === "pl" ? "Dodaj nową podróż" : "Add a new journey"} →</a>}
+            {agency && <a className="agency-new-tour bronze-button" href={`/${locale}/#collections`}>{locale === "ru" ? "Добавить новый тур" : locale === "it" ? "Aggiungi un viaggio" : locale === "pl" ? "Dodaj nową podróż" : "Add a new journey"}</a>}
             <div className="client-widgets">
               <article>
                 <span>
@@ -769,7 +769,7 @@ export default function Account({
                                 setConsent(false);
                               }}
                             >
-                              {t.balance} →
+                              {t.balance}
                             </button>
                           ) : (
                             <>
@@ -780,7 +780,7 @@ export default function Account({
                                   setConsent(false);
                                 }}
                               >
-                                {depositLabel(o)} →
+                                {depositLabel(o)}
                               </button>
                               <button
                                 className="open-order-full"
@@ -790,7 +790,7 @@ export default function Account({
                                   setConsent(false);
                                 }}
                               >
-                                {t.full} →
+                                {t.full}
                               </button>
                             </>
                           )}
@@ -939,7 +939,7 @@ export default function Account({
               <section className="client-empty">
                 <p className="account-eyebrow">MLT</p>
                 <h2>{t.empty}</h2>
-                <a href="/collections/concierge/">{t.explore} →</a>
+                <a href="/collections/concierge/">{t.explore}</a>
               </section>
             )}
           </>
@@ -948,7 +948,7 @@ export default function Account({
           <section className="client-panel">
             <p className="account-eyebrow">{t.journeys}</p>
             <h2>{agency ? (locale === "ru" ? "Все туры агентства" : locale === "it" ? "Tutti i viaggi dell’agenzia" : locale === "pl" ? "Wszystkie podróże biura" : locale === "de" ? "Alle Reisen der Agentur" : "All agency journeys") : t.history}</h2>
-            {agency && <a className="agency-new-tour bronze-button" href={`/${locale}/#collections`}>{locale === "ru" ? "Добавить новый тур" : locale === "it" ? "Aggiungi un viaggio" : locale === "pl" ? "Dodaj nową podróż" : "Add a new journey"} →</a>}
+            {agency && <a className="agency-new-tour bronze-button" href={`/${locale}/#collections`}>{locale === "ru" ? "Добавить новый тур" : locale === "it" ? "Aggiungi un viaggio" : locale === "pl" ? "Dodaj nową podróż" : "Add a new journey"}</a>}
             {pagedOrders.map((o) => (
                 <article className="journey-row" key={o.reference_code}>
                   <div>
@@ -991,11 +991,11 @@ export default function Account({
                     </small>
                   </div>
                   <button onClick={() => setSelectedOrder(o)}>
-                    {t.details} →
+                    {t.details}
                   </button>
                 </article>
               ))}
-            {journeyPageCount > 1 && <nav className="journey-pagination" aria-label={locale === "ru" ? "Страницы туров" : "Journey pages"}><button type="button" disabled={journeyPage === 1} onClick={() => setJourneyPage((page) => page - 1)}>←</button><span>{journeyPage} / {journeyPageCount}</span><button type="button" disabled={journeyPage === journeyPageCount} onClick={() => setJourneyPage((page) => page + 1)}>→</button></nav>}
+            {journeyPageCount > 1 && <nav className="journey-pagination" aria-label={locale === "ru" ? "Страницы туров" : "Journey pages"}><button type="button" disabled={journeyPage === 1} onClick={() => setJourneyPage((page) => page - 1)}><ChevronIcon direction="left" /></button><span>{journeyPage} / {journeyPageCount}</span><button type="button" disabled={journeyPage === journeyPageCount} onClick={() => setJourneyPage((page) => page + 1)}><ChevronIcon direction="right" /></button></nav>}
           </section>
         )}
         {tab === "documents" && (

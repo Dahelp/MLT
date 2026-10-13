@@ -3,7 +3,9 @@ import { cp, mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
-const output = path.join(root, "static-export");
+const output = process.env.MLT_EXPORT_DIR
+  ? path.resolve(root, process.env.MLT_EXPORT_DIR)
+  : path.join(root, "static-export");
 const port = 4173;
 const origin = `http://127.0.0.1:${port}`;
 const pageRoutes = [
@@ -50,7 +52,7 @@ const routes = [
   "/sales/acquisitions",
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
-  ...locales.flatMap((locale) => [`/${locale}/investments`, `/${locale}/acquisitions`, `/${locale}/contact`, `/${locale}/about`]),
+  ...locales.flatMap((locale) => [`/${locale}/investments`, `/${locale}/acquisitions`, `/${locale}/contact`, `/${locale}/about`, `/${locale}/smart-map`]),
   ...locales.map((locale) => `/${locale}/mobile-preview`),
   ...locales.flatMap((locale) => mobilePreviewCollections.map((slug) => `/${locale}/collections/${slug}/mobile-preview`)),
   ...locales.map((locale) => `/${locale}/mobile-site`),

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import RealRouteMap from "./plan/RealRouteMap";
 import { mapPoints } from "../content/mlt";
 import SiteHeader from "./SiteHeader";
+import SiteFooter from "./SiteFooter";
 import CollectionCarousel, { scrollCollectionCarouselIntoView } from "./CollectionCarousel";
 
 type SiteLocale = "en" | "de" | "ru" | "it" | "pl";
@@ -150,7 +151,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
         <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a></div>
       </div>
       <div className="hero-bottom-bar">
-        <a className="light-scroll" href="#about"><span>{t.scroll}</span><i>↓</i></a>
+        <a className="light-scroll" href="#about"><span>{t.scroll}</span></a>
       </div>
     </section>
 
@@ -169,31 +170,31 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
             <picture><img src={item.image} alt={`MLT ${item.name} Collection`} loading="lazy" decoding="async" draggable="false" /></picture>
           </picture>
           <div className="collection-top"><span>0{(index % collections.length) + 1}</span><small>{localizedItem.eyebrow}</small></div>
-          <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{localizedItem.copy}</p><div><span>{locale === "ru" ? item.days.replace("days", "дней") : locale === "de" ? item.days.replace("days", "Tage") : item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}<span>↗</span></span></div>
+          <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{localizedItem.copy}</p><div><span>{locale === "ru" ? item.days.replace("days", "дней") : locale === "de" ? item.days.replace("days", "Tage") : item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}</span></div>
         </article></a>}}/>
     </section>
 
     <section className="light-experiences" id="experiences">
-      <div className="experience-intro" data-home-reveal="left"><p className="light-section-label">03 / {t.nav[1]}</p><h2>{t.reason}</h2><p>{t.reasonCopy}</p><a className="text-button dark" href="#contact">{t.story}<span>→</span></a></div>
+      <div className="experience-intro" data-home-reveal="left"><p className="light-section-label">03 / {t.nav[1]}</p><h2>{t.reason}</h2><p>{t.reasonCopy}</p><a className="text-button dark" href="#contact">{t.story}</a></div>
       <div className="experience-list">{localizedExperiences.map(([number, title], index) => <article key={number} data-home-reveal="right"><img src={experienceImages[index]} alt="" loading="lazy" decoding="async" /><span>{number}</span><div><h3>{title}</h3><p>{index === 0 ? t.pillars[0] : index === 1 ? t.pillars[2] : t.collectionCopy}</p></div></article>)}</div>
     </section>
 
     <section className="light-map" id="smart-map">
       <div className="smart-map-canvas" data-home-reveal="scale">
         <div className="smart-map-country-tabs" aria-label={locale === "ru" ? "Выбор страны" : "Choose country"}>{["All", "Italy", "Austria", "Germany"].map((item) => <button key={item} className={mapCountry === item ? "active" : ""} onClick={() => setMapCountry(item)}>{locale === "ru" ? ({ All: "Все", Italy: "Италия", Austria: "Австрия", Germany: "Германия" } as Record<string, string>)[item] : locale === "de" && item === "All" ? "Alle" : item}</button>)}</div>
-        <a className="smart-map-open" href={localPath("/plan")}>{locale === "ru" ? "Смотреть карту" : locale === "de" ? "Karte ansehen" : locale === "it" ? "Apri la mappa" : locale === "pl" ? "Otwórz mapę" : "View map"} ↗</a>
+        <a className="smart-map-open" href={localPath("/smart-map/")}>{locale === "ru" ? "Смотреть карту" : locale === "de" ? "Karte ansehen" : locale === "it" ? "Apri la mappa" : locale === "pl" ? "Otwórz mapę" : "View map"}</a>
         <RealRouteMap selected={mapSelection} country={mapCountry} onToggle={toggleMapPoint} locale={locale} className="home-route-map" onDistanceChange={onDistanceChange} />
       </div>
-      <div className="map-copy" data-home-reveal="right"><p className="light-section-label">04 / {t.mapLabel}</p><h2>{t.mapTitle}</h2><p>{t.mapCopy}</p><div className="smart-map-selection"><div className="smart-map-selection-heading"><small>{locale === "ru" ? "Выбранные места" : locale === "de" ? "Ausgewählte Orte" : locale === "it" ? "Luoghi selezionati" : locale === "pl" ? "Wybrane miejsca" : "Selected places"}</small><span>{mapSelection.length} / {mapPoints.length}</span></div><div>{mapSelection.length ? mapSelection.map((id, index) => { const point = mapPoints.find((item) => item.id === id); return point && <button key={id} type="button" onClick={() => toggleMapPoint(id)} aria-label={`${locale === "ru" ? "Удалить" : "Remove"} ${point.name}`}><span>{index + 1}</span>{point.name}<b aria-hidden="true">×</b></button>; }) : <p>{locale === "ru" ? "Выберите точки на карте" : locale === "de" ? "Wählen Sie Orte auf der Karte" : "Choose places on the map"}</p>}</div>{mapDistance !== null && <strong className="smart-map-distance">{locale === "ru" ? "Вы проедете" : locale === "de" ? "Sie fahren" : locale === "it" ? "Percorrerai" : locale === "pl" ? "Przejedziesz" : "You will travel"} {mapDistance.toLocaleString(locale)} km</strong>}</div><a className="bronze-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}<span>↗</span></a></div>
+      <div className="map-copy" data-home-reveal="right"><p className="light-section-label">04 / {t.mapLabel}</p><h2>{t.mapTitle}</h2><p>{t.mapCopy}</p><div className="smart-map-selection"><div className="smart-map-selection-heading"><small>{locale === "ru" ? "Выбранные места" : locale === "de" ? "Ausgewählte Orte" : locale === "it" ? "Luoghi selezionati" : locale === "pl" ? "Wybrane miejsca" : "Selected places"}</small><span>{mapSelection.length} / {mapPoints.length}</span></div><div>{mapSelection.length ? mapSelection.map((id, index) => { const point = mapPoints.find((item) => item.id === id); return point && <button key={id} type="button" onClick={() => toggleMapPoint(id)} aria-label={`${locale === "ru" ? "Удалить" : "Remove"} ${point.name}`}><span>{index + 1}</span>{point.name}<b aria-hidden="true">×</b></button>; }) : <p>{locale === "ru" ? "Выберите точки на карте" : locale === "de" ? "Wählen Sie Orte auf der Karte" : "Choose places on the map"}</p>}</div>{mapDistance !== null && <strong className="smart-map-distance">{locale === "ru" ? "Вы проедете" : locale === "de" ? "Sie fahren" : locale === "it" ? "Percorrerai" : locale === "pl" ? "Przejedziesz" : "You will travel"} {mapDistance.toLocaleString(locale)} km</strong>}</div><a className="bronze-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a></div>
     </section>
 
     <section className="light-quote"><p data-home-reveal="up">“{t.quote}”</p><span data-home-reveal="up">{locale === "ru" ? "MLT — Двигайся. Живи. Путешествуй." : "MLT — Move. Live. Travel."}</span></section>
 
     <section className="light-contact" id="contact">
-      <div data-home-reveal="left"><p className="light-section-label">05 / {t.conversation}</p><h2>{t.contactTitle}</h2></div><div data-home-reveal="right"><p>{t.contactCopy}</p><a className="bronze-button" href="mailto:info@mlt-lifestyle.com">{t.start}<span>↗</span></a></div>
+      <div data-home-reveal="left"><p className="light-section-label">05 / {t.conversation}</p><h2>{t.contactTitle}</h2></div><div data-home-reveal="right"><p>{t.contactCopy}</p><a className="bronze-button" href="mailto:info@mlt-lifestyle.com">{t.start}</a></div>
     </section>
 
-    <footer className="light-footer"><div className="light-footer-logo" data-home-reveal="up"><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT — Move. Live. Travel." loading="lazy" decoding="async" /><p>{t.footer}</p></div><div data-home-reveal="up"><strong>{locale === "ru" ? "Разделы" : "Explore"}</strong><a href="#collections">{t.nav[0]}</a><a href="#experiences">{t.nav[1]}</a><a href={localPath("/account")}>{locale === "ru" ? "Личный кабинет" : "My account"}</a></div><div data-home-reveal="up"><strong>{locale === "ru" ? "Документы" : "Legal"}</strong><a href={localPath("/legal/imprint")}>{locale === "ru" ? "Выходные данные" : "Impressum"}</a><a href={localPath("/legal/privacy")}>{locale === "ru" ? "Конфиденциальность" : "Datenschutz"}</a><a href={localPath("/legal/terms")}>{locale === "ru" ? "Условия" : "AGB"}</a></div><div data-home-reveal="up"><strong>{locale === "ru" ? "Контакты" : "Contact"}</strong><a href="mailto:info@mlt-lifestyle.com">info@mlt-lifestyle.com</a><a href="tel:+4917632523799">+49 176 325 23 799</a></div><small data-home-reveal="up">© 2026 MLT Maschinenhandel GmbH Import-Export</small></footer>
+    <SiteFooter locale={locale} reveal />
 
   </main>;
 }

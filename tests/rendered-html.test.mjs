@@ -33,9 +33,9 @@ test("renders the light MLT experience with noindex metadata", async () => {
 test("renders all public MVP routes", async () => {
   const routes = [
     "/en/", "/de/", "/ru/",
-    "/en/plan/", "/de/plan/", "/ru/plan/", "/en/proposal/",
+    "/en/smart-map/", "/de/smart-map/", "/ru/smart-map/", "/it/smart-map/", "/pl/smart-map/",
+    "/en/investments/", "/ru/acquisitions/", "/en/contact/", "/de/about/",
     "/en/collections/freedom/", "/en/collections/signature/", "/en/collections/concierge/", "/en/collections/private/", "/en/collections/honeymoon/", "/en/collections/proposal/",
-    "/de/fleet/explorer/", "/en/fleet/granduca/", "/ru/fleet/compatto/",
     "/en/legal/imprint/", "/de/legal/privacy/", "/ru/legal/terms/",
   ];
   for (const route of routes) {
@@ -46,11 +46,13 @@ test("renders all public MVP routes", async () => {
 });
 
 test("keeps safeguards and critical interactions in source", async () => {
-  const [layout, home, cookies, planner, map, italy, austria, germany, robots, htaccess, gitignore] = await Promise.all([
+  const [layout, home, header, anchors, smartMap, cookies, map, italy, austria, germany, robots, htaccess, gitignore] = await Promise.all([
     readFile(new URL("app/layout.tsx", root), "utf8"),
     readFile(new URL("app/HomePage.tsx", root), "utf8"),
+    readFile(new URL("app/SiteHeader.tsx", root), "utf8"),
+    readFile(new URL("app/AnchorNavigation.tsx", root), "utf8"),
+    readFile(new URL("app/SmartMapPage.tsx", root), "utf8"),
     readFile(new URL("app/CookieConsent.tsx", root), "utf8"),
-    readFile(new URL("app/plan/page.tsx", root), "utf8"),
     readFile(new URL("app/plan/RealRouteMap.tsx", root), "utf8"),
     readFile(new URL("public/data/countries/italy.geojson", root), "utf8"),
     readFile(new URL("public/data/countries/austria.geojson", root), "utf8"),
@@ -64,17 +66,16 @@ test("keeps safeguards and critical interactions in source", async () => {
   assert.match(htaccess, /X-Robots-Tag "noindex, nofollow, noarchive"/);
   assert.match(gitignore, /\.env\*/);
   assert.match(home, /collection-rail/);
-  assert.match(home, /className="light-chat"/);
-  assert.match(home, />RU<\/button>/);
-  assert.match(home, /localStorage\.setItem\("mlt-locale"/);
-  assert.match(home, /localPath\("\/plan"\)/);
-  assert.match(home, /scrollToSection/);
-  assert.match(home, /history\.replaceState\(null, "", `\$\{location\.pathname\}\$\{location\.search\}`\)/);
-  assert.match(cookies, />RU<\/button>/);
+  assert.match(home, /href=\{localPath\("\/smart-map\/"\)\}/);
+  assert.match(header, /\/smart-map\//);
+  assert.doesNotMatch(header, /t\.home|t\.about/);
+  assert.match(anchors, /window\.scrollTo/);
+  assert.match(anchors, /history\.replaceState/);
+  assert.match(smartMap, /<RealRouteMap/);
+  assert.match(smartMap, /<SiteFooter/);
+  assert.match(cookies, /locales\.map\(\(language\)/);
   assert.match(cookies, /Ваша конфиденциальность/);
   assert.match(cookies, /location\.pathname\.split/);
-  assert.match(planner, /mlt-journey-draft/);
-  assert.match(planner, /disabled=\{submitting\}/);
   assert.match(map, /ResizeObserver/);
   assert.match(map, /aria-pressed/);
   assert.match(map, /map-status/);
