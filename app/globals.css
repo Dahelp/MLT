@@ -1185,23 +1185,27 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
 }
 
 /* The map has its own URL and shares the home page's editorial contact band. */
-.smart-map-page-intro { padding: 185px clamp(24px, 7vw, 112px) 75px; background: linear-gradient(135deg, #171a18, #30382f); color: #f8f5f0; }
+.smart-map-page-intro { padding: 145px clamp(24px, 7vw, 112px) 38px; background: linear-gradient(135deg, #171a18, #30382f); color: #f8f5f0; }
 .smart-map-page-intro .light-section-label { color: var(--mlt-bronze-light); }
 .smart-map-page-intro h1 { max-width: 1000px; font-size: clamp(54px, 6.5vw, 100px); line-height: 1.02; }
-.smart-map-page-intro > p:last-child { max-width: 740px; margin: 28px 0 0; color: #e2d9cd; font-size: clamp(19px, 1.6vw, 24px); line-height: 1.55; }
-.smart-map-page-panel { margin-top: 55px; margin-bottom: 0; }
-.smart-map-page-panel .smart-map-canvas { min-height: 680px; }
-.smart-map-page-panel .map-copy { justify-content: flex-start; padding-top: 60px; }
-.smart-map-page-panel .map-copy h2 { margin-bottom: 35px; }
-.smart-map-page .light-contact { margin-top: 55px; }
+.smart-map-page-intro > p:last-child { max-width: 740px; margin: 18px 0 0; color: #e2d9cd; font-size: clamp(19px, 1.6vw, 24px); line-height: 1.55; }
+.smart-map-page-panel { margin-top: 20px; margin-bottom: 0; }
+.smart-map-page-panel .smart-map-canvas { min-height: 510px; }
+.smart-map-page-panel .map-copy { justify-content: flex-start; padding: 12px 28px 20px; }
+.smart-map-page-panel .map-copy > p { margin: 7px 0 12px; }
+.smart-map-page-panel .map-copy h2 { margin-bottom: 16px; }
+.smart-map-page-panel .smart-map-selection { margin-bottom: 10px; }
+.smart-map-collection-button { width: 100%; min-width: 0; display: flex; justify-content: center; text-align: center; }
+.smart-map-page .light-contact { gap: 36px; margin-top: 18px; padding-block: 36px; }
+.smart-map-page .light-contact > div:last-child { gap: 14px; }
 .smart-map-page .light-contact .bronze-button { justify-content: center; text-align: center; }
 .real-map-marker span svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .mlt-chevron-icon { display: block; width: 24px; height: 24px; margin: auto; }
 .bronze-button, .primary-button, .text-button { justify-content: center; text-align: center; }
 @media (max-width: 800px) {
-  .smart-map-page-intro { padding: 145px 24px 55px; }
-  .smart-map-page-panel { margin: 22px 16px 0; grid-template-columns: 1fr; }
-  .smart-map-page-panel .smart-map-canvas { min-height: 450px; }
-  .smart-map-page-panel .map-copy { padding: 30px 24px; }
-  .smart-map-page .light-contact { margin-top: 35px; }
+  .smart-map-page-intro { padding: 112px 24px 30px; }
+  .smart-map-page-panel { margin: 16px 16px 0; grid-template-columns: 1fr; }
+  .smart-map-page-panel .smart-map-canvas { min-height: 380px; }
+  .smart-map-page-panel .map-copy { padding: 24px; }
+  .smart-map-page .light-contact { margin-top: 14px; padding-block: 28px; }
 }
