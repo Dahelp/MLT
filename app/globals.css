@@ -365,7 +365,7 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .upcoming-page h1 { margin: 0; font-size: clamp(36px, 7vw, 72px); font-weight: 400; text-transform: uppercase; letter-spacing: .08em; }
 .upcoming-page p { margin: 0; color: #d3aa86; text-transform: uppercase; letter-spacing: .16em; }
 .upcoming-page > a:last-child { color: #f2f0ed; text-decoration: underline; text-underline-offset: 5px; }
-:root { --mlt-ivory: #f2f0ed; --mlt-paper: #faf8f4; --mlt-sand: #dbc5a6; --mlt-bronze: #b66f31; --mlt-copper: #cd7f32; --mlt-ink: #1a1a1d; --mlt-muted: #6e6962; }
+:root { --mlt-ivory: #f2f0ed; --mlt-paper: #faf8f4; --mlt-sand: #dbc5a6; --mlt-copper: #cd7f32; --mlt-ink: #1a1a1d; --mlt-muted: #6e6962; }
 .home-light { overflow: hidden; color: var(--mlt-ink); background: var(--mlt-paper); font-family: Arial, Helvetica, sans-serif; }
 .home-light * { box-sizing: border-box; }
 .home-light h1, .home-light h2, .home-light h3, .home-light p { margin: 0; }
@@ -1161,6 +1161,12 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
 .header-language-dropdown button:hover,
 .header-language-dropdown button:focus-visible,
 .header-language-dropdown button.active { background: rgba(207, 147, 100, .18); color: #fff !important; }
+.header-language-dropdown button { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.header-language-check { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+@media (min-width: 1181px) and (hover: hover) and (pointer: fine) {
+  .header-language-dropdown::before,
+  .mlt-nav-dropdown-menu::before { content: ""; position: absolute; left: 0; right: 0; height: 22px; top: -22px; }
+}
 
 @media (max-width: 1180px) {
   .mlt-site-header .light-links {

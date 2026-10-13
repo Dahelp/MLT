@@ -122,3 +122,37 @@
   .commercial .investment-note { font-size: 14px; }
   .commercial .investment-results > div { font-size: 16px; }
 }
+
+/* One expandable acquisition search panel; native select arrows are replaced by a drawn icon. */
+.commercial .commercial-button,
+.commercial .commercial-button-outline { justify-content: center; text-align: center; }
+.commercial .market-search-fields .commercial-button { justify-content: center; }
+.commercial .market-card-link { justify-content: center; text-align: center; }
+.commercial .listing-gallery > button { display: grid; place-items: center; }
+.commercial .listing-gallery > button svg { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.commercial .market-search-fields select,
+.commercial .market-results-actions select,
+.commercial .market-advanced select {
+  appearance: none;
+  padding-right: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5 7 5 5 5-5' fill='none' stroke='%2320241f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px 18px;
+}
+.commercial .market-search-more { margin: 0; padding: 0 30px 26px; text-decoration: none; color: var(--mlt-bronze-dark); }
+.commercial .market-search-more .market-search-icon { transition: transform .2s ease; }
+.commercial .market-search-more[aria-expanded="true"] .market-search-icon { transform: rotate(180deg); }
+.commercial .market-search .market-advanced { grid-template-columns: repeat(2, minmax(0, 1fr)) auto; align-items: end; margin: 0; padding: 24px 30px 30px; border-top: 1px solid #d9cec1; background: transparent; }
+.commercial .market-search .market-advanced button { min-width: 160px; }
+.commercial .market-results-actions { margin-left: auto; }
+@media (max-width: 1050px) {
+  .commercial .market-search .market-advanced { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .commercial .market-search .market-advanced button { grid-column: 1 / -1; }
+}
+@media (max-width: 700px) {
+  .commercial .market-search-more { padding: 0 20px 22px; }
+  .commercial .market-search .market-advanced { grid-template-columns: 1fr; padding: 20px; }
+  .commercial .market-search .market-advanced button { grid-column: auto; }
+  .commercial .market-results-actions { margin-left: 0; }
+}
