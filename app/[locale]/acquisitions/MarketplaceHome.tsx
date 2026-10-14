@@ -12,11 +12,21 @@ const ChevronIcon = () => <i className="market-search-icon" aria-hidden="true"><
 export default function MarketplaceHome({ locale, items, loading, onInquiry }: { locale: string; items: Listing[]; loading: boolean; onInquiry: () => void }) {
   const [capsuleMode, setCapsuleMode] = useState(false), [type, setType] = useState("motorhome"), [query, setQuery] = useState(""), [min, setMin] = useState(""), [max, setMax] = useState(""), [year, setYear] = useState(""), [mileage, setMileage] = useState(""), [area, setArea] = useState(""), [sort, setSort] = useState("newest"), [filtersOpen, setFiltersOpen] = useState(false);
   useEffect(() => { setCapsuleMode(new URLSearchParams(window.location.search).get("category") === "capsule"); }, []);
+  const filterOptions = useMemo(() => {
+    const inventory = items.filter(item => !type || item.type === type);
+    const numbers = (values: (string | number | null)[]) => [...new Set(values.filter(value => value !== null && value !== "").map(Number).filter(value => Number.isFinite(value) && value >= 0))].sort((a, b) => a - b);
+    return {
+      models: [...new Set(inventory.map(item => item.title))].sort(),
+      years: numbers(inventory.map(item => item.year)).filter(value => value > 0).reverse(),
+      prices: numbers(inventory.map(item => item.price)),
+      mileages: numbers(inventory.map(item => item.mileage)),
+    };
+  }, [items, type]);
   const results = useMemo(() => items.filter(item =>
     (!type || item.type === type) &&
     (!query || `${item.title} ${item.subtitle} ${item.type}`.toLowerCase().includes(query.toLowerCase())) &&
     (!min || Number(item.price) >= Number(min)) && (!max || Number(item.price) <= Number(max)) &&
-    (!year || item.year === Number(year)) &&
+    (!year || (item.year != null && Number(item.year) >= Number(year))) &&
     (!mileage || item.type !== "motorhome" || (item.mileage ?? Infinity) <= Number(mileage)) &&
     (!area || item.type !== "capsule" || (item.area_m2 ?? 0) >= Number(area))
   ).sort((a, b) => sort === "price-asc" ? Number(a.price) - Number(b.price) : sort === "price-desc" ? Number(b.price) - Number(a.price) : b.id - a.id), [items, type, query, min, max, year, mileage, area, sort]);
@@ -31,9 +41,9 @@ export default function MarketplaceHome({ locale, items, loading, onInquiry }: {
     </section>
 
     <section className="market-search" aria-label="Search residences">
-      <div className="market-search-fields"><label>Search model or residence<input value={query} onChange={event => setQuery(event.target.value)} placeholder="e.g. MLT Explorer" /></label><label>Price up to<select value={max} onChange={event => setMax(event.target.value)}><option value="">Any price</option><option value="100000">€100,000</option><option value="200000">€200,000</option><option value="350000">€350,000</option><option value="500000">€500,000</option></select></label><label>From year<select value={year} onChange={event => setYear(event.target.value)}><option value="">Any year</option>{[2026,2025,2024,2023,2022,2021,2020].map(value => <option value={value} key={value}>{value}</option>)}</select></label><a className="commercial-button" href="#market-results">View {results.length} {results.length === 1 ? "result" : "results"}</a></div>
+      <div className="market-search-fields"><label>Search model or residence<input list="market-model-options" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search listed models" /><datalist id="market-model-options">{filterOptions.models.map(value => <option value={value} key={value}/>)}</datalist></label><label>Price up to<select value={max} onChange={event => setMax(event.target.value)} disabled={loading}><option value="">Any price</option>{filterOptions.prices.map(value => <option value={value} key={value}>{money(value)}</option>)}</select></label><label>From year<select value={year} onChange={event => setYear(event.target.value)} disabled={loading}><option value="">Any year</option>{filterOptions.years.map(value => <option value={value} key={value}>{value}</option>)}</select></label><a className="commercial-button" href="#market-results">View {results.length} {results.length === 1 ? "result" : "results"}</a></div>
       <button className="market-search-more" onClick={() => setFiltersOpen(!filtersOpen)} aria-expanded={filtersOpen} aria-controls="market-advanced-filters">{filtersOpen ? "Fewer search options" : "More search options"}<ChevronIcon/></button>
-      <div className={filtersOpen ? "market-advanced open" : "market-advanced"} id="market-advanced-filters"><label>Minimum price<input type="number" min="0" value={min} onChange={event => setMin(event.target.value)} placeholder="€ Any" /></label><label>Maximum mileage<input type="number" min="0" value={mileage} onChange={event => setMileage(event.target.value)} placeholder="Any km" /></label><button onClick={clear}>Clear filters</button></div>
+      <div className={filtersOpen ? "market-advanced open" : "market-advanced"} id="market-advanced-filters"><label>Minimum price<input type="number" min="0" list="market-price-options" value={min} onChange={event => setMin(event.target.value)} placeholder="€ Any" /><datalist id="market-price-options">{filterOptions.prices.map(value => <option value={value} key={value}/>)}</datalist></label><label>Maximum mileage<select value={mileage} onChange={event => setMileage(event.target.value)} disabled={loading}><option value="">Any mileage</option>{filterOptions.mileages.map(value => <option value={value} key={value}>{new Intl.NumberFormat("en-IE").format(value)} km</option>)}</select></label><button onClick={clear}>Clear filters</button></div>
     </section>
 
     <section className="commercial-section market-results" id="market-results"><div className="market-results-header"><div><p className="commercial-eyebrow">MLT / The marketplace</p><h2>Explore motorhomes</h2><p>{loading ? "Loading residences…" : `${realCount} currently listed ${realCount === 1 ? "residence" : "residences"}${items.some(item => item.demo) ? " · 1 demonstration listing" : ""}`}</p></div><div className="market-results-actions"><label>Sort by<select value={sort} onChange={event => setSort(event.target.value)}><option value="newest">Newest</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option></select></label></div></div>
