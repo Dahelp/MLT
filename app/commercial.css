@@ -157,3 +157,6 @@
   .commercial .market-search .market-advanced button { grid-column: auto; }
   .commercial .market-results-actions { margin-left: 0; }
 }
+
+/* Full source equipment for acquisition listings. */
+.listing-equipment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 3rem}.listing-equipment-grid ul{padding-left:1.2rem;line-height:1.8}.listing-equipment>p{max-width:55rem;color:var(--commercial-muted,#666)}.listing-source details{margin-top:1.5rem}.listing-source summary{cursor:pointer}.listing-information dd{overflow-wrap:anywhere}.sales-editor fieldset{border:1px solid #ddd;padding:1rem}.sales-editor fieldset>div{padding-bottom:1rem;margin-bottom:1rem;border-bottom:1px solid #ddd}@media(max-width:700px){.listing-equipment-grid{grid-template-columns:1fr}}
