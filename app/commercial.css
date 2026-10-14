@@ -163,3 +163,29 @@
 
 /* The four primary acquisition filters remain visible at every breakpoint. */
 .market-search-fields{grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,.8fr)) auto}.market-search-actions{display:flex;justify-content:flex-end;padding:0 30px 22px}.market-search-actions button{background:none;border:0;color:var(--mlt-bronze-dark,#72563f);font-size:15px;font-weight:700;cursor:pointer;text-decoration:underline}.market-search-actions button:focus-visible{outline:2px solid currentColor;outline-offset:4px}@media(max-width:1050px){.market-search-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.market-search-fields>.commercial-button{grid-column:1/-1}}@media(max-width:700px){.market-search-fields{grid-template-columns:minmax(0,1fr)}.market-search-actions{padding:0 20px 20px}}
+
+/* A compact equipment index on the same light surface as vehicle details. */
+.commercial .listing-equipment,.commercial .listing-source{background:#f5f2ec;color:#1c201c;padding-top:45px;padding-bottom:55px}
+.commercial .listing-equipment h2{font-size:clamp(32px,3vw,46px);letter-spacing:-.035em}
+.commercial .listing-equipment>p{font-size:16px;color:#67645d;margin:14px 0 25px}
+.listing-equipment-groups{display:grid;gap:10px}
+.listing-equipment-group{background:#fffdf8;border:1px solid #d8cec1;border-radius:12px;overflow:hidden}
+.listing-equipment-group summary{display:flex;align-items:center;gap:15px;padding:21px 24px;cursor:pointer;list-style:none;font-size:18px;font-weight:600}
+.listing-equipment-group summary::-webkit-details-marker{display:none}
+.listing-equipment-group summary>span:first-child{flex:1}
+.listing-equipment-count{font-size:13px;font-weight:400;color:#777269}
+.listing-equipment-group summary svg{width:20px;height:20px;fill:none;stroke:#8e6647;stroke-width:1.6;flex:none;transition:transform .2s}
+.listing-equipment-group[open] summary svg{transform:rotate(180deg)}
+.listing-equipment-group summary:focus-visible{outline:2px solid #9d714f;outline-offset:-4px}
+.listing-equipment-group ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 32px;margin:0;padding:8px 24px 25px;list-style:none;font-size:16px;line-height:1.5;color:#55564e}
+.listing-equipment-group li{position:relative;padding-left:17px}
+.listing-equipment-group li:before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:#bd9574}
+.commercial .listing-source{padding-top:20px;border-top:1px solid #ded5c8}
+.listing-gallery-stack{min-width:0}
+.listing-thumbnails{display:flex;gap:10px;overflow-x:auto;padding:14px 2px 10px;scrollbar-width:thin;scrollbar-color:#ba9678 #e3dccf;overscroll-behavior-x:contain}
+.listing-thumbnails>button{position:relative;flex:0 0 110px;height:82px;padding:3px;border:2px solid transparent;border-radius:9px;background:#ddd6cb;overflow:hidden}
+.listing-thumbnails>button[aria-pressed="true"]{border-color:#9f704c;background:#f8f3eb}
+.listing-thumbnails>button:focus-visible{outline:2px solid #9f704c;outline-offset:2px}
+.listing-thumbnails img{width:100%;height:100%;object-fit:cover;border-radius:4px;display:block}
+.listing-thumbnails span{position:absolute;bottom:5px;right:6px;background:#1d231dd9;color:#fff;font-size:11px;line-height:1;padding:4px 5px;border-radius:3px}
+@media(max-width:700px){.listing-equipment-group summary{padding:18px;font-size:16px;gap:10px}.listing-equipment-group ul{grid-template-columns:1fr;padding:5px 18px 22px}.listing-thumbnails>button{flex-basis:85px;height:65px}.commercial .listing-equipment,.commercial .listing-source{padding-top:35px;padding-bottom:40px}}
