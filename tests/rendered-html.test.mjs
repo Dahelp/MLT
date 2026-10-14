@@ -45,6 +45,30 @@ test("renders all public MVP routes", async () => {
   }
 });
 
+test("listing URLs render the vehicle in the initial HTML and reject unknown slugs", async () => {
+  const seed = JSON.parse(await readFile(new URL("public/data/acquisitions/mercedes-benz-v-300-marco-polo.json", root), "utf8"));
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (input, ...options) => {
+    if (String(input) === "https://mlt-lifestyle.com/api/acquisitions.php") return Response.json({ items: [{ ...seed, id: 1 }] });
+    return originalFetch(input, ...options);
+  };
+  try {
+    for (const locale of ["en", "ru"]) {
+      const path = `/${locale}/acquisitions/${seed.slug}/`;
+      const response = await render(path);
+      assert.equal(response.status, 200);
+      const html = await response.text();
+      assert.match(html, /<h1>Mercedes-Benz V 300 Marco Polo<\/h1>/);
+      assert.match(html, /<title>Mercedes-Benz V 300 Marco Polo \| MLT Acquisitions<\/title>/);
+      assert.ok(html.includes(`rel="canonical" href="https://mlt-lifestyle.com${path}"`), "Canonical URL must identify the vehicle");
+      assert.ok(html.includes(JSON.parse(seed.images_json)[0]), "First photo must be present without JavaScript");
+      assert.doesNotMatch(html, /Find your next|Explore motorhomes|Loading residence/);
+    }
+    const missing = await render("/en/acquisitions/no-such-vehicle/");
+    assert.equal(missing.status, 404);
+  } finally { globalThis.fetch = originalFetch; }
+});
+
 test("keeps safeguards and critical interactions in source", async () => {
   const [layout, home, header, anchors, smartMap, cookies, map, italy, austria, germany, robots, htaccess, gitignore] = await Promise.all([
     readFile(new URL("app/layout.tsx", root), "utf8"),

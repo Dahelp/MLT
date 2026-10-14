@@ -27,6 +27,13 @@ const pageRoutes = [
   "/legal/terms",
 ];
 const locales = ["en", "de", "ru", "it", "pl"];
+// Each public listing has its own HTML document, never the catalog's document.
+const inventoryResponse = await fetch("https://mlt-lifestyle.com/api/acquisitions.php", { signal: AbortSignal.timeout(30000) });
+if (!inventoryResponse.ok) throw new Error(`Cannot export listing URLs: ${inventoryResponse.status}`);
+const inventory = await inventoryResponse.json();
+if (!Array.isArray(inventory.items)) throw new Error("Invalid acquisition inventory");
+const listingSlugs = [...new Set(inventory.items.map(item => item.slug))];
+if (listingSlugs.some(slug => typeof slug !== "string" || !/^[a-z0-9-]+$/.test(slug))) throw new Error("Invalid acquisition slug");
 const mobilePreviewCollections = ["freedom", "signature", "concierge", "private", "honeymoon"];
 const isMobileRoute = (route) => route === "/mobile-preview"
   || /\/(mobile-preview|mobile-site)$/.test(route);
@@ -53,6 +60,7 @@ const routes = [
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
   ...locales.flatMap((locale) => [`/${locale}/investments`, `/${locale}/acquisitions`, `/${locale}/contact`, `/${locale}/about`, `/${locale}/smart-map`]),
+  ...locales.flatMap(locale => listingSlugs.map(slug => `/${locale}/acquisitions/${slug}`)),
   ...locales.map((locale) => `/${locale}/mobile-preview`),
   ...locales.flatMap((locale) => mobilePreviewCollections.map((slug) => `/${locale}/collections/${slug}/mobile-preview`)),
   ...locales.map((locale) => `/${locale}/mobile-site`),
@@ -92,6 +100,9 @@ try {
     const response = await fetch(`${origin}${route}`);
     if (!response.ok) throw new Error(`Failed to render ${route}: ${response.status}`);
     let html = await response.text();
+    if (/\/(en|de|ru|it|pl)\/acquisitions\/[a-z0-9-]+$/.test(route) && (!html.includes('class="listing-heading') || html.includes('class="market-hero'))) {
+      throw new Error(`Listing URL did not render its detail document: ${route}`);
+    }
     if (isMobileRoute(route)) {
       html = html.replace(
         /(<meta\s+name=["']viewport["']\s+content=["'][^"']*)(["'])/i,
