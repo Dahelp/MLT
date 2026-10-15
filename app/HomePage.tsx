@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import RealRouteMap from "./plan/RealRouteMap";
 import { mapPoints } from "../content/mlt";
 import SiteHeader from "./SiteHeader";
+import HeroVideo from "./HeroVideo";
 import SiteFooter from "./SiteFooter";
 import CollectionCarousel, { scrollCollectionCarouselIntoView } from "./CollectionCarousel";
 
@@ -138,20 +139,13 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   return <main className="home-light">
     <SiteHeader locale={locale} isHome />
 
-    <section className="light-hero" id="top">
-      <picture>
-        <source srcSet="/hero-mediterranean-sunset.avif" type="image/avif" />
-        <source srcSet="/hero-mediterranean-sunset.webp" type="image/webp" />
-        <img className="light-hero-image" src="/hero-mediterranean-sunset.jpg" alt="MLT motorhome overlooking the Mediterranean coast at sunset" fetchPriority="high" decoding="async" />
-      </picture>
+    <section className="light-hero light-video-hero" id="top">
+      <HeroVideo locale={locale} />
       <div className="light-hero-wash" />
-      <div className="light-hero-copy hero-copy-enter">
-        <p className="light-eyebrow"><span />{t.eyebrow}</p>
+      <div className="light-hero-copy">
+        <h1>{({ en: "Individual Motorhome Expeditions", de: "Individuelle Wohnmobil-Expeditionen", ru: "Индивидуальные экспедиции на автодомах", it: "Spedizioni individuali in motorhome", pl: "Indywidualne wyprawy kamperem" })[locale]}</h1>
         <p>{t.hero}</p>
         <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a></div>
-      </div>
-      <div className="hero-bottom-bar">
-        <a className="light-scroll" href="#about"><span>{t.scroll}</span></a>
       </div>
     </section>
 

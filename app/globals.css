@@ -1209,3 +1209,28 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
   .smart-map-page-panel .map-copy { padding: 24px; }
   .smart-map-page .light-contact { margin-top: 14px; padding-block: 28px; }
 }
+
+/* Homepage video and typography follow the Mediterranean hero reference. */
+@font-face{font-family:"PT Serif";src:url('/fonts/pt-serif/pt-serif_regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"PT Serif";src:url('/fonts/pt-serif/pt-serif_bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+.light-video-hero{isolation:isolate;overflow:hidden;background:#c7ae8c;color:#594026}
+.light-video-hero .light-hero-wash{background:linear-gradient(180deg,rgba(255,248,233,.72),rgba(255,241,211,.4) 34%,transparent 58%);pointer-events:none}
+.light-video-hero .light-hero-copy{top:22.5%;left:12%;width:76%;text-align:left;transform:none}
+.light-video-hero .light-hero-copy::before{content:none}
+.light-video-hero h1{max-width:1100px;font:700 clamp(30px,3.3vw,60px)/1.15 "PT Serif",Georgia,serif;letter-spacing:0;text-wrap:balance;text-shadow:none}
+.light-video-hero .light-hero-copy>p{max-width:600px;margin:10px 0 0;font-size:clamp(15px,1.1vw,20px);font-weight:600;line-height:1.2;letter-spacing:.025em;text-shadow:none}
+.light-video-hero .light-hero-buttons{justify-content:flex-start;margin-top:12px}
+.light-video-hero .hero-collection-button{min-width:0;min-height:36px;padding:9px 14px;font-size:11px;text-transform:none;letter-spacing:.025em}
+.hero-video-toggle{position:absolute;z-index:6;left:24px;bottom:24px;display:grid;place-items:center;width:40px;height:40px;border:1px solid #ffffff90;border-radius:50%;color:#fff;background:#30251f66;cursor:pointer}
+.hero-video-toggle svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.hero-video-toggle:focus-visible{outline:2px solid #fff;outline-offset:4px}
+@media(max-width:800px){
+ .light-video-hero{min-height:620px;height:100svh}
+ .light-video-hero .light-hero-copy{top:21%;left:24px;width:calc(100% - 48px)}
+ .light-video-hero h1{max-width:600px;font-size:clamp(30px,7vw,48px);line-height:1.12}
+ .light-video-hero .light-hero-copy>p{max-width:450px;font-size:15px;line-height:1.4}
+ .light-video-hero .light-hero-buttons{align-items:flex-start}
+ .light-video-hero .hero-collection-button{min-height:44px;font-size:12px}
+ .light-video-hero .light-hero-wash{background:linear-gradient(180deg,rgba(255,248,233,.88),rgba(255,241,211,.65) 43%,transparent 75%)}
+ .light-video-hero .light-hero-image{object-position:62% center}
+}
