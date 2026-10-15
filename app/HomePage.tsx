@@ -18,17 +18,7 @@ const collections = [
   { id: "honeymoon", name: "Honeymoon", image: "/collection-honeymoon-carousel-v2.jpg", eyebrow: "A private journey for two", copy: "Romantic roads, private stays and beautiful moments composed entirely around the two of you.", rate: "From €5,900 for 7 days", days: "7–14 days" },
 ] as const;
 
-// Keep enough real slides around the active card to fill wide screens in both
-// directions. Swiper still owns the loop; unlike the old implementation there
-// is no transition-end recentering, so dragging remains stable.
-const experiences = [
-  ["01", "Family expedition", "Routes created around wonder — lakes, mountains, castles and unhurried evenings."],
-  ["02", "Romantic escape", "Sunset roads, private dinners and a horizon that belongs only to you."],
-  ["03", "Wine journey", "Private vineyards, meetings with winemakers and the finest roads between them."],
-  ["04", "CEO escape", "No inbox. No schedule. Just quiet roads, mountains and room to think again."],
-] as const;
 const philosophyImages = ["/philosophy-curated-routes.webp", "/philosophy-personal-concierge.webp", "/experience-wine-v2.webp"];
-const experienceImages = ["/concierge-family-dolomites.jpg", "/signature-route-mediterranean.jpg", "/experience-wine-v2.webp", "/route-alpine.jpg"];
 
 const russianCollections = [
   { eyebrow: "Самостоятельные открытия", copy: "Полностью оборудованный премиальный автодом, продуманная карта и свобода следовать собственному ритму.", rate: "От €1 490 за 7 дней" },
@@ -60,20 +50,10 @@ const polishCollections = [
   { eyebrow:"Prywatna podróż we dwoje", copy:"Romantyczne drogi, prywatne postoje i chwile przygotowane tylko dla Was.", rate:"Od €5 900 za 7 dni" },
 ] as const;
 
-const russianExperiences = [
-  ["01", "Семейная экспедиция", "Маршруты, созданные для открытий: озёра, горы, замки и неспешные вечера."],
-  ["02", "Романтическое путешествие", "Закатные дороги, приватные ужины и горизонт, который принадлежит только вам."],
-  ["03", "Винное путешествие", "Частные виноградники, встречи с виноделами и лучшие дороги между ними."],
-  ["04", "Перезагрузка руководителя", "Без почты и расписания. Только тихие дороги, горы и пространство, чтобы снова ясно мыслить."],
-] as const;
-const germanExperiences = [
-  ["01", "Familienexpedition", "Routen voller Entdeckungen — Seen, Berge, Schlösser und entspannte Abende."],
-  ["02", "Romantische Reise", "Straßen im Abendlicht, private Dinner und ein Horizont nur für Sie beide."],
-  ["03", "Weinreise", "Private Weingüter, Begegnungen mit Winzern und die schönsten Straßen dazwischen."],
-  ["04", "CEO-Auszeit", "Kein Posteingang. Kein Terminkalender. Nur ruhige Straßen und Raum zum Nachdenken."],
-] as const;
-const italianExperiences = [["01","Viaggio in famiglia","Laghi, montagne, castelli e serate senza fretta."],["02","Fuga romantica","Strade al tramonto, cene private e un orizzonte solo vostro."],["03","Viaggio nel vino","Vigneti privati, incontri con produttori e strade magnifiche."],["04","Pausa per dirigenti","Niente email o agenda. Solo strade tranquille e spazio per riflettere."]] as const;
-const polishExperiences = [["01","Rodzinna wyprawa","Jeziora, góry, zamki i spokojne wieczory."],["02","Romantyczny wyjazd","Drogi o zachodzie słońca i prywatne kolacje."],["03","Podróż winiarska","Prywatne winnice, spotkania z winiarzami i piękne drogi."],["04","Wypoczynek dla lidera","Bez poczty i terminarza. Tylko spokojne drogi i przestrzeń do myślenia."]] as const;
+
+
+
+
 
 const baseCopy = {
   en: {
@@ -96,7 +76,6 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
   const [mapDistance, setMapDistance] = useState<number | null>(null);
   const onDistanceChange = useCallback((kilometres: number | null) => setMapDistance(kilometres), []);
   const t = copy[locale];
-  const localizedExperiences = locale === "ru" ? russianExperiences : locale === "de" ? germanExperiences : locale === "it" ? italianExperiences : locale === "pl" ? polishExperiences : experiences;
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -168,9 +147,10 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
         </article></a>}}/>
     </section>
 
-    <section className="light-experiences" id="experiences">
+    <section className="light-experiences experience-panorama" id="experiences">
+      <img className="experience-panorama-image" src="/experience-riviera-panorama.webp" alt="" loading="lazy" decoding="async" />
       <div className="experience-intro" data-home-reveal="left"><p className="light-section-label">03 / {t.nav[1]}</p><h2>{t.reason}</h2><p>{t.reasonCopy}</p><a className="text-button dark" href="#contact">{t.story}</a></div>
-      <div className="experience-list">{localizedExperiences.map(([number, title], index) => <article key={number} data-home-reveal="right"><img src={experienceImages[index]} alt="" loading="lazy" decoding="async" /><span>{number}</span><div><h3>{title}</h3><p>{index === 0 ? t.pillars[0] : index === 1 ? t.pillars[2] : t.collectionCopy}</p></div></article>)}</div>
+
     </section>
 
     <section className="light-map" id="smart-map">

@@ -1,0 +1,4 @@
+Mode: built-in ImageGen, reference-guided generation.
+Output: public/experience-riviera-panorama.webp
+Reference: output/visual-concepts/01-living-atlas.png, Experiences panorama.
+Prompt: Faithfully recreate the coastal Experiences scene as a standalone wide panoramic editorial travel photograph. Mediterranean Riviera sunset, golden sun and sea on left, curved mountainous coastline with terracotta village, cypress trees on right. Relaxed adult couple seen from behind seated on a low stone wall at lower right, man in pale blue linen and woman with long light brown hair. Premium ivory/silver camper partially at right edge with subtle copper MLT wordmark. Keep couple and camper in rightmost 45%; open coast and sky on left for a separate CSS gradient and live dark text. Warm natural travel photography; no artificial panel, website UI, captions, numbers or green marks.
