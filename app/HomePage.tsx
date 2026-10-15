@@ -27,7 +27,7 @@ const experiences = [
   ["03", "Wine journey", "Private vineyards, meetings with winemakers and the finest roads between them."],
   ["04", "CEO escape", "No inbox. No schedule. Just quiet roads, mountains and room to think again."],
 ] as const;
-const philosophyImages = ["/route-mediterranean.jpg", "/collection-private-carousel-v2.jpg", "/experience-wine-v2.webp"];
+const philosophyImages = ["/philosophy-curated-routes.webp", "/philosophy-personal-concierge.webp", "/experience-wine-v2.webp"];
 const experienceImages = ["/concierge-family-dolomites.jpg", "/signature-route-mediterranean.jpg", "/experience-wine-v2.webp", "/route-alpine.jpg"];
 
 const russianCollections = [
@@ -152,7 +152,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     <section className="light-philosophy" id="about">
       <p className="light-section-label" data-home-reveal="up">01 / {t.philosophy}</p>
       <div className="philosophy-grid"><h2 data-home-reveal="left">{t.freedom}</h2><p data-home-reveal="right">{t.freedomCopy}</p></div>
-      <div className="value-row">{t.pillars.map((item, index) => <article key={item} data-home-reveal="up"><img src={philosophyImages[index]} alt="" loading="lazy" decoding="async" /><div><span>0{index + 1}</span><h3>{item}</h3></div></article>)}</div>
+      <div className="value-row">{t.pillars.map((item, index) => <article key={item} data-home-reveal="up"><img src={philosophyImages[index]} alt="" loading="lazy" decoding="async" /><div><h3>{item}</h3></div></article>)}</div>
     </section>
 
     <section className="light-collections" id="collections">

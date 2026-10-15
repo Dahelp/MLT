@@ -21,3 +21,8 @@
 .videoHero .heroCopy h1{margin:0;font:700 clamp(30px,7vw,38px)/1.12 "PT Serif",Georgia,serif;letter-spacing:0}
 .videoHero .heroCopy span{margin-top:10px;font:600 15px/1.4 Arial,Helvetica,sans-serif;letter-spacing:.025em}
 .videoHero .heroCopy a{margin-top:12px;min-height:44px;padding:12px 14px;border:1px solid #a27250;border-radius:10px;font:600 12px/1.4 Arial,Helvetica,sans-serif;letter-spacing:.025em;text-transform:none;text-align:center;background:linear-gradient(112deg,#a27250,#cf9364 55%,#d09b70)}
+
+.pillars{grid-template-columns:minmax(0,1fr);gap:16px}
+.pillars img{display:block;height:clamp(180px,55vw,220px);object-fit:cover;object-position:center}
+.pillars h3{font-size:24px;line-height:1.25;padding:16px 12px}
+@media(max-width:380px){.pillars h3{font-size:21px}}

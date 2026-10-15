@@ -1272,3 +1272,7 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
  .mlt-site-header .header-language-trigger>svg{display:none}
  .mlt-site-header .account-nav-link,.mlt-site-header .light-menu{width:34px;height:34px}
 }
+
+/* Philosophy card titles are 1.5 times their previous size, without indices. */
+.home-light .value-row h3{margin-top:0;font-size:clamp(30px,2.025vw,37.5px)}
+.home-light .value-row article:nth-child(1) img,.home-light .value-row article:nth-child(2) img{object-position:center}

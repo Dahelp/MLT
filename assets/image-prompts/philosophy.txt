@@ -1,0 +1,8 @@
+Image generation: built-in ImageGen, reference-guided generation.
+Reference: output/visual-concepts/01-living-atlas.png, philosophy section.
+
+public/philosophy-curated-routes.webp
+Prompt: Recreate the first philosophy photograph as a standalone wide editorial travel photo. Fully clothed relaxed couple seated on camping chairs on a grassy alpine overlook beside a premium camper with open sliding door, Dolomite mountain panorama and warm evening light. Natural realistic faces and hands, earthy colors. Keep people within safe central crop. No website UI, numbers, labels or checkmarks.
+
+public/philosophy-personal-concierge.webp
+Prompt: Recreate the second philosophy photograph as a standalone wide editorial travel photo. Friendly personal concierge in white polo seen from behind talking with an adult couple in beige linen and pale blue casual clothing beside a premium silver motorhome. Mountain skyline, natural golden-hour light, small copper MLT polo embroidery. Approachable personal service, not suited chauffeur. Realistic faces and hands; keep faces safely inside wide card crop. No website UI, numbers, labels or checkmarks.
