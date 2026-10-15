@@ -1283,7 +1283,7 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
 .experience-panorama::before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,var(--mlt-paper) 0%,var(--mlt-paper) 25%,rgba(250,248,244,.94) 34%,rgba(250,248,244,.45) 47%,rgba(250,248,244,0) 64%);pointer-events:none}
 .home-light .experience-panorama .experience-intro{position:relative;width:46%;max-width:610px;align-self:center}
 .experience-panorama .experience-intro .light-section-label{margin:0 0 20px!important}
-.experience-panorama .experience-intro h2{font-size:clamp(34px,3.4vw,62px);line-height:1.08;letter-spacing:-.04em}
+.experience-panorama .experience-intro h2{font-family:var(--mlt-font-ui);font-weight:700;font-size:clamp(34px,3vw,54px);line-height:1.08;letter-spacing:-.04em}
 .experience-panorama .experience-intro>p:not(.light-section-label){max-width:490px;margin:18px 0 22px;font-size:clamp(15px,1.05vw,18px);line-height:1.55}
 .experience-panorama .text-button{min-height:44px;background:rgba(250,248,244,.4)}
 @media(max-width:800px){
