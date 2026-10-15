@@ -15,15 +15,15 @@ export default function SiteHeader({ locale, isHome = false }: { locale: SiteLan
     else parts.splice(1, 0, next);
     window.location.assign(parts.join("/") + window.location.search);
   };
-  const logo = <img src="/mlt-logo.svg?v=20261006-vector" alt="MLT — Move. Live. Travel." />;
+  const logo = <img src="/mlt-logo-header.svg?v=20261015" alt="MLT — Move. Live. Travel." />;
   return <header className="light-nav mlt-site-header">
     {isHome ? <span className="light-brand">{logo}</span> : <a className="light-brand" href={home} aria-label="MLT home">{logo}</a>}
     <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
-      <CollectionsDropdown locale={locale} />
+      <div className="site-nav-left"><CollectionsDropdown locale={locale} />
       <AcquisitionsDropdown locale={locale} />
-      <a href={`/${locale}/investments/`}>{t.investments}</a>
-      <a href={`/${locale}/smart-map/`}>{t.smartMap}</a>
-      <a href={`/${locale}/contact/`}>{t.contact}</a>
+      <a href={`/${locale}/investments/`}>{t.investments}</a></div>
+      <div className="site-nav-right"><a href={`/${locale}/smart-map/`}>{t.smartMap}</a>
+      <a href={`/${locale}/contact/`}>{t.contact}</a></div>
     </nav>
     <div className="light-actions">
       <LanguageMenu locale={locale} onChange={changeLocale} />

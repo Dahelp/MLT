@@ -36,3 +36,26 @@
 .mobileMenu nav :global(.mlt-nav-dropdown-menu a) { font-family: var(--mlt-font-ui)!important; font-size: 16px!important; }
 .languageCheck { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 @media (hover: hover) and (pointer: fine) { .languageMenu::before { content: ""; position: absolute; left: 0; right: 0; top: -8px; height: 8px; } }
+
+/* Light navigation from the Mediterranean PDF, including expanded menus. */
+.overlay{top:env(safe-area-inset-top,0px);left:0;right:0}
+.header,.overlay .header{height:100px;padding:0 14px;border:0;border-radius:0;background:linear-gradient(180deg,rgba(250,248,244,.85),rgba(248,243,235,.5) 72%,transparent);backdrop-filter:none}
+.logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1}
+.header .logo img,.overlay .logo img,.light .logo img{display:block;width:108px;height:43.2px;object-fit:contain}
+.actions{width:100%;justify-content:flex-end;gap:6px}
+.header button,.overlay .header button,.iconButton,.overlay .iconButton{border-color:#746e65;color:#625d55;background:transparent}
+.actions>.iconButton:last-child{position:absolute;left:0}
+.header .iconButton{width:34px;height:34px;min-width:34px;padding:0}
+.header .language{width:62px;height:34px;min-width:62px;padding:0 7px!important;gap:5px}
+.language>svg:first-child{display:none}
+.languageMenu,.overlay .languageMenu,.mobileMenu,.overlay .mobileMenu{background:#f8f3eb;color:#925321;border-color:#c6b7a450;box-shadow:0 16px 30px #59402620}
+.languageMenu button,.overlay .languageMenu button{color:#925321;font-weight:400}
+.languageMenu button:hover,.languageMenu button:focus-visible,.overlay .languageMenu button:hover,.overlay .languageMenu button:focus-visible,.languageMenu .activeLanguage,.overlay .languageMenu .activeLanguage{background:#a2725012;color:#925321}
+.mobileMenu,.overlay .mobileMenu{top:0;left:0;right:0;padding-top:calc(23px + env(safe-area-inset-top,0px))}
+.mobileMenuHead{border-bottom-color:#a2725025}
+.mobileMenuHead button{color:#625d55;border-color:#746e65}
+.mobileMenu>p{color:#925321}
+.mobileMenu nav>a,.mobileMenu nav :global(.mlt-nav-dropdown)>summary,.mobileMenu nav :global(.mlt-nav-dropdown-menu a){font:400 16px/1.35 var(--mlt-font-ui)!important;letter-spacing:.04em!important;text-transform:uppercase!important;color:#925321!important;border-bottom-color:#a2725025}
+.mobileMenu nav :global(.mlt-nav-dropdown-menu){border-left-color:#a2725030;background:transparent}
+.mobileMenu nav :global(.mlt-nav-dropdown-menu a):hover,.mobileMenu nav>a:hover{background:#a2725012}
+.mobileMenuBottom a{color:#925321}

@@ -1234,3 +1234,41 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
  .light-video-hero .light-hero-wash{background:linear-gradient(180deg,rgba(255,248,233,.88),rgba(255,241,211,.65) 43%,transparent 75%)}
  .light-video-hero .light-hero-image{object-position:62% center}
 }
+
+/* PDF navigation: light surface, balanced groups and a measured central logo. */
+.mlt-site-header{--nav-paper:#f8f3eb;--nav-ink:#925321;position:absolute;top:0;left:0;width:100%;height:clamp(100px,7.7vw,140px);display:flex;align-items:center;padding:0 4.8vw 0 12vw;border:0;border-radius:0;background:linear-gradient(180deg,rgba(250,248,244,.85),rgba(248,243,235,.5) 72%,rgba(248,243,235,0));box-shadow:none;backdrop-filter:none;transform:none}
+.mlt-site-header .light-brand{position:absolute;left:50%;top:50%;width:clamp(150px,12.3vw,240px);height:auto;aspect-ratio:40.1825/14.8722;transform:translate(-50%,-50%)}
+.mlt-site-header .light-brand img{width:100%;height:100%;object-fit:contain}
+.mlt-site-header .light-links{display:flex;align-items:center;justify-content:space-between;width:100%;gap:0}
+.mlt-site-header .site-nav-left,.mlt-site-header .site-nav-right{display:flex;align-items:center;gap:clamp(20px,2vw,36px)}
+.mlt-site-header .site-nav-right{margin-right:clamp(170px,14.5vw,250px)}
+.mlt-site-header .light-links a,.mlt-site-header .mlt-nav-dropdown>summary{font-family:var(--mlt-font-ui);font-size:clamp(12px,.95vw,16px);font-weight:400;line-height:1.35;letter-spacing:.04em;text-transform:uppercase;text-shadow:none;color:var(--nav-ink)}
+.mlt-site-header .mlt-nav-dropdown{color:var(--nav-ink)}
+.mlt-site-header .mlt-nav-dropdown-menu,.mlt-site-header .header-language-dropdown{background:var(--nav-paper);border:1px solid #c6b7a450;border-radius:10px;box-shadow:0 12px 28px #59402618}
+.mlt-site-header .mlt-nav-dropdown-menu a{color:var(--nav-ink)!important;font-size:clamp(12px,.95vw,16px)!important;font-weight:400;letter-spacing:.04em!important;text-transform:uppercase!important}
+.mlt-site-header .mlt-nav-dropdown-menu a:hover,.mlt-site-header .mlt-nav-dropdown-menu a:focus-visible,.mlt-site-header .header-language-dropdown button:hover,.mlt-site-header .header-language-dropdown button:focus-visible,.mlt-site-header .header-language-dropdown button.active{background:#a2725012;color:var(--nav-ink)!important}
+.mlt-site-header .light-actions{position:absolute;right:4.8vw;top:50%;transform:translateY(-50%);gap:12px}
+.mlt-site-header .header-language-trigger,.mlt-site-header .account-nav-link,.mlt-site-header .light-menu{border-color:#746e65;color:#625d55;background:transparent;box-shadow:none}
+.mlt-site-header .header-language-trigger span{font-weight:400;font-size:14px;letter-spacing:.025em}
+.mlt-site-header .header-language-dropdown button{color:var(--nav-ink);font-weight:400}
+.mlt-site-header .light-menu span{background:#625d55}
+@media(max-width:1180px){
+ .mlt-site-header{height:100px;padding:0 20px}
+ .mlt-site-header .light-brand{width:132px}
+ .mlt-site-header .light-actions{right:20px;left:20px;justify-content:flex-end}
+ .mlt-site-header .light-menu{position:absolute;left:0}
+ .mlt-site-header .light-links{display:none;top:100%;left:16px;right:16px;width:auto;max-height:calc(100dvh - 116px);padding:20px;background:var(--nav-paper);border:1px solid #c6b7a450;border-radius:12px;box-shadow:0 16px 30px #59402620}
+ .mlt-site-header .light-links.open{display:flex;align-items:stretch;flex-direction:column;gap:0}
+ .mlt-site-header .site-nav-left,.mlt-site-header .site-nav-right{display:flex;align-items:stretch;flex-direction:column;gap:0;margin:0}
+ .mlt-site-header .site-nav-left>a,.mlt-site-header .site-nav-right>a,.mlt-site-header .mlt-nav-dropdown>summary{display:flex;align-items:center;min-height:54px;padding:13px 5px;border-bottom:1px solid #a2725025;font-size:16px;color:var(--nav-ink)}
+ .mlt-site-header .mlt-nav-dropdown[open]>summary{color:var(--nav-ink)}
+ .mlt-site-header .mlt-nav-dropdown-menu{background:transparent;border:0;border-left:1px solid #a2725030;border-radius:0;box-shadow:none}
+ .mlt-site-header .mlt-nav-dropdown-menu a{font-size:16px!important}
+}
+@media(max-width:480px){
+ .mlt-site-header .light-brand{width:108px}
+ .mlt-site-header .light-actions{right:14px;left:14px;gap:6px}
+ .mlt-site-header .header-language-trigger{width:62px;height:34px;padding:0 7px;gap:5px}
+ .mlt-site-header .header-language-trigger>svg{display:none}
+ .mlt-site-header .account-nav-link,.mlt-site-header .light-menu{width:34px;height:34px}
+}
