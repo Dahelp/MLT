@@ -7,6 +7,7 @@ import JourneyFieldEnhancer from "./concierge/JourneyFieldEnhancer";
 import AnchorNavigation from "./AnchorNavigation";
 import { viewportDiagnosticScript } from "./viewportDiagnostics";
 import ViewportDiagnostics from "./ViewportDebugPanel";
+import { mobileHomeViewportScript } from "./mobileHomeViewport";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mlt-lifestyle.com"),
@@ -43,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head><script dangerouslySetInnerHTML={{ __html: viewportDiagnosticScript }} /></head>
+      <head><script dangerouslySetInnerHTML={{ __html: viewportDiagnosticScript + mobileHomeViewportScript }} /></head>
       <body>{children}<AnchorNavigation /><ViewportDiagnostics /><JourneyFieldEnhancer /><ChatWidget /><CookieConsent /></body>
     </html>
   );

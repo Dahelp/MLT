@@ -30,7 +30,7 @@ export const viewportDiagnosticScript = String.raw`(() => {
     log.push(sample);
     if (log.length > 80) log.shift();
   };
-  ['load', 'pageshow', 'resize', 'scroll', 'touchend', 'pagehide'].forEach(type => window.addEventListener(type, record, { passive: true }));
+  ['load', 'pageshow', 'resize', 'scroll', 'touchstart', 'touchend', 'pagehide'].forEach(type => window.addEventListener(type, record, { passive: true }));
   window.visualViewport?.addEventListener('resize', () => record('visual-resize'), { passive: true });
   window.visualViewport?.addEventListener('scroll', () => record('visual-scroll'), { passive: true });
   document.addEventListener('DOMContentLoaded', () => record('dom-ready'), { once: true });

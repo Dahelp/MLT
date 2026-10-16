@@ -14,7 +14,7 @@
 .phone { overflow: clip; }
 
 /* Match the production desktop video hero on the separate mobile route. */
-.videoHero{height:100svh;min-height:620px;color:#594026;background:#c7ae8c;overflow:hidden}
+.videoHero{height:var(--mlt-mobile-hero-height,100svh);min-height:620px;color:#594026;background:#c7ae8c;overflow:hidden}
 .videoHero:after{pointer-events:none;background:linear-gradient(180deg,rgba(255,248,233,.88),rgba(255,241,211,.65) 43%,transparent 75%)}
 .videoHero>video{object-position:62% center}
 .videoHero .heroCopy{top:21%;left:24px;right:24px;text-align:left}
