@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./chat.css";
 import "./hero-banners.css";
+import "./hero-motion.css";
 import CookieConsent from "./CookieConsent";
 import ChatWidget from "./ChatWidget";
 import JourneyFieldEnhancer from "./concierge/JourneyFieldEnhancer";

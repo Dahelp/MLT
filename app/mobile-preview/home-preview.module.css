@@ -35,3 +35,7 @@
 .experiencePanoramaCopy p{max-width:450px;margin:0 0 22px;color:#6e6962;font:15px/1.55 Arial,sans-serif}
 .experiencePanoramaCopy a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border:1px solid #a27250;border-radius:10px;background:#faf8f466;color:#a27250;text-decoration:none;text-transform:uppercase;letter-spacing:.045em;font:600 12px/1.4 Arial,sans-serif}
 .experiencePanorama + .mapSection{margin-top:32px}
+
+/* Let the heading, copy and action reveal in sequence. */
+.videoHero .heroEnter{animation:none}
+.videoHero .heroCopy a{margin-top:22px;min-height:74.8px;padding:20.4px 23.8px;font-size:20.4px;display:flex;align-items:center;justify-content:center}

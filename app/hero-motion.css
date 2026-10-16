@@ -1,0 +1,12 @@
+/* Entrance animations do not alter document flow or scroll position. */
+@keyframes mlt-menu-enter{from{opacity:0;transform:translate3d(0,-24px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes mlt-copy-enter{from{opacity:0;transform:translate3d(0,20px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.mlt-site-header,.mlt-enter-header{animation:mlt-menu-enter .85s cubic-bezier(.22,1,.36,1) .08s backwards}
+.light-video-hero .light-hero-copy>*,.photo-hero .commercial-hero-content>*,.photo-hero>h1,.photo-hero>p,.mlt-hero-reveal>*{animation:mlt-copy-enter 1.05s cubic-bezier(.22,1,.36,1) .35s backwards}
+.light-video-hero .light-hero-copy>:nth-child(2),.photo-hero .commercial-hero-content>:nth-child(2),.photo-hero>h1,.mlt-hero-reveal>:nth-child(2){animation-delay:.52s}
+.light-video-hero .light-hero-copy>:nth-child(3),.photo-hero .commercial-hero-content>:nth-child(3),.photo-hero>p:last-child,.mlt-hero-reveal>:nth-child(3){animation-delay:.7s}
+.photo-hero .commercial-hero-content>:nth-child(4){animation-delay:.85s}
+.light-video-hero .light-hero-buttons{margin-top:22px}
+.light-video-hero .hero-collection-button{min-height:61.2px;padding:15.3px 23.8px;font-size:18.7px}
+@media(max-width:700px){.light-video-hero .hero-collection-button{min-height:74.8px;font-size:20.4px}}
+@media(prefers-reduced-motion:reduce){.mlt-site-header,.mlt-enter-header,.light-video-hero .light-hero-copy>*,.photo-hero .commercial-hero-content>*,.photo-hero>h1,.photo-hero>p,.mlt-hero-reveal>*{animation:none!important}}
