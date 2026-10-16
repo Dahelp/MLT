@@ -63,7 +63,5 @@
 /* Stable square controls: override the overlay's more specific button rules. */
 .shell .header .actions .iconButton{box-sizing:border-box;flex:0 0 36px;width:36px;height:36px;min-width:36px;min-height:36px;max-width:36px;max-height:36px;padding:0;aspect-ratio:1;border-radius:50%!important;appearance:none;align-self:center}
 @media(max-width:800px){
- .shell.overlay{position:fixed;top:calc(env(safe-area-inset-top,0px) + var(--mlt-visual-viewport-top,0px));left:max(0px,calc((100vw - 430px)/2));right:max(0px,calc((100vw - 430px)/2))}
- .overlay .header{background:linear-gradient(180deg,rgba(250,248,244,.97),rgba(248,243,235,.92) 72%,rgba(248,243,235,.65))}
- .overlay .mobileMenu{min-height:0;max-height:calc(var(--mlt-visible-height,100dvh) - env(safe-area-inset-top,0px))}
+ .overlay .mobileMenu{min-height:0;max-height:calc(100dvh - env(safe-area-inset-top,0px))}
 }

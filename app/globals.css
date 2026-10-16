@@ -1297,7 +1297,6 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
 .home-light .experience-panorama + .light-map{margin-top:clamp(40px,4vw,72px)}
 
 @media(max-width:1180px){
- .mlt-site-header{position:fixed;top:calc(env(safe-area-inset-top,0px) + var(--mlt-visual-viewport-top,0px));background:linear-gradient(180deg,rgba(250,248,244,.97),rgba(248,243,235,.92) 72%,rgba(248,243,235,.65))}
- .mlt-site-header .light-links{max-height:calc(var(--mlt-visible-height,100dvh) - 116px - env(safe-area-inset-top,0px))}
+ .mlt-site-header .light-links{max-height:calc(100dvh - 116px - env(safe-area-inset-top,0px))}
  .mlt-site-header .light-actions .light-menu,.mlt-site-header .light-actions .account-nav-link{box-sizing:border-box;flex:0 0 36px;width:36px;height:36px;min-width:36px;min-height:36px;max-width:36px;max-height:36px;padding:0;aspect-ratio:1;border-radius:50%;appearance:none}
 }
