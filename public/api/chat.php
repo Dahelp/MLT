@@ -18,7 +18,7 @@ try{
  }
  $db->exec('CREATE TABLE IF NOT EXISTS mlt_chat_messages (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,conversation_id BIGINT UNSIGNED NOT NULL,sender_type VARCHAR(16) NOT NULL,sender_user_id BIGINT UNSIGNED NULL,sender_name VARCHAR(120) NOT NULL,body TEXT NOT NULL,read_at DATETIME NULL,created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,INDEX chat_messages_conversation(conversation_id,id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
  $db->exec('CREATE TABLE IF NOT EXISTS mlt_chat_presence (user_id BIGINT UNSIGNED PRIMARY KEY,last_seen_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
- $manager=$db->prepare('INSERT INTO mlt_users (email,password_hash,first_name,last_name,locale,role) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE role=VALUES(role)');
+ $manager=$db->prepare('INSERT INTO mlt_users (email,password_hash,first_name,last_name,locale,role) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE email=email');
  $manager->execute(['manager@mlt-lifestyle.com','$2y$10$j6XkM1rAT6QYreoG6RatyOLHaZ4tqHJVV5oORT.IMwmJFtoPFAfWW','MLT','Manager','en','manager']);
 }catch(Throwable $error){error_log('MLT chat schema: '.$error->getMessage());http_response_code(503);echo json_encode(['error'=>'Chat database is unavailable.']);exit;}
 

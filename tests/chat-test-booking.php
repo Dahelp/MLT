@@ -23,6 +23,7 @@ class ChatTestDatabase extends PDO {
  public function exec(string $statement): int|false {if(str_starts_with($statement,'CREATE TABLE IF NOT EXISTS mlt_chat_'))return 0;return parent::exec($statement);}
  public function prepare(string $query,array $options=[]): PDOStatement|false {
   $query=str_replace('DATE_SUB(NOW(),INTERVAL 45 SECOND)',"datetime('now','-45 seconds')",$query);
+  $query=str_replace('ON DUPLICATE KEY UPDATE email=email','ON CONFLICT(email) DO NOTHING',$query);
   $query=str_replace('ON DUPLICATE KEY UPDATE role=VALUES(role)','ON CONFLICT(email) DO UPDATE SET role=excluded.role',$query);
   $query=str_replace('ON DUPLICATE KEY UPDATE last_seen_at=NOW()','ON CONFLICT(user_id) DO UPDATE SET last_seen_at=CURRENT_TIMESTAMP',$query);
   return parent::prepare($query,$options);

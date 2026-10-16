@@ -58,6 +58,7 @@ const routes = [
   "/manager",
   "/manager/chat",
   "/manager/catalog",
+  "/admin/users",
   "/sales/acquisitions",
   ...pageRoutes.filter(Boolean),
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),

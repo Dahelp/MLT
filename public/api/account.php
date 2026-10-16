@@ -17,7 +17,7 @@ if ($action === 'register' || $action === 'login') {
   if ($action === 'register' && $email === $agencyEmail) { http_response_code(409); echo json_encode(['error'=>'This agency account is already reserved. Please sign in.']); exit; }
   if ($action === 'register' && $email === $salesEmail) { http_response_code(409); echo json_encode(['error'=>'This sales manager account is reserved. Please sign in.']); exit; }
   if ($action === 'login' && $email === $agencyEmail && password_verify($password, $agencyBootstrapHash)) {
-    $q=$db->prepare('INSERT INTO mlt_users (email,password_hash,first_name,last_name,locale,role) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE password_hash=VALUES(password_hash),role=VALUES(role)');
+    $q=$db->prepare('INSERT INTO mlt_users (email,password_hash,first_name,last_name,locale,role) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE email=email');
     $q->execute([$email,$agencyBootstrapHash,'Eurotour','Agency','en','agency']);
   }
   if ($action === 'login' && $email === $salesEmail && password_verify($password, $salesBootstrapHash)) {
@@ -26,7 +26,6 @@ if ($action === 'register' || $action === 'login') {
   }
   if ($action === 'register') { $first = $clean($body['firstName'] ?? '',80); $last = $clean($body['lastName'] ?? '',80); if (!$first || !$last) { http_response_code(400); echo json_encode(['error'=>'Enter your first and last name.']); exit; } try { $q=$db->prepare('INSERT INTO mlt_users (email,password_hash,first_name,last_name,phone,locale) VALUES (?,?,?,?,?,?)'); $q->execute([$email,password_hash($password,PASSWORD_DEFAULT),$first,$last,$clean($body['phone'] ?? '',80),in_array($body['locale'] ?? '', ['en','de','ru','it','pl'], true) ? $body['locale'] : 'en']); } catch (Throwable $e) { http_response_code(409); echo json_encode(['error'=>'An account with this email already exists. Please sign in.']); exit; } }
   $q=$db->prepare('SELECT * FROM mlt_users WHERE email=? LIMIT 1'); $q->execute([$email]); $user=$q->fetch(); if (!$user || !password_verify($password,$user['password_hash'])) { http_response_code(401); echo json_encode(['error'=>'Incorrect email or password.']); exit; }
-  $settings=mlt_settings(); $operatorRoles=is_array($settings['operator_roles'] ?? null) ? $settings['operator_roles'] : ['dahelp@yandex.com'=>'admin','mlt-concierge@mlt-lifestyle.com'=>'concierge']; $assignedRole=$email===$agencyEmail?'agency':($email===$salesEmail?null:($operatorRoles[strtolower($user['email'])] ?? null)); if(in_array($assignedRole,['admin','concierge','manager','agency'],true) && ($user['role'] ?? 'traveller') !== $assignedRole){$db->prepare('UPDATE mlt_users SET role=? WHERE id=?')->execute([$assignedRole,$user['id']]);$user['role']=$assignedRole;}
   $newToken=bin2hex(random_bytes(32)); $q=$db->prepare('UPDATE mlt_users SET session_hash=?,session_expires_at=DATE_ADD(NOW(), INTERVAL 30 DAY) WHERE id=?'); $q->execute([hash('sha256',$newToken),$user['id']]); echo json_encode(['ok'=>true,'token'=>$newToken,'user'=>$public($user)]); exit;
 }
 $user = $userForToken($db, $token); if (!$user) { http_response_code(401); echo json_encode(['error'=>'Please sign in again.']); exit; }
