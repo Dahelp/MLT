@@ -1,4 +1,5 @@
 "use client";
+import { operationsDestination as authorizedOperationsDestination } from "../../content/operations-access";
 import { FormEvent, useEffect, useState } from "react";
 import RealRouteMap from "../plan/RealRouteMap";
 import ChevronIcon from "../ChevronIcon";
@@ -265,10 +266,7 @@ export default function Account({
 }) {
   const operationsDestination = (role?: string) => {
     const next = new URLSearchParams(location.search).get("next") || "";
-    if (role === "salesmanager") return "/sales/acquisitions/";
-    if (role === "manager") return "/manager/chat/";
-    if (role === "admin") return "/admin/overview/";
-    return /^\/concierge(?:\/|$)/.test(next) ? next : "/concierge/overview/";
+    return authorizedOperationsDestination(role, next);
   };
   const initial: L =
     typeof window !== "undefined" && location.pathname.startsWith("/ru/")

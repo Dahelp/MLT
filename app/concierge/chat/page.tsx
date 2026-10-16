@@ -1,3 +1,3 @@
 import ChatDesk from "../ChatDesk";
 
-export default function ManagerChatPage(){return <ChatDesk/>;}
+export default function ManagerChatPage(){return <ChatDesk requiredRole="concierge"/>;}
