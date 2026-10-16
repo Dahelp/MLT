@@ -1293,3 +1293,5 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
  .experience-panorama::before{background:linear-gradient(180deg,var(--mlt-paper) 0%,var(--mlt-paper) 34%,rgba(250,248,244,.85) 47%,transparent 70%)}
  .experience-panorama .experience-intro h2{font-size:38px}
 }
+/* Separate the story panorama from the home map. */
+.home-light .experience-panorama + .light-map{margin-top:clamp(40px,4vw,72px)}
