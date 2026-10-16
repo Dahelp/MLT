@@ -1,0 +1,1592 @@
+{
+  "Acquisitions": {
+    "de": "Fahrzeugkauf",
+    "ru": "Покупка автодома",
+    "it": "Acquisto",
+    "pl": "Zakup"
+  },
+  "Motorhome": {
+    "de": "Wohnmobil",
+    "ru": "Автодом",
+    "it": "Camper",
+    "pl": "Kamper"
+  },
+  "Capsule home": {
+    "de": "Kapselhaus",
+    "ru": "Капсульный дом",
+    "it": "Casa capsula",
+    "pl": "Dom kapsułowy"
+  },
+  "Capsule Home": {
+    "de": "Kapselhaus",
+    "ru": "Капсульный дом",
+    "it": "Casa capsula",
+    "pl": "Dom kapsułowy"
+  },
+  "MLT / Acquisitions": {
+    "de": "MLT / Fahrzeugkauf",
+    "ru": "MLT / Покупка автодома",
+    "it": "MLT / Acquisto",
+    "pl": "MLT / Zakup"
+  },
+  "MLT / Capsule homes": {
+    "de": "MLT / Kapselhäuser",
+    "ru": "MLT / Капсульные дома",
+    "it": "MLT / Case capsula",
+    "pl": "MLT / Domy kapsułowe"
+  },
+  "Find your next": {
+    "de": "Finden Sie Ihr neues",
+    "ru": "Найдите свой новый",
+    "it": "Trova la tua prossima",
+    "pl": "Znajdź swój nowy"
+  },
+  "residence on wheels.": {
+    "de": "Zuhause auf Rädern.",
+    "ru": "дом на колёсах.",
+    "it": "casa su ruote.",
+    "pl": "dom na kołach."
+  },
+  "Explore premium motorhomes, compare the details and enquire directly with the MLT sales team.": {
+    "de": "Entdecken Sie hochwertige Wohnmobile, vergleichen Sie Details und kontaktieren Sie das MLT Verkaufsteam.",
+    "ru": "Выбирайте премиальные автодома, сравнивайте характеристики и обращайтесь напрямую к команде продаж MLT.",
+    "it": "Scopri camper premium, confronta i dettagli e contatta direttamente il team vendite MLT.",
+    "pl": "Odkryj kampery premium, porównaj szczegóły i skontaktuj się z zespołem sprzedaży MLT."
+  },
+  "Search residences": {
+    "de": "Fahrzeuge suchen",
+    "ru": "Поиск автодома",
+    "it": "Cerca veicoli",
+    "pl": "Szukaj kampera"
+  },
+  "Search model or residence": {
+    "de": "Modell oder Fahrzeug suchen",
+    "ru": "Модель или автодом",
+    "it": "Cerca modello o veicolo",
+    "pl": "Szukaj modelu lub kampera"
+  },
+  "Search listed models": {
+    "de": "Inserierte Modelle suchen",
+    "ru": "Поиск по моделям",
+    "it": "Cerca tra i modelli disponibili",
+    "pl": "Szukaj dostępnych modeli"
+  },
+  "Price up to": {
+    "de": "Preis bis",
+    "ru": "Цена до",
+    "it": "Prezzo fino a",
+    "pl": "Cena do"
+  },
+  "Any price": {
+    "de": "Beliebiger Preis",
+    "ru": "Любая цена",
+    "it": "Qualsiasi prezzo",
+    "pl": "Dowolna cena"
+  },
+  "From year": {
+    "de": "Ab Baujahr",
+    "ru": "Год выпуска от",
+    "it": "Anno dal",
+    "pl": "Rok od"
+  },
+  "Any year": {
+    "de": "Beliebiges Baujahr",
+    "ru": "Любой год",
+    "it": "Qualsiasi anno",
+    "pl": "Dowolny rok"
+  },
+  "Maximum mileage": {
+    "de": "Maximaler Kilometerstand",
+    "ru": "Максимальный пробег",
+    "it": "Chilometraggio massimo",
+    "pl": "Maksymalny przebieg"
+  },
+  "Any mileage": {
+    "de": "Beliebiger Kilometerstand",
+    "ru": "Любой пробег",
+    "it": "Qualsiasi chilometraggio",
+    "pl": "Dowolny przebieg"
+  },
+  "Clear filters": {
+    "de": "Filter zurücksetzen",
+    "ru": "Сбросить фильтры",
+    "it": "Azzera filtri",
+    "pl": "Wyczyść filtry"
+  },
+  "View results": {
+    "de": "Ergebnisse anzeigen",
+    "ru": "Показать результаты",
+    "it": "Mostra risultati",
+    "pl": "Pokaż wyniki"
+  },
+  "MLT / The marketplace": {
+    "de": "MLT / Fahrzeugangebot",
+    "ru": "MLT / Каталог",
+    "it": "MLT / Il catalogo",
+    "pl": "MLT / Katalog"
+  },
+  "Explore motorhomes": {
+    "de": "Wohnmobile entdecken",
+    "ru": "Каталог автодомов",
+    "it": "Scopri i camper",
+    "pl": "Odkryj kampery"
+  },
+  "Loading residences…": {
+    "de": "Fahrzeuge werden geladen…",
+    "ru": "Загружаем автодома…",
+    "it": "Caricamento veicoli…",
+    "pl": "Ładowanie kamperów…"
+  },
+  "Currently listed": {
+    "de": "Aktuell im Angebot",
+    "ru": "Сейчас в продаже",
+    "it": "Attualmente disponibili",
+    "pl": "Aktualnie w ofercie"
+  },
+  "Demonstration listings": {
+    "de": "Demonstrationsangebote",
+    "ru": "Демонстрационные объявления",
+    "it": "Annunci dimostrativi",
+    "pl": "Ogłoszenia demonstracyjne"
+  },
+  "Sort by": {
+    "de": "Sortieren nach",
+    "ru": "Сортировка",
+    "it": "Ordina per",
+    "pl": "Sortuj według"
+  },
+  "Newest": {
+    "de": "Neueste zuerst",
+    "ru": "Сначала новые",
+    "it": "Più recenti",
+    "pl": "Najnowsze"
+  },
+  "Price: low to high": {
+    "de": "Preis aufsteigend",
+    "ru": "Сначала дешевле",
+    "it": "Prezzo crescente",
+    "pl": "Cena rosnąco"
+  },
+  "Price: high to low": {
+    "de": "Preis absteigend",
+    "ru": "Сначала дороже",
+    "it": "Prezzo decrescente",
+    "pl": "Cena malejąco"
+  },
+  "DEMO · NOT FOR SALE": {
+    "de": "DEMO · NICHT ZUM VERKAUF",
+    "ru": "ДЕМО · НЕ ПРОДАЁТСЯ",
+    "it": "DEMO · NON IN VENDITA",
+    "pl": "DEMO · NIE NA SPRZEDAŻ"
+  },
+  "CERTIFIED BY MLT": {
+    "de": "VON MLT ZERTIFIZIERT",
+    "ru": "СЕРТИФИЦИРОВАНО MLT",
+    "it": "CERTIFICATO DA MLT",
+    "pl": "CERTYFIKOWANY PRZEZ MLT"
+  },
+  "MLT SELECTION": {
+    "de": "MLT AUSWAHL",
+    "ru": "ВЫБОР MLT",
+    "it": "SELEZIONE MLT",
+    "pl": "WYBÓR MLT"
+  },
+  "Illustrative example": {
+    "de": "Illustratives Beispiel",
+    "ru": "Демонстрационный пример",
+    "it": "Esempio illustrativo",
+    "pl": "Przykład poglądowy"
+  },
+  "Sold": {
+    "de": "Verkauft",
+    "ru": "Продан",
+    "it": "Venduto",
+    "pl": "Sprzedany"
+  },
+  "Available": {
+    "de": "Verfügbar",
+    "ru": "В продаже",
+    "it": "Disponibile",
+    "pl": "Dostępny"
+  },
+  "Example": {
+    "de": "Beispiel",
+    "ru": "Пример",
+    "it": "Esempio",
+    "pl": "Przykład"
+  },
+  "Year on request": {
+    "de": "Baujahr auf Anfrage",
+    "ru": "Год по запросу",
+    "it": "Anno su richiesta",
+    "pl": "Rok na zapytanie"
+  },
+  "Mileage on request": {
+    "de": "Kilometerstand auf Anfrage",
+    "ru": "Пробег по запросу",
+    "it": "Chilometraggio su richiesta",
+    "pl": "Przebieg na zapytanie"
+  },
+  "Area on request": {
+    "de": "Fläche auf Anfrage",
+    "ru": "Площадь по запросу",
+    "it": "Superficie su richiesta",
+    "pl": "Powierzchnia na zapytanie"
+  },
+  "berths": {
+    "de": "Schlafplätze",
+    "ru": "спальных мест",
+    "it": "posti letto",
+    "pl": "miejsc do spania"
+  },
+  "Capsule residence": {
+    "de": "Kapselhaus",
+    "ru": "Капсульный дом",
+    "it": "Casa capsula",
+    "pl": "Dom kapsułowy"
+  },
+  "View details": {
+    "de": "Details ansehen",
+    "ru": "Подробнее",
+    "it": "Vedi dettagli",
+    "pl": "Zobacz szczegóły"
+  },
+  "Preparing the collection…": {
+    "de": "Die Auswahl wird vorbereitet…",
+    "ru": "Готовим каталог…",
+    "it": "Preparazione del catalogo…",
+    "pl": "Przygotowujemy kolekcję…"
+  },
+  "No residences match this search.": {
+    "de": "Keine passenden Fahrzeuge gefunden.",
+    "ru": "По вашему запросу ничего не найдено.",
+    "it": "Nessun veicolo corrisponde alla ricerca.",
+    "pl": "Brak pojazdów pasujących do wyszukiwania."
+  },
+  "Try another category or tell our sales team what you would like us to source.": {
+    "de": "Ändern Sie die Suche oder teilen Sie unserem Verkaufsteam Ihre Wünsche mit.",
+    "ru": "Измените параметры поиска или расскажите команде продаж, какой автодом вы ищете.",
+    "it": "Modifica la ricerca o comunica al team vendite cosa stai cercando.",
+    "pl": "Zmień kryteria lub powiedz zespołowi sprzedaży, czego szukasz."
+  },
+  "Ask our sales team": {
+    "de": "Verkaufsteam kontaktieren",
+    "ru": "Связаться с отделом продаж",
+    "it": "Contatta il team vendite",
+    "pl": "Zapytaj zespół sprzedaży"
+  },
+  "A more personal way to buy": {
+    "de": "Fahrzeugkauf ganz persönlich",
+    "ru": "Индивидуальный подход к покупке",
+    "it": "Un acquisto su misura",
+    "pl": "Indywidualne podejście do zakupu"
+  },
+  "Can't find": {
+    "de": "Noch nicht das",
+    "ru": "Не нашли",
+    "it": "Non trovi",
+    "pl": "Nie możesz znaleźć"
+  },
+  "the right one?": {
+    "de": "Richtige gefunden?",
+    "ru": "нужный автодом?",
+    "it": "quello giusto?",
+    "pl": "odpowiedniego kampera?"
+  },
+  "Tell us the model or layout you have in mind. Our sales team will help source a motorhome around your brief.": {
+    "de": "Nennen Sie uns Ihr Wunschmodell oder Ihren bevorzugten Grundriss. Unser Verkaufsteam findet das passende Wohnmobil.",
+    "ru": "Расскажите, какую модель или планировку вы ищете. Команда продаж подберёт автодом под ваши пожелания.",
+    "it": "Indicaci il modello o la disposizione che desideri. Il team vendite cercherà il camper adatto alle tue esigenze.",
+    "pl": "Podaj model lub układ, którego szukasz. Zespół sprzedaży pomoże znaleźć odpowiedni kamper."
+  },
+  "Submit your requirements": {
+    "de": "Wünsche mitteilen",
+    "ru": "Оставить заявку на подбор",
+    "it": "Invia le tue esigenze",
+    "pl": "Prześlij swoje wymagania"
+  },
+  "A new way": {
+    "de": "Eine neue Art,",
+    "ru": "Новый способ",
+    "it": "Un nuovo modo",
+    "pl": "Nowy sposób,"
+  },
+  "to feel at home.": {
+    "de": "sich zu Hause zu fühlen.",
+    "ru": "чувствовать себя дома.",
+    "it": "di sentirsi a casa.",
+    "pl": "by czuć się jak w domu."
+  },
+  "Capsule homes are coming to the MLT collection. Tell our team what you are looking for and we will contact you when suitable options become available.": {
+    "de": "Kapselhäuser ergänzen bald die MLT Kollektion. Teilen Sie uns Ihre Wünsche mit. Wir melden uns, sobald passende Angebote verfügbar sind.",
+    "ru": "Капсульные дома скоро появятся в коллекции MLT. Расскажите, что вы ищете, и мы свяжемся с вами, когда появятся подходящие предложения.",
+    "it": "Le case capsula entreranno presto nella collezione MLT. Raccontaci cosa cerchi e ti contatteremo quando saranno disponibili opzioni adatte.",
+    "pl": "Domy kapsułowe wkrótce dołączą do kolekcji MLT. Powiedz nam, czego szukasz, a skontaktujemy się, gdy pojawią się odpowiednie oferty."
+  },
+  "Register your interest": {
+    "de": "Interesse vormerken",
+    "ru": "Сообщить об интересе",
+    "it": "Registra il tuo interesse",
+    "pl": "Zgłoś zainteresowanie"
+  },
+  "A collection in preparation": {
+    "de": "Eine Kollektion entsteht",
+    "ru": "Коллекция в подготовке",
+    "it": "Una collezione in preparazione",
+    "pl": "Kolekcja w przygotowaniu"
+  },
+  "Thoughtfully designed.": {
+    "de": "Durchdacht gestaltet.",
+    "ru": "Продуманы до деталей.",
+    "it": "Progettate con cura.",
+    "pl": "Przemyślane w każdym detalu."
+  },
+  "Worth waiting for.": {
+    "de": "Das Warten lohnt sich.",
+    "ru": "Их стоит дождаться.",
+    "it": "Vale la pena aspettare.",
+    "pl": "Warto na nie poczekać."
+  },
+  "There are currently no capsule homes listed for sale. Our sales team can discuss your preferred layout, size and location in advance.": {
+    "de": "Derzeit sind keine Kapselhäuser im Angebot. Unser Verkaufsteam bespricht gerne vorab Grundriss, Größe und Standort mit Ihnen.",
+    "ru": "Сейчас капсульных домов в продаже нет. Команда продаж заранее обсудит с вами планировку, размер и место размещения.",
+    "it": "Al momento non ci sono case capsula in vendita. Il team vendite può discutere in anticipo disposizione, dimensioni e ubicazione.",
+    "pl": "Obecnie nie ma domów kapsułowych w sprzedaży. Zespół sprzedaży może wcześniej omówić układ, rozmiar i lokalizację."
+  },
+  "Contact the sales team": {
+    "de": "Verkaufsteam kontaktieren",
+    "ru": "Связаться с отделом продаж",
+    "it": "Contatta il team vendite",
+    "pl": "Skontaktuj się z zespołem sprzedaży"
+  },
+  "Back to acquisitions": {
+    "de": "Zurück zum Fahrzeugangebot",
+    "ru": "Назад в каталог",
+    "it": "Torna al catalogo",
+    "pl": "Wróć do katalogu"
+  },
+  "DEMONSTRATION · NOT FOR SALE": {
+    "de": "DEMONSTRATION · NICHT ZUM VERKAUF",
+    "ru": "ДЕМОНСТРАЦИЯ · НЕ ПРОДАЁТСЯ",
+    "it": "DIMOSTRAZIONE · NON IN VENDITA",
+    "pl": "DEMONSTRACJA · NIE NA SPRZEDAŻ"
+  },
+  "Previous photo": {
+    "de": "Vorheriges Foto",
+    "ru": "Предыдущее фото",
+    "it": "Foto precedente",
+    "pl": "Poprzednie zdjęcie"
+  },
+  "Next photo": {
+    "de": "Nächstes Foto",
+    "ru": "Следующее фото",
+    "it": "Foto successiva",
+    "pl": "Następne zdjęcie"
+  },
+  "Vehicle photos": {
+    "de": "Fahrzeugfotos",
+    "ru": "Фотографии автодома",
+    "it": "Foto del veicolo",
+    "pl": "Zdjęcia pojazdu"
+  },
+  "Photo": {
+    "de": "Foto",
+    "ru": "Фото",
+    "it": "Foto",
+    "pl": "Zdjęcie"
+  },
+  "Thumbnail": {
+    "de": "Vorschaubild",
+    "ru": "Миниатюра",
+    "it": "Miniatura",
+    "pl": "Miniatura"
+  },
+  "View photo": {
+    "de": "Foto ansehen",
+    "ru": "Открыть фото",
+    "it": "Vedi foto",
+    "pl": "Zobacz zdjęcie"
+  },
+  "MLT / PRIVATE COLLECTION": {
+    "de": "MLT / PRIVATE KOLLEKTION",
+    "ru": "MLT / ЧАСТНАЯ КОЛЛЕКЦИЯ",
+    "it": "MLT / COLLEZIONE PRIVATA",
+    "pl": "MLT / KOLEKCJA PRYWATNA"
+  },
+  "Demonstration · Not for sale": {
+    "de": "Demonstration · Nicht zum Verkauf",
+    "ru": "Демонстрация · Не продаётся",
+    "it": "Dimostrazione · Non in vendita",
+    "pl": "Demonstracja · Nie na sprzedaż"
+  },
+  "Certified by MLT": {
+    "de": "Von MLT zertifiziert",
+    "ru": "Сертифицировано MLT",
+    "it": "Certificato da MLT",
+    "pl": "Certyfikowany przez MLT"
+  },
+  "MLT selection": {
+    "de": "MLT Auswahl",
+    "ru": "Выбор MLT",
+    "it": "Selezione MLT",
+    "pl": "Wybór MLT"
+  },
+  "Illustrative details only": {
+    "de": "Nur illustrative Angaben",
+    "ru": "Данные приведены для примера",
+    "it": "Dettagli solo illustrativi",
+    "pl": "Dane wyłącznie poglądowe"
+  },
+  "Source a similar motorhome": {
+    "de": "Ähnliches Wohnmobil suchen",
+    "ru": "Подобрать похожий автодом",
+    "it": "Trova un camper simile",
+    "pl": "Znajdź podobny kamper"
+  },
+  "Contact Manager": {
+    "de": "Ansprechpartner kontaktieren",
+    "ru": "Связаться с менеджером",
+    "it": "Contatta il responsabile",
+    "pl": "Skontaktuj się z opiekunem"
+  },
+  "Discuss your requirements": {
+    "de": "Wünsche besprechen",
+    "ru": "Обсудить пожелания",
+    "it": "Parliamo delle tue esigenze",
+    "pl": "Omów swoje wymagania"
+  },
+  "Request Pricing": {
+    "de": "Preis anfragen",
+    "ru": "Запросить цену",
+    "it": "Richiedi il prezzo",
+    "pl": "Zapytaj o cenę"
+  },
+  "The residence": {
+    "de": "Das Fahrzeug",
+    "ru": "Об автодоме",
+    "it": "Il veicolo",
+    "pl": "O pojeździe"
+  },
+  "Every detail,": {
+    "de": "Jedes Detail",
+    "ru": "Каждая деталь",
+    "it": "Ogni dettaglio,",
+    "pl": "Każdy szczegół"
+  },
+  "considered.": {
+    "de": "durchdacht.",
+    "ru": "продумана.",
+    "it": "curato.",
+    "pl": "przemyślany."
+  },
+  "Ask your manager for a full description and inspection details.": {
+    "de": "Fragen Sie Ihren Ansprechpartner nach der vollständigen Beschreibung und dem Prüfbericht.",
+    "ru": "Запросите у менеджера полное описание и результаты осмотра.",
+    "it": "Chiedi al responsabile la descrizione completa e i dettagli dell'ispezione.",
+    "pl": "Poproś opiekuna o pełny opis i wyniki oględzin."
+  },
+  "Specifications": {
+    "de": "Technische Daten",
+    "ru": "Характеристики",
+    "it": "Dati tecnici",
+    "pl": "Dane techniczne"
+  },
+  "Camper equipment": {
+    "de": "Camperausstattung",
+    "ru": "Оснащение автодома",
+    "it": "Dotazioni camper",
+    "pl": "Wyposażenie kampera"
+  },
+  "Ask your manager for the full equipment list, service history and warranty details.": {
+    "de": "Fragen Sie Ihren Ansprechpartner nach der vollständigen Ausstattungsliste, Wartungshistorie und Garantie.",
+    "ru": "Запросите у менеджера полный список оборудования, историю обслуживания и условия гарантии.",
+    "it": "Chiedi al responsabile l'elenco completo delle dotazioni, la cronologia dei tagliandi e le condizioni di garanzia.",
+    "pl": "Poproś opiekuna o pełną listę wyposażenia, historię serwisową i warunki gwarancji."
+  },
+  "Equipment": {
+    "de": "Ausstattung",
+    "ru": "Комплектация",
+    "it": "Equipaggiamento",
+    "pl": "Wyposażenie"
+  },
+  "Full equipment list, reported by the seller.": {
+    "de": "Vollständige Ausstattungsliste laut Verkäufer.",
+    "ru": "Полная комплектация по данным продавца.",
+    "it": "Elenco completo delle dotazioni dichiarate dal venditore.",
+    "pl": "Pełna lista wyposażenia według sprzedawcy."
+  },
+  "Camper conversion": {
+    "de": "Camperausbau",
+    "ru": "Переоборудование в автодом",
+    "it": "Allestimento camper",
+    "pl": "Zabudowa kamperowa"
+  },
+  "items": {
+    "de": "Einträge",
+    "ru": "позиций",
+    "it": "voci",
+    "pl": "pozycji"
+  },
+  "Source Similar": {
+    "de": "Ähnliches suchen",
+    "ru": "Подобрать похожий",
+    "it": "Trova simile",
+    "pl": "Znajdź podobny"
+  },
+  "Enquire": {
+    "de": "Anfragen",
+    "ru": "Оставить заявку",
+    "it": "Informazioni",
+    "pl": "Zapytaj"
+  },
+  "Loading residence…": {
+    "de": "Fahrzeug wird geladen…",
+    "ru": "Загружаем автодом…",
+    "it": "Caricamento veicolo…",
+    "pl": "Ładowanie pojazdu…"
+  },
+  "Residence unavailable": {
+    "de": "Fahrzeug nicht verfügbar",
+    "ru": "Автодом недоступен",
+    "it": "Veicolo non disponibile",
+    "pl": "Pojazd niedostępny"
+  },
+  "Explore acquisitions": {
+    "de": "Fahrzeugangebot entdecken",
+    "ru": "Открыть каталог",
+    "it": "Esplora il catalogo",
+    "pl": "Przeglądaj katalog"
+  },
+  "Pricing Request": {
+    "de": "Preisanfrage",
+    "ru": "Запрос цены",
+    "it": "Richiesta di prezzo",
+    "pl": "Zapytanie o cenę"
+  },
+  "Acquisition Inquiry": {
+    "de": "Kaufanfrage",
+    "ru": "Запрос о покупке",
+    "it": "Richiesta di acquisto",
+    "pl": "Zapytanie o zakup"
+  },
+  "Acquisition Request": {
+    "de": "Kaufanfrage",
+    "ru": "Заявка на покупку",
+    "it": "Richiesta di acquisto",
+    "pl": "Zapytanie o zakup"
+  },
+  "Year": {
+    "de": "Baujahr",
+    "ru": "Год выпуска",
+    "it": "Anno",
+    "pl": "Rok"
+  },
+  "Mileage": {
+    "de": "Kilometerstand",
+    "ru": "Пробег",
+    "it": "Chilometraggio",
+    "pl": "Przebieg"
+  },
+  "Area": {
+    "de": "Fläche",
+    "ru": "Площадь",
+    "it": "Superficie",
+    "pl": "Powierzchnia"
+  },
+  "Berths": {
+    "de": "Schlafplätze",
+    "ru": "Спальные места",
+    "it": "Posti letto",
+    "pl": "Miejsca do spania"
+  },
+  "Type": {
+    "de": "Typ",
+    "ru": "Тип",
+    "it": "Tipo",
+    "pl": "Typ"
+  },
+  "Length": {
+    "de": "Länge",
+    "ru": "Длина",
+    "it": "Lunghezza",
+    "pl": "Długość"
+  },
+  "Status": {
+    "de": "Status",
+    "ru": "Статус",
+    "it": "Stato",
+    "pl": "Status"
+  },
+  "Price": {
+    "de": "Preis",
+    "ru": "Цена",
+    "it": "Prezzo",
+    "pl": "Cena"
+  },
+  "A curated MLT residence on wheels.": {
+    "de": "Ein von MLT ausgewähltes Zuhause auf Rädern.",
+    "ru": "Автодом из подборки MLT.",
+    "it": "Una casa su ruote selezionata da MLT.",
+    "pl": "Dom na kołach wybrany przez MLT."
+  },
+  "Motorhomes for Sale": {
+    "de": "Wohnmobile kaufen",
+    "ru": "Автодома в продаже",
+    "it": "Camper in vendita",
+    "pl": "Kampery na sprzedaż"
+  },
+  "Make": {
+    "de": "Marke",
+    "ru": "Марка",
+    "it": "Marca",
+    "pl": "Marka"
+  },
+  "Model": {
+    "de": "Modell",
+    "ru": "Модель",
+    "it": "Modello",
+    "pl": "Model"
+  },
+  "Location": {
+    "de": "Standort",
+    "ru": "Местонахождение",
+    "it": "Località",
+    "pl": "Lokalizacja"
+  },
+  "Seller": {
+    "de": "Verkäufer",
+    "ru": "Продавец",
+    "it": "Venditore",
+    "pl": "Sprzedawca"
+  },
+  "Vehicle condition": {
+    "de": "Fahrzeugzustand",
+    "ru": "Состояние",
+    "it": "Condizioni del veicolo",
+    "pl": "Stan pojazdu"
+  },
+  "Body type": {
+    "de": "Karosserieform",
+    "ru": "Тип кузова",
+    "it": "Carrozzeria",
+    "pl": "Rodzaj nadwozia"
+  },
+  "First registration": {
+    "de": "Erstzulassung",
+    "ru": "Первая регистрация",
+    "it": "Prima immatricolazione",
+    "pl": "Pierwsza rejestracja"
+  },
+  "Inspection valid until": {
+    "de": "Hauptuntersuchung bis",
+    "ru": "Техосмотр действителен до",
+    "it": "Revisione valida fino a",
+    "pl": "Przegląd ważny do"
+  },
+  "Drivetrain": {
+    "de": "Antrieb",
+    "ru": "Привод",
+    "it": "Trazione",
+    "pl": "Napęd"
+  },
+  "Seats": {
+    "de": "Sitzplätze",
+    "ru": "Места для сидения",
+    "it": "Posti a sedere",
+    "pl": "Miejsca siedzące"
+  },
+  "Doors": {
+    "de": "Türen",
+    "ru": "Двери",
+    "it": "Porte",
+    "pl": "Drzwi"
+  },
+  "Fuel": {
+    "de": "Kraftstoff",
+    "ru": "Топливо",
+    "it": "Carburante",
+    "pl": "Paliwo"
+  },
+  "Transmission": {
+    "de": "Getriebe",
+    "ru": "Коробка передач",
+    "it": "Cambio",
+    "pl": "Skrzynia biegów"
+  },
+  "Gears": {
+    "de": "Gänge",
+    "ru": "Количество передач",
+    "it": "Marce",
+    "pl": "Liczba biegów"
+  },
+  "Engine displacement": {
+    "de": "Hubraum",
+    "ru": "Объём двигателя",
+    "it": "Cilindrata",
+    "pl": "Pojemność silnika"
+  },
+  "Cylinders": {
+    "de": "Zylinder",
+    "ru": "Цилиндры",
+    "it": "Cilindri",
+    "pl": "Cylindry"
+  },
+  "Power — structured listing": {
+    "de": "Leistung — strukturierte Anzeige",
+    "ru": "Мощность — данные объявления",
+    "it": "Potenza — dati strutturati",
+    "pl": "Moc — dane ogłoszenia"
+  },
+  "Power — seller description": {
+    "de": "Leistung — Verkäuferbeschreibung",
+    "ru": "Мощность — описание продавца",
+    "it": "Potenza — descrizione del venditore",
+    "pl": "Moc — opis sprzedawcy"
+  },
+  "Emission class — structured listing": {
+    "de": "Abgasnorm — strukturierte Anzeige",
+    "ru": "Экокласс — данные объявления",
+    "it": "Classe emissioni — dati strutturati",
+    "pl": "Norma emisji — dane ogłoszenia"
+  },
+  "Emission class — seller description": {
+    "de": "Abgasnorm — Verkäuferbeschreibung",
+    "ru": "Экокласс — описание продавца",
+    "it": "Classe emissioni — descrizione del venditore",
+    "pl": "Norma emisji — opis sprzedawcy"
+  },
+  "CO₂ emissions, combined (WLTP)": {
+    "de": "CO₂-Emissionen kombiniert (WLTP)",
+    "ru": "Выбросы CO₂, смешанный цикл (WLTP)",
+    "it": "Emissioni CO₂ combinate (WLTP)",
+    "pl": "Emisja CO₂ w cyklu mieszanym (WLTP)"
+  },
+  "Fuel consumption, combined (WLTP)": {
+    "de": "Verbrauch kombiniert (WLTP)",
+    "ru": "Расход топлива, смешанный цикл (WLTP)",
+    "it": "Consumo combinato (WLTP)",
+    "pl": "Zużycie paliwa w cyklu mieszanym (WLTP)"
+  },
+  "Previous owners": {
+    "de": "Vorbesitzer",
+    "ru": "Предыдущие владельцы",
+    "it": "Proprietari precedenti",
+    "pl": "Poprzedni właściciele"
+  },
+  "Non-smoking vehicle": {
+    "de": "Nichtraucherfahrzeug",
+    "ru": "В салоне не курили",
+    "it": "Veicolo non fumatori",
+    "pl": "Pojazd niepalącego"
+  },
+  "Accident history": {
+    "de": "Unfallhistorie",
+    "ru": "История ДТП",
+    "it": "Storico incidenti",
+    "pl": "Historia wypadków"
+  },
+  "Exterior colour": {
+    "de": "Außenfarbe",
+    "ru": "Цвет кузова",
+    "it": "Colore esterno",
+    "pl": "Kolor nadwozia"
+  },
+  "Paint": {
+    "de": "Lackierung",
+    "ru": "Покрытие",
+    "it": "Verniciatura",
+    "pl": "Lakier"
+  },
+  "Interior colour": {
+    "de": "Innenfarbe",
+    "ru": "Цвет салона",
+    "it": "Colore interno",
+    "pl": "Kolor wnętrza"
+  },
+  "Upholstery": {
+    "de": "Polsterung",
+    "ru": "Обивка",
+    "it": "Rivestimenti",
+    "pl": "Tapicerka"
+  },
+  "Climate control": {
+    "de": "Klimatisierung",
+    "ru": "Климат-контроль",
+    "it": "Climatizzazione",
+    "pl": "Klimatyzacja"
+  },
+  "VAT deductible": {
+    "de": "Mehrwertsteuer ausweisbar",
+    "ru": "Возможность вычета НДС",
+    "it": "IVA detraibile",
+    "pl": "Możliwość odliczenia VAT"
+  },
+  "Steering position": {
+    "de": "Lenkradposition",
+    "ru": "Расположение руля",
+    "it": "Posizione volante",
+    "pl": "Położenie kierownicy"
+  },
+  "Service history": {
+    "de": "Wartungshistorie",
+    "ru": "История обслуживания",
+    "it": "Storico manutenzione",
+    "pl": "Historia serwisowa"
+  },
+  "Documents": {
+    "de": "Dokumente",
+    "ru": "Документы",
+    "it": "Documenti",
+    "pl": "Dokumenty"
+  },
+  "00173 Rome, Italy": {
+    "de": "00173 Rom, Italien",
+    "ru": "00173 Рим, Италия",
+    "it": "00173 Roma, Italia",
+    "pl": "00173 Rzym, Włochy"
+  },
+  "4MATIC · Original Westfalia camper · 08/2019 · Rome, Italy": {
+    "de": "4MATIC · Originaler Westfalia-Ausbau · 08/2019 · Rom, Italien",
+    "ru": "4MATIC · Оригинальный кемпер Westfalia · 08/2019 · Рим, Италия",
+    "it": "4MATIC · Allestimento Westfalia originale · 08/2019 · Roma, Italia",
+    "pl": "4MATIC · Oryginalna zabudowa Westfalia · 08/2019 · Rzym, Włochy"
+  },
+  "Private seller": {
+    "de": "Privatverkäufer",
+    "ru": "Частный продавец",
+    "it": "Venditore privato",
+    "pl": "Sprzedawca prywatny"
+  },
+  "Used": {
+    "de": "Gebraucht",
+    "ru": "С пробегом",
+    "it": "Usato",
+    "pl": "Używany"
+  },
+  "Van / camper conversion": {
+    "de": "Van / Camperausbau",
+    "ru": "Фургон / переоборудован в кемпер",
+    "it": "Van / allestimento camper",
+    "pl": "Van / zabudowa kamperowa"
+  },
+  "Diesel": {
+    "de": "Diesel",
+    "ru": "Дизель",
+    "it": "Diesel",
+    "pl": "Diesel"
+  },
+  "Automatic 9G-TRONIC (seller description)": {
+    "de": "Automatik 9G-TRONIC (laut Verkäufer)",
+    "ru": "Автомат 9G-TRONIC (по описанию продавца)",
+    "it": "Automatico 9G-TRONIC (descrizione del venditore)",
+    "pl": "Automatyczna 9G-TRONIC (opis sprzedawcy)"
+  },
+  "177 kW / 239 hp (conflicts with structured listing)": {
+    "de": "177 kW / 239 PS (Widerspruch zu strukturierten Daten)",
+    "ru": "177 кВт / 239 л. с. (расходится с данными объявления)",
+    "it": "177 kW / 239 CV (in contrasto con i dati strutturati)",
+    "pl": "177 kW / 239 KM (sprzeczne z danymi ogłoszenia)"
+  },
+  "174 kW / 237 hp": {
+    "de": "174 kW / 237 PS",
+    "ru": "174 кВт / 237 л. с.",
+    "it": "174 kW / 237 CV",
+    "pl": "174 kW / 237 KM"
+  },
+  "7.8 l/100 km (embedded listing data)": {
+    "de": "7,8 l/100 km (hinterlegte Anzeigendaten)",
+    "ru": "7,8 л/100 км (встроенные данные объявления)",
+    "it": "7,8 l/100 km (dati incorporati nell'annuncio)",
+    "pl": "7,8 l/100 km (dane osadzone w ogłoszeniu)"
+  },
+  "Yes": {
+    "de": "Ja",
+    "ru": "Да",
+    "it": "Sì",
+    "pl": "Tak"
+  },
+  "Structured listing: accident-damaged; seller description: no accidents. Unresolved.": {
+    "de": "Strukturierte Anzeige: Unfallfahrzeug; Verkäuferbeschreibung: unfallfrei. Ungeklärt.",
+    "ru": "В данных объявления указаны повреждения после ДТП; продавец заявляет об отсутствии ДТП. Требует уточнения.",
+    "it": "Dati strutturati: veicolo incidentato; descrizione del venditore: nessun incidente. Da chiarire.",
+    "pl": "Dane ogłoszenia: powypadkowy; opis sprzedawcy: bezwypadkowy. Niewyjaśnione."
+  },
+  "Grey; dark metallic grey in seller description": {
+    "de": "Grau; laut Verkäufer dunkelgrau metallic",
+    "ru": "Серый; по описанию продавца — тёмно-серый металлик",
+    "it": "Grigio; grigio scuro metallizzato nella descrizione del venditore",
+    "pl": "Szary; w opisie sprzedawcy ciemnoszary metalik"
+  },
+  "Metallic": {
+    "de": "Metallic",
+    "ru": "Металлик",
+    "it": "Metallizzato",
+    "pl": "Metalik"
+  },
+  "Beige": {
+    "de": "Beige",
+    "ru": "Бежевый",
+    "it": "Beige",
+    "pl": "Beżowy"
+  },
+  "Full leather": {
+    "de": "Vollleder",
+    "ru": "Полностью кожаная обивка",
+    "it": "Pelle totale",
+    "pl": "Pełna skóra"
+  },
+  "Equipment: automatic, 3 zones; seller description: 2 zones. Unresolved.": {
+    "de": "Ausstattung: automatisch, 3 Zonen; Verkäuferbeschreibung: 2 Zonen. Ungeklärt.",
+    "ru": "В комплектации: автоматический, 3 зоны; в описании продавца: 2 зоны. Требует уточнения.",
+    "it": "Dotazioni: automatico, 3 zone; descrizione del venditore: 2 zone. Da chiarire.",
+    "pl": "Wyposażenie: automatyczna, 3 strefy; opis sprzedawcy: 2 strefy. Niewyjaśnione."
+  },
+  "Yes, as stated in source listing": {
+    "de": "Ja, laut Originalanzeige",
+    "ru": "Да, согласно исходному объявлению",
+    "it": "Sì, secondo l'annuncio originale",
+    "pl": "Tak, zgodnie z ogłoszeniem źródłowym"
+  },
+  "Right-hand drive, as listed under equipment": {
+    "de": "Rechtslenker, laut Ausstattungsliste",
+    "ru": "Правый руль, согласно списку комплектации",
+    "it": "Guida a destra, come indicato nelle dotazioni",
+    "pl": "Kierownica po prawej, zgodnie z listą wyposażenia"
+  },
+  "Seller states regular Mercedes-Benz servicing and documented services": {
+    "de": "Laut Verkäufer regelmäßige Mercedes-Benz-Wartung mit Nachweisen",
+    "ru": "Продавец заявляет о регулярном обслуживании Mercedes-Benz с подтверждающими документами",
+    "it": "Il venditore dichiara manutenzione regolare Mercedes-Benz e tagliandi documentati",
+    "pl": "Sprzedawca deklaruje regularny serwis Mercedes-Benz i udokumentowane przeglądy"
+  },
+  "Seller states full service booklet, valid inspection and motorhome registration": {
+    "de": "Laut Verkäufer vollständiges Serviceheft, gültige HU und Wohnmobilzulassung",
+    "ru": "По словам продавца: полная сервисная книжка, действующий техосмотр и регистрация как автодома",
+    "it": "Il venditore dichiara libretto tagliandi completo, revisione valida e omologazione camper",
+    "pl": "Sprzedawca deklaruje pełną książkę serwisową, ważny przegląd i rejestrację jako kamper"
+  },
+  "Original Westfalia camper conversion": {
+    "de": "Originaler Westfalia-Camperausbau",
+    "ru": "Оригинальное переоборудование Westfalia",
+    "it": "Allestimento camper Westfalia originale",
+    "pl": "Oryginalna zabudowa kamperowa Westfalia"
+  },
+  "Electric pop-up roof and upper double bed": {
+    "de": "Elektrisches Aufstelldach und oberes Doppelbett",
+    "ru": "Электрическая подъёмная крыша и верхняя двуспальная кровать",
+    "it": "Tetto sollevabile elettrico e letto matrimoniale superiore",
+    "pl": "Elektryczny dach podnoszony i górne łóżko podwójne"
+  },
+  "Integrated kitchen: sink, hob and refrigerator": {
+    "de": "Integrierte Küche: Spüle, Kochfeld und Kühlschrank",
+    "ru": "Встроенная кухня: мойка, плита и холодильник",
+    "it": "Cucina integrata: lavello, piano cottura e frigorifero",
+    "pl": "Zintegrowana kuchnia: zlew, kuchenka i lodówka"
+  },
+  "Rear seats convert into a bed": {
+    "de": "Rücksitze zum Bett umbaubar",
+    "ru": "Задние сиденья раскладываются в кровать",
+    "it": "Sedili posteriori trasformabili in letto",
+    "pl": "Tylne siedzenia rozkładane w łóżko"
+  },
+  "Side awning": {
+    "de": "Seitenmarkise",
+    "ru": "Боковой тент",
+    "it": "Tendalino laterale",
+    "pl": "Markiza boczna"
+  },
+  "Webasto stationary heating": {
+    "de": "Webasto-Standheizung",
+    "ru": "Автономный отопитель Webasto",
+    "it": "Riscaldamento stazionario Webasto",
+    "pl": "Ogrzewanie postojowe Webasto"
+  },
+  "Dedicated camper electrics and insulation": {
+    "de": "Separate Camper-Elektrik und Isolierung",
+    "ru": "Отдельная электросистема и изоляция кемпера",
+    "it": "Impianto elettrico dedicato e isolamento camper",
+    "pl": "Dedykowana instalacja elektryczna i izolacja kampera"
+  },
+  "Westfalia camper conversion — seller description": {
+    "de": "Westfalia-Camperausbau — laut Verkäufer",
+    "ru": "Оснащение Westfalia — по описанию продавца",
+    "it": "Allestimento Westfalia — descrizione del venditore",
+    "pl": "Zabudowa Westfalia — opis sprzedawcy"
+  },
+  "Original Westfalia conversion": {
+    "de": "Originaler Westfalia-Ausbau",
+    "ru": "Оригинальное переоборудование Westfalia",
+    "it": "Allestimento Westfalia originale",
+    "pl": "Oryginalna zabudowa Westfalia"
+  },
+  "Electric pop-up roof with upper double bed": {
+    "de": "Elektrisches Aufstelldach mit oberem Doppelbett",
+    "ru": "Электрическая подъёмная крыша с верхней двуспальной кроватью",
+    "it": "Tetto sollevabile elettrico con letto matrimoniale superiore",
+    "pl": "Elektryczny dach podnoszony z górnym łóżkiem podwójnym"
+  },
+  "Integrated kitchen with sink, hob and refrigerator": {
+    "de": "Integrierte Küche mit Spüle, Kochfeld und Kühlschrank",
+    "ru": "Встроенная кухня с мойкой, плитой и холодильником",
+    "it": "Cucina integrata con lavello, piano cottura e frigorifero",
+    "pl": "Zintegrowana kuchnia ze zlewem, kuchenką i lodówką"
+  },
+  "Thermal and acoustic insulation": {
+    "de": "Wärme- und Schalldämmung",
+    "ru": "Тепло- и шумоизоляция",
+    "it": "Isolamento termico e acustico",
+    "pl": "Izolacja cieplna i akustyczna"
+  },
+  "Dedicated camper electrical system": {
+    "de": "Separate Camper-Elektroanlage",
+    "ru": "Отдельная электросистема кемпера",
+    "it": "Impianto elettrico dedicato al camper",
+    "pl": "Dedykowana instalacja elektryczna kampera"
+  },
+  "Comfort": {
+    "de": "Komfort",
+    "ru": "Комфорт",
+    "it": "Comfort",
+    "pl": "Komfort"
+  },
+  "360° camera": {
+    "de": "360°-Kamera",
+    "ru": "Камера 360°",
+    "it": "Telecamera 360°",
+    "pl": "Kamera 360°"
+  },
+  "Electric windows": {
+    "de": "Elektrische Fensterheber",
+    "ru": "Электростеклоподъёмники",
+    "it": "Alzacristalli elettrici",
+    "pl": "Elektryczne szyby"
+  },
+  "Armrest": {
+    "de": "Armlehne",
+    "ru": "Подлокотник",
+    "it": "Bracciolo",
+    "pl": "Podłokietnik"
+  },
+  "Automatic climate control, 3 zones": {
+    "de": "3-Zonen-Klimaautomatik",
+    "ru": "Автоматический климат-контроль, 3 зоны",
+    "it": "Climatizzatore automatico a 3 zone",
+    "pl": "Automatyczna klimatyzacja 3-strefowa"
+  },
+  "Parking distance control": {
+    "de": "Einparkhilfe",
+    "ru": "Парктроник",
+    "it": "Sensori di parcheggio",
+    "pl": "Czujniki parkowania"
+  },
+  "Hill-start assist": {
+    "de": "Berganfahrassistent",
+    "ru": "Помощь при старте в гору",
+    "it": "Assistenza partenza in salita",
+    "pl": "Asystent ruszania pod górę"
+  },
+  "Leather interior": {
+    "de": "Lederausstattung",
+    "ru": "Кожаный салон",
+    "it": "Interni in pelle",
+    "pl": "Skórzane wnętrze"
+  },
+  "Heated windscreen": {
+    "de": "Beheizbare Frontscheibe",
+    "ru": "Обогрев лобового стекла",
+    "it": "Parabrezza riscaldato",
+    "pl": "Podgrzewana przednia szyba"
+  },
+  "Right sliding door": {
+    "de": "Schiebetür rechts",
+    "ru": "Правая сдвижная дверь",
+    "it": "Porta scorrevole destra",
+    "pl": "Prawe drzwi przesuwne"
+  },
+  "Electric tailgate": {
+    "de": "Elektrische Heckklappe",
+    "ru": "Электропривод двери багажника",
+    "it": "Portellone elettrico",
+    "pl": "Elektryczna klapa bagażnika"
+  },
+  "Electric rear-seat adjustment": {
+    "de": "Elektrische Rücksitzverstellung",
+    "ru": "Электрорегулировка задних сидений",
+    "it": "Regolazione elettrica sedili posteriori",
+    "pl": "Elektryczna regulacja tylnych siedzeń"
+  },
+  "Electric seat adjustment": {
+    "de": "Elektrische Sitzverstellung",
+    "ru": "Электрорегулировка сидений",
+    "it": "Regolazione elettrica sedili",
+    "pl": "Elektryczna regulacja foteli"
+  },
+  "Auxiliary heating": {
+    "de": "Zusatzheizung",
+    "ru": "Дополнительный отопитель",
+    "it": "Riscaldamento ausiliario",
+    "pl": "Dodatkowe ogrzewanie"
+  },
+  "Folding passenger seat": {
+    "de": "Umklappbarer Beifahrersitz",
+    "ru": "Складное пассажирское сиденье",
+    "it": "Sedile passeggero ribaltabile",
+    "pl": "Składany fotel pasażera"
+  },
+  "Split rear seats": {
+    "de": "Geteilte Rücksitze",
+    "ru": "Раздельные задние сиденья",
+    "it": "Sedili posteriori sdoppiati",
+    "pl": "Dzielone tylne siedzenia"
+  },
+  "Heated seats": {
+    "de": "Sitzheizung",
+    "ru": "Подогрев сидений",
+    "it": "Sedili riscaldati",
+    "pl": "Podgrzewane fotele"
+  },
+  "Light sensor": {
+    "de": "Lichtsensor",
+    "ru": "Датчик света",
+    "it": "Sensore luci",
+    "pl": "Czujnik zmierzchu"
+  },
+  "Rain sensor": {
+    "de": "Regensensor",
+    "ru": "Датчик дождя",
+    "it": "Sensore pioggia",
+    "pl": "Czujnik deszczu"
+  },
+  "Front parking sensors": {
+    "de": "Einparksensoren vorne",
+    "ru": "Передние датчики парковки",
+    "it": "Sensori parcheggio anteriori",
+    "pl": "Przednie czujniki parkowania"
+  },
+  "Rear parking sensors": {
+    "de": "Einparksensoren hinten",
+    "ru": "Задние датчики парковки",
+    "it": "Sensori parcheggio posteriori",
+    "pl": "Tylne czujniki parkowania"
+  },
+  "Navigation system": {
+    "de": "Navigationssystem",
+    "ru": "Навигационная система",
+    "it": "Navigatore",
+    "pl": "Nawigacja"
+  },
+  "Automatic parking system": {
+    "de": "Parkassistent",
+    "ru": "Автоматическая парковка",
+    "it": "Parcheggio automatico",
+    "pl": "Automatyczny system parkowania"
+  },
+  "Electric side mirrors": {
+    "de": "Elektrische Außenspiegel",
+    "ru": "Электрорегулировка зеркал",
+    "it": "Specchietti elettrici",
+    "pl": "Elektryczne lusterka"
+  },
+  "Automatic start/stop": {
+    "de": "Start-Stopp-Automatik",
+    "ru": "Автоматический старт-стоп",
+    "it": "Start/stop automatico",
+    "pl": "Automatyczny start/stop"
+  },
+  "Lumbar support": {
+    "de": "Lendenwirbelstütze",
+    "ru": "Поясничная поддержка",
+    "it": "Supporto lombare",
+    "pl": "Podparcie lędźwiowe"
+  },
+  "Parking camera": {
+    "de": "Rückfahrkamera",
+    "ru": "Камера парковки",
+    "it": "Telecamera parcheggio",
+    "pl": "Kamera parkowania"
+  },
+  "Sunroof": {
+    "de": "Schiebedach",
+    "ru": "Люк",
+    "it": "Tetto apribile",
+    "pl": "Szyberdach"
+  },
+  "Tinted windows": {
+    "de": "Getönte Scheiben",
+    "ru": "Тонированные стёкла",
+    "it": "Vetri oscurati",
+    "pl": "Przyciemniane szyby"
+  },
+  "Leather steering wheel": {
+    "de": "Lederlenkrad",
+    "ru": "Кожаный руль",
+    "it": "Volante in pelle",
+    "pl": "Skórzana kierownica"
+  },
+  "Multifunction steering wheel": {
+    "de": "Multifunktionslenkrad",
+    "ru": "Многофункциональный руль",
+    "it": "Volante multifunzione",
+    "pl": "Wielofunkcyjna kierownica"
+  },
+  "Heated steering wheel": {
+    "de": "Beheizbares Lenkrad",
+    "ru": "Подогрев руля",
+    "it": "Volante riscaldato",
+    "pl": "Podgrzewana kierownica"
+  },
+  "Entertainment & media": {
+    "de": "Unterhaltung und Medien",
+    "ru": "Мультимедиа",
+    "it": "Intrattenimento e media",
+    "pl": "Multimedia"
+  },
+  "Radio": {
+    "de": "Radio",
+    "ru": "Радио",
+    "it": "Radio",
+    "pl": "Radio"
+  },
+  "Digital radio": {
+    "de": "Digitalradio",
+    "ru": "Цифровое радио",
+    "it": "Radio digitale",
+    "pl": "Radio cyfrowe"
+  },
+  "On-board computer": {
+    "de": "Bordcomputer",
+    "ru": "Бортовой компьютер",
+    "it": "Computer di bordo",
+    "pl": "Komputer pokładowy"
+  },
+  "Wi-Fi hotspot": {
+    "de": "WLAN-Hotspot",
+    "ru": "Точка доступа Wi-Fi",
+    "it": "Hotspot Wi-Fi",
+    "pl": "Hotspot Wi-Fi"
+  },
+  "Sound system": {
+    "de": "Soundsystem",
+    "ru": "Аудиосистема",
+    "it": "Impianto audio",
+    "pl": "System audio"
+  },
+  "Integrated music streaming": {
+    "de": "Integriertes Musikstreaming",
+    "ru": "Встроенный музыкальный стриминг",
+    "it": "Streaming musicale integrato",
+    "pl": "Zintegrowane strumieniowanie muzyki"
+  },
+  "Extras": {
+    "de": "Extras",
+    "ru": "Дополнительное оснащение",
+    "it": "Extra",
+    "pl": "Dodatki"
+  },
+  "Alloy wheels (19 inches)": {
+    "de": "Leichtmetallfelgen (19 Zoll)",
+    "ru": "Легкосплавные диски 19 дюймов",
+    "it": "Cerchi in lega da 19 pollici",
+    "pl": "Felgi aluminiowe 19 cali"
+  },
+  "Luggage compartment divider": {
+    "de": "Gepäckraumtrennnetz",
+    "ru": "Перегородка багажного отделения",
+    "it": "Divisorio bagagliaio",
+    "pl": "Przegroda bagażnika"
+  },
+  "Particulate filter": {
+    "de": "Partikelfilter",
+    "ru": "Сажевый фильтр",
+    "it": "Filtro antiparticolato",
+    "pl": "Filtr cząstek stałych"
+  },
+  "Electric parking brake": {
+    "de": "Elektrische Parkbremse",
+    "ru": "Электрический стояночный тормоз",
+    "it": "Freno di stazionamento elettrico",
+    "pl": "Elektryczny hamulec postojowy"
+  },
+  "Towbar": {
+    "de": "Anhängerkupplung",
+    "ru": "Фаркоп",
+    "it": "Gancio traino",
+    "pl": "Hak holowniczy"
+  },
+  "Right-hand drive": {
+    "de": "Rechtslenker",
+    "ru": "Правый руль",
+    "it": "Guida a destra",
+    "pl": "Kierownica po prawej"
+  },
+  "Steering-wheel shift paddles": {
+    "de": "Schaltwippen am Lenkrad",
+    "ru": "Подрулевые лепестки",
+    "it": "Palette cambio al volante",
+    "pl": "Łopatki zmiany biegów"
+  },
+  "Ambient lighting": {
+    "de": "Ambientebeleuchtung",
+    "ru": "Контурная подсветка",
+    "it": "Illuminazione ambiente",
+    "pl": "Oświetlenie ambientowe"
+  },
+  "Catalytic converter": {
+    "de": "Katalysator",
+    "ru": "Катализатор",
+    "it": "Catalizzatore",
+    "pl": "Katalizator"
+  },
+  "Winter package": {
+    "de": "Winterpaket",
+    "ru": "Зимний пакет",
+    "it": "Pacchetto invernale",
+    "pl": "Pakiet zimowy"
+  },
+  "Sports package": {
+    "de": "Sportpaket",
+    "ru": "Спортивный пакет",
+    "it": "Pacchetto sportivo",
+    "pl": "Pakiet sportowy"
+  },
+  "Summer tyres": {
+    "de": "Sommerreifen",
+    "ru": "Летние шины",
+    "it": "Pneumatici estivi",
+    "pl": "Opony letnie"
+  },
+  "Heat pump": {
+    "de": "Wärmepumpe",
+    "ru": "Тепловой насос",
+    "it": "Pompa di calore",
+    "pl": "Pompa ciepła"
+  },
+  "Range extender": {
+    "de": "Reichweitenverlängerer",
+    "ru": "Увеличитель запаса хода",
+    "it": "Range extender",
+    "pl": "Przedłużacz zasięgu"
+  },
+  "Headlight washers": {
+    "de": "Scheinwerferreinigungsanlage",
+    "ru": "Омыватели фар",
+    "it": "Lavafari",
+    "pl": "Spryskiwacze reflektorów"
+  },
+  "Auto-dimming rear-view mirror": {
+    "de": "Automatisch abblendender Innenspiegel",
+    "ru": "Салонное зеркало с автозатемнением",
+    "it": "Specchietto interno antiabbagliante automatico",
+    "pl": "Automatycznie przyciemniane lusterko wsteczne"
+  },
+  "Touchscreen": {
+    "de": "Touchscreen",
+    "ru": "Сенсорный экран",
+    "it": "Touchscreen",
+    "pl": "Ekran dotykowy"
+  },
+  "Safety": {
+    "de": "Sicherheit",
+    "ru": "Безопасность",
+    "it": "Sicurezza",
+    "pl": "Bezpieczeństwo"
+  },
+  "Driver airbag": {
+    "de": "Fahrerairbag",
+    "ru": "Подушка безопасности водителя",
+    "it": "Airbag conducente",
+    "pl": "Poduszka kierowcy"
+  },
+  "Side airbags": {
+    "de": "Seitenairbags",
+    "ru": "Боковые подушки безопасности",
+    "it": "Airbag laterali",
+    "pl": "Boczne poduszki powietrzne"
+  },
+  "Passenger airbag": {
+    "de": "Beifahrerairbag",
+    "ru": "Подушка безопасности пассажира",
+    "it": "Airbag passeggero",
+    "pl": "Poduszka pasażera"
+  },
+  "Rear airbag": {
+    "de": "Airbag hinten",
+    "ru": "Задняя подушка безопасности",
+    "it": "Airbag posteriore",
+    "pl": "Tylna poduszka powietrzna"
+  },
+  "Head airbags": {
+    "de": "Kopfairbags",
+    "ru": "Шторки безопасности",
+    "it": "Airbag per la testa",
+    "pl": "Kurtyny powietrzne"
+  },
+  "Alarm": {
+    "de": "Alarmanlage",
+    "ru": "Сигнализация",
+    "it": "Antifurto",
+    "pl": "Alarm"
+  },
+  "High-beam assist": {
+    "de": "Fernlichtassistent",
+    "ru": "Ассистент дальнего света",
+    "it": "Assistente abbaglianti",
+    "pl": "Asystent świateł drogowych"
+  },
+  "Central locking": {
+    "de": "Zentralverriegelung",
+    "ru": "Центральный замок",
+    "it": "Chiusura centralizzata",
+    "pl": "Centralny zamek"
+  },
+  "Lane assist": {
+    "de": "Spurhalteassistent",
+    "ru": "Контроль полосы движения",
+    "it": "Assistente corsia",
+    "pl": "Asystent pasa ruchu"
+  },
+  "Adaptive cruise control": {
+    "de": "Abstandsregeltempomat",
+    "ru": "Адаптивный круиз-контроль",
+    "it": "Cruise control adattivo",
+    "pl": "Adaptacyjny tempomat"
+  },
+  "Electronic stability control (ESP)": {
+    "de": "Elektronisches Stabilitätsprogramm (ESP)",
+    "ru": "Система стабилизации ESP",
+    "it": "Controllo stabilità ESP",
+    "pl": "Elektroniczna stabilizacja toru jazdy ESP"
+  },
+  "Glare-free high beams": {
+    "de": "Blendfreies Fernlicht",
+    "ru": "Неослепляющий дальний свет",
+    "it": "Abbaglianti antiabbagliamento",
+    "pl": "Nieoślepiające światła drogowe"
+  },
+  "Adaptive headlights": {
+    "de": "Adaptives Kurvenlicht",
+    "ru": "Адаптивные фары",
+    "it": "Fari adattivi",
+    "pl": "Reflektory adaptacyjne"
+  },
+  "Full-LED headlights": {
+    "de": "Voll-LED-Scheinwerfer",
+    "ru": "Полностью светодиодные фары",
+    "it": "Fari full LED",
+    "pl": "Reflektory w pełni LED"
+  },
+  "Fog lights": {
+    "de": "Nebelscheinwerfer",
+    "ru": "Противотуманные фары",
+    "it": "Fendinebbia",
+    "pl": "Światła przeciwmgłowe"
+  },
+  "Emergency brake assist": {
+    "de": "Notbremsassistent",
+    "ru": "Ассистент экстренного торможения",
+    "it": "Assistente frenata di emergenza",
+    "pl": "Asystent hamowania awaryjnego"
+  },
+  "Speed limiter": {
+    "de": "Geschwindigkeitsbegrenzer",
+    "ru": "Ограничитель скорости",
+    "it": "Limitatore velocità",
+    "pl": "Ogranicznik prędkości"
+  },
+  "LED daytime running lights": {
+    "de": "LED-Tagfahrlicht",
+    "ru": "Светодиодные дневные огни",
+    "it": "Luci diurne LED",
+    "pl": "Światła dzienne LED"
+  },
+  "Traffic sign recognition": {
+    "de": "Verkehrszeichenerkennung",
+    "ru": "Распознавание дорожных знаков",
+    "it": "Riconoscimento segnali stradali",
+    "pl": "Rozpoznawanie znaków drogowych"
+  },
+  "Power steering": {
+    "de": "Servolenkung",
+    "ru": "Усилитель руля",
+    "it": "Servosterzo",
+    "pl": "Wspomaganie kierownicy"
+  },
+  "Anti-lock braking system (ABS)": {
+    "de": "Antiblockiersystem (ABS)",
+    "ru": "Антиблокировочная система ABS",
+    "it": "Sistema antibloccaggio ABS",
+    "pl": "Układ przeciwblokujący ABS"
+  },
+  "Distance warning system": {
+    "de": "Abstandswarnsystem",
+    "ru": "Предупреждение о дистанции",
+    "it": "Avviso distanza",
+    "pl": "Ostrzeganie o odległości"
+  },
+  "Emergency call system": {
+    "de": "Notrufsystem",
+    "ru": "Система экстренного вызова",
+    "it": "Sistema chiamata di emergenza",
+    "pl": "System połączeń alarmowych"
+  },
+  "Tyre pressure monitoring": {
+    "de": "Reifendruckkontrolle",
+    "ru": "Контроль давления в шинах",
+    "it": "Monitoraggio pressione pneumatici",
+    "pl": "Monitorowanie ciśnienia opon"
+  },
+  "Blind-spot monitoring": {
+    "de": "Totwinkelassistent",
+    "ru": "Контроль слепых зон",
+    "it": "Monitoraggio angolo cieco",
+    "pl": "Monitorowanie martwego pola"
+  },
+  "Driver fatigue detection": {
+    "de": "Müdigkeitserkennung",
+    "ru": "Контроль усталости водителя",
+    "it": "Rilevamento stanchezza conducente",
+    "pl": "Wykrywanie zmęczenia kierowcy"
+  },
+  "Night vision system": {
+    "de": "Nachtsichtsystem",
+    "ru": "Система ночного видения",
+    "it": "Visione notturna",
+    "pl": "System noktowizyjny"
+  },
+  "Mercedes-Benz V 300 Marco Polo 4MATIC with an original Westfalia camper conversion, first registered in August 2019. Offered by a private seller in Rome at €44,900, with 106,000 km.": {
+    "de": "Mercedes-Benz V 300 Marco Polo 4MATIC mit originalem Westfalia-Camperausbau, erstmals zugelassen im August 2019. Ein Privatverkäufer in Rom bietet das Fahrzeug für 44.900 € mit 106.000 km an.",
+    "ru": "Mercedes-Benz V 300 Marco Polo 4MATIC с оригинальным переоборудованием Westfalia, впервые зарегистрирован в августе 2019 года. Частный продавец в Риме предлагает автодом за 44 900 € с пробегом 106 000 км.",
+    "it": "Mercedes-Benz V 300 Marco Polo 4MATIC con allestimento camper Westfalia originale, immatricolato per la prima volta nell'agosto 2019. Offerto da un venditore privato a Roma a 44.900 €, con 106.000 km.",
+    "pl": "Mercedes-Benz V 300 Marco Polo 4MATIC z oryginalną zabudową kamperową Westfalia, zarejestrowany po raz pierwszy w sierpniu 2019 r. Oferowany przez prywatnego sprzedawcę w Rzymie za 44 900 €, z przebiegiem 106 000 km."
+  },
+  "The seller describes an electric pop-up roof with an upper double bed, a kitchen with sink, hob and refrigerator, a rear-seat bed, side awning and Webasto stationary heating. Premium equipment includes full leather upholstery, navigation, parking cameras and sensors, adaptive cruise control, LED headlights and heated front seats.": {
+    "de": "Der Verkäufer beschreibt ein elektrisches Aufstelldach mit oberem Doppelbett, eine Küche mit Spüle, Kochfeld und Kühlschrank, eine Schlafmöglichkeit auf den Rücksitzen, Seitenmarkise und Webasto-Standheizung. Zur gehobenen Ausstattung gehören Vollleder, Navigation, Parkkameras und -sensoren, Abstandsregeltempomat, LED-Scheinwerfer und beheizbare Vordersitze.",
+    "ru": "Продавец указывает электрическую подъёмную крышу с верхней двуспальной кроватью, кухню с мойкой, плитой и холодильником, спальное место из задних сидений, боковой тент и автономный отопитель Webasto. Премиальное оснащение включает кожаный салон, навигацию, камеры и датчики парковки, адаптивный круиз-контроль, светодиодные фары и подогрев передних сидений.",
+    "it": "Il venditore descrive un tetto sollevabile elettrico con letto matrimoniale superiore, una cucina con lavello, piano cottura e frigorifero, un letto ricavabile dai sedili posteriori, tendalino laterale e riscaldamento stazionario Webasto. Le dotazioni premium includono interni interamente in pelle, navigatore, telecamere e sensori di parcheggio, cruise control adattivo, fari LED e sedili anteriori riscaldati.",
+    "pl": "Sprzedawca opisuje elektryczny dach podnoszony z górnym łóżkiem podwójnym, kuchnię ze zlewem, kuchenką i lodówką, łóżko rozkładane z tylnych siedzeń, markizę boczną oraz ogrzewanie postojowe Webasto. Wyposażenie premium obejmuje pełną skórzaną tapicerkę, nawigację, kamery i czujniki parkowania, adaptacyjny tempomat, reflektory LED i podgrzewane przednie fotele."
+  },
+  "The seller states that the vehicle has had one owner, regular Mercedes-Benz servicing, documented services, certified mileage, excellent bodywork and Bridgestone tyres in excellent condition, with a full service booklet and motorhome registration. These are statements from the seller.": {
+    "de": "Laut Verkäufer handelt es sich um ein Fahrzeug aus erster Hand mit regelmäßiger Mercedes-Benz-Wartung, dokumentierten Inspektionen, bestätigtem Kilometerstand, Karosserie in hervorragendem Zustand und sehr guten Bridgestone-Reifen sowie vollständigem Serviceheft und Wohnmobilzulassung. Dies sind Angaben des Verkäufers.",
+    "ru": "По словам продавца, у автомобиля был один владелец, он регулярно обслуживался в Mercedes-Benz, обслуживание подтверждено документами, пробег подтверждён, кузов в отличном состоянии, шины Bridgestone в отличном состоянии. Имеются полная сервисная книжка и регистрация как автодома. Это сведения, предоставленные продавцом.",
+    "it": "Il venditore dichiara un unico proprietario, manutenzione regolare Mercedes-Benz, tagliandi documentati, chilometraggio certificato, carrozzeria in condizioni eccellenti e pneumatici Bridgestone in ottimo stato, con libretto tagliandi completo e omologazione camper. Si tratta di dichiarazioni del venditore.",
+    "pl": "Według sprzedawcy pojazd miał jednego właściciela, był regularnie serwisowany w Mercedes-Benz, ma udokumentowane przeglądy, potwierdzony przebieg, nadwozie w doskonałym stanie i opony Bridgestone w bardzo dobrym stanie, pełną książkę serwisową oraz rejestrację jako kamper. Są to deklaracje sprzedawcy."
+  },
+  "Source discrepancies requiring clarification: the structured listing marks the vehicle as accident-damaged, while the seller says there have been no accidents. Structured power is 174 kW / 237 hp, while the description gives 177 kW / 239 hp. Emissions are listed as Euro 6d and Euro 6d-TEMP respectively; climate control is listed as 3-zone and 2-zone respectively. The equipment list also contains a range extender and heat pump for this diesel vehicle. All entries are retained as supplied; MLT certification has not been claimed.": {
+    "de": "Zu klärende Widersprüche in der Quelle: Die strukturierten Daten kennzeichnen das Fahrzeug als unfallbeschädigt, während der Verkäufer Unfallfreiheit angibt. Die strukturierte Leistung beträgt 174 kW / 237 PS, im Beschreibungstext stehen 177 kW / 239 PS. Die Abgasnorm wird als Euro 6d beziehungsweise Euro 6d-TEMP angegeben; die Klimaanlage als 3-Zonen- beziehungsweise 2-Zonen-Anlage. Die Ausstattungsliste enthält außerdem einen Reichweitenverlängerer und eine Wärmepumpe für dieses Dieselfahrzeug. Alle Angaben werden unverändert inhaltlich übernommen; eine MLT-Zertifizierung wird nicht behauptet.",
+    "ru": "Расхождения в источнике, требующие уточнения: в структурированных данных автомобиль отмечен как повреждённый в ДТП, тогда как продавец заявляет об отсутствии аварий. В данных указана мощность 174 кВт / 237 л. с., а в описании — 177 кВт / 239 л. с. Экокласс указан как Euro 6d и Euro 6d-TEMP соответственно, климат-контроль — как 3-зонный и 2-зонный. Список комплектации также содержит увеличитель запаса хода и тепловой насос для этого дизельного автомобиля. Все сведения сохранены в соответствии с источником; сертификация MLT не заявлена.",
+    "it": "Discrepanze nella fonte da chiarire: i dati strutturati indicano un veicolo incidentato, mentre il venditore dichiara l'assenza di incidenti. La potenza strutturata è 174 kW / 237 CV, mentre la descrizione riporta 177 kW / 239 CV. Le emissioni sono indicate rispettivamente come Euro 6d ed Euro 6d-TEMP; il climatizzatore come 3 zone e 2 zone. L'elenco dotazioni comprende inoltre un range extender e una pompa di calore per questo veicolo diesel. Tutte le voci sono mantenute come fornite; non è stata dichiarata alcuna certificazione MLT.",
+    "pl": "Rozbieżności w źródle wymagające wyjaśnienia: dane ogłoszenia oznaczają pojazd jako powypadkowy, podczas gdy sprzedawca deklaruje brak wypadków. Moc w danych wynosi 174 kW / 237 KM, a w opisie 177 kW / 239 KM. Norma emisji to odpowiednio Euro 6d i Euro 6d-TEMP; klimatyzacja jest opisana jako 3-strefowa i 2-strefowa. Lista wyposażenia zawiera również przedłużacz zasięgu i pompę ciepła dla tego pojazdu z silnikiem Diesla. Wszystkie dane zachowano zgodnie ze źródłem; nie zadeklarowano certyfikacji MLT."
+  },
+  "Demonstration listing enquiry. No vehicle is offered for sale. Customer asks to source a similar motorhome.": {
+    "de": "Anfrage zum Demonstrationsangebot. Es wird kein Fahrzeug zum Verkauf angeboten. Gewünscht ist die Suche nach einem ähnlichen Wohnmobil.",
+    "ru": "Запрос по демонстрационному объявлению. Автомобиль не предлагается к продаже. Клиент просит подобрать похожий автодом.",
+    "it": "Richiesta relativa a un annuncio dimostrativo. Nessun veicolo è offerto in vendita. Il cliente cerca un camper simile.",
+    "pl": "Zapytanie dotyczące ogłoszenia demonstracyjnego. Pojazd nie jest oferowany do sprzedaży. Klient prosi o znalezienie podobnego kampera."
+  },
+  "Listing": {
+    "de": "Angebot",
+    "ru": "Объявление",
+    "it": "Annuncio",
+    "pl": "Ogłoszenie"
+  }
+}

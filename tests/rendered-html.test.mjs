@@ -59,7 +59,7 @@ test("listing URLs render the vehicle in the initial HTML and reject unknown slu
       assert.equal(response.status, 200);
       const html = await response.text();
       assert.match(html, /<h1>Mercedes-Benz V 300 Marco Polo<\/h1>/);
-      assert.match(html, /<title>Mercedes-Benz V 300 Marco Polo \| MLT Acquisitions<\/title>/);
+      assert.ok(html.includes(`<title>Mercedes-Benz V 300 Marco Polo | MLT ${locale === "en" ? "Acquisitions" : "Покупка автодома"}</title>`));
       assert.ok(html.includes(`rel="canonical" href="https://mlt-lifestyle.com${path}"`), "Canonical URL must identify the vehicle");
       assert.ok(html.includes(JSON.parse(seed.images_json)[0]), "First photo must be present without JavaScript");
       assert.doesNotMatch(html, /Find your next|Explore motorhomes|Loading residence/);
@@ -120,4 +120,36 @@ test("home hero keeps a persistent still beneath native autoplay and defers the 
     assert.match(html, /class="deferred-route-map"/);
     assert.doesNotMatch(html, /maplibregl-canvas/);
   }
+});
+
+test("acquisitions catalog and vehicle details are localized in every site language", async () => {
+  const seed = JSON.parse(await readFile(new URL("public/data/acquisitions/mercedes-benz-v-300-marco-polo.json", root), "utf8"));
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (input, ...options) => String(input) === "https://mlt-lifestyle.com/api/acquisitions.php" ? Response.json({ items: [{ ...seed, id: 1 }] }) : originalFetch(input, ...options);
+  const labels = {
+    en: ["Explore motorhomes", "Specifications", "Contact Manager"],
+    de: ["Wohnmobile entdecken", "Technische Daten", "Ansprechpartner kontaktieren"],
+    ru: ["Каталог автодомов", "Характеристики", "Связаться с менеджером"],
+    it: ["Scopri i camper", "Dati tecnici", "Contatta il responsabile"],
+    pl: ["Odkryj kampery", "Dane techniczne", "Skontaktuj się z opiekunem"],
+  };
+  try {
+    for (const [locale, expected] of Object.entries(labels)) {
+      const catalog = await (await render(`/${locale}/acquisitions/`)).text();
+      assert.ok(catalog.includes(expected[0]));
+      assert.match(catalog, new RegExp(`<a class="market-card" href="/${locale}/acquisitions/${seed.slug}/"`));
+      const card = catalog.match(/<a class="market-card"[^>]*>[\s\S]*?<\/a>/)?.[0];
+      assert.ok(card?.includes('class="market-card-spec"'), "The price and specification area must be inside the card link");
+      assert.equal((card?.match(/<a /g) || []).length, 1, "No nested links");
+      const detail = await (await render(`/${locale}/acquisitions/${seed.slug}/`)).text();
+      assert.ok(detail.includes(expected[1]));
+      assert.ok(detail.includes(expected[2]));
+      if (locale !== "en") {
+        assert.doesNotMatch(detail.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, ""), /The seller describes|Source discrepancies requiring clarification|Parking distance control|Contact Manager|Back to acquisitions/);
+        assert.doesNotMatch(catalog, /Search listed models|Clear filters|View details/);
+      }
+      assert.ok(detail.includes("Mercedes-Benz V 300 Marco Polo"));
+      assert.ok(detail.includes('priceCurrency":"EUR"'));
+    }
+  } finally { globalThis.fetch = originalFetch; }
 });
