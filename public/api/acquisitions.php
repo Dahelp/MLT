@@ -38,8 +38,9 @@ $body = json_decode(file_get_contents('php://input'), true); if (!is_array($body
 $action = (string)($body['action'] ?? 'list');
 if ($action === 'list') { $rows = $db->query('SELECT * FROM mlt_acquisitions ORDER BY status,updated_at DESC')->fetchAll(PDO::FETCH_ASSOC); echo json_encode(['items' => $rows], JSON_UNESCAPED_UNICODE); exit; }
 $token = preg_replace('/^Bearer\s+/i', '', (string)($_SERVER['HTTP_AUTHORIZATION'] ?? ''));
-$query = $db->prepare('SELECT role FROM mlt_users WHERE session_hash=? AND session_expires_at>NOW() LIMIT 1');
+$query = $db->prepare('SELECT role,first_name,last_name FROM mlt_users WHERE session_hash=? AND session_expires_at>NOW() LIMIT 1');
 $query->execute([hash('sha256', $token)]); $operator = $query->fetch(PDO::FETCH_ASSOC);
+if ($action === 'session' && in_array($operator['role'] ?? '', ['admin','manager','salesmanager'], true)) { echo json_encode(['ok'=>true,'role'=>$operator['role'],'name'=>trim($operator['first_name'].' '.$operator['last_name']),'canEdit'=>in_array($operator['role'],['admin','salesmanager'],true)]); exit; }
 if (!in_array($operator['role'] ?? '', ['admin','salesmanager'], true)) { http_response_code(403); echo json_encode(['error' => 'Sales manager access required']); exit; }
 if ($action === 'session') { echo json_encode(['ok'=>true,'role'=>$operator['role']]); exit; }
 if ($action === 'inquiries') { $db->exec('CREATE TABLE IF NOT EXISTS mlt_commercial_inquiries (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, reference_code VARCHAR(80) NOT NULL UNIQUE, source VARCHAR(100) NOT NULL, subject VARCHAR(120) NOT NULL, context_text TEXT NULL, first_name VARCHAR(80) NOT NULL, last_name VARCHAR(80) NOT NULL, email VARCHAR(160) NOT NULL, phone VARCHAR(80) NULL, notes TEXT NULL, privacy_consent_at DATETIME NOT NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'); $rows=$db->query("SELECT reference_code,source,subject,context_text,first_name,last_name,email,phone,notes,created_at FROM mlt_commercial_inquiries WHERE source='acquisitions' OR source LIKE 'listing_ID_%' ORDER BY created_at DESC LIMIT 100")->fetchAll(PDO::FETCH_ASSOC); echo json_encode(['inquiries'=>$rows], JSON_UNESCAPED_UNICODE); exit; }
@@ -59,9 +60,9 @@ if ($action === 'save') {
   }
   foreach (array_slice(is_array($body['equipment'] ?? null) ? $body['equipment'] : [], 0, 20) as $group) {
     if (!is_array($group)) continue;
-    $title = mb_substr(trim((string)($group['title'] ?? '')),0,120);
+    $groupTitle = mb_substr(trim((string)($group['title'] ?? '')),0,120);
     $entries = array_values(array_filter(array_map(static fn($item) => mb_substr(trim((string)$item),0,300), array_slice(is_array($group['items'] ?? null) ? $group['items'] : [],0,150))));
-    if ($title !== '' && $entries) $equipment[] = ['title'=>$title,'items'=>$entries];
+    if ($groupTitle !== '' && $entries) $equipment[] = ['title'=>$groupTitle,'items'=>$entries];
   }
   $sourceUrl = mb_substr(trim((string)($body['source_url'] ?? '')),0,2048);
   if ($sourceUrl !== '' && (!filter_var($sourceUrl,FILTER_VALIDATE_URL) || parse_url($sourceUrl,PHP_URL_SCHEME) !== 'https')) { http_response_code(400); echo json_encode(['error'=>'Source must be an HTTPS URL']); exit; }

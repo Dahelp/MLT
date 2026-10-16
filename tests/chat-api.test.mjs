@@ -35,7 +35,10 @@ test('chat queues enforce server authorization and retain existing conversations
   assert.equal((await request({action:'operator_send',department:'concierge',conversationId:concierge.data.conversation.id,message:'Concierge reply'},'concierge')).status,200);
   const filtered=await request({action:'operator_sync',department:'sales'},'admin');assert.ok(filtered.data.conversations.every(c=>c.department==='sales'));
   assert.equal((await request({action:'operator_sync',department:'concierge',conversationId:sales.data.conversation.id},'admin')).status,404);
+  await request({action:'operator_send',conversationId:concierge.data.conversation.id,message:'Admin journey reply'},'admin');
+  const beforeSalesReply=await request({action:'operator_sync',department:'sales'},'admin');assert.equal(beforeSalesReply.data.stats.replies,0);assert.equal(beforeSalesReply.data.stats.clients,0);
   assert.equal((await request({action:'operator_send',conversationId:sales.data.conversation.id,message:'Admin reply'},'admin')).status,200);
+  const salesStats=await request({action:'operator_sync',department:'sales'},'admin');const journeyStats=await request({action:'operator_sync',department:'concierge'},'admin');assert.equal(salesStats.data.stats.replies,1);assert.equal(salesStats.data.stats.clients,1);assert.equal(journeyStats.data.stats.replies,1);const managerStats=await request({action:'operator_sync'},'manager');assert.equal(managerStats.data.stats.replies,1);
   const legacy=await request({action:'sync',token:'a'.repeat(64)});assert.equal(legacy.data.messages[0].body,'Existing history');
   const first=await request({action:'start',department:'sales',name:'A',email:'a@example.test',message:'Sales'},'traveller');const second=await request({action:'start',department:'concierge',name:'A',email:'a@example.test',message:'Journey'},'traveller');assert.notEqual(first.data.conversation.id,second.data.conversation.id);
   assert.equal((await request({action:'start',department:'unknown',name:'A',email:'a@example.test',message:'Invalid'})).status,400);

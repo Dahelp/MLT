@@ -5,6 +5,8 @@ import "./hero-banners.css";
 import "./hero-motion.css";
 import CookieConsent from "./CookieConsent";
 import ChatWidget from "./ChatWidget";
+import AdminReturn from "./AdminReturn";
+import "./staff-workspace.css";
 import JourneyFieldEnhancer from "./concierge/JourneyFieldEnhancer";
 import AnchorNavigation from "./AnchorNavigation";
 import { viewportDiagnosticScript } from "./viewportDiagnostics";
@@ -47,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head><script dangerouslySetInnerHTML={{ __html: viewportDiagnosticScript + mobileHomeViewportScript }} /></head>
-      <body>{children}<AnchorNavigation /><ViewportDiagnostics /><JourneyFieldEnhancer /><ChatWidget /><CookieConsent /></body>
+      <body>{children}<AdminReturn/><AnchorNavigation /><ViewportDiagnostics /><JourneyFieldEnhancer /><ChatWidget /><CookieConsent /></body>
     </html>
   );
 }

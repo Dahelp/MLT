@@ -1,0 +1,206 @@
+{
+  "Acquisitions": {
+    "de": "Fahrzeugverkauf",
+    "ru": "Acquisitions · Продажи"
+  },
+  "Products": {
+    "de": "Produkte",
+    "ru": "Продукты"
+  },
+  "Manage motorhomes and capsule homes, prices, photos and availability.": {
+    "de": "Verwalten Sie Wohnmobile, Kapselhäuser, Preise, Fotos und Verfügbarkeit.",
+    "ru": "Управление автодомами и капсулами: цены, фотографии и наличие."
+  },
+  "Add residence +": {
+    "de": "Produkt hinzufügen +",
+    "ru": "Добавить продукт +"
+  },
+  "Edit": {
+    "de": "Bearbeiten",
+    "ru": "Редактировать"
+  },
+  "View product": {
+    "de": "Produkt ansehen",
+    "ru": "Открыть карточку"
+  },
+  "Sign out": {
+    "de": "Abmelden",
+    "ru": "Выйти"
+  },
+  "Checking access…": {
+    "de": "Zugriff wird geprüft…",
+    "ru": "Проверяем доступ…"
+  },
+  "No sales listings yet. Add the first residence when its details are confirmed.": {
+    "de": "Noch keine Verkaufsangebote. Fügen Sie das erste bestätigte Produkt hinzu.",
+    "ru": "В каталоге пока нет продуктов. Добавьте первый продукт с подтверждёнными данными."
+  },
+  "Acquisition requests": {
+    "de": "Kaufanfragen",
+    "ru": "Заявки на покупку"
+  },
+  "Refresh ↻": {
+    "de": "Aktualisieren ↻",
+    "ru": "Обновить ↻"
+  },
+  "No requests yet.": {
+    "de": "Noch keine Anfragen.",
+    "ru": "Заявок пока нет."
+  },
+  "Edit residence": {
+    "de": "Produkt bearbeiten",
+    "ru": "Редактировать продукт"
+  },
+  "New residence": {
+    "de": "Neues Produkt",
+    "ru": "Новый продукт"
+  },
+  "Close": {
+    "de": "Schließen",
+    "ru": "Закрыть"
+  },
+  "Sales catalog": {
+    "de": "Verkaufskatalog",
+    "ru": "Каталог продаж"
+  },
+  "Type": {
+    "de": "Typ",
+    "ru": "Тип"
+  },
+  "Status": {
+    "de": "Status",
+    "ru": "Статус"
+  },
+  "Motorhome": {
+    "de": "Wohnmobil",
+    "ru": "Автодом"
+  },
+  "Capsule Home": {
+    "de": "Kapselhaus",
+    "ru": "Капсульный дом"
+  },
+  "Available": {
+    "de": "Verfügbar",
+    "ru": "В продаже"
+  },
+  "Sold": {
+    "de": "Verkauft",
+    "ru": "Продан"
+  },
+  "Title": {
+    "de": "Titel",
+    "ru": "Название"
+  },
+  "URL slug": {
+    "de": "URL-Kennung",
+    "ru": "Адрес страницы (slug)"
+  },
+  "Short description": {
+    "de": "Kurzbeschreibung",
+    "ru": "Краткое описание"
+  },
+  "Price, EUR": {
+    "de": "Preis, EUR",
+    "ru": "Цена, EUR"
+  },
+  "Year": {
+    "de": "Baujahr",
+    "ru": "Год выпуска"
+  },
+  "Mileage, km": {
+    "de": "Kilometerstand, km",
+    "ru": "Пробег, км"
+  },
+  "Berths": {
+    "de": "Schlafplätze",
+    "ru": "Спальные места"
+  },
+  "Length, m": {
+    "de": "Länge, m",
+    "ru": "Длина, м"
+  },
+  "Area, m²": {
+    "de": "Fläche, m²",
+    "ru": "Площадь, м²"
+  },
+  "Description (paragraphs separated by a blank line)": {
+    "de": "Beschreibung (Leerzeile zwischen Absätzen)",
+    "ru": "Описание (пустая строка между абзацами)"
+  },
+  "What's included (one item per line)": {
+    "de": "Enthaltene Ausstattung (ein Eintrag je Zeile)",
+    "ru": "Что включено (один пункт в строке)"
+  },
+  "Additional specifications (one per line: label: value)": {
+    "de": "Weitere Daten (je Zeile: Bezeichnung: Wert)",
+    "ru": "Дополнительные характеристики (строка: название: значение)"
+  },
+  "Equipment categories": {
+    "de": "Ausstattungskategorien",
+    "ru": "Категории комплектации"
+  },
+  "Category name": {
+    "de": "Kategoriename",
+    "ru": "Название категории"
+  },
+  "Equipment (one item per line)": {
+    "de": "Ausstattung (ein Eintrag je Zeile)",
+    "ru": "Комплектация (один пункт в строке)"
+  },
+  "Remove category": {
+    "de": "Kategorie entfernen",
+    "ru": "Удалить категорию"
+  },
+  "Add equipment category": {
+    "de": "Kategorie hinzufügen",
+    "ru": "Добавить категорию комплектации"
+  },
+  "Source listing URL": {
+    "de": "Originalanzeige (URL)",
+    "ru": "Ссылка на исходное объявление"
+  },
+  "Original seller description": {
+    "de": "Originalbeschreibung des Verkäufers",
+    "ru": "Оригинальное описание продавца"
+  },
+  "Photos (AVIF or WebP)": {
+    "de": "Fotos (AVIF oder WebP)",
+    "ru": "Фотографии (AVIF или WebP)"
+  },
+  "Remove": {
+    "de": "Entfernen",
+    "ru": "Удалить"
+  },
+  "Certified by MLT": {
+    "de": "Von MLT zertifiziert",
+    "ru": "Сертифицировано MLT"
+  },
+  "Saving…": {
+    "de": "Wird gespeichert…",
+    "ru": "Сохраняем…"
+  },
+  "Save residence": {
+    "de": "Produkt speichern",
+    "ru": "Сохранить продукт"
+  },
+  "Listing saved.": {
+    "de": "Produkt gespeichert.",
+    "ru": "Продукт сохранён."
+  },
+  "Could not save listing": {
+    "de": "Produkt konnte nicht gespeichert werden",
+    "ru": "Не удалось сохранить продукт"
+  },
+  "Upload AVIF or WebP images up to 8 MB.": {
+    "de": "Laden Sie AVIF- oder WebP-Bilder bis 8 MB hoch.",
+    "ru": "Загрузите изображения AVIF или WebP размером до 8 МБ."
+  },
+  "Upload failed": {
+    "de": "Upload fehlgeschlagen",
+    "ru": "Не удалось загрузить файл"
+  },
+  "Each specification needs a label and value, separated by a colon.": {
+    "de": "Jede Angabe benötigt Bezeichnung und Wert, getrennt durch einen Doppelpunkt.",
+    "ru": "Для каждой характеристики укажите название и значение через двоеточие."
+  }
+}
