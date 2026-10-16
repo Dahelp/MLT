@@ -24,3 +24,13 @@
  .photo-hero .page-hero-motorhomes img,.photo-hero .page-hero-capsule-home img{object-position:75% center}
  .commercial .photo-hero .commercial-hero-index{bottom:18px;right:24px}
 }
+/* Keep these inner-page heroes aligned with the Contact hero. */
+.commercial .investment-hero.photo-hero,.home-light .smart-map-page-intro.photo-hero{box-sizing:border-box;height:620px;min-height:620px;padding:150px clamp(24px,7vw,120px) 60px}
+.commercial .investment-hero.photo-hero{align-items:center}
+.commercial .investment-hero.photo-hero .commercial-hero-content{padding:0}
+.commercial .investment-hero.photo-hero h1{max-width:900px;font-size:clamp(44px,4.4vw,70px)}
+@media(max-width:700px){
+ .commercial .investment-hero.photo-hero,.home-light .smart-map-page-intro.photo-hero{height:740px;min-height:740px;padding:145px 24px 60px}
+ .commercial .investment-hero.photo-hero .commercial-hero-content{padding:0;align-self:auto}
+ .commercial .investment-hero.photo-hero h1{font-size:42px}
+}
