@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+import OperationsTopbar from "../OperationsTopbar";
 import OperationsSidebar from "../OperationsSidebar";
 
 type Locale="en"|"de"|"ru";
@@ -22,7 +23,7 @@ export default function ManagerDashboard(){
  if(error)return <main className="chat-desk-gate"><section><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT"/><h1>{error}</h1><a href="/account/">Sign in</a></section></main>;
  if(!data)return <main className="concierge-loading"/>;
  return <main className="manager-dashboard staff-workspace"><OperationsSidebar scope="manager" active="overview" role={data.operator.role} name={data.operator.name} locale={locale}/><div className="staff-main">
-  <header><a href="/manager/"><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT"/></a><nav>{data.operator.role==="admin"&&<a href="/admin/team/">{locale==="ru"?"Администрирование":locale==="de"?"Administration":"Administration"}</a>}<div className="chat-desk-languages">{(["en","de","ru"] as Locale[]).map(item=><button key={item} className={locale===item?"active":""} onClick={()=>changeLocale(item)}>{item.toUpperCase()}</button>)}</div><button onClick={()=>{localStorage.removeItem("mlt-account-token");location.assign("/account/")}}>{t.logout}</button></nav></header>
+  <OperationsTopbar locale={locale} onLocaleChange={changeLocale} chatHref="/manager/chat/" department="sales" unread={data.unread}/>
   <section className="manager-dashboard-content"><div className="manager-welcome"><div><p>{t.panel}</p><h1>{t.welcome}, {data.operator.name.split(" ")[0]}.</h1><span>{t.subtitle}</span></div><a href="/manager/chat/">{t.chat} {data.unread>0&&<b>{data.unread}</b>}</a></div>
   <div className="manager-stats"><article><small>{t.unread}</small><strong>{data.unread}</strong></article><article><small>{t.clients}</small><strong>{data.stats?.clients||0}</strong></article><article><small>{t.replies}</small><strong>{data.stats?.replies||0}</strong></article><article><small>{t.today}</small><strong>{data.stats?.repliesToday||0}</strong></article></div>
   <section className="manager-recent"><header><p>{t.panel}</p><h2>{t.recent}</h2></header>{data.conversations.length?<div>{data.conversations.slice(0,8).map(item=><a key={item.id} href={`/manager/chat/?conversation=${item.id}`}><span>{item.name.split(" ").map(part=>part[0]).slice(0,2).join("")}</span><div><strong>{item.name}</strong><p>{item.last_message}</p></div><time>{new Date(item.last_message_at.replace(" ","T")).toLocaleString(locale,{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</time>{Number(item.unread_operator)>0&&<b>{item.unread_operator}</b>}</a>)}</div>:<p className="manager-empty">{t.empty}</p>}</section>
