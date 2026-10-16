@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import RealRouteMap from "./plan/RealRouteMap";
+import RealRouteMap from "./DeferredRouteMap";
 import { mapPoints } from "../content/mlt";
 import SiteHeader from "./SiteHeader";
 import HeroVideo from "./HeroVideo";

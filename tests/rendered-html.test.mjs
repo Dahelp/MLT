@@ -108,3 +108,16 @@ test("keeps safeguards and critical interactions in source", async () => {
   assert.match(home, /className="smart-map-canvas"/);
   for (const boundary of [italy, austria, germany]) assert.equal(JSON.parse(boundary).type, "FeatureCollection");
 });
+
+test("home hero keeps a persistent still beneath native autoplay and defers the map", async () => {
+  for (const pathname of ["/en/", "/en/mobile-site/"]) {
+    const response = await render(pathname);
+    const html = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(html, /class="light-hero-image hero-video-poster"[^>]+fetchPriority="high"/);
+    assert.match(html, /<video[^>]+autoPlay=""[^>]+muted=""/);
+    assert.ok(html.indexOf("hero-video-poster") < html.indexOf("<video"));
+    assert.match(html, /class="deferred-route-map"/);
+    assert.doesNotMatch(html, /maplibregl-canvas/);
+  }
+});

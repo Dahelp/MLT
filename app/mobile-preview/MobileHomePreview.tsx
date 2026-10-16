@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import CollectionCarousel, { scrollCollectionCarouselIntoView } from "../CollectionCarousel";
-import RealRouteMap from "../plan/RealRouteMap";
+import RealRouteMap from "../DeferredRouteMap";
 import HeroVideo from "../HeroVideo";
 import { mapPoints } from "../../content/mlt";
 import MobilePreviewHeader from "./MobilePreviewHeader";
