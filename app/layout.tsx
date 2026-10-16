@@ -5,6 +5,7 @@ import CookieConsent from "./CookieConsent";
 import ChatWidget from "./ChatWidget";
 import JourneyFieldEnhancer from "./concierge/JourneyFieldEnhancer";
 import AnchorNavigation from "./AnchorNavigation";
+import { mobileReloadScrollScript } from "./mobileReloadScroll";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mlt-lifestyle.com"),
@@ -41,6 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head><script dangerouslySetInnerHTML={{ __html: mobileReloadScrollScript }} /></head>
       <body>{children}<AnchorNavigation /><JourneyFieldEnhancer /><ChatWidget /><CookieConsent /></body>
     </html>
   );
