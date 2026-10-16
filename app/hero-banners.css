@@ -1,0 +1,26 @@
+/* Shared light hero treatment keeps navigation and copy readable over photography. */
+.commercial .photo-hero,.home-light .photo-hero{position:relative;isolation:isolate;overflow:hidden;min-height:620px;background:#faf8f4;color:#594026;border:0}
+.photo-hero .page-hero-picture{position:absolute;z-index:-2;inset:0;display:block;width:100%;height:100%}
+.page-hero-picture img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.photo-hero::after{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(250,248,244,.97),rgba(250,248,244,.88) 29%,rgba(250,248,244,.5) 48%,rgba(250,248,244,0) 72%),linear-gradient(180deg,rgba(250,248,244,.5),transparent 27%)}
+.commercial .photo-hero .commercial-hero-content{width:100%;max-width:none;padding:180px clamp(24px,7vw,120px) 110px}
+.commercial .photo-hero h1,.home-light .photo-hero h1{max-width:680px;font-size:clamp(48px,5.2vw,82px);line-height:1.06;letter-spacing:-.045em}
+.commercial .photo-hero h1 em{color:#9f6c43}
+.commercial .photo-hero .commercial-eyebrow,.home-light .photo-hero .light-section-label{color:#9f6c43!important}
+.commercial .photo-hero p:not(.commercial-eyebrow),.home-light .photo-hero>p:last-child{max-width:590px;color:#625344;font-size:clamp(18px,1.5vw,23px);line-height:1.55}
+.commercial .photo-hero .commercial-hero-index{color:#80674d}
+.home-light .smart-map-page-intro.photo-hero{padding-top:180px;padding-bottom:90px}
+.home-light .smart-map-page-intro.photo-hero>p:last-child{margin-top:24px}
+@media(max-width:700px){
+ .commercial .photo-hero,.home-light .photo-hero{min-height:740px}
+ .photo-hero .page-hero-picture{top:auto;height:58%}
+ .photo-hero::after{background:linear-gradient(180deg,#faf8f4 0%,#faf8f4 36%,rgba(250,248,244,.94) 46%,rgba(250,248,244,.2) 72%,transparent 90%)}
+ .commercial .photo-hero .commercial-hero-content{align-self:flex-start;padding:145px 24px 330px}
+ .commercial .photo-hero h1,.home-light .photo-hero h1{font-size:42px;line-height:1.08}
+ .commercial .photo-hero p:not(.commercial-eyebrow),.home-light .photo-hero>p:last-child{font-size:17px;line-height:1.5;margin-top:20px}
+ .commercial .mlt-contact-hero.photo-hero,.home-light .smart-map-page-intro.photo-hero{padding:145px 24px 330px}
+ .photo-hero .page-hero-contact img{object-position:75% center}
+ .photo-hero .page-hero-investments img{object-position:35% center}
+ .photo-hero .page-hero-motorhomes img,.photo-hero .page-hero-capsule-home img{object-position:75% center}
+ .commercial .photo-hero .commercial-hero-index{bottom:18px;right:24px}
+}

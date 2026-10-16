@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { Listing } from "./Acquisitions";
+import HeroBannerImage from "../../HeroBannerImage";
 
 const money = (value: number) => new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(value);
 const photo = (item: Listing) => {
@@ -9,7 +10,7 @@ const photo = (item: Listing) => {
 };
 
 export default function MarketplaceHome({ locale, items, loading, onInquiry }: { locale: string; items: Listing[]; loading: boolean; onInquiry: () => void }) {
-  const [capsuleMode, setCapsuleMode] = useState(false), [type, setType] = useState("motorhome"), [query, setQuery] = useState(""), [max, setMax] = useState(""), [year, setYear] = useState(""), [mileage, setMileage] = useState(""), [area, setArea] = useState(""), [sort, setSort] = useState("newest");
+  const [capsuleMode, setCapsuleMode] = useState<boolean | null>(null), [type, setType] = useState("motorhome"), [query, setQuery] = useState(""), [max, setMax] = useState(""), [year, setYear] = useState(""), [mileage, setMileage] = useState(""), [area, setArea] = useState(""), [sort, setSort] = useState("newest");
   useEffect(() => { setCapsuleMode(new URLSearchParams(window.location.search).get("category") === "capsule"); }, []);
   const filterOptions = useMemo(() => {
     const inventory = items.filter(item => !type || item.type === type);
@@ -32,10 +33,10 @@ export default function MarketplaceHome({ locale, items, loading, onInquiry }: {
   const realCount = items.filter(item => !item.demo && item.type === "motorhome").length;
   const clear = () => { setType("motorhome"); setQuery(""); setMax(""); setYear(""); setMileage(""); setArea(""); };
 
-  if (capsuleMode) return <><section className="commercial-hero acquisition-hero market-hero market-capsule-hero"><div className="commercial-hero-image"/><div className="commercial-hero-content"><p className="commercial-eyebrow">MLT / Capsule homes</p><h1>A new way<br/><em>to feel at home.</em></h1><p>Capsule homes are coming to the MLT collection. Tell our team what you are looking for and we will contact you when suitable options become available.</p><button className="commercial-button" onClick={onInquiry}>Register your interest</button></div></section><section className="commercial-section market-capsule-note"><p className="commercial-eyebrow">A collection in preparation</p><h2>Thoughtfully designed.<br/><em>Worth waiting for.</em></h2><p>There are currently no capsule homes listed for sale. Our sales team can discuss your preferred layout, size and location in advance.</p><button className="commercial-button" onClick={onInquiry}>Contact the sales team</button></section></>;
+  if (capsuleMode) return <><section className="commercial-hero acquisition-hero market-hero market-capsule-hero photo-hero"><HeroBannerImage name="capsule-home"/><div className="commercial-hero-content"><p className="commercial-eyebrow">MLT / Capsule homes</p><h1>A new way<br/><em>to feel at home.</em></h1><p>Capsule homes are coming to the MLT collection. Tell our team what you are looking for and we will contact you when suitable options become available.</p><button className="commercial-button" onClick={onInquiry}>Register your interest</button></div></section><section className="commercial-section market-capsule-note"><p className="commercial-eyebrow">A collection in preparation</p><h2>Thoughtfully designed.<br/><em>Worth waiting for.</em></h2><p>There are currently no capsule homes listed for sale. Our sales team can discuss your preferred layout, size and location in advance.</p><button className="commercial-button" onClick={onInquiry}>Contact the sales team</button></section></>;
   return <>
-    <section className="commercial-hero acquisition-hero market-hero">
-      <div className="commercial-hero-image" />
+    <section className="commercial-hero acquisition-hero market-hero photo-hero">
+      {capsuleMode === false && <HeroBannerImage name="motorhomes"/>}
       <div className="commercial-hero-content"><p className="commercial-eyebrow">MLT / Acquisitions</p><h1>Find your next<br/><em>residence on wheels.</em></h1><p>Explore premium motorhomes, compare the details and enquire directly with the MLT sales team.</p></div>
     </section>
 

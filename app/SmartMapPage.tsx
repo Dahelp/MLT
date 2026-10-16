@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import type { SiteLanguage } from "./LanguageMenu";
 import SiteHeader from "./SiteHeader";
+import HeroBannerImage from "./HeroBannerImage";
 import SiteFooter from "./SiteFooter";
 import RealRouteMap from "./plan/RealRouteMap";
 import { mapPoints } from "../content/mlt";
@@ -25,7 +26,7 @@ export default function SmartMapPage({ locale }: { locale: SiteLanguage }) {
   const countries = ["All", "Italy", "Austria", "Germany"] as const;
   return <main className="home-light smart-map-page">
     <SiteHeader locale={locale} />
-    <section className="smart-map-page-intro"><p className="light-section-label">{t.eyebrow}</p><h1>{t.title}</h1><p>{t.intro}</p></section>
+    <section className="smart-map-page-intro photo-hero"><HeroBannerImage name="smart-map"/><p className="light-section-label">{t.eyebrow}</p><h1>{t.title}</h1><p>{t.intro}</p></section>
     <section className="light-map smart-map-page-panel" aria-label={t.eyebrow}>
       <div className="smart-map-canvas">
         <div className="smart-map-country-tabs" aria-label={t.country}>{countries.map(item => <button key={item} type="button" className={country === item ? "active" : ""} onClick={() => setCountry(item)}>{item === "All" ? t.all : item}</button>)}</div>
