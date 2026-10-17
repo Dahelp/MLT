@@ -31,8 +31,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build application
-        run: pnpm build
+      - name: Build and test shared site core
+        run: pnpm test
 
       - name: Export static preview
         run: node scripts/export-static.mjs

@@ -3,26 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import maplibregl, { type Map as MapLibreMap, type Marker } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { mapCoordinates as coordinates, mapViews as views, mapCountryFiles as countryFiles, mapStatusLabels as labels } from "../../content/map";
 import { mapPoints } from "../../content/mlt";
 
-const coordinates: Record<string, [number, number]> = {
-  como: [9.2572, 45.984], dolomites: [11.925, 46.54], tuscany: [11.17, 43.06], amalfi: [14.602, 40.634], tyrol: [11.39, 47.27], salzburg: [13.055, 47.81], vienna: [16.373, 48.208], bavaria: [11.08, 47.56], blackforest: [8.19, 48.1],
-  "dolomites-grand-tour": [11.925, 46.54], "lakes-of-bavaria": [11.26, 47.65], "alpine-escape": [12.64, 47.13], "wine-roads-collection": [11.17, 43.06], "mediterranean-discovery": [14.602, 40.634], "winter-alps-expedition": [12.03, 46.53], "black-forest-experience": [8.19, 48.1],
-};
-const views: Record<string, { center: [number, number]; zoom: number }> = {
-  All: { center: [10.8, 46.2], zoom: 4.4 }, Italy: { center: [11.7, 43.7], zoom: 5.2 }, Austria: { center: [13.25, 47.55], zoom: 6.2 }, Germany: { center: [9.7, 49.6], zoom: 5.4 },
-};
-const countryFiles = ["italy", "austria", "germany"] as const;
 type Locale = "en" | "de" | "ru" | "it" | "pl";
 type RouteGeometry = { type: "LineString"; coordinates: [number, number][] };
-const labels = {
-  en: { loading: "Loading map…", error: "Map tiles are temporarily unavailable.", routing: "Building route on real roads…", ready: "Road route ready", routeError: "Road route is temporarily unavailable", add: "Add", remove: "Remove" },
-  de: { loading: "Karte wird geladen…", error: "Die Kartenansicht ist vorübergehend nicht verfügbar.", routing: "Route über reale Straßen wird berechnet…", ready: "Straßenroute ist bereit", routeError: "Die Straßenroute ist vorübergehend nicht verfügbar", add: "Hinzufügen", remove: "Entfernen" },
-  ru: { loading: "Загружаем карту…", error: "Карта временно недоступна.", routing: "Строим маршрут по реальным дорогам…", ready: "Маршрут по дорогам готов", routeError: "Маршрутизатор временно недоступен", add: "Добавить", remove: "Удалить" },
-  it: { loading: "Caricamento mappa…", error: "La mappa non è disponibile al momento.", routing: "Creazione del percorso…", ready: "Percorso pronto", routeError: "Il percorso non è disponibile al momento", add: "Aggiungi", remove: "Rimuovi" },
-  pl: { loading: "Ładowanie mapy…", error: "Mapa jest chwilowo niedostępna.", routing: "Wyznaczanie trasy…", ready: "Trasa jest gotowa", routeError: "Trasa jest chwilowo niedostępna", add: "Dodaj", remove: "Usuń" },
-} as const;
-
 export default function RealRouteMap({ selected, country, onToggle, locale = "en", className = "", onDistanceChange }: { selected: string[]; country: string; onToggle: (id: string) => void; locale?: Locale; className?: string; onDistanceChange?: (kilometres: number | null) => void }) {
   const container = useRef<HTMLDivElement>(null); const mapRef = useRef<MapLibreMap | null>(null); const markersRef = useRef<Marker[]>([]); const toggleRef = useRef(onToggle);
   const [mapStatus, setMapStatus] = useState<"loading" | "ready" | "error">("loading"); const [routeStatus, setRouteStatus] = useState<"idle" | "loading" | "ready" | "error">("idle"); const t = labels[locale];
@@ -46,8 +31,8 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
   }, [selected, country, mapStatus, t]);
   useEffect(() => {
     const map = mapRef.current; if (!map || mapStatus !== "ready") return; const source = map.getSource("route") as maplibregl.GeoJSONSource; const controller = new AbortController();
-    if (selected.length < 2) { source.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [] } }); setRouteStatus("idle"); onDistanceChange?.(null); return () => controller.abort(); }
-    setRouteStatus("loading"); const waypoints = selected.map((id) => coordinates[id].join(",")).join(";");
+    if (selected.filter(id => coordinates[id]).length < 2) { source.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [] } }); setRouteStatus("idle"); onDistanceChange?.(null); return () => controller.abort(); }
+    setRouteStatus("loading"); onDistanceChange?.(null); const waypoints = selected.filter(id => coordinates[id]).map((id) => coordinates[id].join(",")).join(";");
     fetch(`https://router.project-osrm.org/route/v1/driving/${waypoints}?overview=full&geometries=geojson&steps=false`, { signal: controller.signal }).then((response) => { if (!response.ok) throw new Error("Routing failed"); return response.json(); }).then((data: { code?: string; routes?: { geometry: RouteGeometry; distance?: number }[] }) => { if (data.code !== "Ok" || !data.routes?.[0]) throw new Error("No route"); const geometry = data.routes[0].geometry; source.setData({ type: "Feature", properties: {}, geometry }); onDistanceChange?.(typeof data.routes[0].distance === "number" ? Math.round(data.routes[0].distance / 1000) : null); const bounds = geometry.coordinates.reduce((box, coordinate) => box.extend(coordinate), new maplibregl.LngLatBounds(geometry.coordinates[0], geometry.coordinates[0])); map.fitBounds(bounds, { padding: 70, maxZoom: 7.5, duration: 900 }); setRouteStatus("ready"); }).catch((error) => { if (error.name !== "AbortError") { source.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [] } }); onDistanceChange?.(null); setRouteStatus("error"); } });
     return () => controller.abort();
   }, [selected, mapStatus, onDistanceChange]);

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: no-store, max-age=0');
 require_once __DIR__ . '/booking.php';
+require_once __DIR__ . '/journey-pricing.php';
 $body=json_decode(file_get_contents('php://input'),true);if(!is_array($body))$body=[];
 $db=mlt_db(mlt_settings());if(!$db){http_response_code(503);echo json_encode(['error'=>'Catalog service unavailable.']);exit;}
 $db->exec('CREATE TABLE IF NOT EXISTS mlt_catalog_items (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, item_type VARCHAR(24) NOT NULL, collection_id VARCHAR(48) NULL, slug VARCHAR(100) NOT NULL UNIQUE, title VARCHAR(180) NOT NULL, subtitle VARCHAR(255) NULL, image_path VARCHAR(255) NULL, price DECIMAL(12,2) NULL, currency CHAR(3) NOT NULL DEFAULT "EUR", points_json TEXT NULL, data_json TEXT NULL, sort_order SMALLINT NOT NULL DEFAULT 0, is_active TINYINT(1) NOT NULL DEFAULT 1, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, INDEX catalog_type_collection (item_type,collection_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
@@ -28,9 +29,9 @@ $collectionServices=[
 if(!(int)$db->query('SELECT COUNT(*) FROM mlt_catalog_items')->fetchColumn()){ $insert=$db->prepare('INSERT INTO mlt_catalog_items(item_type,collection_id,slug,title,subtitle,image_path,price,sort_order) VALUES(?,?,?,?,?,?,?,?)');foreach($seed as $item)$insert->execute($item);foreach($routes as $collection=>$items)foreach($items as $index=>$item)$insert->execute(['product',$collection,$item[0],$item[1],$item[3]??null,$item[2],null,$index+1]);foreach($extras as $index=>$item)$insert->execute(['extra',null,$item[0],$item[1],null,$item[2],null,$index+1]);}
 $ensure=$db->prepare('INSERT IGNORE INTO mlt_catalog_items(item_type,collection_id,slug,title,subtitle,image_path,price,sort_order) VALUES(?,?,?,?,?,?,?,?)');$ensure->execute(['collection',null,'honeymoon','MLT Honeymoon Collection','A private journey for two','/collection-honeymoon.webp',5900,5]);foreach($routes['honeymoon'] as $index=>$item)$ensure->execute(['product','honeymoon',$item[0],$item[1],$item[3]??null,$item[2],null,$index+1]);
 foreach($collectionServices as $collection=>$items)foreach($items as $index=>$title){$serviceSlug=$collection.'-service-'.($index+1);$ensure->execute(['extra',$collection,$serviceSlug,$title,null,null,null,$index+1]);}
-$knownRanges=['freedom'=>[7,30,1490,4990],'signature'=>[7,14,2490,5890],'concierge'=>[7,14,4990,8990],'private'=>[7,21,19900,59700],'honeymoon'=>[7,14,5900,8900]];
+$knownRanges=[];foreach(mlt_journey_rate_tables() as $id=>$table){if($id==='proposal')continue;$knownRanges[$id]=[min(array_keys($table)),max(array_keys($table)),min($table),max($table)];}
 foreach($knownRanges as $knownSlug=>$range){$fill=$db->prepare('UPDATE mlt_catalog_items SET days_from=COALESCE(days_from,?),days_to=COALESCE(days_to,?),price=COALESCE(price,?),price_to=COALESCE(price_to,?) WHERE item_type="collection" AND slug=?');$fill->execute([$range[0],$range[1],$range[2],$range[3],$knownSlug]);}
-$knownPricing=['freedom'=>[[7,1490],[10,1990],[14,2590],[21,3690],[30,4990]],'signature'=>[[7,2490],[10,4290],[14,5890]],'concierge'=>[[7,4990],[10,6590],[14,8990]],'private'=>[[7,19900],[10,28429],[14,39800],[21,59700]],'honeymoon'=>[[7,5900],[10,7000],[14,8900]]];
+$knownPricing=[];foreach(mlt_journey_rate_tables() as $id=>$table){if($id==='proposal')continue;foreach($table as $days=>$price)$knownPricing[$id][]=[$days,$price];}
 foreach($knownPricing as $knownSlug=>$rows){$fill=$db->prepare('UPDATE mlt_catalog_items SET data_json=? WHERE item_type="collection" AND slug=? AND (data_json IS NULL OR data_json="")');$fill->execute([json_encode(['pricing'=>array_map(fn($row)=>['days'=>$row[0],'price'=>$row[1]],$rows)],JSON_UNESCAPED_UNICODE),$knownSlug]);}
 $defaultDepartureRules=[
  'freedom'=>['mode'=>'any','weekdays'=>[],'blockedDates'=>[],'allowedDates'=>[]],

@@ -1,16 +1,10 @@
 import { NextResponse } from "next/server";
+import { journeyRates, freedomPlusRates as freedomPlusPrices, signatureTailoredRates as signatureTailoredPrices, extraGuestRate } from "../../../content/journey-pricing";
+import pricing from "../../../public/data/journey-pricing.json";
 
 type Provider = "stripe" | "paypal";
 
-const prices: Record<string, Record<number, number>> = {
-  freedom: { 7: 1490, 10: 1990, 14: 2590, 21: 3690, 30: 4990 },
-  signature: { 7: 2490, 10: 3290, 14: 4390 },
-  concierge: { 7: 4990, 10: 7129, 14: 9980, 21: 14970, 30: 21386 },
-  private: { 7: 19900, 10: 28429, 14: 39800, 21: 59700, 30: 85286 },
-  honeymoon: { 7: 5900, 10: 7000, 14: 8900 },
-};
-const freedomPlusPrices: Record<number, number> = { 7: 1790, 10: 2340, 14: 3040, 21: 4190, 30: 5490 };
-const signatureTailoredPrices: Record<number, number> = { 7: 2990, 10: 4290, 14: 5890 };
+const prices: Record<string, Record<number, number>> = Object.fromEntries(Object.entries(journeyRates).map(([id, rows]) => [id, { ...Object.fromEntries(rows.map(row => [row.d, row.p])), ...(pricing.legacyPaymentDurations as Record<string, Record<number, number>>)[id] }]));
 
 const clean = (value: unknown, max = 80) => String(value ?? "").trim().slice(0, max);
 const encode = (value: Record<string, string>) => new URLSearchParams(value).toString();
@@ -23,7 +17,7 @@ export async function POST(request: Request) {
   const days = Number(body.days);
   const baseAmount = collection === "freedom" && body.freedomPlus ? freedomPlusPrices[days] : collection === "signature" && body.signatureTailored ? signatureTailoredPrices[days] : prices[collection]?.[days];
   const extraGuests = Math.max(0, Math.min(6, Number(body.extraGuests) || 0));
-  const amount = baseAmount ? baseAmount + extraGuests * 190 : 0;
+  const amount = baseAmount ? baseAmount + extraGuests * extraGuestRate : 0;
   const reference = clean(body.reference);
   if ((provider !== "stripe" && provider !== "paypal") || !amount || !reference) return NextResponse.json({ error: "This journey cannot be paid online yet. Please contact MLT Concierge." }, { status: 400 });
 

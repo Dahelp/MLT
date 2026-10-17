@@ -1,65 +1,51 @@
 # MLT — Individual Road Expeditions
 
-Premium interactive concept for MLT GmbH. The beta demonstrates the brand direction, four travel collections and the first step of a configurable journey flow.
+Сайт MLT: коллекции путешествий, Smart Map, продажа автодомов и капсульных домов, инвестиции, личный кабинет и служебные панели.
 
-## Local start
+Основная и мобильная версии намеренно разделены. Они используют общие компоненты поведения и источники контента. Карта проекта, правила изменения общих блоков и порядок отката описаны в [ARCHITECTURE.md](ARCHITECTURE.md); визуальные правила — в [STYLE_GUIDE.md](STYLE_GUIDE.md).
 
-Requirements: Node.js 22+ and pnpm.
+## Локальный запуск
 
-```bash
+Требуются Node.js 22.13+ и pnpm 10.
+
+```sh
 pnpm install
 pnpm dev
 ```
 
-Open the local address shown in the terminal (normally `http://localhost:5173`).
+Откройте адрес из терминала. Основная главная — `/en/`, отдельная мобильная — `/en/mobile-site/`. Мобильную коллекцию можно проверить непосредственно по `/en/collections/freedom/mobile-site/`. Предпросмотры используют `mobile-preview` и сохраняют отдельные ссылки переходов.
 
-## Production check
+Поддерживаются `en`, `de`, `ru`, `it`, `pl`. Коллекции: Freedom, Signature, Concierge, Private, Honeymoon. Proposal имеет отдельную страницу. Коммерческие разделы: Acquisitions и Investments; общие страницы: About, Contact, Smart Map и юридические документы.
 
-```bash
+## Проверки и сборка
+
+```sh
 pnpm test
 node scripts/export-static.mjs
 ```
 
-The current beta is a front-end concept. Payments, CRM, inventory, CMS content and production booking logic are intentionally outside this demonstration scope.
+Тесты проверяют серверный HTML, общие тарифы и контент, сохранение маршрута при смене языка и поведение мобильного viewport. PHP-проверка общего тарифа пропускается только на машине без PHP. Тесты API служебных панелей находятся в `tests/*-api.test.mjs` и имеют собственные тестовые окружения.
 
-## Telegram concierge channel
+`export-static.mjs` требует доступ к существующему API Acquisitions, чтобы экспортировать реальные адреса объектов. Push в `main` запускает существующий GitHub Actions workflow публикации на Apache/PHP-хостинг. Vinext/Cloudflare используется для сборки/рендеринга и локального запуска; локальный Vinext не исполняет файлы `public/api/*.php`. Без PHP API публичные страницы используют резервный контент.
 
-The proposal form works in demo mode without credentials. To deliver real manager alerts, copy `.env.example` to `.env.local` and provide:
+## Контент и общие блоки
 
-- `TELEGRAM_BOT_TOKEN` — token created through BotFather;
-- `TELEGRAM_CHAT_ID` — manager, group or channel chat ID.
+- `content/home.ts` — тексты и карточки обеих главных.
+- `content/mlt.ts`, `content/collection-details.ts`, `content/collection-routes.ts` — коллекции и резервные маршруты.
+- `content/collection-products.ts` — единые правила чтения продуктов из каталога.
+- `public/data/journey-pricing.json` — резервные тарифы для React и PHP. Действующие цены каталога имеют приоритет в конфигураторах и карточках главных.
+- `content/booking-ui.ts`, `content/mobile-booking.ts`, `content/freedom-booking.ts` — тексты конфигураторов.
+- `content/site.ts`, `content/footer.ts` — контакты, локали, логотипы и переводы подвала.
+- `app/CoverflowCarousel.tsx` — общий механизм каруселей; внешний вид задаётся шаблоном.
+- `app/SiteFooter.tsx` — основной, мобильный и коммерческий варианты одного подвала.
+- `app/plan/RealRouteMap.tsx`, `app/useMapSelection.ts`, `app/MapSelectionList.tsx` — карта и общий выбор мест.
 
-Never commit `.env.local` or the bot token.
+Для обновлений через служебные панели используется существующий PHP-каталог. Настройки внешних сервисов и базы данных хранятся вне отслеживаемых исходников. Не добавляйте `.env.local`, конфигурацию платёжных провайдеров или токены в Git.
 
-## Content model
+## Перед выпуском
 
-Editable product content is centralized in `content/mlt.ts`:
+В проекте сохранён `noindex` в metadata, `robots.txt` и заголовках Apache. Снятие ограничений индексации требует отдельного решения. Финальные тексты, юридические документы, фотографии, параметры автодомов и цены должны соответствовать данным заказчика.
 
-- collections and inclusions;
-- fleet models, rates and specifications;
-- destinations and Smart Map points;
-- additional experiences.
+## Обратимость изменений
 
-This typed local source is the fallback for the beta and the migration contract for a future Sanity or Strapi workspace. Connecting the external CMS will not require redesigning the page components.
-
-## Locales
-
-English and German interface dictionaries live in `content/i18n.ts`. The selected locale is remembered in browser storage. Italian and Russian are reserved in the language control for the next translation phase and are intentionally disabled until their copy is approved.
-
-## Collection routes
-
-The four product stories are available at `/collections/freedom`, `/collections/signature`, `/collections/concierge`, and `/collections/private`. Their English and German editorial copy is managed in `content/collection-details.ts`.
-
-Fleet stories are available at `/fleet/explorer`, `/fleet/granduca`, and `/fleet/compatto`. Bilingual equipment, space and suitability content is managed in `content/fleet-details.ts`. Vehicle specifications and images remain concept placeholders until MLT supplies confirmed fleet data and photography.
-
-## Demonstration safeguards
-
-- Search indexing remains disabled in page metadata, `public/robots.txt` and the production `X-Robots-Tag`.
-- The Apache preview includes basic security headers, disabled directory listing and cache rules in `public/.htaccess`.
-- The Smart Map shows a loading or temporary-unavailable state and resizes when its layout changes.
-- Journey choices and locale are stored only in the visitor's browser.
-- Concierge requests validate required identity fields, use a honeypot, limit payload size and never expose Telegram credentials to the browser.
-
-## Pre-launch checklist
-
-Before removing `noindex`, MLT must approve final copy, translations, fleet data, imagery, prices, legal texts and production contact details. Production Stripe, CMS, CRM, `.com` / `.ru` routing and AI itinerary generation are separate implementation phases.
+Для рефакторинга общей основы создана метка `safety/architecture-before-20261018`. Изменения оформляются отдельным коммитом: опубликованную правку можно отменить через `git revert` с последующим обычным push. Подробности и сведения о сохранённых незакоммиченных правках — в [ARCHITECTURE.md](ARCHITECTURE.md#откат).

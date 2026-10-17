@@ -4,6 +4,37 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
+test("separate public layouts share footer identity and legal links", async () => {
+  for (const locale of ["en", "de", "ru", "it", "pl"]) {
+    for (const route of [`/${locale}/`, `/${locale}/mobile-site/`, `/${locale}/contact/`]) {
+      const response = await render(route);
+      assert.equal(response.status, 200, route);
+      const html = await response.text();
+      const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+      assert.ok(footer, `${route} has a footer`);
+      for (const slug of ["privacy", "imprint", "terms"]) assert.ok(footer.includes(`/${locale}/legal/${slug}/`), `${route}: ${slug}`);
+      assert.ok(footer.includes("MLT Maschinenhandel GmbH Import-Export"), route);
+      assert.ok(footer.includes("mailto:info@mlt-lifestyle.com"), route);
+      assert.ok(footer.includes("tel:+4917632523799"), route);
+    }
+  }
+});
+
+test("each main and mobile collection renders one carousel and the same seven fallback products", async () => {
+  const lastProduct = { freedom: "Black Forest Trail", signature: "Black Forest Signature Retreat", concierge: "Black Forest Family Forest &amp; Lore", private: "Black Forest Experience", honeymoon: "Black Forest Fairy Tale" };
+  for (const [slug, last] of Object.entries(lastProduct)) {
+    for (const suffix of ["", "mobile-site/"]) {
+      const route = `/en/collections/${slug}/${suffix}`;
+      const response = await render(route);
+      assert.equal(response.status, 200, route);
+      const html = await response.text();
+      const classes = Array.from(html.matchAll(/class="([^"]*)"/g), match => match[1].split(/\s+/));
+      assert.equal(classes.filter(tokens => tokens.includes("swiper")).length, 1, `${route} must not mount hidden carousels`);
+      assert.ok(html.includes(last), `${route} includes the complete shared product set`);
+    }
+  }
+});
+
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${pathname}`);

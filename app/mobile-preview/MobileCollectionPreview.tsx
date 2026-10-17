@@ -1,26 +1,20 @@
 "use client";
+import { siteIdentity } from "../../content/site";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Swiper as SwiperCarousel, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperInstance } from "swiper";
-import { EffectCoverflow, Keyboard } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
+import { useEffect, useMemo, useState } from "react";
 import { collectionDetails } from "../../content/collection-details";
 import { nextAllowedDeparture, parseDepartureRule, useCatalogItems } from "../../content/catalog-client";
-import { collections, journeyRoutes } from "../../content/mlt";
+import CoverflowCarousel from "../CoverflowCarousel";
+import { mobileCollectionProducts } from "../../content/collection-products";
+import { resolveJourneyRates, journeyPrice, journeyTotal } from "../../content/journey-pricing";
+import { collections } from "../../content/mlt";
 import type { Locale } from "../../content/i18n";
 import { DepartureCalendar, type DepartureRule } from "../collections/[slug]/DepartureCalendar";
 import MobilePreviewHeader from "./MobilePreviewHeader";
 import MobilePreviewFooter from "./MobilePreviewFooter";
 import { continueJourneyInAccount } from "../../content/account-draft";
+import { configs, tr, extraBenefits, tailoredInterests, type CollectionId, type ContentLocale, type IconName } from "../../content/mobile-booking";
 import styles from "./freedom/preview.module.css";
-
-type CollectionId = "signature" | "concierge" | "private" | "honeymoon";
-type IconName = "globe" | "user" | "menu" | "chevron" | "arrow-left" | "arrow-right" | "pin" | "calendar" | "travellers";
-type ContentLocale = "en" | "de" | "ru";
-type Product = { n: string; title: string; copy: Record<Locale, string>; image: string };
-type PackageVariant = { id: string; title: string; benefits: Record<ContentLocale, string[]>; supplement?: number };
 
 function Icon({ name }: { name: IconName }) {
   return <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -36,71 +30,25 @@ function Icon({ name }: { name: IconName }) {
   </svg>;
 }
 
-const baseTr = {
-  en: { build:"Build your journey:", country:"Country", dates:"Choose your travel dates", departure:"Departure", returning:"Return", travellers:"Travellers", included:"1–2 guests included · +€190 from the 3rd guest", experience:"Select your experience:", selected:"Selected", choose:"Choose", ideal:"Ideal for", total:"Total", pay:"Sign in & pay", concierge:"Talk to a concierge", explore:"Explore", contact:"Contact", collections:"Collections", experiences:"Experiences", map:"Smart map", email:"Email us", privacy:"Privacy", imprint:"Imprint", days:"days", menu:"Explore MLT", journeys:"Journeys", vehicles:"Vehicles", account:"Sign in", prepared:"Tell us where you would like to begin. We will prepare every essential detail for your journey.", europe:"Individual Road Expeditions across Europe." },
-  de: { build:"Stellen Sie Ihre Reise zusammen:", country:"Land", dates:"Reisedauer wählen", departure:"Abreise", returning:"Rückkehr", travellers:"Reisende", included:"1–2 Gäste inklusive · +190 € ab dem 3. Gast", experience:"Erlebnis auswählen:", selected:"Gewählt", choose:"Wählen", ideal:"Ideal für", total:"Gesamt", pay:"Anmelden & zahlen", concierge:"Concierge kontaktieren", explore:"Entdecken", contact:"Kontakt", collections:"Kollektionen", experiences:"Erlebnisse", map:"Smart Map", email:"E-Mail", privacy:"Datenschutz", imprint:"Impressum", days:"Tage", menu:"MLT entdecken", journeys:"Reisen", vehicles:"Fahrzeuge", account:"Anmelden", prepared:"Sagen Sie uns, wo Ihre Reise beginnen soll. Wir bereiten alle wichtigen Details für Sie vor.", europe:"Individuelle Road Expeditions durch Europa." },
-  ru: { build:"Соберите путешествие:", country:"Страна", dates:"Выберите длительность", departure:"Отправление", returning:"Возвращение", travellers:"Путешественники", included:"1–2 гостя включены · +€190 с 3-го гостя", experience:"Выберите впечатление:", selected:"Выбрано", choose:"Выбрать", ideal:"Идеально для", total:"Итого", pay:"Войти и оплатить", concierge:"Связаться с консьержем", explore:"Разделы", contact:"Контакты", collections:"Коллекции", experiences:"Впечатления", map:"Карта", email:"Написать нам", privacy:"Конфиденциальность", imprint:"Реквизиты", days:"дней", menu:"Откройте MLT", journeys:"Маршруты", vehicles:"Автодома", account:"Войти", prepared:"Расскажите, откуда хотите начать. Мы подготовим все важные детали путешествия.", europe:"Индивидуальные автопутешествия по Европе." },
-} satisfies Record<ContentLocale, Record<string,string>>;
-const tr = {
-  ...baseTr,
-  it: { ...baseTr.en, build:"Crea il tuo viaggio:",country:"Paese",dates:"Scegli la durata",departure:"Partenza",returning:"Ritorno",travellers:"Viaggiatori",included:"1–2 ospiti inclusi · +€190 dal 3° ospite",experience:"Scegli la tua esperienza:",selected:"Selezionato",choose:"Scegli",ideal:"Ideale per",total:"Totale",pay:"Accedi e paga",concierge:"Parla con un concierge",days:"giorni" },
-  pl: { ...baseTr.en, build:"Zaplanuj swoją podróż:",country:"Kraj",dates:"Wybierz czas podróży",departure:"Wyjazd",returning:"Powrót",travellers:"Podróżni",included:"1–2 osoby w cenie · +€190 od 3. osoby",experience:"Wybierz doświadczenie:",selected:"Wybrano",choose:"Wybierz",ideal:"Idealne dla",total:"Razem",pay:"Zaloguj się i zapłać",concierge:"Porozmawiaj z concierge",days:"dni" },
-};
-
-const fallbackPrices: Record<CollectionId, Record<number, number>> = {
-  signature:{7:2490,10:4290,14:5890}, concierge:{7:4990,10:6590,14:8990}, private:{7:19900,10:28429,14:39800,21:59700}, honeymoon:{7:5900,10:7000,14:8900},
-};
-const configs: Record<CollectionId, { hero:string; packages:PackageVariant[]; products:Product[] }> = {
-  signature:{ hero:"/collection-signature.webp", packages:[
-    {id:"signature",title:"Signature",benefits:{en:["Personal route","Reserved premium campsites","Panoramic roads","Restaurants & activities"],de:["Persönliche Route","Reservierte Premium-Stellplätze","Panoramastraßen","Restaurants & Aktivitäten"],ru:["Личный маршрут","Премиальные стоянки","Панорамные дороги","Рестораны и впечатления"]}},
-    {id:"tailored",title:"Signature Tailored",supplement:500,benefits:{en:["Everything in Signature","Personal travel scenario","Activities matched to you","Special moments"],de:["Alles aus Signature","Persönliches Reiseszenario","Passende Aktivitäten","Besondere Momente"],ru:["Всё из Signature","Личный сценарий","Подобранные активности","Особенные моменты"]}},
-  ], products:[] },
-  concierge:{ hero:"/collection-concierge.webp", packages:[{id:"concierge",title:"Concierge",benefits:{en:["24/7 online concierge","Live route changes","Campsites booked","Dining reservations"],de:["Online-Concierge rund um die Uhr","Flexible Routenänderungen","Gebuchte Stellplätze","Restaurantreservierungen"],ru:["Онлайн-консьерж 24/7","Изменения маршрута","Бронирование стоянок","Резервации ресторанов"]}}], products:[] },
-  private:{ hero:"/collection-private.webp", packages:[{id:"private",title:"Private",benefits:{en:["Private driver","Technician and chef","Private excursions","VIP transfers"],de:["Privatfahrer","Techniker und Koch","Private Ausflüge","VIP-Transfers"],ru:["Личный водитель","Техник и повар","Частные экскурсии","VIP-трансферы"]}}], products:[] },
-  honeymoon:{ hero:"/collection-honeymoon.webp", packages:[{id:"honeymoon",title:"Honeymoon",benefits:{en:["Premium motorhome for two","Romantic route","Private stays","Dedicated concierge"],de:["Premium-Reisemobil für zwei","Romantische Route","Private Stellplätze","Persönlicher Concierge"],ru:["Премиальный автодом для двоих","Романтический маршрут","Приватные стоянки","Личный консьерж"]}}], products:[] },
-};
-
-const extraBenefits: Record<string, { it: string[]; pl: string[] }> = {
-  signature: { it: ["Itinerario personale", "Campeggi premium prenotati", "Strade panoramiche", "Ristoranti e attività"], pl: ["Osobista trasa", "Kempingi premium", "Drogi widokowe", "Restauracje i atrakcje"] },
-  tailored: { it: ["Tutto di Signature", "Programma su misura", "Attività scelte per te", "Momenti speciali"], pl: ["Wszystko z Signature", "Indywidualny plan podróży", "Atrakcje dopasowane do Ciebie", "Wyjątkowe chwile"] },
-  concierge: { it: ["Concierge online 24/7", "Modifiche dell’itinerario", "Campeggi prenotati", "Ristoranti prenotati"], pl: ["Concierge online 24/7", "Zmiany trasy", "Zarezerwowane kempingi", "Rezerwacje restauracji"] },
-  private: { it: ["Autista privato", "Tecnico e chef", "Escursioni private", "Transfer VIP"], pl: ["Prywatny kierowca", "Technik i szef kuchni", "Prywatne wycieczki", "Transfery VIP"] },
-  honeymoon: { it: ["Camper premium per due", "Itinerario romantico", "Soste private", "Concierge dedicato"], pl: ["Kamper premium dla dwojga", "Romantyczna trasa", "Prywatne postoje", "Osobisty concierge"] },
-};
-
-const productAssets: Record<CollectionId, string[]> = {
-  signature:["signature-route-dolomites.jpg","signature-route-bavaria.jpg","signature-route-alpine.jpg","signature-route-wine.jpg","signature-route-mediterranean.jpg"],
-  concierge:["concierge-family-dolomites.jpg","concierge-family-bavaria.jpg","concierge-family-alpine.jpg","concierge-family-wine.jpg","concierge-family-mediterranean.jpg"],
-  private:["private-route-dolomites.webp","private-route-bavaria.webp","private-route-alpine.webp","private-route-wine.webp","private-route-mediterranean.webp"],
-  honeymoon:["honeymoon-dolomites.jpg","honeymoon-bavaria.jpg","honeymoon-alpine.jpg","honeymoon-vineyards.jpg","honeymoon-riviera.jpg"],
-};
-const tailoredInterests = [
-  {id:"mountains",en:"Mountains",de:"Berge",ru:"Горы"},{id:"restaurants",en:"Restaurants",de:"Restaurants",ru:"Рестораны"},
-  {id:"wineries",en:"Wineries",de:"Weingüter",ru:"Винодельни"},{id:"lakes",en:"Lakes",de:"Seen",ru:"Озёра"},
-  {id:"spa",en:"Spa",de:"Spa",ru:"Спа"},{id:"hiking",en:"Hiking",de:"Wandern",ru:"Пешие прогулки"},
-  {id:"castles",en:"Castles",de:"Schlösser",ru:"Замки"},{id:"cycling",en:"Cycling",de:"Fahrräder",ru:"Велосипеды"},
-  {id:"yachts",en:"Yachts",de:"Yachten",ru:"Яхты"},{id:"photo-session",en:"Photo session",de:"Fotoshooting",ru:"Фотосессия"},
-  {id:"sunrise",en:"Sunrise",de:"Sonnenaufgang",ru:"Рассвет"},{id:"birthday",en:"Birthday",de:"Geburtstag",ru:"День рождения"},
-  {id:"proposal",en:"Proposal",de:"Heiratsantrag",ru:"Предложение"},{id:"anniversary",en:"Anniversary",de:"Jahrestag",ru:"Годовщина"},
-] as const;
-function productsFor(id: CollectionId): Product[] { return journeyRoutes.slice(0,5).map((route,index)=>({n:String(index+1).padStart(2,"0"),title:route.name.replace("Freedom Journey",id === "honeymoon" ? "Romantic Journey" : "Journey"),copy:route.tagline,image:`/${productAssets[id][index]}`})); }
 function addDays(date:string,days:number){const value=new Date(`${date}T12:00:00`);value.setDate(value.getDate()+days);return value.toISOString().slice(0,10);}
 
 export default function MobileCollectionPreview({ collectionId, initialLocale = "en", previewMode = true }: { collectionId: CollectionId; initialLocale?: Locale; previewMode?: boolean }) {
   const config=configs[collectionId], collection=collections.find(x=>x.id===collectionId)!, detail=collectionDetails[collectionId];
   const [locale,setLocale]=useState<Locale>(initialLocale);
-  const [variant,setVariant]=useState(0), [prices,setPrices]=useState(fallbackPrices[collectionId]), [days,setDays]=useState(Number(Object.keys(fallbackPrices[collectionId])[0]));
+  const [variant,setVariant]=useState(0), [days,setDays]=useState(7);
   const [departure,setDeparture]=useState("2026-10-12"), [guests,setGuests]=useState(1), [active,setActive]=useState(2);
   const [selectedInterests,setSelectedInterests]=useState<string[]>([]); const [reviewOpen,setReviewOpen]=useState(false);
   const [activeField,setActiveField]=useState<"country"|"duration"|"dates"|null>(null);
-  const [apiProducts,setApiProducts]=useState<Product[]>([]); const productCarousel=useRef<SwiperInstance|null>(null);
   const catalogItems=useCatalogItems();
   useEffect(()=>{const value=new URLSearchParams(location.search).get("lang");if(value==="en"||value==="de"||value==="ru"||value==="it"||value==="pl")setLocale(value);},[]);
-  useEffect(()=>{const item=catalogItems.find(x=>x.item_type==="collection"&&x.slug===collectionId);const parsed=item?.data_json?JSON.parse(item.data_json):{};if(parsed.pricing&&typeof parsed.pricing==="object"){const rows=Array.isArray(parsed.pricing)?parsed.pricing.map((row:{days?:unknown;price?:unknown})=>[Number(row.days),Number(row.price)]):Object.entries(parsed.pricing).map(([k,v])=>[Number(k),Number(v)]);const next=Object.fromEntries(rows.filter(([d,p]:number[])=>Number.isFinite(d)&&d>0&&Number.isFinite(p)&&p>=0));if(Object.keys(next).length){setPrices(next);setDays(Number(Object.keys(next)[0]));}}const found=catalogItems.filter(x=>x.item_type==="product"&&x.collection_id===collectionId).map((x,i)=>{const p=x.data_json?JSON.parse(x.data_json):{};return{n:String(i+1).padStart(2,"0"),title:String(x.title||""),copy:{en:p.description||"",de:p.description_de||p.description||"",ru:p.description_ru||p.description||"",it:p.description_it||p.description||"",pl:p.description_pl||p.description||""},image:String(x.image_path||p.image||config.hero)};});if(found.length)setApiProducts(found);},[catalogItems,collectionId,config.hero]);
   const contentLocale:ContentLocale=locale==="de"||locale==="ru"?locale:"en";
-  const copy=detail[locale], ui=tr[locale], products=apiProducts.length?apiProducts:productsFor(collectionId), carousel=Array.from({length:3},()=>products).flat();
-  const total=prices[days]+(config.packages[variant]?.supplement||0)+Math.max(0,guests-2)*190, returned=addDays(departure,days);
-  const dbCollection=catalogItems.find(x=>x.item_type==="collection"&&x.slug===collectionId);
+  const copy=detail[locale], ui=tr[locale], products=useMemo(()=>mobileCollectionProducts(collectionId,locale,catalogItems),[collectionId,locale,catalogItems]);
+  const dbCollection=catalogItems.find(x=>x.item_type==="collection"&&x.slug===collectionId&&Boolean(x.is_active));
+  const options=useMemo(()=>resolveJourneyRates(collectionId,dbCollection?.data_json),[collectionId,dbCollection?.data_json]);
+  const prices=Object.fromEntries(options.map(row=>[row.d,row.p]));
+  useEffect(()=>{if(!options.some(row=>row.d===days))setDays(options[0].d);},[options,days]);
+  useEffect(()=>{if(active>=products.length)setActive(0);},[active,products.length]);
+  const total=journeyTotal(journeyPrice(collectionId,days,prices[days]??options[0].p,variant===1),guests), returned=addDays(departure,days);
   const effectiveDepartureRule:DepartureRule=parseDepartureRule(dbCollection?.data_json);
   useEffect(()=>{if(dbCollection?.data_json)setDeparture(current=>nextAllowedDeparture(current,effectiveDepartureRule));},[dbCollection?.data_json]);
   const dateLocale={en:"en-GB",de:"de-DE",ru:"ru-RU",it:"it-IT",pl:"pl-PL"}[locale];
@@ -113,12 +61,12 @@ export default function MobileCollectionPreview({ collectionId, initialLocale = 
     <section className={styles.hero}><img src={config.hero} alt={`MLT ${collection.name}`}/><div><span>MLT / {collection.number}</span><h1><strong>MLT {collection.name}</strong><br/><i>Collection</i></h1></div></section>
     <section className={styles.booking}><h2>{ui.build}</h2><div className={`${styles.types} ${config.packages.length===1?styles.singleType:""}`}>{config.packages.map((item,index)=><button key={item.id} className={variant===index?styles.selected:""} onClick={()=>setVariant(index)}><b>{item.title}</b>{(locale==="it"||locale==="pl"?extraBenefits[item.id]?.[locale]||item.benefits.en:item.benefits[contentLocale]).map(x=><small key={x}><span>✓</span>{x}</small>)}</button>)}</div>
       {collectionId==="signature"&&variant===1&&<div className={styles.tailoredServices} aria-label={locale==="en"?"Choose interests":locale==="de"?"Interessen auswählen":"Выберите интересы"}>{tailoredInterests.map(interest=>{const selected=selectedInterests.includes(interest.id);return <button type="button" key={interest.id} className={selected?styles.interestSelected:""} aria-pressed={selected} onClick={()=>setSelectedInterests(current=>selected?current.filter(id=>id!==interest.id):[...current,interest.id])}>{selected&&<span>✓</span>}{interest[contentLocale]}</button>})}</div>}
-      <div className={styles.fields}><label className={activeField==="country"?styles.activeField:""} onClick={()=>setActiveField("country")}><i><Icon name="pin"/></i><span>{ui.country}</span><select><option>Italy</option></select></label><label className={activeField==="duration"?styles.activeField:""} onClick={()=>setActiveField("duration")}><i><Icon name="calendar"/></i><span>{ui.dates}</span><select value={days} onChange={e=>setDays(Number(e.target.value))}>{Object.keys(prices).map(d=><option key={d} value={d}>{d} {ui.days}</option>)}</select><small className={styles.fieldPrice}>{money(prices[days]+(config.packages[variant]?.supplement||0))}</small></label>
+      <div className={styles.fields}><label className={activeField==="country"?styles.activeField:""} onClick={()=>setActiveField("country")}><i><Icon name="pin"/></i><span>{ui.country}</span><select><option>Italy</option></select></label><label className={activeField==="duration"?styles.activeField:""} onClick={()=>setActiveField("duration")}><i><Icon name="calendar"/></i><span>{ui.dates}</span><select value={days} onChange={e=>setDays(Number(e.target.value))}>{Object.keys(prices).map(d=><option key={d} value={d}>{d} {ui.days}</option>)}</select><small className={styles.fieldPrice}>{money(journeyPrice(collectionId,days,prices[days]??options[0].p,variant===1))}</small></label>
       <div className={`${styles.calendarField} ${activeField==="dates"?styles.activeField:""}`} onClick={event=>{setActiveField("dates");if(!(event.target as HTMLElement).closest("button"))event.currentTarget.querySelector("button")?.click()}}><i><Icon name="calendar"/></i><DepartureCalendar value={departure} onChange={setDeparture} rule={effectiveDepartureRule} locale={locale} calendarLocale={locale} label={ui.departure}/></div><div className={`${styles.returnField} ${activeField==="dates"?styles.activeField:""}`}><i><Icon name="calendar"/></i><span>{ui.returning}</span><strong>{displayDate(returned)}</strong></div><div className={styles.travellers}><i><Icon name="travellers"/></i><span>{ui.travellers}</span><div><button onClick={()=>setGuests(Math.max(1,guests-1))}>−</button><b>{guests}</b><button onClick={()=>setGuests(Math.min(8,guests+1))}>+</button></div><small>{ui.included}</small></div></div>
-      <section className={styles.products}><p className={styles.eyebrow}>{ui.experience}</p><div className={styles.carousel}><button className={styles.prev} onClick={()=>productCarousel.current?.slidePrev()}><Icon name="arrow-left"/></button><SwiperCarousel className={styles.track} modules={[EffectCoverflow,Keyboard]} effect="coverflow" initialSlide={products.length+2} centeredSlides slidesPerView="auto" speed={500} simulateTouch grabCursor allowTouchMove touchAngle={45} threshold={4} longSwipesRatio={.15} keyboard={{enabled:true}} coverflowEffect={{rotate:0,stretch:8,depth:90,modifier:1,slideShadows:false}} onSwiper={x=>{productCarousel.current=x}} onSlideChange={x=>{const index=((x.activeIndex%products.length)+products.length)%products.length;setActive(index);if(x.activeIndex<products.length||x.activeIndex>=products.length*2)requestAnimationFrame(()=>x.slideTo(products.length+index,0,false));}}>{carousel.map((product,slideIndex)=>{const index=slideIndex%products.length;return <SwiperSlide className={styles.slide} key={`${product.n}-${slideIndex}`}><button className={styles.card} data-active={index===active} onClick={()=>{setActive(index);productCarousel.current?.slideTo(products.length+index)}}><img src={product.image} alt=""/><span>{product.n}</span><em>{index===active?ui.selected:ui.choose}</em><div><strong>{product.title}</strong><small>{product.copy[locale]}</small></div></button></SwiperSlide>})}</SwiperCarousel><button className={styles.next} onClick={()=>productCarousel.current?.slideNext()}><Icon name="arrow-right"/></button></div></section>
+      <section className={styles.products}><p className={styles.eyebrow}>{ui.experience}</p><CoverflowCarousel locale={locale} items={products} shellClassName={styles.carousel} carouselClassName={styles.track} slideClassName={styles.slide} prevClassName={styles.prev} nextClassName={styles.next} initialIndex={2} onActiveChange={setActive} label={ui.experience} renderSlide={(product,index,select)=><button type="button" className={styles.card} data-active={index===active} aria-pressed={index===active} onClick={()=>{setActive(index);select();}}><img src={product.image} alt={product.title} draggable={false}/><span>{product.n}</span><em>{index===active?ui.selected:ui.choose}</em><div><strong>{product.title}</strong><small>{product.copy[locale]}</small></div></button>}/></section>
     </section>
     <section className={styles.ideal}><p className={styles.eyebrow}>{ui.ideal}</p><p>{copy.ideal}</p></section><section className={styles.shapes}><p className={styles.eyebrow}>{copy.includes}</p><div>{copy.signature.map(x=><span key={x}>✓ &nbsp;{x}</span>)}</div></section>
-    <section className={styles.cta}><img src={config.hero} alt=""/><div><p className={styles.eyebrow}>MLT {collection.name}</p><h2>{copy.cta}</h2><p>{ui.prepared}</p><a href="mailto:info@mlt-lifestyle.com">{ui.concierge}</a></div></section>
+    <section className={styles.cta}><img src={config.hero} alt=""/><div><p className={styles.eyebrow}>MLT {collection.name}</p><h2>{copy.cta}</h2><p>{ui.prepared}</p><a href={`mailto:${siteIdentity.email}`}>{ui.concierge}</a></div></section>
     <MobilePreviewFooter locale={locale} withStickyBar previewMode={previewMode}/>
     <div className={styles.sticky}><span>{ui.total}<b>{money(total)}</b></span><button onClick={()=>setReviewOpen(true)}>{ui.pay}</button></div>
     {reviewOpen&&<div className="journey-review-overlay" role="presentation" onMouseDown={()=>setReviewOpen(false)}><section className="journey-review-modal" role="dialog" aria-modal="true" aria-label={review.title} onMouseDown={event=>event.stopPropagation()}><button className="journey-review-close" type="button" onClick={()=>setReviewOpen(false)} aria-label={review.close}>×</button><p className="section-label">MLT / {collection.number}</p><h2>{review.title}</h2><p className="journey-review-copy">{review.copy}</p><dl><div><dt>{review.collection}</dt><dd>MLT {collection.name} Collection</dd></div><div><dt>{review.package}</dt><dd>{config.packages[variant]?.title}</dd></div><div><dt>{review.route}</dt><dd>{products[active]?.title||"MLT curated route"}</dd></div><div><dt>{review.dates}</dt><dd>{displayDate(departure)} — {displayDate(returned)}</dd></div><div><dt>{review.travellers}</dt><dd>{days} {ui.days} · {guests}</dd></div></dl><div className="journey-review-total"><span>{ui.total}</span><strong>{money(total)}</strong></div><div className="journey-review-actions"><button type="button" onClick={()=>setReviewOpen(false)}>{review.cancel}</button><button type="button" className="bronze-button" onClick={continueToAccount}>{review.confirm}</button></div></section></div>}

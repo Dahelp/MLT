@@ -1,0 +1,33 @@
+import type { Locale } from "./i18n";
+
+/** Supplemental translations keyed by stable route ID, shared by both sites. */
+export const routeTranslations: Record<string, Partial<Record<Locale, string>>> = {
+  "signature-dolomites": { ru: "Бутик-отели и панорамные виды", it: "Boutique hotel e panorami straordinari", pl: "Hotele butikowe i panoramiczne widoki" },
+  "signature-bavaria": { ru: "Королевские достопримечательности и дегустации", it: "Residenze reali e degustazioni", pl: "Królewskie zabytki i degustacje" },
+  "signature-alpine": { ru: "Уютное шале и отдых в спа", it: "Chalet accogliente e relax nella spa", pl: "Przytulny chalet i wypoczynek w spa" },
+  "signature-wine": { ru: "Лучшие винодельни и сомелье", it: "Cantine d’eccellenza e sommelier", pl: "Najlepsze winnice i sommelierzy" },
+  "signature-mediterranean": { ru: "Яхты и авторские рестораны", it: "Yacht e ristoranti d’autore", pl: "Jachty i autorskie restauracje" },
+  "signature-winter": { ru: "Ски-пасс и горное шале", it: "Skipass e chalet in montagna", pl: "Karnet narciarski i górski chalet" },
+  "signature-black-forest": { ru: "Исторические места и термальные купальни", it: "Luoghi storici e bagni termali", pl: "Historyczne miejsca i kąpiele termalne" },
+  "family-dolomites": { de: "Alpengipfel für die ganze Familie — wir kümmern uns um jedes Detail", ru: "Альпийские вершины для всей семьи — мы позаботимся о каждой детали", it: "Vette alpine per tutta la famiglia, con ogni dettaglio curato da noi", pl: "Alpejskie szczyty dla całej rodziny — zadbamy o każdy szczegół" },
+  "family-bavaria": { de: "Märchenhafte Seen, von uns vollständig organisiert", ru: "Сказочные озёра и полностью организованное путешествие", it: "Laghi da fiaba e un viaggio interamente organizzato", pl: "Bajkowe jeziora i w pełni zorganizowana podróż" },
+  "family-alpine": { de: "Ein geschützter Rückzugsort für die Familie — alles ist vorbereitet", ru: "Спокойный семейный отдых в горах, где всё подготовлено заранее", it: "Un rifugio sicuro per la famiglia, con tutto già preparato", pl: "Spokojny rodzinny wypoczynek w górach, ze wszystkim przygotowanym" },
+  "family-wine": { de: "Weingüter entdecken — fachkundig ausgewählt und organisiert", ru: "Знакомство с винодельнями по продуманной программе", it: "Scopri le tenute vinicole con un programma curato nei dettagli", pl: "Odkrywaj winnice według starannie przygotowanego programu" },
+  "family-mediterranean": { de: "Sonnige Küsten, mit jedem Detail in guten Händen", ru: "Солнечное побережье с заботой о каждой детали", it: "Una costa soleggiata, con ogni dettaglio nelle nostre mani", pl: "Słoneczne wybrzeże z troską o każdy szczegół" },
+  "family-winter": { de: "Eine winterliche Schneewelt, vollständig für Sie organisiert", ru: "Зимняя сказка, полностью организованная для вашей семьи", it: "Un mondo invernale da fiaba, interamente organizzato per voi", pl: "Zimowa bajka w pełni zorganizowana dla Twojej rodziny" },
+  "family-black-forest": { de: "Verzauberte Wälder entdecken — wir kümmern uns um alles", ru: "Путешествие по сказочным лесам — всё под нашей заботой", it: "Un viaggio tra boschi incantati, con tutto curato da noi", pl: "Podróż przez baśniowe lasy — wszystkim zajmiemy się my" },
+  "private-dolomites": { it: "Maestosi panorami alpini e un servizio impeccabile", pl: "Majestatyczne alpejskie panoramy i nienaganna obsługa" },
+  "private-bavaria": { it: "Tranquillità regale lungo acque cristalline, nella più completa privacy", pl: "Królewski spokój nad krystaliczną wodą i pełna prywatność" },
+  "private-alpine": { it: "Un rifugio d’alta quota dal comfort senza compromessi", pl: "Górska oaza spokoju i bezkompromisowy komfort" },
+  "private-wine": { it: "Degustazioni private in vigneti leggendari", pl: "Prywatne degustacje w legendarnych winnicach" },
+  "private-mediterranean": { it: "Coste appartate e soleggiate, vissute con uno stile unico", pl: "Słoneczne, zaciszne wybrzeża w wyjątkowym stylu" },
+  "private-winter": { it: "Vette innevate incontaminate e lusso alpino su misura", pl: "Dziewicze ośnieżone szczyty i alpejski luksus na miarę" },
+  "private-black-forest": { it: "Boschi antichi incantati, riservatezza e raffinatezza", pl: "Prastare baśniowe lasy, pełna prywatność i elegancja" },
+  "honeymoon-dolomites": { it: "Strade alpine, soste panoramiche e tramonti sulle vette, solo per voi due.", pl: "Alpejskie drogi, panoramiczne postoje i zachody słońca w górach — tylko dla Was dwojga." },
+  "honeymoon-bavaria": { it: "Soste tranquille in riva al lago, passeggiate tra antichi castelli e colazioni senza fretta.", pl: "Spokojne postoje nad jeziorem, spacery do starych zamków i niespieszne śniadania." },
+  "honeymoon-alpine": { it: "Valli nascoste, profumo di pini e la sensazione che il mondo sia soltanto vostro.", pl: "Ukryte doliny, zapach sosnowego lasu i poczucie, że świat należy tylko do Was." },
+  "honeymoon-vineyards": { it: "Strade del vino, degustazioni private e serate intime sotto le stelle.", pl: "Szlaki winne, prywatne degustacje i kameralne wieczory pod gwiazdami." },
+  "honeymoon-riviera": { it: "Calette azzurre, terrazze sul mare e il ritmo romantico del Mediterraneo.", pl: "Lazurowe zatoki, tarasy z widokiem na morze i romantyczny rytm Morza Śródziemnego." },
+  "honeymoon-snow": { it: "Abeti innevati, luci calde e un rifugio accogliente dopo una passeggiata invernale.", pl: "Ośnieżone świerki, ciepłe światła i przytulne schronienie po zimowym spacerze." },
+  "honeymoon-black-forest": { it: "Strade segrete tra i boschi, paesaggi da fiaba e lunghe serate tra il sussurro delle foglie.", pl: "Ukryte leśne drogi, bajkowe krajobrazy i długie wieczory przy szumie liści." },
+};

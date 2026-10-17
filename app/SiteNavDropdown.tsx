@@ -1,5 +1,6 @@
 "use client";
 
+import { collections } from "../content/mlt";
 import type { SiteLanguage } from "./LanguageMenu";
 import type { PointerEvent, SyntheticEvent, MouseEvent } from "react";
 
@@ -13,10 +14,7 @@ const labels = {
 
 export function siteNavLabels(locale: SiteLanguage) { return labels[locale]; }
 
-const collectionNames = [
-  ["freedom", "MLT Freedom"], ["signature", "MLT Signature"], ["concierge", "MLT Concierge"],
-  ["private", "MLT Private"], ["honeymoon", "MLT Honeymoon"], ["proposal", "MLT Proposal"],
-] as const;
+const collectionNames = collections.map(item => [item.id, `MLT ${item.name}`] as const);
 
 function closeOtherDropdowns(event: SyntheticEvent<HTMLDetailsElement>) {
   const current = event.currentTarget;

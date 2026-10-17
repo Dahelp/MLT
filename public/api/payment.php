@@ -5,6 +5,7 @@ header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, max-age=0');
 header('X-Content-Type-Options: nosniff');
 require_once __DIR__ . '/booking.php';
+require_once __DIR__ . '/journey-pricing.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -30,14 +31,8 @@ if (!is_array($body)) {
     exit;
 }
 
-$prices = [
-    'freedom' => [7 => 1490, 10 => 1990, 14 => 2590, 21 => 3690, 30 => 4990],
-    'signature' => [7 => 2490, 10 => 4290, 14 => 5890],
-    'concierge' => [7 => 4990, 10 => 6590, 14 => 8990],
-    'private' => [7 => 19900, 10 => 28429, 14 => 39800, 21 => 59700, 30 => 85286],
-    'honeymoon' => [7 => 5900, 10 => 7000, 14 => 8900],
-];
-$signatureTailored = [7 => 2990, 10 => 4290, 14 => 5890];
+$prices = mlt_journey_rate_tables(true);
+$signatureTailored = mlt_journey_pricing()['signatureTailored'];
 $collection = strtolower(substr(trim((string)($body['collection'] ?? '')), 0, 30));
 $days = (int)($body['days'] ?? 0);
 $reference = substr(trim((string)($body['reference'] ?? '')), 0, 80);

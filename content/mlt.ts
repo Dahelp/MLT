@@ -1,14 +1,16 @@
+import { collectionRateLabel, collectionDurationLabel } from "./journey-pricing";
+
 export type Collection = {
   id: string; number: string; name: string; eyebrow: string; promise: string;
   days: string; rate: string; mode: string; inclusions: string[];
 };
 
 export const collections: Collection[] = [
-  { id: "freedom", number: "01", name: "Freedom", eyebrow: "Self-directed discovery", promise: "Your road. Your rhythm.", days: "7–30 days", rate: "From €1,490 for 7 days", mode: "Independent", inclusions: ["Luxury motorhome", "Curated map", "MLT route app", "Local recommendations"] },
-  { id: "signature", number: "02", name: "Signature", eyebrow: "Curated, end to end", promise: "The journey, beautifully resolved.", days: "7–14 days", rate: "From €2,490 for 7 days", mode: "Tailored", inclusions: ["Personal route", "Reserved campsites", "Panoramic roads", "Restaurants & activities"] },
-  { id: "concierge", number: "03", name: "Concierge", eyebrow: "Always one step ahead", promise: "Travel without interruption.", days: "7–14 days", rate: "From €4,990 for 7 days", mode: "Assisted 24/7", inclusions: ["24/7 online concierge", "Live route changes", "All campsites booked", "Excursions & dining reservations", "Technical support", "Large motorhome for 2–5 people"] },
-  { id: "private", number: "04", name: "Private", eyebrow: "The rarest way to move", promise: "A private world, in motion.", days: "7–21 days", rate: "From €19,900 for 7 days", mode: "Fully hosted", inclusions: ["Private driver & technician", "Chef & service", "Half board", "VIP transfers & concierge"] },
-  { id: "honeymoon", number: "05", name: "Honeymoon", eyebrow: "A private journey for two", promise: "Two hearts. One unforgettable road.", days: "7–14 days", rate: "From €5,900 for 7 days", mode: "Romantic journey", inclusions: ["Premium motorhome for two", "Romantic route", "Reserved private stays", "24/7 concierge", "Dining & experience reservations", "Individual journey from €12,500"] },
+  { id: "freedom", number: "01", name: "Freedom", eyebrow: "Self-directed discovery", promise: "Your road. Your rhythm.", days: collectionDurationLabel("freedom"), rate: collectionRateLabel("freedom"), mode: "Independent", inclusions: ["Luxury motorhome", "Curated map", "MLT route app", "Local recommendations"] },
+  { id: "signature", number: "02", name: "Signature", eyebrow: "Curated, end to end", promise: "The journey, beautifully resolved.", days: collectionDurationLabel("signature"), rate: collectionRateLabel("signature"), mode: "Tailored", inclusions: ["Personal route", "Reserved campsites", "Panoramic roads", "Restaurants & activities"] },
+  { id: "concierge", number: "03", name: "Concierge", eyebrow: "Always one step ahead", promise: "Travel without interruption.", days: collectionDurationLabel("concierge"), rate: collectionRateLabel("concierge"), mode: "Assisted 24/7", inclusions: ["24/7 online concierge", "Live route changes", "All campsites booked", "Excursions & dining reservations", "Technical support", "Large motorhome for 2–5 people"] },
+  { id: "private", number: "04", name: "Private", eyebrow: "The rarest way to move", promise: "A private world, in motion.", days: collectionDurationLabel("private"), rate: collectionRateLabel("private"), mode: "Fully hosted", inclusions: ["Private driver & technician", "Chef & service", "Half board", "VIP transfers & concierge"] },
+  { id: "honeymoon", number: "05", name: "Honeymoon", eyebrow: "A private journey for two", promise: "Two hearts. One unforgettable road.", days: collectionDurationLabel("honeymoon"), rate: collectionRateLabel("honeymoon"), mode: "Romantic journey", inclusions: ["Premium motorhome for two", "Romantic route", "Reserved private stays", "24/7 concierge", "Dining & experience reservations", "Individual journey from €12,500"] },
   { id: "proposal", number: "06", name: "Proposal", eyebrow: "The art of saying yes", promise: "The art of saying yes at the edge of the world.", days: "3–7 days", rate: "Tailored proposal", mode: "Turnkey", inclusions: ["Premium motorhome", "Exclusive private location", "24/7 proposal concierge", "Complete route and on-site coordination"] },
 ];
 
