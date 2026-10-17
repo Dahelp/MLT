@@ -1,2 +1,2 @@
-import ManagerDashboard from "./ManagerDashboard";
-export default function Page(){return <ManagerDashboard/>}
+import ChatDesk from "../concierge/ChatDesk";
+export default function Page(){return <ChatDesk requiredRole="manager"/>}

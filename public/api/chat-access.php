@@ -7,7 +7,7 @@ function mlt_chat_scope(string $role, string $requested = ''): ?string {
         if (in_array($requested, ['concierge', 'sales'], true)) return $requested;
         throw new InvalidArgumentException('Invalid chat department.');
     }
-    $scope = in_array($role, ['manager', 'salesmanager'], true) ? 'sales' : ($role === 'concierge' ? 'concierge' : '');
+    $scope = $role === 'salesmanager' ? 'sales' : (in_array($role, ['manager', 'concierge'], true) ? 'concierge' : '');
     if ($scope === '' || ($requested !== '' && $requested !== $scope)) throw new RuntimeException('Chat department access denied.');
     return $scope;
 }

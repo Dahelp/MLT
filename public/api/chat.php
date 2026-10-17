@@ -29,7 +29,7 @@ $operator=$user&&in_array($user['role']??'', ['admin','manager','salesmanager','
 $action=(string)($body['action']??'sync');
 
 $onlineCount=static function(PDO $db, ?string $department):int {
- $roles=$department==='sales' ? ['manager','salesmanager','admin'] : ($department==='concierge' ? ['concierge','admin'] : ['manager','salesmanager','concierge','admin']);
+ $roles=$department==='sales' ? ['salesmanager','admin'] : ($department==='concierge' ? ['manager','concierge','admin'] : ['manager','salesmanager','concierge','admin']);
  $q=$db->prepare('SELECT COUNT(*) FROM mlt_chat_presence p JOIN mlt_users u ON u.id=p.user_id WHERE u.role IN ('.implode(',',array_fill(0,count($roles),'?')).') AND p.last_seen_at>DATE_SUB(NOW(),INTERVAL 45 SECOND)');
  $q->execute($roles);return (int)$q->fetchColumn();
 };

@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';import test from 'node:test';import{mkdtemp,cp,readFile,writeFile,rm}from'node:fs/promises';import{tmpdir}from'node:os';import path from'node:path';import{spawn}from'node:child_process';import{createServer}from'node:net';
+test('investment tools are restricted to sales and admin, with validated calculation and inquiry scope',async()=>{
+ const dir=await mkdtemp(path.join(tmpdir(),'mlt-investments-'));await cp(new URL('../public/api/sales-investments.php',import.meta.url),path.join(dir,'sales-investments.php'));
+ const base=(await readFile(new URL('./chat-test-booking.php',import.meta.url),'utf8')).replace('return new ChatTestDatabase();','return new AcquisitionsTestDatabase();');const extra=(await readFile(new URL('./acquisitions-test-database.php',import.meta.url),'utf8')).replace(/^\uFEFF/,'').replace('<?php','').replace('declare(strict_types=1);','');await writeFile(path.join(dir,'booking.php'),base+extra+'\n$db=mlt_db([]);if(!(int)$db->query("SELECT COUNT(*) FROM mlt_commercial_inquiries")->fetchColumn()){$q=$db->prepare("INSERT INTO mlt_commercial_inquiries(reference_code,source,subject,email,created_at) VALUES(?,?,?,?,?)");$q->execute(["INV-LOCAL","investments","Investment inquiry","investor@example.test",date("Y-m-d H:i:s")]);$q->execute(["ACQ-LOCAL","acquisitions","Sales inquiry","buyer@example.test",date("Y-m-d H:i:s")]);}\n');
+ const port=await new Promise(resolve=>{const s=createServer();s.listen(0,'127.0.0.1',()=>{const port=s.address().port;s.close(()=>resolve(port))})});const server=spawn(process.env.PHP_BINARY||'php',['-S',`127.0.0.1:${port}`,'-t',dir],{stdio:['ignore','ignore','pipe']});let log='';server.stderr.on('data',d=>log+=d);
+ const request=async(body,role)=>{const r=await fetch(`http://127.0.0.1:${port}/sales-investments.php`,{method:'POST',headers:{'Content-Type':'application/json',...(role?{Authorization:`Bearer test-${role}-token`}:{})},body:JSON.stringify(body)});const raw=await r.text();try{return {status:r.status,data:JSON.parse(raw)}}catch{throw Error(raw+log)}};
+ try{for(let i=0;i<50;i++){try{await request({action:'session'});break}catch{await new Promise(r=>setTimeout(r,100))}}
+  for(const role of ['manager','concierge','traveller',undefined])for(const action of ['session','calculate','inquiries'])assert.equal((await request({action,amount:100000,years:3},role)).status,403);
+  for(const role of ['admin','salesmanager']){
+   assert.equal((await request({action:'session'},role)).status,200);
+   const r=await request({action:'calculate',amount:200000,years:5,annualRate:99},role);assert.equal(r.status,200);assert.deepEqual(r.data.calculation,{amount:200000,years:5,annualRate:15,annualYield:30000,totalYield:150000,totalReturn:350000,currency:'EUR'});
+   const inquiries=await request({action:'inquiries'},role);assert.equal(inquiries.status,200);assert.equal(inquiries.data.inquiries.length,1);assert.equal(inquiries.data.inquiries[0].reference_code,'INV-LOCAL');
+   for(const [amount,years] of [[0,3],[49000,3],[510000,3],[55000,3],[100000,0],[100000,6],[100000,1.5],['invalid',3]])assert.equal((await request({action:'calculate',amount,years},role)).status,400);
+   for(const amount of [50000,500000])assert.equal((await request({action:'calculate',amount,years:1},role)).status,200);
+  }
+ }finally{server.kill();await new Promise(r=>server.once('exit',r));assert.equal(path.dirname(path.resolve(dir)),path.resolve(tmpdir()));assert.ok(path.basename(dir).startsWith('mlt-investments-'));await rm(dir,{recursive:true,force:true})}
+});

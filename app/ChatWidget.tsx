@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import {publicChatDepartment} from "../content/chat-departments";
 import { usePathname } from "next/navigation";
 
 type ChatMessage = { id:number; sender_type:"client"|"operator"; sender_name:string; body:string; created_at:string };
@@ -19,13 +20,13 @@ function api(body:Record<string,unknown>){const accountToken=localStorage.getIte
 
 export default function ChatWidget(){
   const pathname=usePathname()||"/";
-  const department=/^\/(?:en|de|ru|it|pl)\/acquisitions(?:\/|$)/.test(pathname)?"sales":"concierge";
+  const department=publicChatDepartment(pathname);
   return <ChatSession key={department} pathname={pathname} department={department}/>;
 }
 function ChatSession({pathname,department}:{pathname:string;department:"concierge"|"sales"}){
   const locale=getLocale(pathname),t=copy[locale];
   const tokenKey=department==="sales"?"mlt-chat-token-sales":"mlt-chat-token";
-  const team={en:["Motorhomes & capsule homes","Your MLT journey team"],de:["Wohnmobile & Kapselhäuser","Ihr MLT Reiseteam"],ru:["Продажа автодомов и капсул","Ваша команда путешествий MLT"],it:["Vendita camper e case capsula","Il team viaggi MLT"],pl:["Sprzedaż kamperów i domów kapsułowych","Twój zespół podróży MLT"]}[locale];
+  const team={en:["Motorhomes, capsule homes & investments","Your MLT journey team"],de:["Wohnmobile, Kapselhäuser & Investitionen","Ihr MLT Reiseteam"],ru:["Автодома, капсулы и инвестиции","Ваша команда путешествий MLT"],it:["Camper, case capsula e investimenti","Il team viaggi MLT"],pl:["Kampery, domy kapsułowe i inwestycje","Twój zespół podróży MLT"]}[locale];
   const online={en:"The team is online",de:"Das Team ist online",ru:"Команда сейчас онлайн",it:"Il team è online",pl:"Zespół jest online"}[locale];
   const offline={en:"Leave a message. The team will reply as soon as possible.",de:"Hinterlassen Sie eine Nachricht. Das Team antwortet so bald wie möglich.",ru:"Оставьте сообщение. Команда ответит в ближайшее время.",it:"Lascia un messaggio. Il team risponderà appena possibile.",pl:"Zostaw wiadomość. Zespół odpowie najszybciej, jak to możliwe."}[locale];
   const title=department==="sales"?"MLT Manager":"MLT Concierge";
