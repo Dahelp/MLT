@@ -1,6 +1,7 @@
 "use client";
 
 import { collections } from "../content/mlt";
+import {voucherCopy} from "../content/vouchers";
 import type { SiteLanguage } from "./LanguageMenu";
 import type { PointerEvent, SyntheticEvent, MouseEvent } from "react";
 
@@ -45,7 +46,7 @@ function preventMouseToggle(event: MouseEvent<HTMLElement>) {
 
 export function CollectionsDropdown({ locale }: { locale: SiteLanguage }) {
   const t = labels[locale];
-  return <details className="mlt-nav-dropdown" name="mlt-primary-navigation" onToggle={closeOtherDropdowns} onPointerEnter={openOnHover} onPointerLeave={closeOnHoverEnd}><summary onClick={preventMouseToggle}>{t.collections}</summary><div className="mlt-nav-dropdown-menu">{collectionNames.map(([slug, name]) => <a key={slug} href={slug === "proposal" ? `/${locale}/proposal/` : `/${locale}/collections/${slug}/`}>{name}</a>)}</div></details>;
+  return <details className="mlt-nav-dropdown" name="mlt-primary-navigation" onToggle={closeOtherDropdowns} onPointerEnter={openOnHover} onPointerLeave={closeOnHoverEnd}><summary onClick={preventMouseToggle}>{t.collections}</summary><div className="mlt-nav-dropdown-menu">{collectionNames.map(([slug, name]) => <a key={slug} href={slug === "proposal" ? `/${locale}/proposal/` : `/${locale}/collections/${slug}/`}>{name}</a>)}<a href={`/${locale}/vouchers/`}>{voucherCopy[locale].nav}</a></div></details>;
 }
 
 export function AcquisitionsDropdown({ locale }: { locale: SiteLanguage }) {
