@@ -1,7 +1,7 @@
 /** Preserve an authorized destination without changing the signed-in identity. */
 export function operationsDestination(role: string | undefined, next = ""): string {
   const permitted=role==="admin" ? /^\/(admin|concierge|manager|sales)(\/|$)/.test(next) : role==="manager" ? /^\/manager(?:\/chat)?\/?(?:\?.*)?$/.test(next) : role==="salesmanager" ? /^\/sales(\/|$)/.test(next) : role==="concierge" ? /^\/concierge(\/|$)/.test(next) : false;
-  if(permitted)return next;
+  if(permitted||(["manager","salesmanager","concierge"].includes(role||"")&&/^\/admin\/vouchers\/?$/.test(next)))return next;
   return role === "salesmanager" ? "/sales/" : role === "manager" ? "/manager/chat/" : role === "admin" ? "/admin/overview/" : "/concierge/overview/";
 }
 

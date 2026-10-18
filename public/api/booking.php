@@ -60,16 +60,23 @@ function mlt_mark_stripe_order_paid(PDO $db, string $reference, string $sessionI
 function mlt_payment_quote(PDO $db, string $reference, float $total, string $kind): ?array {
     $q=$db->prepare('SELECT id,total_amount,paid_amount,deposit_amount FROM mlt_orders WHERE reference_code=? LIMIT 1');$q->execute([$reference]);$order=$q->fetch(); if(!$order)return null;
     $storedTotal=(float)($order['total_amount'] ?? 0); if($storedTotal<=0){$storedTotal=$total;$db->prepare('UPDATE mlt_orders SET total_amount=? WHERE id=?')->execute([$storedTotal,$order['id']]);}
-    $paid=(float)($order['paid_amount'] ?? 0); $due=max(0,$storedTotal-$paid); $customDeposit=(float)($order['deposit_amount'] ?? 0); $amount=$kind==='deposit' ? min($due,round($customDeposit>0?$customDeposit:$storedTotal*.2,2)) : ($kind==='balance' ? $due : $storedTotal);
+    $paid=(float)($order['paid_amount'] ?? 0); $due=max(0,$storedTotal-$paid); $customDeposit=(float)($order['deposit_amount'] ?? 0); $amount=$kind==='deposit' ? min($due,round($customDeposit>0?$customDeposit:$storedTotal*.2,2)) : $due;
     if($kind==='deposit' && $paid>0)$amount=$due; if($amount<=0.009)return null;
     return ['amount'=>$amount,'total'=>$storedTotal,'paid'=>$paid,'kind'=>$kind==='deposit'&&$paid>0?'balance':$kind];
 }
 function mlt_record_payment(PDO $db,string $reference,string $provider,string $paymentId,float $amount,string $currency,string $kind): ?array {
-    $q=$db->prepare('SELECT id,total_amount,paid_amount FROM mlt_orders WHERE reference_code=? LIMIT 1');$q->execute([$reference]);$order=$q->fetch();if(!$order)return null;
-    try{$db->prepare('INSERT INTO mlt_payments (order_id,provider,provider_payment_id,payment_kind,amount,currency) VALUES (?,?,?,?,?,?)')->execute([$order['id'],$provider,$paymentId,$kind,$amount,strtoupper($currency)]);}catch(Throwable $e){return null;}
-    $paid=round((float)$order['paid_amount']+$amount,2);$total=(float)($order['total_amount']??0);$status=$total>0&&$paid+0.009<$total?'partially_paid':'paid';
-    $u=$db->prepare('UPDATE mlt_orders SET status=?,payment_provider=?,payment_id=?,amount=?,paid_amount=?,currency=?,paid_at=NOW() WHERE id=?');$u->execute([$status,$provider,$paymentId,$total?:$amount,$paid,strtoupper($currency),$order['id']]);
-    $q=$db->prepare('SELECT * FROM mlt_orders WHERE id=?');$q->execute([$order['id']]);return $q->fetch()?:null;
+    $db->beginTransaction();
+    try {
+        $q=$db->prepare('SELECT id,total_amount,paid_amount,currency FROM mlt_orders WHERE reference_code=? FOR UPDATE');$q->execute([$reference]);$order=$q->fetch();
+        if(!$order||$amount<=0||strtoupper($currency)!==strtoupper($order['currency'])){$db->rollBack();return null;}
+        $q=$db->prepare('SELECT id FROM mlt_payments WHERE provider_payment_id=?');$q->execute([$paymentId]);if($q->fetchColumn()){$db->rollBack();return null;}
+        $db->prepare('INSERT INTO mlt_payments (order_id,provider,provider_payment_id,payment_kind,amount,currency) VALUES (?,?,?,?,?,?)')->execute([$order['id'],$provider,$paymentId,$kind,$amount,strtoupper($currency)]);
+        $paid=round((float)$order['paid_amount']+$amount,2);$total=(float)($order['total_amount']??0);$status=$total>0&&$paid+0.009<$total?'partially_paid':'paid';
+        $db->prepare('UPDATE mlt_orders SET status=?,payment_provider=?,payment_id=?,amount=?,paid_amount=?,currency=?,paid_at=NOW() WHERE id=?')->execute([$status,$provider,$paymentId,$total?:$amount,$paid,strtoupper($currency),$order['id']]);
+        // Existing installations may not have received the voucher tables yet.
+        try{$db->prepare('DELETE FROM mlt_journey_checkout_holds WHERE order_id=?')->execute([$order['id']]);}catch(PDOException $e){}
+        $q=$db->prepare('SELECT * FROM mlt_orders WHERE id=?');$q->execute([$order['id']]);$result=$q->fetch();$db->commit();return $result?:null;
+    }catch(Throwable $e){if($db->inTransaction())$db->rollBack();throw $e;}
 }
 
 function mlt_notify_paid(array $order, array $settings): void {

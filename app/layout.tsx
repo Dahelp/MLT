@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./chat.css";
+import "./vouchers.css";
 import "./hero-banners.css";
 import "./hero-motion.css";
 import CookieConsent from "./CookieConsent";

@@ -46,8 +46,19 @@ if (!is_array($event)) {
     exit;
 }
 
-if (($event['type'] ?? '') === 'checkout.session.completed') {
+if (in_array($event['type']??'', ['charge.refunded','charge.dispute.created'],true)) {
+    require_once __DIR__.'/voucher-payments.php';
+    try{$db=mlt_db($settings);if(!$db)throw new RuntimeException('Database unavailable');mlt_voucher_schema($db);mlt_voucher_block_reversed_payment($db,(string)($event['data']['object']['payment_intent']??''),(string)($event['id']??''));}
+    catch(Throwable $e){error_log('MLT voucher reversal: '.$e->getMessage());http_response_code(503);echo json_encode(['error'=>'Reversal processing pending']);exit;}
+}
+
+if (in_array($event['type']??'', ['checkout.session.completed','checkout.session.async_payment_succeeded'],true)) {
     $session = $event['data']['object'] ?? [];
+    if (($session['metadata']['purchase_type'] ?? '') === 'voucher') {
+        require_once __DIR__.'/voucher-payments.php';
+        try { $db=mlt_db($settings);if(!$db)throw new RuntimeException('Database unavailable');mlt_voucher_schema($db);mlt_voucher_stripe_settle($db,$session);echo json_encode(['received'=>true]);exit; }
+        catch(Throwable $e){error_log('MLT voucher webhook: '.$e->getMessage());http_response_code(503);echo json_encode(['error'=>'Voucher confirmation pending']);exit;}
+    }
     $reference = (string)($session['client_reference_id'] ?? '');
     $kind = (string)($session['metadata']['payment_kind'] ?? 'full');
     if (!in_array($kind, ['deposit', 'full', 'balance'], true)) $kind = 'full';

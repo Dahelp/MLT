@@ -65,12 +65,16 @@ if ($tokenStatus < 200 || $tokenStatus >= 300 || !$token) {
     echo json_encode(['error' => 'PayPal is temporarily unavailable. Please try Stripe or contact MLT Concierge.']);
     exit;
 }
+require_once __DIR__.'/voucher-core.php';
+try {mlt_voucher_authorize_journey($database,$reference); $existingUrl=mlt_voucher_hold_checkout($database,$reference,'paypal',(float)$quote['paid']);if($existingUrl){echo json_encode(['url'=>$existingUrl]);exit;} }
+catch(Throwable $e){http_response_code(409);echo json_encode(['error'=>$e instanceof DomainException?$e->getMessage():'Unable to reserve this payment. Please retry.']);exit;}
 $origin = 'https://mlt-lifestyle.com';
 $order = ['intent' => 'CAPTURE', 'purchase_units' => [['reference_id' => $reference, 'custom_id' => $reference, 'description' => 'MLT ' . ucfirst($collection) . ' Collection · ' . $days . ' days', 'amount' => ['currency_code' => 'EUR', 'value' => number_format((float)$amount, 2, '.', '')]]], 'application_context' => ['return_url' => $origin . '/api/paypal-capture.php?reference=' . rawurlencode($reference).'&kind='.rawurlencode($kind), 'cancel_url' => $origin . '/account/?payment=cancelled&reference=' . rawurlencode($reference), 'user_action' => 'PAY_NOW']];
 [$orderStatus, $orderResult] = $request($apiBase . '/v2/checkout/orders', ['Authorization: Bearer ' . $token, 'Content-Type: application/json'], json_encode($order));
 $approvalUrl = '';
 foreach ((is_array($orderResult) ? ($orderResult['links'] ?? []) : []) as $link) if (($link['rel'] ?? '') === 'approve') $approvalUrl = (string)($link['href'] ?? '');
 if ($orderStatus < 200 || $orderStatus >= 300 || !$approvalUrl) {
+    if(in_array($orderStatus,[400,401,403,404,422],true))$database->prepare('DELETE h FROM mlt_journey_checkout_holds h JOIN mlt_orders o ON o.id=h.order_id WHERE o.reference_code=? AND h.checkout_id IS NULL')->execute([$reference]);
     $detail = is_array($orderResult) && isset($orderResult['details'][0]) && is_array($orderResult['details'][0]) ? $orderResult['details'][0] : [];
     $issue = preg_replace('/[^A-Z0-9_]/', '', (string)($detail['issue'] ?? ''));
     $description = trim((string)($detail['description'] ?? ''));
@@ -83,4 +87,5 @@ if ($orderStatus < 200 || $orderStatus >= 300 || !$approvalUrl) {
     echo json_encode(['error' => $message . ' Please try Stripe or contact MLT Concierge.']);
     exit;
 }
+mlt_voucher_save_journey_checkout($database,$reference,$approvalUrl,(string)$orderResult['id']);
 echo json_encode(['url' => $approvalUrl]);

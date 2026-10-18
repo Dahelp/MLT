@@ -1,6 +1,7 @@
 "use client";
 
 import { changeSiteLocale, siteIdentity } from "../content/site";
+import {voucherCopy} from "../content/vouchers";
 import { useState } from "react";
 import { LanguageMenu, type SiteLanguage } from "./LanguageMenu";
 import { AcquisitionsDropdown, CollectionsDropdown, siteNavLabels } from "./SiteNavDropdown";
@@ -15,7 +16,7 @@ export default function SiteHeader({ locale, isHome = false }: { locale: SiteLan
     <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
       <div className="site-nav-left"><CollectionsDropdown locale={locale} />
       <AcquisitionsDropdown locale={locale} />
-      <a href={`/${locale}/investments/`}>{t.investments}</a></div>
+      <a href={`/${locale}/investments/`}>{t.investments}</a><a href={`/${locale}/vouchers/`}>{voucherCopy[locale].nav}</a></div>
       <div className="site-nav-right"><a href={`/${locale}/smart-map/`}>{t.smartMap}</a>
       <a href={`/${locale}/contact/`}>{t.contact}</a></div>
     </nav>

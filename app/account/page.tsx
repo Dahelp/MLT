@@ -5,6 +5,8 @@ import RealRouteMap from "../plan/RealRouteMap";
 import ChevronIcon from "../ChevronIcon";
 import { mapPoints } from "../../content/mlt";
 import "./account.css";
+import VoucherWallet,{VoucherRedeem,JourneyCheckoutNotice} from "./VoucherWallet";
+import {voucherCopy} from "../../content/vouchers";
 type L = "en" | "de" | "ru" | "it" | "pl";
 type U = {
   email: string;
@@ -202,14 +204,16 @@ const Icon = ({ n }: { n: string }) => (
     />
   </svg>
 );
-const money = (n: number | string | undefined, c = "EUR") =>
+const money = (n: number | string | null | undefined, c = "EUR") =>
   new Intl.NumberFormat("ru-RU", {
     style: "currency",
     currency: c,
     maximumFractionDigits: 0,
   }).format(Number(n || 0));
-const collectionTitle = (name: string) =>
-  `MLT ${name.charAt(0).toUpperCase()}${name.slice(1)} Collection`;
+const collectionTitle = (name: string | null | undefined) => {
+  const label = name || "Journey";
+  return `MLT ${label.charAt(0).toUpperCase()}${label.slice(1)} Collection`;
+};
 const jsonList = (value?: string) => {
   try {
     const result = JSON.parse(value || "[]");
@@ -262,7 +266,7 @@ const mapRouteIds = (items: string[]) =>
 export default function Account({
   initialTab,
 }: {
-  initialTab?: "home" | "journeys" | "documents" | "profile";
+  initialTab?: "home" | "journeys" | "documents" | "profile" | "vouchers";
 }) {
   const operationsDestination = (role?: string) => {
     const next = new URLSearchParams(location.search).get("next") || "";
@@ -286,7 +290,7 @@ export default function Account({
     [journeyPage, setJourneyPage] = useState(1),
     [selectedOrder, setSelectedOrder] = useState<O | null>(null),
     [paymentOrderState, setPaymentOrder] = useState<O | null>(null),
-    [tab, setTab] = useState<"home" | "journeys" | "documents" | "profile">(
+    [tab, setTab] = useState<"home" | "journeys" | "documents" | "profile" | "vouchers">(
       initialTab || "home",
     ),
     [ready, setReady] = useState(false),
@@ -334,6 +338,8 @@ export default function Account({
       const hasOpen = (j.orders || []).some(
         (o: O) => !["completed", "cancelled"].includes(o.status),
       );
+      const nextPath=new URLSearchParams(location.search).get("next")||"";
+      if(/^\/(?:en|de|ru|it|pl)\/vouchers\/$/.test(nextPath)){location.assign(nextPath);return;}
       setUser(j.user);
       setLocale(j.user.locale);
       setOrders(j.orders || []);
@@ -429,7 +435,7 @@ export default function Account({
         provider === "stripe" ? "/api/stripe-payment.php" : "/api/payment.php",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token()}` },
           body: JSON.stringify({
             provider,
             collection: paymentOrderState.collection_name,
@@ -629,6 +635,7 @@ export default function Account({
             <Icon n="user" />
             <span>{t.profile}</span>
           </a>
+          <a className={tab === "vouchers" ? "active" : ""} href={`${accountBase}/vouchers/`}><Icon n="docs"/><span>{voucherCopy[locale].wallet}</span></a>
           <button className="client-mobile-logout" type="button" onClick={() => { localStorage.removeItem("mlt-account-token"); setMobileMenuOpen(false); setUser(null); }}>
             <Icon n="user" /><span>{t.logout}</span>
           </button>
@@ -655,9 +662,11 @@ export default function Account({
           </button>
         </header>
         {toast}
+        {tab === "vouchers" && <VoucherWallet locale={locale}/>}
         {tab === "home" && (
           <>
             {agency && <a className="agency-new-tour bronze-button" href={`/${locale}/#collections`}>{locale === "ru" ? "Добавить новый тур" : locale === "it" ? "Aggiungi un viaggio" : locale === "pl" ? "Dodaj nową podróż" : "Add a new journey"}</a>}
+            <VoucherWallet locale={locale} compact/>
             <div className="client-widgets">
               <article>
                 <span>
@@ -1265,7 +1274,7 @@ export default function Account({
                   ? paymentDeposit
                   : modal === "balance"
                     ? paymentTotal - paymentPaid
-                    : paymentTotal,
+                    : paymentTotal - paymentPaid,
               )}
             </b>
             <label className="legal-check">
@@ -1276,6 +1285,8 @@ export default function Account({
               />
               <span>{t.consent}</span>
             </label>
+            <JourneyCheckoutNotice locale={locale} reference={paymentOrderState!.reference_code} onClosed={()=>{setModal(null);setPaymentOrder(null);setMessage(locale==='ru'?'Предыдущая оплата закрыта. Выберите способ оплаты заново.':'Previous checkout closed. Please choose your payment method again.');load();}}/>
+            <VoucherRedeem locale={locale} consent={consent} reference={paymentOrderState!.reference_code} dueCents={Math.max(0,Math.round((paymentTotal-paymentPaid)*100))} onApplied={()=>{setModal(null);setPaymentOrder(null);setMessage(voucherCopy[locale].applied);load();}}/>
             <div>
               <button
                 className={paymentProvider === "paypal" ? "is-loading" : ""}

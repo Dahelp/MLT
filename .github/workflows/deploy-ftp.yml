@@ -12,6 +12,20 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    services:
+      voucher-test-db:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: voucher-test-only
+          MARIADB_DATABASE: mlt_vouchers_test
+          MARIADB_ROOT_HOST: "%"
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mariadb-admin ping -h 127.0.0.1 -p'voucher-test-only'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
     permissions:
       contents: read
 
@@ -34,8 +48,37 @@ jobs:
       - name: Build and test shared site core
         run: pnpm test
 
+      - name: Set up PHP for monetary integration tests
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo_mysql, mbstring, curl
+          coverage: none
+
+      - name: Verify voucher money, permissions and concurrent inventory
+        env:
+          MLT_VOUCHER_TEST_DSN: mysql:host=127.0.0.1;port=3306
+          MLT_VOUCHER_TEST_PASSWORD: voucher-test-only
+        run: node --test tests/vouchers-api.test.mjs
+
       - name: Export static preview
         run: node scripts/export-static.mjs
+
+      - name: Prepare voucher backend dependencies before updating existing payment handlers
+        run: |
+          mkdir -p voucher-preflight/api
+          cp public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
+
+      - name: Publish voucher backend dependencies
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: w021f859.kasserver.com
+          username: ${{ secrets.MLT_FTP_USERNAME }}
+          password: ${{ secrets.MLT_FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./voucher-preflight/
+          server-dir: /
+          state-name: .voucher-backend-sync.json
 
       - name: Deploy by FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

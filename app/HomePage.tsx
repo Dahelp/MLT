@@ -8,6 +8,8 @@ import { useMapSelection } from "./useMapSelection";
 import { useCatalogItems } from "../content/catalog-client";
 import SiteHeader from "./SiteHeader";
 import HeroVideo from "./HeroVideo";
+import VoucherOffer from "./VoucherOffer";
+import {voucherCopy} from "../content/vouchers";
 import SiteFooter from "./SiteFooter";
 import MapSelectionList from "./MapSelectionList";
 import CollectionCarousel, { scrollCollectionCarouselIntoView } from "./CollectionCarousel";
@@ -67,9 +69,11 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div className="light-hero-copy">
         <h1>{({ en: "Individual Motorhome Expeditions", de: "Individuelle Wohnmobil-Expeditionen", ru: "Индивидуальные экспедиции на автодомах", it: "Spedizioni individuali in motorhome", pl: "Indywidualne wyprawy kamperem" })[locale]}</h1>
         <p>{t.hero}</p>
-        <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a></div>
+        <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a><a className="text-button dark" href={`/${locale}/vouchers/`}>{voucherCopy[locale].buy}</a></div>
       </div>
     </section>
+
+    <VoucherOffer locale={locale}/>
 
     <section className="light-philosophy" id="about">
       <p className="light-section-label" data-home-reveal="up">01 / {t.philosophy}</p>

@@ -4,6 +4,23 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
+test("voucher offer is present in both home layouts and localized purchase pages preserve the shared footer", async () => {
+  for(const locale of ["en","de","ru","it","pl"]){
+    for(const suffix of ["","mobile-site/"]){
+      const path=`/${locale}/${suffix}`;
+      const html=await (await render(path)).text();
+      assert.match(html,/<section class="voucher-section" id="vouchers">/,path);
+      assert.ok(html.includes(`href="/${locale}/vouchers/"`),path);
+      assert.match(html,/class="voucher-card"/);
+      assert.doesNotMatch(html,/50 of 50 vouchers remaining/,'Stock must come from the live database, never fabricated in static HTML');
+    }
+    const response=await render(`/${locale}/vouchers/`);assert.equal(response.status,200);
+    const html=await response.text();assert.match(html,/id="voucher-conditions"/);assert.match(html,/data-site-footer="main"/);assert.ok(html.includes(`/${locale}/legal/terms/`));
+    assert.equal((await render(`/${locale}/account/vouchers/`)).status,200);
+  }
+  assert.equal((await render('/admin/vouchers/')).status,200);
+});
+
 test("public chats are online before staff presence loads in both departments and layouts", async () => {
   for (const locale of ["en", "de", "ru", "it", "pl"]) {
     for (const route of ["", "mobile-site/", "acquisitions/", "investments/"]) {
