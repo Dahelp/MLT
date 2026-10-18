@@ -14,7 +14,8 @@ const labels = {
 
 export function siteNavLabels(locale: SiteLanguage) { return labels[locale]; }
 
-const collectionNames = collections.map(item => [item.id, `MLT ${item.name}`] as const);
+// Proposal stays available by its direct URL, but is hidden from public menus.
+const collectionNames = collections.filter(item => item.id !== "proposal").map(item => [item.id, `MLT ${item.name}`] as const);
 
 function closeOtherDropdowns(event: SyntheticEvent<HTMLDetailsElement>) {
   const current = event.currentTarget;
