@@ -37,7 +37,7 @@ node scripts/export-static.mjs
 - `content/booking-ui.ts`, `content/mobile-booking.ts`, `content/freedom-booking.ts` — тексты конфигураторов.
 - `content/site.ts`, `content/footer.ts` — контакты, локали, логотипы и переводы подвала.
 - `app/CoverflowCarousel.tsx` — общий механизм каруселей; внешний вид задаётся шаблоном.
-- `app/SiteFooter.tsx` — основной, мобильный и коммерческий варианты одного подвала.
+- `app/SiteFooter.tsx` — ровно два варианта подвала: единый основной для всех публичных страниц и отдельный мобильный.
 - `app/plan/RealRouteMap.tsx`, `app/useMapSelection.ts`, `app/MapSelectionList.tsx` — карта и общий выбор мест.
 
 Для обновлений через служебные панели используется существующий PHP-каталог. Настройки внешних сервисов и базы данных хранятся вне отслеживаемых исходников. Не добавляйте `.env.local`, конфигурацию платёжных провайдеров или токены в Git.

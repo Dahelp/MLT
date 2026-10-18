@@ -20,6 +20,28 @@ test("separate public layouts share footer identity and legal links", async () =
   }
 });
 
+test("all main public pages use exactly the same main footer", async () => {
+  for (const locale of ["en", "de", "ru", "it", "pl"]) {
+    let reference;
+    for (const route of ["", "about/", "contact/", "investments/", "acquisitions/", "smart-map/", "collections/freedom/", "proposal/", "legal/privacy/", "legal/imprint/", "legal/terms/"]) {
+      const pathname = `/${locale}/${route}`;
+      const response = await render(pathname);
+      assert.equal(response.status, 200, pathname);
+      const html = await response.text();
+      const footers = html.match(/<footer\b[\s\S]*?<\/footer>/g) || [];
+      assert.equal(footers.length, 1, pathname);
+      assert.match(footers[0], /data-site-footer="main"/);
+      assert.doesNotMatch(footers[0], /commercial-footer/);
+      const normalized = footers[0].replace(/ data-home-reveal="[^"]*"/g, "");
+      reference ??= normalized;
+      assert.equal(normalized, reference, `${pathname} has the same footer as the home page`);
+    }
+    const mobile = await (await render(`/${locale}/mobile-site/`)).text();
+    assert.match(mobile, /<footer data-site-footer="mobile"/);
+    assert.doesNotMatch(mobile, /<footer data-site-footer="main"/);
+  }
+});
+
 test("each main and mobile collection renders one carousel and the same seven fallback products", async () => {
   const lastProduct = { freedom: "Black Forest Trail", signature: "Black Forest Signature Retreat", concierge: "Black Forest Family Forest &amp; Lore", private: "Black Forest Experience", honeymoon: "Black Forest Fairy Tale" };
   for (const [slug, last] of Object.entries(lastProduct)) {

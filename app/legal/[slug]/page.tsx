@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SiteFooter from "../../SiteFooter";
 import SiteHeader from "../../SiteHeader";
 import type { SiteLanguage } from "../../LanguageMenu";
 
@@ -56,5 +57,5 @@ export default async function LegalPage({ params }: { params: Promise<{ slug: st
   const locale = requestedLocale || "de";
   const page = pages[slug as keyof typeof pages];
   if (!page) return <main className="not-found"><h1>Page not found</h1></main>;
-  return <main className="legal-page light-legal legal-with-site-nav"><SiteHeader locale={locale} /><article><p className="light-section-label">MLT / Rechtliches</p><h1>{page.title}</h1><p className="legal-intro">{page.intro}</p><div className="legal-sections">{page.sections.map(([title, text], index) => <section key={title}><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{text}</p></div></section>)}</div><footer><a href={`/${locale}/legal/privacy/`}>Datenschutz</a><a href={`/${locale}/legal/imprint/`}>Impressum</a><a href={`/${locale}/legal/terms/`}>AGB</a><a href={`/${locale}/`}>MLT entdecken</a></footer></article></main>;
+  return <><main className="legal-page light-legal legal-with-site-nav"><SiteHeader locale={locale} /><article><p className="light-section-label">MLT / Rechtliches</p><h1>{page.title}</h1><p className="legal-intro">{page.intro}</p><div className="legal-sections">{page.sections.map(([title, text], index) => <section key={title}><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{text}</p></div></section>)}</div><nav className="legal-related-links"><a href={`/${locale}/legal/privacy/`}>Datenschutz</a><a href={`/${locale}/legal/imprint/`}>Impressum</a><a href={`/${locale}/legal/terms/`}>AGB</a><a href={`/${locale}/`}>MLT entdecken</a></nav></article></main><SiteFooter locale={locale}/></>;
 }
