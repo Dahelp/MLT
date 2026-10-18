@@ -206,3 +206,29 @@ test("acquisitions catalog and vehicle details are localized in every site langu
     }
   } finally { globalThis.fetch = originalFetch; }
 });
+
+test("listing specifications show eight rows and retain the rest in a closed disclosure", async () => {
+  const seed = JSON.parse(await readFile(new URL("public/data/acquisitions/mercedes-benz-v-300-marco-polo.json", root), "utf8"));
+  const originalFetch = globalThis.fetch;
+  let compact = false;
+  globalThis.fetch = async (input, ...options) => String(input) === "https://mlt-lifestyle.com/api/acquisitions.php"
+    ? Response.json({ items: [{ ...seed, id: 1, specifications_json: compact ? "[]" : seed.specifications_json }] }) : originalFetch(input, ...options);
+  try {
+    for (const locale of ["en", "ru"]) {
+      const html = await (await render(`/${locale}/acquisitions/${seed.slug}/`)).text();
+      const preview = html.match(/<dl class="listing-specifications-preview">([\s\S]*?)<\/dl>/)?.[1];
+      assert.equal((preview?.match(/<dt>/g) || []).length, 8);
+      const disclosure = html.match(/<details class="listing-specifications-more"[^>]*>[\s\S]*?<\/details>/)?.[0];
+      assert.ok(disclosure);
+      assert.doesNotMatch(disclosure, /^<details[^>]*\sopen(?:=|\s|>)/);
+      assert.equal((disclosure.match(/<dt>/g) || []).length, JSON.parse(seed.specifications_json).length + 4 - 8);
+      assert.match(html, /<aside class="listing-camper-equipment">/);
+      assert.ok(html.includes(locale === "ru" ? "Все характеристики" : "All specifications"));
+      assert.ok(html.includes(locale === "ru" ? "Свернуть характеристики" : "Collapse specifications"));
+    }
+    compact = true;
+    const html = await (await render(`/en/acquisitions/${seed.slug}/`)).text();
+    assert.doesNotMatch(html, /<details class="listing-specifications-more"/);
+    assert.equal((html.match(/<dl class="listing-specifications-preview">([\s\S]*?)<\/dl>/)?.[1].match(/<dt>/g) || []).length, 4);
+  } finally { globalThis.fetch = originalFetch; }
+});

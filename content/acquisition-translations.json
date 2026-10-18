@@ -1588,5 +1588,17 @@
     "ru": "Объявление",
     "it": "Annuncio",
     "pl": "Ogłoszenie"
+  },
+  "All specifications": {
+    "de": "Alle technischen Daten",
+    "ru": "Все характеристики",
+    "it": "Tutte le caratteristiche",
+    "pl": "Wszystkie dane techniczne"
+  },
+  "Collapse specifications": {
+    "de": "Technische Daten einklappen",
+    "ru": "Свернуть характеристики",
+    "it": "Riduci le caratteristiche",
+    "pl": "Zwiń dane techniczne"
   }
 }
