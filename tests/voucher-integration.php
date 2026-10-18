@@ -31,6 +31,8 @@ if($mode==='summary'){echo json_encode(['campaign'=>mlt_voucher_campaigns($pdo,t
 check(mlt_voucher_providers(['stripe_secret_key'=>'sk_test_example'])['stripe']===false,'Production voucher sales reject test-money credentials.');
 check(mlt_voucher_providers(['stripe_secret_key'=>'sk_live_example'])['stripe']===true,'Live Stripe can sell vouchers.');
 check(mlt_voucher_providers(['client_id'=>'test','client_secret'=>'test','mode'=>'sandbox'])['paypal']===false,'PayPal sandbox cannot mint production credit.');
+check(!mlt_voucher_expired(gmdate('Y-m-d H:i:s',time()+1800)),'Voucher expiry is evaluated in UTC, independent of the PHP server timezone.');
+check(mlt_voucher_expired(gmdate('Y-m-d H:i:s',time()-60)),'Past UTC expiry is rejected.');
 $client=['id'=>1,'email'=>'client@example.test','role'=>'traveller'];
 $catalog=mlt_voucher_campaigns($pdo);check($catalog[0]['remaining']===50,'Initial stock must be 50.');
 denied(fn()=>mlt_voucher_reserve($pdo,$client,1,'stripe',51),'Cannot reserve more than 50.');

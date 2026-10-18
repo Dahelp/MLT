@@ -81,6 +81,8 @@ function mlt_voucher_issue(PDO $db, string $reference, string $provider, string 
     }catch(Throwable $e){if($db->inTransaction())$db->rollBack();throw $e;}
 }
 
+function mlt_voucher_expired(?string $expires):bool { return $expires!==null&&strtotime($expires.' UTC')<=time(); }
+
 function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $reference, string $key): array {
     if(!preg_match('/^[a-zA-Z0-9-]{16,80}$/',$key))throw new DomainException('Invalid request identifier.');
     $db->beginTransaction();
@@ -95,7 +97,7 @@ function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $refere
         if(strtoupper((string)$order['currency'])!=='EUR')throw new DomainException('Vouchers can only pay EUR journeys.');
         if(in_array($order['status'],['cancelled','completed'],true)||!empty($order['archived_at']))throw new DomainException('This journey cannot accept payments.');
         $q=$db->prepare('SELECT 1 FROM mlt_journey_checkout_holds WHERE order_id=?');$q->execute([$order['id']]);if($q->fetchColumn())throw new DomainException('A card or PayPal checkout is still active for this journey. Complete it or wait for it to expire before applying a voucher.');
-        if($v['status']!=='active'||($v['expires_at']&&strtotime($v['expires_at'])<=time()))throw new DomainException('This voucher is unavailable or expired.');
+        if($v['status']!=='active'||mlt_voucher_expired($v['expires_at']))throw new DomainException('This voucher is unavailable or expired.');
         $due=max(0,(int)round((float)($order['total_amount']??0)*100)-(int)round((float)$order['paid_amount']*100));
         $amount=min((int)$v['balance_cents'],$due);if($amount<=0)throw new DomainException('No payable balance or available voucher credit.');
         $balance=(int)$v['balance_cents']-$amount;

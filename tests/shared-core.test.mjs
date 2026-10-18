@@ -115,3 +115,5 @@ test("PHP and React consume the same fallback tariffs and retain legacy payment 
   assert.equal(php.payment.private[30], 85286);
   assert.equal(php.base.private[30], undefined);
 });
+
+test("voucher discounts retain the configured fractional percentage",()=>{const {voucherDiscount}=load("content/vouchers.ts");assert.equal(voucherDiscount(500000,400000),20);assert.equal(voucherDiscount(500000,407500),18.5);assert.equal(voucherDiscount(500000,500000),0);assert.equal(voucherDiscount(0,400000),0)});

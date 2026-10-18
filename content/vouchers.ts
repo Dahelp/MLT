@@ -13,3 +13,5 @@ export async function voucherRequest(action:string,body:object={}) {
  const response=await fetch("/api/vouchers.php",{method:"POST",cache:"no-store",headers:{"Content-Type":"application/json",Authorization:`Bearer ${localStorage.getItem("mlt-account-token")||""}`},body:JSON.stringify({action,...body})});
  const data=await response.json();if(!response.ok)throw Object.assign(new Error(data.error||"Voucher request failed"),{status:response.status});return data;
 }
+
+export function voucherDiscount(faceCents:number,priceCents:number){return faceCents>0&&Number.isFinite(faceCents)&&Number.isFinite(priceCents)?Math.max(0,Math.round((1-priceCents/faceCents)*10000)/100):0}
