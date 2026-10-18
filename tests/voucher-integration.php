@@ -33,6 +33,10 @@ check(mlt_voucher_providers(['stripe_secret_key'=>'sk_live_example'])['stripe']=
 check(mlt_voucher_providers(['client_id'=>'test','client_secret'=>'test','mode'=>'sandbox'])['paypal']===false,'PayPal sandbox cannot mint production credit.');
 check(!mlt_voucher_expired(gmdate('Y-m-d H:i:s',time()+1800)),'Voucher expiry is evaluated in UTC, independent of the PHP server timezone.');
 check(mlt_voucher_expired(gmdate('Y-m-d H:i:s',time()-60)),'Past UTC expiry is rejected.');
+$pdo->exec('INSERT INTO mlt_orders (id,user_id,reference_code,customer_email,status,first_name,last_name) VALUES (5,1,"MLT-UNPRICED","client@example.test","requested","Test","Client")');
+check(mlt_payment_quote($pdo,'MLT-UNPRICED',1,'full')===null,'A client cannot assign an unpriced journey a self-chosen price.');
+$pdo->exec('UPDATE mlt_orders SET amount=1234.56 WHERE id=5');
+check(mlt_payment_quote($pdo,'MLT-UNPRICED',1,'full')['amount']===1234.56,'Legacy totals come from the stored order amount, never the request.');
 $client=['id'=>1,'email'=>'client@example.test','role'=>'traveller'];
 $catalog=mlt_voucher_campaigns($pdo);check($catalog[0]['remaining']===50,'Initial stock must be 50.');
 denied(fn()=>mlt_voucher_reserve($pdo,$client,1,'stripe',51),'Cannot reserve more than 50.');

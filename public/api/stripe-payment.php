@@ -16,11 +16,15 @@ $prices = mlt_journey_rate_tables(true);
 $tailored = mlt_journey_pricing()['signatureTailored'];
 $collection = strtolower(substr(trim((string)($body['collection'] ?? '')), 0, 30)); $days = (int)($body['days'] ?? 0); $reference = substr(trim((string)($body['reference'] ?? '')), 0, 80);
 $amount = !empty($body['signatureTailored']) && $collection === 'signature' ? ($tailored[$days] ?? 0) : ($prices[$collection][$days] ?? 0);
-if (!$amount || !preg_match('/^MLT-[A-Z0-9-]+$/', $reference)) { http_response_code(400); echo json_encode(['error'=>'This journey cannot be paid online yet. Please contact MLT Concierge.']); exit; }
+if (!preg_match('/^MLT-[A-Z0-9-]+$/', $reference)) { http_response_code(400); echo json_encode(['error'=>'This journey cannot be paid online yet. Please contact MLT Concierge.']); exit; }
 if (empty($body['consent'])) { http_response_code(400); echo json_encode(['error'=>'Please accept the booking and privacy terms.']); exit; }
-$kind=in_array($body['paymentKind']??'', ['deposit','full','balance'],true)?$body['paymentKind']:'full';$db=mlt_db($settings);$quote=$db?mlt_payment_quote($db,$reference,(float)$amount,$kind):null;if(!$quote){http_response_code(400);echo json_encode(['error'=>'This application has already been paid.']);exit;}$amount=(float)$quote['amount'];$kind=$quote['kind'];
+$kind=in_array($body['paymentKind']??'', ['deposit','full','balance'],true)?$body['paymentKind']:'full';$db=mlt_db($settings);
 require_once __DIR__.'/voucher-core.php';
-try {mlt_voucher_authorize_journey($db,$reference); $existingUrl=mlt_voucher_hold_checkout($db,$reference,'stripe',(float)$quote['paid']);if($existingUrl){echo json_encode(['url'=>$existingUrl]);exit;} }
+try{if(!$db)throw new RuntimeException('Database unavailable');$confirmedOrder=mlt_voucher_authorize_journey($db,$reference);$collection=strtolower((string)($confirmedOrder['collection_name']??'journey'));$days=(int)($confirmedOrder['travel_days']??0);}
+catch(Throwable $e){http_response_code($e instanceof DomainException?403:503);echo json_encode(['error'=>$e instanceof DomainException?$e->getMessage():'Payment service unavailable.']);exit;}
+$quote=$db?mlt_payment_quote($db,$reference,(float)$amount,$kind):null;if(!$quote){http_response_code(400);echo json_encode(['error'=>'No confirmed balance is available for payment. Please refresh or contact MLT Concierge.']);exit;}$amount=(float)$quote['amount'];$kind=$quote['kind'];
+require_once __DIR__.'/voucher-core.php';
+try {mlt_voucher_authorize_journey($db,$reference); $existingUrl=mlt_voucher_hold_checkout($db,$reference,'stripe',(float)$quote['paid'],(float)$quote['total']);if($existingUrl){echo json_encode(['url'=>$existingUrl]);exit;} }
 catch(Throwable $e){http_response_code(409);echo json_encode(['error'=>$e instanceof DomainException?$e->getMessage():'Unable to reserve this payment. Please retry.']);exit;}
 $origin = 'https://mlt-lifestyle.com';
 $fields = ['expires_at'=>(string)(time()+1860),'mode'=>'payment','client_reference_id'=>$reference,'success_url'=>$origin.'/api/stripe-capture.php?reference='.rawurlencode($reference).'&kind='.rawurlencode($kind).'&session_id={CHECKOUT_SESSION_ID}','cancel_url'=>$origin.'/account/?payment=cancelled&reference='.rawurlencode($reference),'payment_method_types[0]'=>'card','metadata[reference]'=>$reference,'metadata[payment_kind]'=>$kind,'metadata[collection]'=>$collection,'line_items[0][price_data][currency]'=>'eur','line_items[0][price_data][unit_amount]'=>(string)round($amount * 100),'line_items[0][price_data][product_data][name]'=>'MLT '.ucfirst($collection).' Collection · '.$days.' days','line_items[0][quantity]'=>'1'];

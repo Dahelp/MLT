@@ -111,21 +111,22 @@ function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $refere
 }
 
 // A monetary checkout and voucher redemption must never spend the same journey balance concurrently.
-function mlt_voucher_hold_checkout(PDO $db, string $reference, string $provider, float $expectedPaid): ?string {
+function mlt_voucher_hold_checkout(PDO $db, string $reference, string $provider, float $expectedPaid, ?float $expectedTotal=null): ?string {
     mlt_voucher_schema($db);$db->beginTransaction();
     try {
-        $q=$db->prepare('SELECT id,paid_amount FROM mlt_orders WHERE reference_code=? FOR UPDATE');$q->execute([$reference]);$order=$q->fetch();
-        if(!$order||abs((float)$order['paid_amount']-$expectedPaid)>.001)throw new DomainException('Journey balance changed. Please refresh before paying.');
+        $q=$db->prepare('SELECT id,paid_amount,total_amount,status,archived_at FROM mlt_orders WHERE reference_code=? FOR UPDATE');$q->execute([$reference]);$order=$q->fetch();
+        if(!$order||in_array($order['status'],['cancelled','completed'],true)||!empty($order['archived_at'])||($expectedTotal!==null&&abs((float)$order['total_amount']-$expectedTotal)>.001)||abs((float)$order['paid_amount']-$expectedPaid)>.001)throw new DomainException('Journey balance changed. Please refresh before paying.');
         $q=$db->prepare('SELECT provider,checkout_url FROM mlt_journey_checkout_holds WHERE order_id=?');$q->execute([$order['id']]);$hold=$q->fetch();if($hold){if($hold['provider']===$provider&&$hold['checkout_url']){$db->commit();return $hold['checkout_url'];}throw new DomainException('A payment checkout is already active. Please complete it or wait for it to expire.');}
         $minutes=$provider==='stripe'?31:180;
         $db->prepare('INSERT INTO mlt_journey_checkout_holds (order_id,provider,expires_at) VALUES (?,?,DATE_ADD(NOW(),INTERVAL '.$minutes.' MINUTE)) ON DUPLICATE KEY UPDATE provider=VALUES(provider),checkout_url=NULL,checkout_id=NULL,expires_at=VALUES(expires_at)')->execute([$order['id'],$provider]);$db->commit();return null;
     }catch(Throwable $e){if($db->inTransaction())$db->rollBack();throw $e;}
 }
 
-function mlt_voucher_authorize_journey(PDO $db,string $reference): void {
+function mlt_voucher_authorize_journey(PDO $db,string $reference): array {
     $user=mlt_voucher_user($db);if(!$user)throw new DomainException('Please sign in before paying.');
-    $q=$db->prepare('SELECT user_id,customer_email,status,archived_at FROM mlt_orders WHERE reference_code=?');$q->execute([$reference]);$o=$q->fetch();
+    $q=$db->prepare('SELECT user_id,customer_email,status,archived_at,collection_name,travel_days FROM mlt_orders WHERE reference_code=?');$q->execute([$reference]);$o=$q->fetch();
     if(!$o||((int)$o['user_id']!==(int)$user['id']&&strcasecmp($o['customer_email'],$user['email'])!==0)||in_array($o['status'],['cancelled','completed'],true)||!empty($o['archived_at']))throw new DomainException('This journey cannot accept payments from your account.');
+    return $o;
 }
 
 function mlt_voucher_save_journey_checkout(PDO $db,string $reference,string $url,string $checkoutId): void {

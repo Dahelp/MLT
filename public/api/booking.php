@@ -57,9 +57,10 @@ function mlt_mark_stripe_order_paid(PDO $db, string $reference, string $sessionI
     return mlt_record_payment($db,$reference,'stripe',$paymentId ?: $sessionId,$amountCents/100,$currency,$kind);
 }
 
+// The legacy $total argument is intentionally ignored: prices come only from the saved order.
 function mlt_payment_quote(PDO $db, string $reference, float $total, string $kind): ?array {
-    $q=$db->prepare('SELECT id,total_amount,paid_amount,deposit_amount FROM mlt_orders WHERE reference_code=? LIMIT 1');$q->execute([$reference]);$order=$q->fetch(); if(!$order)return null;
-    $storedTotal=(float)($order['total_amount'] ?? 0); if($storedTotal<=0){$storedTotal=$total;$db->prepare('UPDATE mlt_orders SET total_amount=? WHERE id=?')->execute([$storedTotal,$order['id']]);}
+    $q=$db->prepare('SELECT id,total_amount,amount,paid_amount,deposit_amount FROM mlt_orders WHERE reference_code=? LIMIT 1');$q->execute([$reference]);$order=$q->fetch(); if(!$order)return null;
+    $storedTotal=(float)($order['total_amount'] ?? 0); if($storedTotal<=0){$storedTotal=(float)($order['amount']??0);if($storedTotal<=0)return null;$db->prepare('UPDATE mlt_orders SET total_amount=? WHERE id=?')->execute([$storedTotal,$order['id']]);}
     $paid=(float)($order['paid_amount'] ?? 0); $due=max(0,$storedTotal-$paid); $customDeposit=(float)($order['deposit_amount'] ?? 0); $amount=$kind==='deposit' ? min($due,round($customDeposit>0?$customDeposit:$storedTotal*.2,2)) : $due;
     if($kind==='deposit' && $paid>0)$amount=$due; if($amount<=0.009)return null;
     return ['amount'=>$amount,'total'=>$storedTotal,'paid'=>$paid,'kind'=>$kind==='deposit'&&$paid>0?'balance':$kind];

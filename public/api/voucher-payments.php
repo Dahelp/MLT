@@ -92,7 +92,7 @@ function mlt_journey_paypal_settle(PDO $db,array $settings,string $reference,str
         $captureCents=(int)round((float)($order['purchase_units'][0]['amount']['value']??0)*100);
         $due=$journey?max(0,(int)round(((float)$journey['total_amount']-(float)$journey['paid_amount'])*100)):0;
         if($captureCents<=0||$captureCents>$due)throw new DomainException('The journey balance changed. Please start a new checkout from your account.');
-        mlt_voucher_hold_checkout($db,$reference,'paypal',(float)$journey['paid_amount']);
+        mlt_voucher_hold_checkout($db,$reference,'paypal',(float)$journey['paid_amount'],(float)$journey['total_amount']);
         $approval=(($settings['mode']??'sandbox')==='live'?'https://www.paypal.com':'https://www.sandbox.paypal.com').'/checkoutnow?token='.rawurlencode($id);
         mlt_voucher_save_journey_checkout($db,$reference,$approval,$id);
         $order=mlt_voucher_http($base.'/v2/checkout/orders/'.rawurlencode($id).'/capture',[$auth,'Content-Type: application/json','PayPal-Request-Id: journey-'.$id],'{}');

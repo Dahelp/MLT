@@ -39,15 +39,19 @@ $reference = substr(trim((string)($body['reference'] ?? '')), 0, 80);
 $amount = !empty($body['signatureTailored']) && $collection === 'signature'
     ? ($signatureTailored[$days] ?? 0)
     : ($prices[$collection][$days] ?? 0);
-if (($body['provider'] ?? '') !== 'paypal' || !$amount || !preg_match('/^MLT-[A-Z0-9-]+$/', $reference)) {
+if (($body['provider'] ?? '') !== 'paypal' || !preg_match('/^MLT-[A-Z0-9-]+$/', $reference)) {
     http_response_code(400);
     echo json_encode(['error' => 'This journey cannot be paid online yet. Please contact MLT Concierge.']);
     exit;
 }
 if (empty($body['consent'])) { http_response_code(400); echo json_encode(['error' => 'Please accept the booking and privacy terms.']); exit; }
 $kind = in_array($body['paymentKind'] ?? '', ['deposit','full','balance'], true) ? $body['paymentKind'] : 'full';
-$database=mlt_db($settings); $quote=$database ? mlt_payment_quote($database,$reference,(float)$amount,$kind) : null;
-if(!$quote){http_response_code(400);echo json_encode(['error'=>'This application has already been paid.']);exit;}$amount=(float)$quote['amount'];$kind=$quote['kind'];
+$database=mlt_db($settings);
+require_once __DIR__.'/voucher-core.php';
+try{if(!$database)throw new RuntimeException('Database unavailable');$confirmedOrder=mlt_voucher_authorize_journey($database,$reference);$collection=strtolower((string)($confirmedOrder['collection_name']??'journey'));$days=(int)($confirmedOrder['travel_days']??0);}
+catch(Throwable $e){http_response_code($e instanceof DomainException?403:503);echo json_encode(['error'=>$e instanceof DomainException?$e->getMessage():'Payment service unavailable.']);exit;}
+$quote=$database ? mlt_payment_quote($database,$reference,(float)$amount,$kind) : null;
+if(!$quote){http_response_code(400);echo json_encode(['error'=>'No confirmed balance is available for payment. Please refresh or contact MLT Concierge.']);exit;}$amount=(float)$quote['amount'];$kind=$quote['kind'];
 
 $apiBase = $mode === 'live' ? 'https://api-m.paypal.com' : 'https://api-m.sandbox.paypal.com';
 $request = static function (string $url, array $headers, string $payload): array {
@@ -66,7 +70,7 @@ if ($tokenStatus < 200 || $tokenStatus >= 300 || !$token) {
     exit;
 }
 require_once __DIR__.'/voucher-core.php';
-try {mlt_voucher_authorize_journey($database,$reference); $existingUrl=mlt_voucher_hold_checkout($database,$reference,'paypal',(float)$quote['paid']);if($existingUrl){echo json_encode(['url'=>$existingUrl]);exit;} }
+try {mlt_voucher_authorize_journey($database,$reference); $existingUrl=mlt_voucher_hold_checkout($database,$reference,'paypal',(float)$quote['paid'],(float)$quote['total']);if($existingUrl){echo json_encode(['url'=>$existingUrl]);exit;} }
 catch(Throwable $e){http_response_code(409);echo json_encode(['error'=>$e instanceof DomainException?$e->getMessage():'Unable to reserve this payment. Please retry.']);exit;}
 $origin = 'https://mlt-lifestyle.com';
 $order = ['intent' => 'CAPTURE', 'purchase_units' => [['reference_id' => $reference, 'custom_id' => $reference, 'description' => 'MLT ' . ucfirst($collection) . ' Collection · ' . $days . ' days', 'amount' => ['currency_code' => 'EUR', 'value' => number_format((float)$amount, 2, '.', '')]]], 'application_context' => ['return_url' => $origin . '/api/paypal-capture.php?reference=' . rawurlencode($reference).'&kind='.rawurlencode($kind), 'cancel_url' => $origin . '/account/?payment=cancelled&reference=' . rawurlencode($reference), 'user_action' => 'PAY_NOW']];
