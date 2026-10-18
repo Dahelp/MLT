@@ -16,8 +16,6 @@
 .team-panel-link.role-manager,.team-panel-link.role-salesmanager{background:#eee4fa;color:#63408b}
 .team-panel-link.role-concierge{background:#e0efe6;color:#22654c}
 .team-panel-link.role-admin{background:#f5dfcc;color:#875125}
-.mlt-chat-panel header .offline{font-size:12px;line-height:1.4;color:inherit;opacity:.8}
-.mlt-chat-launcher:after{background:#a8aaa4;box-shadow:none}.mlt-chat-widget.is-online .mlt-chat-launcher:after{background:#65bb7b;box-shadow:0 0 0 3px #65bb7b29}
 /* Readable staff conversations on desktop and phones. */
 .chat-desk-body{grid-template-columns:390px minmax(0,1fr)}
 .chat-client-list{display:flex;flex-direction:column;min-height:0}.chat-client-list>header{flex:none}.chat-client-list>div{flex:1;min-height:0;height:auto;overflow:auto}

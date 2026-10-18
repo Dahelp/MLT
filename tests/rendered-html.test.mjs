@@ -4,6 +4,22 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
+test("public chats are online before staff presence loads in both departments and layouts", async () => {
+  for (const locale of ["en", "de", "ru", "it", "pl"]) {
+    for (const route of ["", "mobile-site/", "acquisitions/", "investments/"]) {
+      const path = `/${locale}/${route}`;
+      const response = await render(path);
+      assert.equal(response.status, 200, path);
+      const html = await response.text();
+      assert.match(html, /class="mlt-chat-widget is-online\b/, path);
+    }
+  }
+  const css = await readFile(new URL("app/chat.css", root), "utf8");
+  const indicators = css.match(/\.mlt-chat-launcher:after\s*\{[^}]*\}/g) || [];
+  assert.equal(indicators.length, 1, "one launcher indicator rule prevents offline overrides");
+  assert.match(indicators[0], /background:#65bb7b/);
+});
+
 test("separate public layouts share footer identity and legal links", async () => {
   for (const locale of ["en", "de", "ru", "it", "pl"]) {
     for (const route of [`/${locale}/`, `/${locale}/mobile-site/`, `/${locale}/contact/`]) {
