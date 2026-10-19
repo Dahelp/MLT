@@ -12,8 +12,22 @@ function mlt_voucher_schema(PDO $db): void {
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_voucher_receipts (purchase_id BIGINT UNSIGNED PRIMARY KEY, sent_at DATETIME NULL, next_attempt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, attempts INT NOT NULL DEFAULT 0) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_journey_checkout_holds (order_id BIGINT UNSIGNED PRIMARY KEY, provider VARCHAR(16) NOT NULL DEFAULT "stripe", checkout_url TEXT NULL, checkout_id VARCHAR(160) NULL, expires_at DATETIME NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_journey_checkout_cancellations (checkout_id VARCHAR(160) PRIMARY KEY,created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+    $db->exec('CREATE TABLE IF NOT EXISTS mlt_voucher_stock (id TINYINT PRIMARY KEY, quantity INT NOT NULL DEFAULT 50, denominations_seeded TINYINT NOT NULL DEFAULT 0) ENGINE=InnoDB');
+    $db->exec('INSERT IGNORE INTO mlt_voucher_stock (id,quantity) VALUES (1,50)');
     // A fixed seed ID makes concurrent first requests safe without recreating sold stock.
     $db->exec('INSERT IGNORE INTO mlt_voucher_campaigns (id,title,face_cents,price_cents,quantity) VALUES (1,"MLT Journey Voucher · Limited Edition",500000,400000,50)');
+    // Migrate once, without rewriting existing denominations or purchased terms.
+    $db->beginTransaction();
+    try {
+        $stock=$db->query('SELECT * FROM mlt_voucher_stock WHERE id=1 FOR UPDATE')->fetch();
+        if(!$stock['denominations_seeded']){
+            if(!$db->query('SELECT id FROM mlt_voucher_campaigns WHERE face_cents=400000 AND price_cents=300000 LIMIT 1')->fetchColumn())
+                $db->exec('INSERT INTO mlt_voucher_campaigns (title,face_cents,price_cents,quantity) VALUES ("MLT Journey Voucher · EUR 4,000",400000,300000,50)');
+            $db->exec('UPDATE mlt_voucher_stock SET denominations_seeded=1 WHERE id=1');
+        }
+        $db->commit();
+    }catch(Throwable $e){if($db->inTransaction())$db->rollBack();throw $e;}
+
 }
 
 function mlt_voucher_user(PDO $db): ?array {
@@ -35,9 +49,25 @@ function mlt_voucher_audit(PDO $db, int $actor, string $action, int $target, arr
     $db->prepare('INSERT INTO mlt_voucher_audit (actor_id,action,target_id,detail_json) VALUES (?,?,?,?)')->execute([$actor,$action,$target,json_encode($detail,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR)]);
 }
 
+function mlt_voucher_stock(PDO $db): array {
+    $row=$db->query('SELECT s.quantity, COALESCE(SUM(CASE WHEN p.status="paid" THEN p.quantity ELSE 0 END),0) AS sold, COALESCE(SUM(CASE WHEN p.status="pending" THEN p.quantity ELSE 0 END),0) AS reserved FROM mlt_voucher_stock s LEFT JOIN mlt_voucher_purchases p ON p.status IN ("paid","pending") WHERE s.id=1 GROUP BY s.quantity')->fetch();
+    foreach(['quantity','sold','reserved'] as $key)$row[$key]=(int)$row[$key];
+    $row['remaining']=max(0,$row['quantity']-$row['sold']);$row['available']=max(0,$row['remaining']-$row['reserved']);
+    return $row;
+}
+
 function mlt_voucher_campaigns(PDO $db, bool $all=false): array {
+    $stock=mlt_voucher_stock($db);
     $rows=$db->query('SELECT c.*, (SELECT COALESCE(SUM(p.quantity),0) FROM mlt_voucher_purchases p WHERE p.campaign_id=c.id AND p.status="paid") AS sold, (SELECT COALESCE(SUM(p.quantity),0) FROM mlt_voucher_purchases p WHERE p.campaign_id=c.id AND p.status="pending") AS reserved FROM mlt_voucher_campaigns c'.($all?'':' WHERE c.is_active=1').' ORDER BY c.id')->fetchAll();
-    foreach($rows as &$row){foreach(['id','face_cents','price_cents','quantity','sold','reserved','is_active'] as $key)$row[$key]=(int)$row[$key];$row['remaining']=max(0,$row['quantity']-$row['sold']);$row['available']=max(0,$row['remaining']-$row['reserved']);}
+    foreach($rows as &$row){foreach(['id','face_cents','price_cents','sold','reserved','is_active'] as $key)$row[$key]=(int)$row[$key];$row['quantity']=$stock['quantity'];$row['remaining']=$stock['remaining'];$row['available']=$stock['available'];}
+    return $rows;
+}
+
+function mlt_voucher_analytics(PDO $db): array {
+    // Group by the immutable purchased terms, not today's editable campaign price.
+    $rows=$db->query('SELECT p.face_cents,p.price_cents,SUM(p.quantity) AS sold,SUM(p.price_cents*p.quantity) AS cash_cents FROM mlt_voucher_purchases p WHERE p.status="paid" GROUP BY p.face_cents,p.price_cents ORDER BY p.face_cents DESC,p.price_cents DESC')->fetchAll();
+    $balances=$db->query('SELECT v.face_cents,p.price_cents,SUM(v.balance_cents) AS balance_cents,SUM(v.face_cents-v.balance_cents) AS used_cents,SUM(CASE WHEN v.status="blocked" THEN 1 ELSE 0 END) AS blocked FROM mlt_vouchers v JOIN mlt_voucher_purchases p ON p.id=v.purchase_id GROUP BY v.face_cents,p.price_cents')->fetchAll();
+    foreach($rows as &$row){$row['balance_cents']=0;$row['used_cents']=0;$row['blocked']=0;foreach($balances as $balance)if($balance['face_cents']==$row['face_cents']&&$balance['price_cents']==$row['price_cents']){foreach(['balance_cents','used_cents','blocked'] as $key)$row[$key]=$balance[$key];break;}foreach($row as &$value)$value=(int)$value;unset($value);}
     return $rows;
 }
 
@@ -47,12 +77,14 @@ function mlt_voucher_reserve(PDO $db, array $user, int $campaignId, string $prov
     if (!in_array($user['role'],['traveller','agency'],true)) throw new DomainException('Please purchase from a client account.');
     $db->beginTransaction();
     try {
+        // One shared row serializes reservations across EVERY denomination.
+        $db->query('SELECT quantity FROM mlt_voucher_stock WHERE id=1 FOR UPDATE')->fetch();
         $q=$db->prepare('SELECT * FROM mlt_voucher_campaigns WHERE id=? FOR UPDATE');$q->execute([$campaignId]);$c=$q->fetch();
         if(!$c||!$c['is_active'])throw new DomainException('This voucher edition is not on sale.');
         $q=$db->prepare('SELECT *,UNIX_TIMESTAMP(reserved_until) AS reserved_epoch FROM mlt_voucher_purchases WHERE user_id=? AND campaign_id=? AND provider=? AND status="pending" ORDER BY id DESC LIMIT 1');$q->execute([$user['id'],$campaignId,$provider]);$existing=$q->fetch();
         if($existing){if((int)$existing['quantity']!==$quantity)throw new DomainException('You already have a pending checkout with a different quantity. Resume it in My vouchers, or wait for it to expire.');$db->commit();return $existing;}
-        $q=$db->prepare('SELECT COALESCE(SUM(quantity),0) FROM mlt_voucher_purchases WHERE campaign_id=? AND (status="paid" OR status="pending")');$q->execute([$campaignId]);
-        if((int)$q->fetchColumn()+$quantity>(int)$c['quantity'])throw new DomainException('All available vouchers are sold or temporarily reserved. Please try again later.');
+        $stock=mlt_voucher_stock($db);
+        if($quantity>$stock['available'])throw new DomainException('All available vouchers are sold or temporarily reserved. Please try again later.');
         $ref='MLTV-'.strtoupper(bin2hex(random_bytes(12)));
         // Stripe is explicitly set to 31 minutes (above its 30 minute minimum). PayPal approval links last 3 hours.
         $minutes=$provider==='stripe'?31:180;

@@ -117,3 +117,5 @@ test("PHP and React consume the same fallback tariffs and retain legacy payment 
 });
 
 test("voucher discounts retain the configured fractional percentage",()=>{const {voucherDiscount}=load("content/vouchers.ts");assert.equal(voucherDiscount(500000,400000),20);assert.equal(voucherDiscount(500000,407500),18.5);assert.equal(voucherDiscount(500000,500000),0);assert.equal(voucherDiscount(0,400000),0)});
+
+test("voucher captions reflect the selected denomination in every language",()=>{const {voucherOfferCaption}=load("content/vouchers.ts");for(const locale of ["en","ru","de","it","pl"]){const caption=voucherOfferCaption(400000,300000,locale);assert.match(caption,/3[,. \u00a0\u202f]?000/);assert.match(caption,/4[,. \u00a0\u202f]?000/);assert.doesNotMatch(caption,/5[,. \u00a0\u202f]?000/);}});

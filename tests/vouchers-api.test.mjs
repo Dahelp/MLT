@@ -9,9 +9,10 @@ import {createServer} from 'node:net';
 const php=process.env.PHP_BINARY||'php';
 function run(...args){return new Promise((resolve,reject)=>{const child=spawn(php,[fileURLToPath(new URL('./voucher-integration.php',import.meta.url)),...args],{env:process.env});let out='',err='';child.stdout.on('data',d=>out+=d);child.stderr.on('data',d=>err+=d);child.on('error',reject);child.on('exit',code=>code===0?resolve(out):reject(Error(out+err)))})}
 test('real MySQL voucher money, ownership, inventory, multi-quantity purchases, API permissions and concurrent redemption',{skip:!process.env.MLT_VOUCHER_TEST_DSN},async()=>{
+ assert.match(await run('test-shared-stock'),/Shared denomination integration checks passed/);
  assert.match(await run('test'),/integration checks passed/);
  await run('prepare-concurrency');
- const results=await Promise.all([run('reserve','1','3'),run('reserve','6','3')]);
+ const results=await Promise.all([run('reserve','1','3'),run('reserve','6','3','2')]);
  assert.equal(results.map(JSON.parse).filter(r=>r.ok).length,1,'Only one parallel purchase may reserve the last four available slots');
  const spends=await Promise.all([run('redeem','1','concurrent-apply-00001'),run('redeem','2','concurrent-apply-00002')]);
  assert.equal(spends.map(JSON.parse).filter(r=>r.ok).length,1,'Parallel vouchers cannot overpay the same journey');
@@ -38,8 +39,12 @@ test('real MySQL voucher money, ownership, inventory, multi-quantity purchases, 
   assert.equal((await request('permissions',{role:'concierge',view:true,manage:true},'manager')).status,403);
   const campaign={id:1,title:'Test edition',faceCents:500000,priceCents:400000,quantity:50,active:true};
   assert.equal((await request('save_campaign',campaign,'admin')).status,200);
-  assert.equal((await request('save_campaign',{...campaign,quantity:1},'admin')).status,409);
-  assert.equal((await request('save_campaign',{...campaign,quantity:51},'admin')).status,400);
+  assert.equal((await request('save_stock',{quantity:1},'admin')).status,409);
+  assert.equal((await request('save_stock',{quantity:50},'admin')).status,200);
+  const catalog=await request('catalog');assert.equal(catalog.data.stock.quantity,50);assert.equal(catalog.data.campaigns.length,2);
+  const admin=await request('admin',{},'admin');assert.equal(admin.data.analytics[0].sold,3);assert.equal(admin.data.stock.sold,3);
+  assert.equal((await request('save_stock',{quantity:50},'manager')).status,403);
+  assert.equal((await request('save_stock',{quantity:51},'admin')).status,400);
   assert.equal((await request('save_campaign',{...campaign,priceCents:600000},'admin')).status,400);
   const mine=await request('mine');assert.equal(mine.data.vouchers.length,3);
   const other=await request('mine',{},'agency');assert.equal(other.data.vouchers.length,0);

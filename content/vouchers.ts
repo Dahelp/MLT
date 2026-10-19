@@ -1,4 +1,6 @@
 import type { SiteLanguage } from "../app/LanguageMenu";
+export type VoucherStockData = {quantity:number;sold:number;reserved:number;remaining:number;available:number};
+export const voucherChoiceCopy = {en:"Choose voucher value",ru:"Выберите номинал",de:"Gutscheinwert wählen",it:"Scegli il valore",pl:"Wybierz nominał"} as const;
 export type VoucherCampaign = { id:number;title:string;face_cents:number;price_cents:number;quantity:number;sold:number;reserved:number;remaining:number;available:number;validity_months:number|null;is_active:number };
 export type Voucher = {id:number;code:string;face_cents:number;balance_cents:number;price_cents:number;status:string;expires_at:string|null;history:{id:number;kind:string;delta_cents:number;balance_cents:number;created_at:string;reference_code:string|null}[]};
 export const voucherCopy = {
@@ -15,3 +17,5 @@ export async function voucherRequest(action:string,body:object={}) {
 }
 
 export function voucherDiscount(faceCents:number,priceCents:number){return faceCents>0&&Number.isFinite(faceCents)&&Number.isFinite(priceCents)?Math.max(0,Math.round((1-priceCents/faceCents)*10000)/100):0}
+
+export function voucherOfferCaption(face:number,price:number,locale:SiteLanguage){const f=voucherMoney(face,locale),p=voucherMoney(price,locale);return ({en:`Pay ${p}. Enjoy ${f} towards your journey.`,ru:`Заплатите ${p}. Получите ${f} на путешествие.`,de:`${p} bezahlen. ${f} Reiseguthaben erhalten.`,it:`Paga ${p}. Ricevi ${f} per il viaggio.`,pl:`Zapłać ${p}. Otrzymaj ${f} na podróż.`})[locale]}

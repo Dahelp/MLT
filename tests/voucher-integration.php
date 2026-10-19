@@ -10,13 +10,13 @@ function check(bool $condition,string $message):void {if(!$condition)throw new R
 function denied(callable $call,string $message):void {try{$call();}catch(DomainException $e){return;}throw new RuntimeException($message);}
 $mode=$argv[1]??'test';
 if($mode==='reserve'){
-    try{$p=mlt_voucher_reserve($pdo,['id'=>(int)$argv[2],'role'=>'traveller'],1,'stripe',(int)$argv[3]);echo json_encode(['ok'=>true,'reference'=>$p['reference_code']]);}catch(DomainException $e){echo json_encode(['ok'=>false]);}exit;
+    try{$p=mlt_voucher_reserve($pdo,['id'=>(int)$argv[2],'role'=>'traveller'],(int)($argv[4]??1),'stripe',(int)$argv[3]);echo json_encode(['ok'=>true,'reference'=>$p['reference_code']]);}catch(DomainException $e){echo json_encode(['ok'=>false]);}exit;
 }
 if($mode==='redeem'){
     try{$r=mlt_voucher_redeem($pdo,['id'=>1,'email'=>'client@example.test'],(int)$argv[2],'MLT-CONCURRENT',(string)$argv[3]);echo json_encode(['ok'=>true,...$r]);}catch(DomainException $e){echo json_encode(['ok'=>false]);}exit;
 }
-if($mode==='setup'||$mode==='test'){
-    foreach(['mlt_voucher_ledger','mlt_voucher_receipts','mlt_vouchers','mlt_voucher_purchases','mlt_voucher_campaigns','mlt_voucher_permissions','mlt_voucher_audit','mlt_journey_checkout_holds','mlt_journey_checkout_cancellations','mlt_payments','mlt_orders','mlt_users'] as $table)$pdo->exec('DROP TABLE IF EXISTS '.$table);
+if($mode==='setup'||$mode==='test'||$mode==='test-shared-stock'){
+    foreach(['mlt_voucher_stock','mlt_voucher_ledger','mlt_voucher_receipts','mlt_vouchers','mlt_voucher_purchases','mlt_voucher_campaigns','mlt_voucher_permissions','mlt_voucher_audit','mlt_journey_checkout_holds','mlt_journey_checkout_cancellations','mlt_payments','mlt_orders','mlt_users'] as $table)$pdo->exec('DROP TABLE IF EXISTS '.$table);
     $pdo=mlt_db(['database'=>['host'=>substr($dsn,11),'name'=>'mlt_vouchers_test','user'=>(string)(getenv('MLT_VOUCHER_TEST_USER')?:'root'),'password'=>(string)getenv('MLT_VOUCHER_TEST_PASSWORD')]]);
     if(!$pdo)throw new RuntimeException('Could not initialize the isolated test schema.');
     mlt_voucher_schema($pdo);mlt_voucher_schema($pdo);
@@ -24,7 +24,36 @@ if($mode==='setup'||$mode==='test'){
     $pdo->exec('INSERT INTO mlt_orders (id,user_id,reference_code,customer_email,total_amount,status,first_name,last_name) VALUES (1,1,"MLT-FIRST","client@example.test",3200,"requested","Test","Client"),(2,1,"MLT-SECOND","client@example.test",3000,"requested","Test","Client"),(3,1,"MLT-CONCURRENT","client@example.test",1000,"requested","Test","Client"),(4,6,"MLT-OTHER","agency@example.test",1000,"requested","Test","Client")');
 }
 if($mode==='setup'){echo 'OK';exit;}
-if($mode==='prepare-concurrency'){$pdo->exec('UPDATE mlt_voucher_campaigns SET quantity=7 WHERE id=1');echo 'OK';exit;}
+if($mode==='test-shared-stock'){
+    $client=['id'=>1,'email'=>'client@example.test','role'=>'traveller'];
+    $catalog=mlt_voucher_campaigns($pdo);check(count($catalog)===2,'Both default denominations are seeded once.');
+    check($catalog[1]['face_cents']===400000&&$catalog[1]['price_cents']===300000,'Second denomination is 4000 credit for 3000.');
+    check(mlt_voucher_stock($pdo)['quantity']===50,'Both denominations share exactly fifty slots, not fifty each.');
+    $one=mlt_voucher_reserve($pdo,$client,1,'stripe',3);
+    $two=mlt_voucher_reserve($pdo,$client,2,'stripe',2);
+    check(mlt_voucher_stock($pdo)['available']===45,'Reservations of different values consume the same pool.');
+    foreach(mlt_voucher_campaigns($pdo) as $c)check($c['available']===45,'Every denomination reports the same available count.');
+    denied(fn()=>mlt_voucher_reserve($pdo,['id'=>6,'role'=>'agency'],2,'paypal',46),'Cannot reserve beyond the combined limit.');
+    $pdo->exec('UPDATE mlt_voucher_campaigns SET face_cents=410000,price_cents=310000 WHERE id=2');
+    mlt_voucher_issue($pdo,$one['reference_code'],'stripe','cs_shared_1','pi_shared_1',1200000,'EUR');
+    mlt_voucher_issue($pdo,$two['reference_code'],'stripe','cs_shared_2','pi_shared_2',600000,'EUR');
+    check(mlt_voucher_stock($pdo)['remaining']===45,'Paid units of both values reduce the single fifty-unit edition.');
+    $v=$pdo->query('SELECT * FROM mlt_vouchers WHERE purchase_id='.(int)$two['id'])->fetch();
+    check((int)$v['face_cents']===400000,'Issued vouchers keep the selected purchased denomination.');
+    $r=mlt_voucher_redeem($pdo,$client,(int)$v['id'],'MLT-FIRST','shared-value-payment-0001');
+    check($r['balance_cents']===80000,'4000 voucher paying a 3200 journey leaves 800.');
+    $analytics=mlt_voucher_analytics($pdo);check(count($analytics)===2,'Analytics split different purchased denominations.');
+    check($analytics[0]['sold']===3&&$analytics[0]['cash_cents']===1200000,'5000 denomination cash is counted once per unit.');
+    check($analytics[1]['face_cents']===400000&&$analytics[1]['price_cents']===300000&&$analytics[1]['sold']===2&&$analytics[1]['cash_cents']===600000&&$analytics[1]['balance_cents']===480000&&$analytics[1]['used_cents']===320000,'Analytics preserve purchased prices and credit after campaign editing.');
+    $pdo->exec('UPDATE mlt_voucher_stock SET quantity=6 WHERE id=1');
+    $last=mlt_voucher_reserve($pdo,$client,1,'paypal',1);
+    denied(fn()=>mlt_voucher_reserve($pdo,['id'=>6,'role'=>'agency'],2,'stripe',1),'The last shared slot cannot be sold twice across denominations.');
+    mlt_voucher_issue($pdo,$last['reference_code'],'paypal','pp_shared_last','capture_shared_last',400000,'EUR');
+    foreach(mlt_voucher_campaigns($pdo) as $c)check($c['remaining']===0&&$c['available']===0,'Every value is unavailable once the shared pool sells out.');
+    mlt_voucher_schema($pdo);check(mlt_voucher_stock($pdo)['quantity']===6&&count(mlt_voucher_campaigns($pdo))===2,'Schema retries never reset stock or recreate edited denominations.');
+    echo "Shared denomination integration checks passed.\n";exit;
+}
+if($mode==='prepare-concurrency'){$pdo->exec('UPDATE mlt_voucher_stock SET quantity=7 WHERE id=1');echo 'OK';exit;}
 if($mode==='cancel-first'){$pdo->exec('UPDATE mlt_orders SET status="cancelled" WHERE id=1');echo 'OK';exit;}
 if($mode==='summary'){echo json_encode(['campaign'=>mlt_voucher_campaigns($pdo,true)[0],'concurrentPaid'=>$pdo->query('SELECT paid_amount FROM mlt_orders WHERE id=3')->fetchColumn(),'vouchers'=>$pdo->query('SELECT COUNT(*) FROM mlt_vouchers')->fetchColumn()]);exit;}
 
