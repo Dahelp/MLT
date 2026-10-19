@@ -69,7 +69,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div className="light-hero-copy">
         <h1>{({ en: "Individual Motorhome Expeditions", de: "Individuelle Wohnmobil-Expeditionen", ru: "Индивидуальные экспедиции на автодомах", it: "Spedizioni individuali in motorhome", pl: "Indywidualne wyprawy kamperem" })[locale]}</h1>
         <p>{t.hero}</p>
-        <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a><a className="text-button dark" href={`/${locale}/vouchers/`}>{voucherCopy[locale].buy}</a></div>
+        <div className="light-hero-buttons"><a className="bronze-button hero-collection-button" href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a><a className="text-button dark hero-voucher-button" href={`/${locale}/vouchers/`}>{voucherCopy[locale].buy}</a></div>
       </div>
     </section>
 

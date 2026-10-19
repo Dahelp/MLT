@@ -7,8 +7,8 @@
 .light-video-hero .light-hero-copy>:nth-child(3),.photo-hero .commercial-hero-content>:nth-child(3),.photo-hero>p:last-child,.mlt-hero-reveal>:nth-child(3){animation-delay:.44s}
 .photo-hero .commercial-hero-content>:nth-child(4){animation-delay:.56s}
 .light-video-hero .light-hero-buttons{margin-top:22px}
-.light-video-hero .hero-collection-button{min-height:61.2px;padding:15.3px 23.8px;font-size:18.7px}
-@media(max-width:700px){.light-video-hero .hero-collection-button{min-height:74.8px;font-size:20.4px}}
+.light-video-hero .hero-collection-button,.light-video-hero .hero-voucher-button{min-height:61.2px;padding:15.3px 23.8px;font:700 18.7px/1.5 var(--mlt-font-ui);border-width:1px;box-sizing:border-box}
+@media(max-width:700px){.light-video-hero .hero-collection-button,.light-video-hero .hero-voucher-button{min-height:74.8px;font-size:20.4px}}
 @media(prefers-reduced-motion:reduce){.mlt-site-header,.mlt-enter-header,.light-video-hero .light-hero-copy>*,.photo-hero .commercial-hero-content>*,.photo-hero>h1,.photo-hero>p,.mlt-hero-reveal>*{animation:none!important}}
 
 /* The still stays in place while the first decoded video frame fades in. */
