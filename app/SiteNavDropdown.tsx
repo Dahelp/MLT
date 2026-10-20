@@ -44,9 +44,9 @@ function preventMouseToggle(event: MouseEvent<HTMLElement>) {
   }
 }
 
-export function CollectionsDropdown({ locale }: { locale: SiteLanguage }) {
+export function CollectionsDropdown({ locale, showVouchers = true }: { locale: SiteLanguage; showVouchers?: boolean }) {
   const t = labels[locale];
-  return <details className="mlt-nav-dropdown" name="mlt-primary-navigation" onToggle={closeOtherDropdowns} onPointerEnter={openOnHover} onPointerLeave={closeOnHoverEnd}><summary onClick={preventMouseToggle}>{t.collections}</summary><div className="mlt-nav-dropdown-menu">{collectionNames.map(([slug, name]) => <a key={slug} href={slug === "proposal" ? `/${locale}/proposal/` : `/${locale}/collections/${slug}/`}>{name}</a>)}<a href={`/${locale}/vouchers/`}>{voucherCopy[locale].nav}</a></div></details>;
+  return <details className="mlt-nav-dropdown" name="mlt-primary-navigation" onToggle={closeOtherDropdowns} onPointerEnter={openOnHover} onPointerLeave={closeOnHoverEnd}><summary onClick={preventMouseToggle}>{t.collections}</summary><div className="mlt-nav-dropdown-menu">{collectionNames.map(([slug, name]) => <a key={slug} href={slug === "proposal" ? `/${locale}/proposal/` : `/${locale}/collections/${slug}/`}>{name}</a>)}{showVouchers&&<a className="nav-vouchers-link" href={`/${locale}/vouchers/`}>{voucherCopy[locale].nav}</a>}</div></details>;
 }
 
 export function AcquisitionsDropdown({ locale }: { locale: SiteLanguage }) {

@@ -1,6 +1,7 @@
 "use client";
 
-import { changeSiteLocale, siteIdentity } from "../content/site";
+import { changeSiteLocale, siteIdentity, showsVoucherNavigation } from "../content/site";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LanguageMenu, type SiteLanguage } from "./LanguageMenu";
 import { AcquisitionsDropdown, CollectionsDropdown, siteNavLabels } from "./SiteNavDropdown";
@@ -8,12 +9,13 @@ import { AcquisitionsDropdown, CollectionsDropdown, siteNavLabels } from "./Site
 export default function SiteHeader({ locale, isHome = false }: { locale: SiteLanguage; isHome?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const t = siteNavLabels(locale);
+  const pathname = usePathname();
   const home = `/${locale}/`;
   const logo = <img src={siteIdentity.headerLogo} alt="MLT — Move. Live. Travel." />;
   return <header className="light-nav mlt-site-header">
     {isHome ? <span className="light-brand">{logo}</span> : <a className="light-brand" href={home} aria-label="MLT home">{logo}</a>}
     <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
-      <div className="site-nav-left"><CollectionsDropdown locale={locale} />
+      <div className="site-nav-left"><CollectionsDropdown locale={locale} showVouchers={showsVoucherNavigation(pathname || `/${locale}/`)} />
       <AcquisitionsDropdown locale={locale} />
       <a href={`/${locale}/investments/`}>{t.investments}</a></div>
       <div className="site-nav-right"><a href={`/${locale}/smart-map/`}>{t.smartMap}</a>

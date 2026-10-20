@@ -27,3 +27,10 @@ export function changeSiteLocale(locale: Locale) {
   try { localStorage.setItem("mlt-locale", locale); } catch { /* Navigation works without storage. */ }
   window.location.assign(localizedUrl(window.location.href, locale));
 }
+
+/** Voucher navigation belongs to journey discovery pages only. */
+export function showsVoucherNavigation(pathname: string): boolean {
+  const parts=pathname.split('/').filter(Boolean);
+  if(siteLocales.includes(parts[0] as Locale))parts.shift();
+  return parts.length===0 || parts[0]==='collections' || parts[0]==='proposal' || ((parts[0]==='mobile-site'||parts[0]==='mobile-preview')&&(parts.length===1||['freedom','signature','concierge','private','honeymoon'].includes(parts[1])));
+}

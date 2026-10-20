@@ -1254,6 +1254,7 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
  .mlt-site-header .light-menu{position:absolute;left:0}
  .mlt-site-header .light-links{display:none;top:100%;left:16px;right:16px;width:auto;padding:20px;background:var(--nav-paper);border:1px solid #c6b7a450;border-radius:12px;box-shadow:0 16px 30px #59402620}
  .mlt-site-header .light-links.open{display:flex;align-items:stretch;flex-direction:column;gap:0}
+ .mlt-site-header .nav-vouchers-link{display:none!important}
  .mlt-site-header .site-nav-left,.mlt-site-header .site-nav-right{display:flex;align-items:stretch;flex-direction:column;gap:0;margin:0}
  .mlt-site-header .site-nav-left>a,.mlt-site-header .site-nav-right>a,.mlt-site-header .mlt-nav-dropdown>summary{display:flex;align-items:center;min-height:54px;padding:13px 5px;border-bottom:1px solid #a2725025;font-size:16px;color:var(--nav-ink)}
  .mlt-site-header .mlt-nav-dropdown[open]>summary{color:var(--nav-ink)}

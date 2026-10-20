@@ -53,7 +53,7 @@ test("separate public layouts share footer identity and legal links", async () =
   }
 });
 
-test("all main public pages use exactly the same main footer", async () => {
+test("public pages share one footer with voucher navigation limited to journey discovery", async () => {
   for (const locale of ["en", "de", "ru", "it", "pl"]) {
     let reference;
     for (const route of ["", "about/", "contact/", "investments/", "acquisitions/", "smart-map/", "collections/freedom/", "proposal/", "legal/privacy/", "legal/imprint/", "legal/terms/"]) {
@@ -65,7 +65,11 @@ test("all main public pages use exactly the same main footer", async () => {
       assert.equal(footers.length, 1, pathname);
       assert.match(footers[0], /data-site-footer="main"/);
       assert.doesNotMatch(footers[0], /commercial-footer/);
-      const normalized = footers[0].replace(/ data-home-reveal="[^"]*"/g, "");
+      assert.ok(footers[0].includes(`/${locale}/investments/`),pathname);
+      assert.ok(footers[0].includes(`/${locale}/acquisitions/`),pathname);
+      assert.ok(!footers[0].includes('#experiences'),pathname);
+      assert.equal(footers[0].includes(`/${locale}/vouchers/`),route===''||route.startsWith('collections/')||route==='proposal/',pathname);
+      const normalized = footers[0].replace(/ data-home-reveal="[^"]*"/g, "").replace(/<a href="[^"]*\/vouchers\/">[^<]*<\/a>/g, "");
       reference ??= normalized;
       assert.equal(normalized, reference, `${pathname} has the same footer as the home page`);
     }
@@ -264,4 +268,13 @@ test("listing specifications show eight rows and retain the rest in a closed dis
     assert.doesNotMatch(html, /<details class="listing-specifications-more"/);
     assert.equal((html.match(/<dl class="listing-specifications-preview">([\s\S]*?)<\/dl>/)?.[1].match(/<dt>/g) || []).length, 4);
   } finally { globalThis.fetch = originalFetch; }
+});
+
+test("investment page translates headings, calculator and metadata for every site language",async()=>{
+ const labels={en:"Full Management",ru:"Полное управление",de:"Umfassende Verwaltung",it:"Gestione completa",pl:"Pełne zarządzanie"};
+ for(const [locale,label] of Object.entries(labels)){
+  const html=await (await render(`/${locale}/investments/`)).text();
+  assert.ok(html.includes(label),locale);
+  if(locale!=="en"){assert.ok(!html.includes('>Investment Amount'),locale);assert.ok(!html.includes('>Calculate Returns<'),locale);assert.ok(!html.includes('>Investment Inquiry<'),locale);}
+ }
 });
