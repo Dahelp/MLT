@@ -1,6 +1,7 @@
 "use client";
 import { operationsDestination as authorizedOperationsDestination } from "../../content/operations-access";
 import { FormEvent, useEffect, useState } from "react";
+import SiteHeader from "../SiteHeader";
 import RealRouteMap from "../plan/RealRouteMap";
 import ChevronIcon from "../ChevronIcon";
 import { mapPoints } from "../../content/mlt";
@@ -524,9 +525,7 @@ export default function Account({
   if (!user)
     return (
       <main className="account-page">
-        <a className="account-brand" href="/">
-          MLT
-        </a>
+        <SiteHeader locale={locale} />
         <section className="account-auth">
               <p className="account-eyebrow">{t.eyebrow}</p>
           <h1>{auth === "login" ? t.login : t.register}</h1>
