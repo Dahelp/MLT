@@ -79,7 +79,7 @@ test("public pages share one footer with voucher navigation limited to journey d
   }
 });
 
-test("each main and mobile collection renders one carousel and the same seven fallback products", async () => {
+test("Freedom omits products while other collections retain their shared carousel", async () => {
   const lastProduct = { freedom: "Black Forest Trail", signature: "Black Forest Signature Retreat", concierge: "Black Forest Family Forest &amp; Lore", private: "Black Forest Experience", honeymoon: "Black Forest Fairy Tale" };
   for (const [slug, last] of Object.entries(lastProduct)) {
     for (const suffix of ["", "mobile-site/"]) {
@@ -88,8 +88,8 @@ test("each main and mobile collection renders one carousel and the same seven fa
       assert.equal(response.status, 200, route);
       const html = await response.text();
       const classes = Array.from(html.matchAll(/class="([^"]*)"/g), match => match[1].split(/\s+/));
-      assert.equal(classes.filter(tokens => tokens.includes("swiper")).length, 1, `${route} must not mount hidden carousels`);
-      assert.ok(html.includes(last), `${route} includes the complete shared product set`);
+      assert.equal(classes.filter(tokens => tokens.includes("swiper")).length, slug === "freedom" ? 0 : 1, `${route} must not mount hidden carousels`);
+      assert.equal(html.includes(last), slug !== "freedom", `${route} product visibility`);
     }
   }
 });
