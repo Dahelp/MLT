@@ -1,6 +1,7 @@
 "use client";
 
 import { changeSiteLocale, siteIdentity, showsVoucherNavigation } from "../content/site";
+import { voucherCopy } from "../content/vouchers";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LanguageMenu, type SiteLanguage } from "./LanguageMenu";
@@ -17,7 +18,7 @@ export default function SiteHeader({ locale, isHome = false }: { locale: SiteLan
     <nav className={menuOpen ? "light-links open" : "light-links"} aria-label="Primary navigation">
       <div className="site-nav-left"><CollectionsDropdown locale={locale} showVouchers={showsVoucherNavigation(pathname || `/${locale}/`)} />
       <AcquisitionsDropdown locale={locale} />
-      <a href={`/${locale}/investments/`}>{t.investments}</a></div>
+      <a href={`/${locale}/investments/`}>{t.investments}</a>{showsVoucherNavigation(pathname || home)&&<a className="mobile-vouchers-link" href={`/${locale}/vouchers/`}>{voucherCopy[locale].nav}</a>}</div>
       <div className="site-nav-right"><a href={`/${locale}/smart-map/`}>{t.smartMap}</a>
       <a href={`/${locale}/contact/`}>{t.contact}</a></div>
     </nav>

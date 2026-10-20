@@ -56,7 +56,7 @@ test("separate public layouts share footer identity and legal links", async () =
 test("public pages share one footer with voucher navigation limited to journey discovery", async () => {
   for (const locale of ["en", "de", "ru", "it", "pl"]) {
     let reference;
-    for (const route of ["", "about/", "contact/", "investments/", "acquisitions/", "smart-map/", "collections/freedom/", "proposal/", "legal/privacy/", "legal/imprint/", "legal/terms/"]) {
+    for (const route of ["", "vouchers/", "about/", "contact/", "investments/", "acquisitions/", "smart-map/", "collections/freedom/", "proposal/", "legal/privacy/", "legal/imprint/", "legal/terms/"]) {
       const pathname = `/${locale}/${route}`;
       const response = await render(pathname);
       assert.equal(response.status, 200, pathname);
@@ -68,7 +68,7 @@ test("public pages share one footer with voucher navigation limited to journey d
       assert.ok(footers[0].includes(`/${locale}/investments/`),pathname);
       assert.ok(footers[0].includes(`/${locale}/acquisitions/`),pathname);
       assert.ok(!footers[0].includes('#experiences'),pathname);
-      assert.equal(footers[0].includes(`/${locale}/vouchers/`),route===''||route.startsWith('collections/')||route==='proposal/',pathname);
+      assert.equal(footers[0].includes(`/${locale}/vouchers/`),route===''||route==='vouchers/'||route.startsWith('collections/')||route==='proposal/',pathname);
       const normalized = footers[0].replace(/ data-home-reveal="[^"]*"/g, "").replace(/<a href="[^"]*\/vouchers\/">[^<]*<\/a>/g, "");
       reference ??= normalized;
       assert.equal(normalized, reference, `${pathname} has the same footer as the home page`);
