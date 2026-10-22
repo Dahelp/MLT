@@ -34,6 +34,31 @@ if (!$check->fetch()) {
     $db->commit();
   } catch (Throwable $error) { $db->rollBack(); throw $error; }
 }
+// Apply this requested photo order and capacity update once, preserving other listing edits.
+$migrationKey = 'acquisitions-marco-polo-photos-capacity-2026-10-22';
+$check = $db->prepare('SELECT migration_key FROM mlt_content_migrations WHERE migration_key=?');
+$check->execute([$migrationKey]);
+if (!$check->fetch()) {
+  $db->beginTransaction();
+  try {
+    $claim = $db->prepare('INSERT IGNORE INTO mlt_content_migrations(migration_key) VALUES(?)');
+    $claim->execute([$migrationKey]);
+    if ($claim->rowCount()) {
+      $current = $db->prepare('SELECT specifications_json FROM mlt_acquisitions WHERE slug=?');
+      $current->execute(['mercedes-benz-v-300-marco-polo']);
+      $listing = $current->fetch(PDO::FETCH_ASSOC);
+      if ($listing) {
+        $seed = json_decode((string)file_get_contents(__DIR__ . '/../data/acquisitions/mercedes-benz-v-300-marco-polo.json'), true, 512, JSON_THROW_ON_ERROR);
+        $specifications = json_decode($listing['specifications_json'] ?? '[]', true) ?: [];
+        $specifications = array_values(array_filter($specifications, static fn($row) => ($row['label'] ?? '') !== 'Passenger seats'));
+        $specifications[] = ['label'=>'Passenger seats','value'=>'2'];
+        $update = $db->prepare('UPDATE mlt_acquisitions SET berths=?,images_json=?,specifications_json=? WHERE slug=?');
+        $update->execute([5,$seed['images_json'],json_encode($specifications, JSON_UNESCAPED_UNICODE),'mercedes-benz-v-300-marco-polo']);
+      }
+    }
+    $db->commit();
+  } catch (Throwable $error) { $db->rollBack(); throw $error; }
+}
 $body = json_decode(file_get_contents('php://input'), true); if (!is_array($body)) $body = [];
 $action = (string)($body['action'] ?? 'list');
 if ($action === 'list') { $rows = $db->query('SELECT * FROM mlt_acquisitions ORDER BY status,updated_at DESC')->fetchAll(PDO::FETCH_ASSOC); echo json_encode(['items' => $rows], JSON_UNESCAPED_UNICODE); exit; }

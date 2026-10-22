@@ -1612,5 +1612,17 @@
     "ru": "Расскажите нашей команде продаж, что вы ищете.",
     "it": "Comunica al nostro team vendite cosa cerchi.",
     "pl": "Powiedz naszemu zespołowi sprzedaży, czego szukasz."
+  },
+  "Passenger seats": {
+    "de": "Passagiersitze",
+    "ru": "Пассажирские места",
+    "it": "Posti passeggero",
+    "pl": "Miejsca pasażerskie"
+  },
+  "passenger seat": {
+    "de": "Passagiersitze",
+    "ru": "пассажирских места",
+    "it": "posti passeggero",
+    "pl": "miejsca pasażerskie"
   }
 }
