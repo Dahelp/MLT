@@ -1732,5 +1732,41 @@
     "ru": "Euro 6d-TEMP; требует уточнения",
     "it": "Euro 6d-TEMP; da confermare",
     "pl": "Euro 6d-TEMP; wymaga potwierdzenia"
+  },
+  "Mercedes-Benz V 300 Marco Polo 4MATIC combines everyday driving comfort with the freedom of a fully equipped camper. Original Westfalia conversion, first registered in August 2019, with 106,000 km. Price: €44,900.": {
+    "de": "Der Mercedes-Benz V 300 Marco Polo 4MATIC verbindet Fahrkomfort im Alltag mit der Freiheit eines voll ausgestatteten Campers. Originaler Westfalia-Ausbau, Erstzulassung August 2019, 106.000 km. Preis: 44.900 €.",
+    "ru": "Mercedes-Benz V 300 Marco Polo 4MATIC сочетает комфорт повседневных поездок со свободой путешествий в оборудованном кемпере. Оригинальное оснащение Westfalia, первая регистрация — август 2019 года, пробег — 106 000 км. Цена — 44 900 €.",
+    "it": "Il Mercedes-Benz V 300 Marco Polo 4MATIC unisce il comfort quotidiano alla libertà di un camper completamente attrezzato. Allestimento originale Westfalia, prima immatricolazione agosto 2019, 106.000 km. Prezzo: 44.900 €.",
+    "pl": "Mercedes-Benz V 300 Marco Polo 4MATIC łączy codzienny komfort jazdy ze swobodą podróżowania w wyposażonym kamperze. Oryginalna zabudowa Westfalia, pierwsza rejestracja w sierpniu 2019 r., 106 000 km. Cena: 44 900 €."
+  },
+  "Wake up somewhere new with an electric pop-up roof and upper double bed, a rear-seat bed and an integrated kitchen with sink, hob and refrigerator. A side awning creates a comfortable outdoor space, while Webasto stationary heating adds comfort on cooler days.": {
+    "de": "An neuen Orten aufwachen: elektrisches Aufstelldach mit oberem Doppelbett, Heckbett und integrierte Küche mit Spüle, Kochfeld und Kühlschrank. Die Seitenmarkise schafft einen gemütlichen Außenbereich, die Webasto-Standheizung sorgt an kühleren Tagen für Komfort.",
+    "ru": "Просыпайтесь в новых местах: электрическая подъёмная крыша с верхней двуспальной кроватью, спальное место из задних сидений и встроенная кухня с мойкой, плитой и холодильником дают всё необходимое для поездки. Боковая маркиза создаёт уютную зону отдыха снаружи, а автономный отопитель Webasto добавляет комфорта в прохладные дни.",
+    "it": "Risvegliati in un posto nuovo con tetto sollevabile elettrico e letto matrimoniale superiore, letto posteriore e cucina integrata con lavello, piano cottura e frigorifero. Il tendalino laterale crea uno spazio esterno accogliente e il riscaldamento Webasto offre comfort nelle giornate più fresche.",
+    "pl": "Budź się w nowych miejscach: elektryczny podnoszony dach z górnym łóżkiem dwuosobowym, tylne łóżko oraz kuchnia ze zlewem, płytą i lodówką. Boczna markiza tworzy wygodną przestrzeń na zewnątrz, a ogrzewanie Webasto zapewnia komfort w chłodniejsze dni."
+  },
+  "Full leather upholstery, heated front seats and navigation make every journey more comfortable. Parking cameras and sensors, adaptive cruise control and LED headlights complement the 4MATIC drivetrain for relaxed touring.": {
+    "de": "Lederpolster, beheizbare Vordersitze und Navigation machen jede Reise komfortabler. Parkkameras und Sensoren, adaptiver Tempomat und LED-Scheinwerfer ergänzen den 4MATIC-Antrieb für entspanntes Reisen.",
+    "ru": "Кожаный салон, подогрев передних сидений и навигация делают каждую поездку комфортнее. Парковочные камеры и датчики, адаптивный круиз-контроль и LED-фары дополняют полный привод 4MATIC для спокойных и приятных путешествий.",
+    "it": "Rivestimenti in pelle, sedili anteriori riscaldati e navigazione rendono ogni viaggio più confortevole. Telecamere e sensori di parcheggio, cruise control adattivo e fari LED completano la trazione 4MATIC per viaggiare in relax.",
+    "pl": "Skórzana tapicerka, podgrzewane przednie siedzenia i nawigacja zwiększają komfort każdej podróży. Kamery i czujniki parkowania, adaptacyjny tempomat i reflektory LED uzupełniają napęd 4MATIC, zapewniając spokojne podróżowanie."
+  },
+  "Accident history, engine output, emission class and climate-control configuration require confirmation due to differing technical records.": {
+    "de": "Unfallhistorie, Motorleistung, Abgasnorm und Klimakonfiguration müssen wegen abweichender technischer Angaben bestätigt werden.",
+    "ru": "История ДТП, мощность двигателя, экологический класс и конфигурация климат-контроля требуют уточнения из-за расхождений в технических документах.",
+    "it": "Storico incidenti, potenza, classe emissioni e climatizzazione richiedono conferma a causa di dati tecnici discordanti.",
+    "pl": "Historia wypadków, moc silnika, norma emisji i konfiguracja klimatyzacji wymagają potwierdzenia ze względu na rozbieżności w dokumentacji technicznej."
+  },
+  "Service documentation available on request.": {
+    "de": "Serviceunterlagen auf Anfrage.",
+    "ru": "Сервисные документы предоставляются по запросу.",
+    "it": "Documentazione di manutenzione disponibile su richiesta.",
+    "pl": "Dokumentacja serwisowa dostępna na życzenie."
+  },
+  "Service booklet, inspection and registration documents available on request.": {
+    "de": "Serviceheft, Prüf- und Zulassungsunterlagen auf Anfrage.",
+    "ru": "Сервисная книжка, документы техосмотра и регистрации предоставляются по запросу.",
+    "it": "Libretto manutenzione, revisione e documenti di immatricolazione disponibili su richiesta.",
+    "pl": "Książka serwisowa, dokumenty przeglądu i rejestracji dostępne na życzenie."
   }
 }

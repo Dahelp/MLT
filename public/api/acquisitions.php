@@ -76,6 +76,23 @@ if (!$check->fetch()) {
     $db->commit();
   } catch (Throwable $error) { $db->rollBack(); throw $error; }
 }
+// Refresh the vehicle copy without naming a seller or changing commercial facts.
+$migrationKey = 'acquisitions-marco-polo-product-copy-2026-10-22';
+$check = $db->prepare('SELECT migration_key FROM mlt_content_migrations WHERE migration_key=?');
+$check->execute([$migrationKey]);
+if (!$check->fetch()) {
+  $db->beginTransaction();
+  try {
+    $claim = $db->prepare('INSERT IGNORE INTO mlt_content_migrations(migration_key) VALUES(?)');
+    $claim->execute([$migrationKey]);
+    if ($claim->rowCount()) {
+      $seed = json_decode((string)file_get_contents(__DIR__ . '/../data/acquisitions/mercedes-benz-v-300-marco-polo.json'), true, 512, JSON_THROW_ON_ERROR);
+      $update = $db->prepare('UPDATE mlt_acquisitions SET description=?,specifications_json=? WHERE slug=?');
+      $update->execute([$seed['description'],$seed['specifications_json'],$seed['slug']]);
+    }
+    $db->commit();
+  } catch (Throwable $error) { $db->rollBack(); throw $error; }
+}
 $body = json_decode(file_get_contents('php://input'), true); if (!is_array($body)) $body = [];
 $action = (string)($body['action'] ?? 'list');
 if ($action === 'list') { $rows = $db->query('SELECT * FROM mlt_acquisitions ORDER BY status,updated_at DESC')->fetchAll(PDO::FETCH_ASSOC); echo json_encode(['items' => $rows], JSON_UNESCAPED_UNICODE); exit; }
