@@ -1768,5 +1768,17 @@
     "ru": "Сервисная книжка, документы техосмотра и регистрации предоставляются по запросу.",
     "it": "Libretto manutenzione, revisione e documenti di immatricolazione disponibili su richiesta.",
     "pl": "Książka serwisowa, dokumenty przeglądu i rejestracji dostępne na życzenie."
+  },
+  "Automatic 9G-TRONIC": {
+    "de": "Automatik 9G-TRONIC",
+    "ru": "Автоматическая 9G-TRONIC",
+    "it": "Automatico 9G-TRONIC",
+    "pl": "Automatyczna 9G-TRONIC"
+  },
+  "Dark metallic grey": {
+    "de": "Dunkelgrau Metallic",
+    "ru": "Тёмно-серый металлик",
+    "it": "Grigio scuro metallizzato",
+    "pl": "Ciemnoszary metalik"
   }
 }
