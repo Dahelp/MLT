@@ -1,5 +1,5 @@
 "use client";
-import { siteIdentity } from "../../../content/site";
+import ChatLink from "../../ChatLink";
 
 import { useEffect, useMemo, useState } from "react";
 import { collectionDetails } from "../../../content/collection-details";
@@ -89,7 +89,7 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
       <section className={styles.ideal}><p className={styles.eyebrow}>{ui.ideal}</p><p>{detail.ideal}</p></section>
       <section className={styles.shapes}><p className={styles.eyebrow}>{detail.includes}</p><div>{detail.signature.map(x => <span key={x}>✓ &nbsp;{x}</span>)}</div></section>
       <section className={styles.compare}>{[freedomPackage, freedomPlusPackage].map(item => <article key={item.id}><h3>{item.title}</h3>{[...(item.benefits || []), ...(item.supplement ? [item.supplement] : [])].map(entry=><p key={entry}>✓ &nbsp;{entry}</p>)}</article>)}</section>
-      <section className={styles.cta}><img src="/collection-freedom-hero-mobile-v2.webp" alt=""/><div><p className={styles.eyebrow}>MLT Freedom</p><h2>{detail.cta}</h2><p>{ui.prepared}</p><a href={`mailto:${siteIdentity.email}`}>{ui.concierge}</a></div></section>
+      <section className={styles.cta}><img src="/collection-freedom-hero-mobile-v2.webp" alt=""/><div><p className={styles.eyebrow}>MLT Freedom</p><h2>{detail.cta}</h2><p>{ui.prepared}</p><ChatLink>{ui.concierge}</ChatLink></div></section>
       <MobilePreviewFooter locale={language} withStickyBar previewMode={previewMode}/>
       <div className={styles.sticky}><span>{ui.total}<b>{money}</b></span><button onClick={() => setReviewOpen(true)}>{ui.pay}</button></div>
       {reviewOpen && <div className="journey-review-overlay" role="presentation" onMouseDown={() => setReviewOpen(false)}><section className="journey-review-modal" role="dialog" aria-modal="true" aria-label={review.title} onMouseDown={event => event.stopPropagation()}><button className="journey-review-close" type="button" onClick={() => setReviewOpen(false)} aria-label={review.close}>×</button><p className="section-label">MLT / 01</p><h2>{review.title}</h2><p className="journey-review-copy">{review.copy}</p><dl><div><dt>{review.collection}</dt><dd>MLT Freedom Collection</dd></div><div><dt>{review.package}</dt><dd>{plus ? freedomPlusPackage.title : freedomPackage.title}</dd></div><div><dt>{review.dates}</dt><dd>{displayDate(departure)} — {displayDate(returnDate)}</dd></div><div><dt>{review.travellers}</dt><dd>{days} {ui.days} · {guests}</dd></div></dl><div className="journey-review-total"><span>{ui.total}</span><strong>{money}</strong></div><div className="journey-review-actions"><button type="button" onClick={() => setReviewOpen(false)}>{review.cancel}</button><button type="button" className="bronze-button" onClick={continueToAccount}>{review.confirm}</button></div></section></div>}

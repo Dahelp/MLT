@@ -3,6 +3,7 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import {publicChatDepartment} from "../content/chat-departments";
 import { usePathname } from "next/navigation";
+import { OPEN_CONCIERGE_CHAT } from "./ChatLink";
 
 type ChatMessage = { id:number; sender_type:"client"|"operator"; sender_name:string; body:string; created_at:string };
 type ChatState = { conversation?:{ id:number; name:string; email:string; status:string; department:"concierge"|"sales" }; messages:ChatMessage[]; unread:number; operatorsOnline:number };
@@ -35,6 +36,12 @@ function ChatSession({pathname,department}:{pathname:string;department:"concierg
   const isCollectionPage=pathname.includes("/collections/");
   const sync=useCallback(async(markRead=false)=>{const token=localStorage.getItem(tokenKey)||"";try{const data=await api(token?{action:"sync",token,markRead,department}:{action:"status",department});setState(data);setError("");}catch{/* keep chat available during transient network errors */}},[department,tokenKey]);
   useEffect(()=>{if(hidden)return;sync(open);const timer=window.setInterval(()=>sync(open),open?3000:9000);return()=>window.clearInterval(timer)},[hidden,open,sync]);
+  useEffect(() => {
+    if (hidden || department !== "concierge") return;
+    const openChat = () => { setOpen(true); void sync(true); };
+    window.addEventListener(OPEN_CONCIERGE_CHAT, openChat);
+    return () => window.removeEventListener(OPEN_CONCIERGE_CHAT, openChat);
+  }, [hidden, department, sync]);
   useEffect(()=>{if(open)requestAnimationFrame(()=>{if(listRef.current)listRef.current.scrollTop=listRef.current.scrollHeight})},[open,state.messages.length]);
   useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape")setOpen(false)};document.addEventListener("keydown",close);return()=>document.removeEventListener("keydown",close)},[]);
   const submit=async(event:FormEvent<HTMLFormElement>)=>{event.preventDefault();const formElement=event.currentTarget;setBusy(true);setError("");const form=new FormData(formElement);const existing=localStorage.getItem(tokenKey)||"";try{const data=await api(existing&&state.conversation?{action:"send",token:existing,message:form.get("message")}:{action:"start",name:form.get("name"),email:form.get("email"),message:form.get("message"),locale,department});if(data.token)localStorage.setItem(tokenKey,data.token);setState(data);formElement.reset();}catch{setError(t.error)}finally{setBusy(false)}};

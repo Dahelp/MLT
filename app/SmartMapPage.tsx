@@ -1,5 +1,5 @@
 "use client";
-import { siteIdentity } from "../content/site";
+import ChatLink from "./ChatLink";
 
 import { useMapSelection } from "./useMapSelection";
 import { mapCopy as copy, mapCountries as countries } from "../content/map";
@@ -23,7 +23,7 @@ export default function SmartMapPage({ locale }: { locale: SiteLanguage }) {
       </div>
       <div className="map-copy"><p className="light-section-label">{t.selected}</p><h2>{t.title}</h2><MapSelectionList locale={locale} selected={selection} distance={distance} onToggle={toggle}/><a className="bronze-button smart-map-collection-button" href={`/${locale}/#collections`}>{t.choose}</a></div>
     </section>
-    <section className="light-contact"><div><h2>{t.contactTitle}</h2></div><div><p>{t.contactCopy}</p><a className="bronze-button" href={`mailto:${siteIdentity.email}`}>{t.start}</a></div></section>
+    <section className="light-contact"><div><h2>{t.contactTitle}</h2></div><div><p>{t.contactCopy}</p><ChatLink className="bronze-button">{t.start}</ChatLink></div></section>
     <SiteFooter locale={locale} />
   </main>;
 }

@@ -1,5 +1,5 @@
 "use client";
-import { siteIdentity } from "../content/site";
+import ChatLink from "./ChatLink";
 
 import { useEffect } from "react";
 import RealRouteMap from "./DeferredRouteMap";
@@ -112,7 +112,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
     <section className="light-quote"><p data-home-reveal="up">“{t.quote}”</p><span data-home-reveal="up">{locale === "ru" ? "MLT — Двигайся. Живи. Путешествуй." : "MLT — Move. Live. Travel."}</span></section>
 
     <section className="light-contact" id="contact">
-      <div data-home-reveal="left"><p className="light-section-label">05 / {t.conversation}</p><h2>{t.contactTitle}</h2></div><div data-home-reveal="right"><p>{t.contactCopy}</p><a className="bronze-button" href={`mailto:${siteIdentity.email}`}>{t.start}</a></div>
+      <div data-home-reveal="left"><p className="light-section-label">05 / {t.conversation}</p><h2>{t.contactTitle}</h2></div><div data-home-reveal="right"><p>{t.contactCopy}</p><ChatLink className="bronze-button">{t.start}</ChatLink></div>
     </section>
 
     <SiteFooter locale={locale} reveal />
