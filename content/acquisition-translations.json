@@ -281,23 +281,23 @@
     "it": "Un acquisto su misura",
     "pl": "Indywidualne podejście do zakupu"
   },
-  "Can't find": {
-    "de": "Noch nicht das",
-    "ru": "Не нашли",
-    "it": "Non trovi",
-    "pl": "Nie możesz znaleźć"
+  "Need help": {
+    "de": "Brauchen Sie Hilfe",
+    "ru": "Нужна помощь",
+    "it": "Serve aiuto",
+    "pl": "Potrzebujesz pomocy"
   },
-  "the right one?": {
-    "de": "Richtige gefunden?",
-    "ru": "нужный автодом?",
-    "it": "quello giusto?",
-    "pl": "odpowiedniego kampera?"
+  "choosing?": {
+    "de": "bei der Auswahl?",
+    "ru": "с выбором?",
+    "it": "nella scelta?",
+    "pl": "w wyborze?"
   },
-  "Tell us the model or layout you have in mind. Our sales team will help source a motorhome around your brief.": {
-    "de": "Nennen Sie uns Ihr Wunschmodell oder Ihren bevorzugten Grundriss. Unser Verkaufsteam findet das passende Wohnmobil.",
-    "ru": "Расскажите, какую модель или планировку вы ищете. Команда продаж подберёт автодом под ваши пожелания.",
-    "it": "Indicaci il modello o la disposizione che desideri. Il team vendite cercherà il camper adatto alle tue esigenze.",
-    "pl": "Podaj model lub układ, którego szukasz. Zespół sprzedaży pomoże znaleźć odpowiedni kamper."
+  "Tell us the model or layout you have in mind. Our professional team will help you find the best fit from our range.": {
+    "de": "Nennen Sie uns Ihr Wunschmodell oder Ihren bevorzugten Grundriss. Unser erfahrenes Team hilft Ihnen, das passende Fahrzeug aus unserem Angebot zu finden.",
+    "ru": "Расскажите, какую модель или планировку вы ищете. Наша профессиональная команда поможет найти подходящий вариант из нашего ассортимента.",
+    "it": "Indicaci il modello o la disposizione che desideri. Il nostro team di professionisti ti aiuterà a trovare la soluzione più adatta nella nostra gamma.",
+    "pl": "Podaj model lub układ, którego szukasz. Nasz profesjonalny zespół pomoże znaleźć najlepszy wariant z naszej oferty."
   },
   "Submit your requirements": {
     "de": "Wünsche mitteilen",

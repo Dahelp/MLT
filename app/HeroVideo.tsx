@@ -39,7 +39,7 @@ export default function HeroVideo({ locale }: { locale: "en" | "de" | "ru" | "it
       if (element && "requestVideoFrameCallback" in element) element.requestVideoFrameCallback(() => setFrameReady(true));
       else setFrameReady(true);
     }} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}>
-      <source src="/hero-mediterranean-sunset.mp4" type="video/mp4" />
+      <source src="/hero-mediterranean-sunset-loop-v2.mp4" type="video/mp4" />
     </video>
     <button className="hero-video-toggle" type="button" aria-label={labels[playing ? 0 : 1]} onClick={() => {
       if (playing) video.current?.pause();

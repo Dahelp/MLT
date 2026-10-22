@@ -21,9 +21,14 @@ function mlt_voucher_schema(PDO $db): void {
     try {
         $stock=$db->query('SELECT * FROM mlt_voucher_stock WHERE id=1 FOR UPDATE')->fetch();
         if(!$stock['denominations_seeded']){
-            if(!$db->query('SELECT id FROM mlt_voucher_campaigns WHERE face_cents=400000 AND price_cents=300000 LIMIT 1')->fetchColumn())
-                $db->exec('INSERT INTO mlt_voucher_campaigns (title,face_cents,price_cents,quantity) VALUES ("MLT Journey Voucher · EUR 4,000",400000,300000,50)');
+            if(!$db->query('SELECT id FROM mlt_voucher_campaigns WHERE face_cents=300000 AND price_cents=240000 LIMIT 1')->fetchColumn())
+                $db->exec('INSERT INTO mlt_voucher_campaigns (title,face_cents,price_cents,quantity) VALUES ("MLT Journey Voucher · EUR 3,000",300000,240000,50)');
             $db->exec('UPDATE mlt_voucher_stock SET denominations_seeded=1 WHERE id=1');
+        }
+        // Campaign terms change once; purchases and issued balances retain their snapshots.
+        if ((int)$stock['denominations_seeded'] < 2) {
+            $db->exec('UPDATE mlt_voucher_campaigns SET title="MLT Journey Voucher · EUR 3,000",face_cents=300000,price_cents=240000 WHERE title="MLT Journey Voucher · EUR 4,000" AND face_cents=400000 AND price_cents=300000');
+            $db->exec('UPDATE mlt_voucher_stock SET denominations_seeded=2 WHERE id=1');
         }
         $db->commit();
     }catch(Throwable $e){if($db->inTransaction())$db->rollBack();throw $e;}

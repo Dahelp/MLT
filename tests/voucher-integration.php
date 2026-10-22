@@ -27,7 +27,12 @@ if($mode==='setup'){echo 'OK';exit;}
 if($mode==='test-shared-stock'){
     $client=['id'=>1,'email'=>'client@example.test','role'=>'traveller'];
     $catalog=mlt_voucher_campaigns($pdo);check(count($catalog)===2,'Both default denominations are seeded once.');
-    check($catalog[1]['face_cents']===400000&&$catalog[1]['price_cents']===300000,'Second denomination is 4000 credit for 3000.');
+    check($catalog[1]['face_cents']===300000&&$catalog[1]['price_cents']===240000,'Second denomination is 3000 credit for 2400.');
+    $pdo->exec('UPDATE mlt_voucher_campaigns SET title="MLT Journey Voucher · EUR 4,000",face_cents=400000,price_cents=300000 WHERE id=2');
+    $pdo->exec('UPDATE mlt_voucher_stock SET denominations_seeded=1 WHERE id=1');
+    mlt_voucher_schema($pdo);mlt_voucher_schema($pdo);
+    $catalog=mlt_voucher_campaigns($pdo);
+    check(count($catalog)===2&&$catalog[1]['face_cents']===300000&&$catalog[1]['price_cents']===240000,'Existing default offer migrates exactly once to 3000 for 2400.');
     check(mlt_voucher_stock($pdo)['quantity']===50,'Both denominations share exactly fifty slots, not fifty each.');
     $one=mlt_voucher_reserve($pdo,$client,1,'stripe',3);
     $two=mlt_voucher_reserve($pdo,$client,2,'stripe',2);
@@ -36,15 +41,15 @@ if($mode==='test-shared-stock'){
     denied(fn()=>mlt_voucher_reserve($pdo,['id'=>6,'role'=>'agency'],2,'paypal',46),'Cannot reserve beyond the combined limit.');
     $pdo->exec('UPDATE mlt_voucher_campaigns SET face_cents=410000,price_cents=310000 WHERE id=2');
     mlt_voucher_issue($pdo,$one['reference_code'],'stripe','cs_shared_1','pi_shared_1',1200000,'EUR');
-    mlt_voucher_issue($pdo,$two['reference_code'],'stripe','cs_shared_2','pi_shared_2',600000,'EUR');
+    mlt_voucher_issue($pdo,$two['reference_code'],'stripe','cs_shared_2','pi_shared_2',480000,'EUR');
     check(mlt_voucher_stock($pdo)['remaining']===45,'Paid units of both values reduce the single fifty-unit edition.');
     $v=$pdo->query('SELECT * FROM mlt_vouchers WHERE purchase_id='.(int)$two['id'])->fetch();
-    check((int)$v['face_cents']===400000,'Issued vouchers keep the selected purchased denomination.');
+    check((int)$v['face_cents']===300000,'Issued vouchers keep the selected purchased denomination.');
     $r=mlt_voucher_redeem($pdo,$client,(int)$v['id'],'MLT-FIRST','shared-value-payment-0001');
-    check($r['balance_cents']===80000,'4000 voucher paying a 3200 journey leaves 800.');
+    check($r['balance_cents']===0,'3000 voucher partially pays a 3200 journey without exceeding its balance.');
     $analytics=mlt_voucher_analytics($pdo);check(count($analytics)===2,'Analytics split different purchased denominations.');
     check($analytics[0]['sold']===3&&$analytics[0]['cash_cents']===1200000,'5000 denomination cash is counted once per unit.');
-    check($analytics[1]['face_cents']===400000&&$analytics[1]['price_cents']===300000&&$analytics[1]['sold']===2&&$analytics[1]['cash_cents']===600000&&$analytics[1]['balance_cents']===480000&&$analytics[1]['used_cents']===320000,'Analytics preserve purchased prices and credit after campaign editing.');
+    check($analytics[1]['face_cents']===300000&&$analytics[1]['price_cents']===240000&&$analytics[1]['sold']===2&&$analytics[1]['cash_cents']===480000&&$analytics[1]['balance_cents']===300000&&$analytics[1]['used_cents']===300000,'Analytics preserve purchased prices and credit after campaign editing.');
     $pdo->exec('UPDATE mlt_voucher_stock SET quantity=6 WHERE id=1');
     $last=mlt_voucher_reserve($pdo,$client,1,'paypal',1);
     denied(fn()=>mlt_voucher_reserve($pdo,['id'=>6,'role'=>'agency'],2,'stripe',1),'The last shared slot cannot be sold twice across denominations.');
