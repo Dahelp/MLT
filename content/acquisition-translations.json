@@ -1624,5 +1624,113 @@
     "ru": "пассажирских места",
     "it": "posti passeggero",
     "pl": "miejsca pasażerskie"
+  },
+  "MLT offers this Mercedes-Benz V 300 Marco Polo 4MATIC directly, without intermediaries. It has an original Westfalia camper conversion, was first registered in August 2019 and has 106,000 km. The asking price is €44,900.": {
+    "de": "MLT bietet diesen Mercedes-Benz V 300 Marco Polo 4MATIC direkt und ohne Vermittler an. Originaler Westfalia-Ausbau, Erstzulassung August 2019, 106.000 km. Kaufpreis: 44.900 €.",
+    "ru": "MLT продаёт этот Mercedes-Benz V 300 Marco Polo 4MATIC напрямую, без посредников. Оригинальное оснащение Westfalia, первая регистрация — август 2019 года, пробег — 106 000 км. Цена — 44 900 €.",
+    "it": "MLT propone questo Mercedes-Benz V 300 Marco Polo 4MATIC direttamente, senza intermediari. Allestimento originale Westfalia, prima immatricolazione agosto 2019, 106.000 km. Prezzo: 44.900 €.",
+    "pl": "MLT sprzedaje ten Mercedes-Benz V 300 Marco Polo 4MATIC bezpośrednio, bez pośredników. Oryginalna zabudowa Westfalia, pierwsza rejestracja w sierpniu 2019 r., przebieg 106 000 km. Cena: 44 900 €."
+  },
+  "The camper includes an electric pop-up roof with an upper double bed, a kitchen with sink, hob and refrigerator, a rear-seat bed, side awning and Webasto stationary heating. Equipment includes full leather upholstery, navigation, parking cameras and sensors, adaptive cruise control, LED headlights and heated front seats.": {
+    "de": "Der Camper verfügt über ein elektrisches Aufstelldach mit oberem Doppelbett, eine Küche mit Spüle, Kochfeld und Kühlschrank, ein Heckbett, eine Seitenmarkise und eine Webasto-Standheizung. Zur Ausstattung gehören Lederpolster, Navigation, Parkkameras und Sensoren, adaptiver Tempomat, LED-Scheinwerfer und beheizbare Vordersitze.",
+    "ru": "В оснащение входят электрическая подъёмная крыша с верхней двуспальной кроватью, кухня с мойкой, плитой и холодильником, спальное место из задних сидений, боковая маркиза и автономный отопитель Webasto. Также предусмотрены кожаный салон, навигация, парковочные камеры и датчики, адаптивный круиз-контроль, LED-фары и подогрев передних сидений.",
+    "it": "Il camper dispone di tetto sollevabile elettrico con letto matrimoniale superiore, cucina con lavello, piano cottura e frigorifero, letto posteriore, tendalino laterale e riscaldamento Webasto. Include rivestimenti in pelle, navigazione, telecamere e sensori di parcheggio, cruise control adattivo, fari LED e sedili anteriori riscaldati.",
+    "pl": "Kamper ma elektryczny podnoszony dach z górnym łóżkiem dwuosobowym, kuchnię ze zlewem, płytą i lodówką, tylne łóżko, markizę boczną i ogrzewanie Webasto. Wyposażenie obejmuje skórzaną tapicerkę, nawigację, kamery i czujniki parkowania, adaptacyjny tempomat, reflektory LED i podgrzewane przednie siedzenia."
+  },
+  "Contact our MLT team directly for vehicle details, service documentation, an inspection or purchase arrangements.": {
+    "de": "Kontaktieren Sie unser MLT-Team direkt für Fahrzeugdetails, Serviceunterlagen, eine Besichtigung oder den Kauf.",
+    "ru": "Обращайтесь напрямую к команде MLT за подробностями об автомобиле, сервисными документами, организацией осмотра и покупки.",
+    "it": "Contatta direttamente il team MLT per dettagli, documentazione di manutenzione, una visita o l’acquisto.",
+    "pl": "Skontaktuj się bezpośrednio z zespołem MLT, aby uzyskać szczegóły, dokumentację serwisową, umówić oględziny lub zakup."
+  },
+  "Accident history, engine output, emission class and climate-control configuration require confirmation. The available technical records contain differing values; these details can be clarified with our MLT team.": {
+    "de": "Unfallhistorie, Motorleistung, Abgasnorm und Klimakonfiguration bedürfen der Bestätigung. Die verfügbaren technischen Unterlagen enthalten abweichende Werte; unser MLT-Team hilft bei der Klärung.",
+    "ru": "История ДТП, мощность двигателя, экологический класс и конфигурация климат-контроля требуют уточнения. В технических документах есть расхождения; детали можно уточнить у команды MLT.",
+    "it": "Storico incidenti, potenza, classe emissioni e climatizzazione richiedono conferma. I documenti tecnici disponibili contengono valori diversi; il team MLT può chiarire i dettagli.",
+    "pl": "Historia wypadków, moc silnika, norma emisji i konfiguracja klimatyzacji wymagają potwierdzenia. Dokumentacja techniczna zawiera różne wartości; zespół MLT pomoże je wyjaśnić."
+  },
+  "MLT — direct sale": {
+    "de": "MLT — Direktverkauf",
+    "ru": "MLT — прямая продажа",
+    "it": "MLT — vendita diretta",
+    "pl": "MLT — sprzedaż bezpośrednia"
+  },
+  "Vehicle equipment and features.": {
+    "de": "Fahrzeugausstattung und Funktionen.",
+    "ru": "Оснащение и оборудование автомобиля.",
+    "it": "Dotazioni e caratteristiche del veicolo.",
+    "pl": "Wyposażenie i funkcje pojazdu."
+  },
+  "Westfalia camper conversion": {
+    "de": "Westfalia-Camperausbau",
+    "ru": "Оснащение кемпера Westfalia",
+    "it": "Allestimento camper Westfalia",
+    "pl": "Zabudowa kampera Westfalia"
+  },
+  "Requires confirmation": {
+    "de": "Bestätigung erforderlich",
+    "ru": "Требует уточнения",
+    "it": "Da confermare",
+    "pl": "Wymaga potwierdzenia"
+  },
+  "Requires confirmation: the available records contain conflicting accident-history information.": {
+    "de": "Bestätigung erforderlich: Die Unterlagen enthalten widersprüchliche Angaben zur Unfallhistorie.",
+    "ru": "Требует уточнения: в документах есть противоречивые сведения об истории ДТП.",
+    "it": "Da confermare: i documenti contengono informazioni contrastanti sugli incidenti.",
+    "pl": "Wymaga potwierdzenia: dokumenty zawierają sprzeczne informacje o historii wypadków."
+  },
+  "Automatic; 2-zone / 3-zone configuration requires confirmation.": {
+    "de": "Automatik; 2-/3-Zonen-Konfiguration zu bestätigen.",
+    "ru": "Автоматический; конфигурация на 2 или 3 зоны требует уточнения.",
+    "it": "Automatico; configurazione a 2 o 3 zone da confermare.",
+    "pl": "Automatyczna; konfiguracja 2- lub 3-strefowa wymaga potwierdzenia."
+  },
+  "Contact MLT for service documentation.": {
+    "de": "Serviceunterlagen erhalten Sie bei MLT.",
+    "ru": "Сервисные документы можно запросить у MLT.",
+    "it": "Contatta MLT per la documentazione di manutenzione.",
+    "pl": "Poproś MLT o dokumentację serwisową."
+  },
+  "Contact MLT for the service booklet, inspection and registration documents.": {
+    "de": "Serviceheft, Prüf- und Zulassungsunterlagen erhalten Sie bei MLT.",
+    "ru": "Сервисную книжку, документы техосмотра и регистрации можно запросить у MLT.",
+    "it": "Contatta MLT per libretto manutenzione, revisione e documenti di immatricolazione.",
+    "pl": "Poproś MLT o książkę serwisową, dokumenty przeglądu i rejestracji."
+  },
+  "Power — technical record 1": {
+    "de": "Leistung — technische Angabe 1",
+    "ru": "Мощность — техническая запись 1",
+    "it": "Potenza — dato tecnico 1",
+    "pl": "Moc — dane techniczne 1"
+  },
+  "Power — technical record 2": {
+    "de": "Leistung — technische Angabe 2",
+    "ru": "Мощность — техническая запись 2",
+    "it": "Potenza — dato tecnico 2",
+    "pl": "Moc — dane techniczne 2"
+  },
+  "Emission class — technical record 1": {
+    "de": "Abgasnorm — technische Angabe 1",
+    "ru": "Экологический класс — техническая запись 1",
+    "it": "Classe emissioni — dato tecnico 1",
+    "pl": "Norma emisji — dane techniczne 1"
+  },
+  "Emission class — technical record 2": {
+    "de": "Abgasnorm — technische Angabe 2",
+    "ru": "Экологический класс — техническая запись 2",
+    "it": "Classe emissioni — dato tecnico 2",
+    "pl": "Norma emisji — dane techniczne 2"
+  },
+  "177 kW / 239 hp; requires confirmation": {
+    "de": "177 kW / 239 PS; zu bestätigen",
+    "ru": "177 кВт / 239 л. с.; требует уточнения",
+    "it": "177 kW / 239 CV; da confermare",
+    "pl": "177 kW / 239 KM; wymaga potwierdzenia"
+  },
+  "Euro 6d-TEMP; requires confirmation": {
+    "de": "Euro 6d-TEMP; zu bestätigen",
+    "ru": "Euro 6d-TEMP; требует уточнения",
+    "it": "Euro 6d-TEMP; da confermare",
+    "pl": "Euro 6d-TEMP; wymaga potwierdzenia"
   }
 }
