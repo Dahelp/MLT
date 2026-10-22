@@ -6,7 +6,7 @@ import type { SiteLanguage } from "../../LanguageMenu";
 const pages = {
   imprint: {
     title: "Impressum",
-    intro: "Angaben gemäß § 5 TMG",
+    intro: "Angaben gemäß § 5 DDG",
     sections: [
       ["Anbieter", "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nDeutschland"],
       ["Vertretung", "Vertreten durch die Geschäftsführerin Elena Bokova."],
