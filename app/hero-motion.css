@@ -12,7 +12,7 @@
 @media(prefers-reduced-motion:reduce){.mlt-site-header,.mlt-enter-header,.light-video-hero .light-hero-copy>*,.photo-hero .commercial-hero-content>*,.photo-hero>h1,.photo-hero>p,.mlt-hero-reveal>*{animation:none!important}}
 
 /* The still stays in place while the first decoded video frame fades in. */
-.light-hero-video{opacity:0;transition:opacity 1.8s ease-in-out}
+.light-hero-video{opacity:0;transition:opacity .35s ease-in-out}
 .light-hero-video.hero-video-ready{opacity:1}
 .deferred-route-map{width:100%;height:100%;min-height:inherit}
 @media(prefers-reduced-motion:reduce){.light-hero-video{opacity:0!important;transition:none}}

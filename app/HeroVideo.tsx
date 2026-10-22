@@ -33,13 +33,17 @@ export default function HeroVideo({ locale }: { locale: "en" | "de" | "ru" | "it
     pl: ["Wstrzymaj film w tle", "Odtwórz film w tle"],
   }[locale];
   return <>
-    <img className="light-hero-image hero-video-poster" src="/hero-mediterranean-sunset.webp" width={1920} height={1080} alt="" fetchPriority="high" decoding="async" />
-    <video ref={video} className={`light-hero-image light-hero-video${frameReady ? " hero-video-ready" : ""}`} autoPlay muted loop playsInline preload="auto" poster="/hero-mediterranean-sunset.webp" aria-hidden="true" onPlaying={() => {
+    <picture className="light-hero-image">
+      <source media="(max-width: 700px)" srcSet="/hero-sunset-mobile-v3.webp" width={400} height={704} />
+      <img className="light-hero-image hero-video-poster" src="/hero-sunset-desktop-v3.webp" width={1280} height={704} alt="" fetchPriority="high" decoding="async" />
+    </picture>
+    <video ref={video} className={`light-hero-image light-hero-video${frameReady ? " hero-video-ready" : ""}`} autoPlay muted loop playsInline preload="auto" width={1280} height={704} aria-hidden="true" onPlaying={() => {
       const element = video.current;
       if (element && "requestVideoFrameCallback" in element) element.requestVideoFrameCallback(() => setFrameReady(true));
       else setFrameReady(true);
     }} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}>
-      <source src="/hero-mediterranean-sunset-loop-v2.mp4" type="video/mp4" />
+      <source media="(max-width: 700px)" src="/hero-sunset-mobile-v3.mp4" type="video/mp4" />
+      <source src="/hero-sunset-desktop-v3.mp4" type="video/mp4" />
     </video>
     <button className="hero-video-toggle" type="button" aria-label={labels[playing ? 0 : 1]} onClick={() => {
       if (playing) video.current?.pause();

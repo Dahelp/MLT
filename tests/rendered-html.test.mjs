@@ -207,6 +207,10 @@ test("home hero keeps a persistent still beneath native autoplay and defers the 
     assert.match(html, /class="light-hero-image hero-video-poster"[^>]+fetchPriority="high"/);
     assert.match(html, /<video[^>]+autoPlay=""[^>]+muted=""/);
     assert.ok(html.indexOf("hero-video-poster") < html.indexOf("<video"));
+    assert.match(html, /<source[^>]+media="\(max-width: 700px\)"[^>]+srcSet="\/hero-sunset-mobile-v3.webp"/);
+    assert.match(html, /<source[^>]+media="\(max-width: 700px\)"[^>]+src="\/hero-sunset-mobile-v3.mp4"/);
+    assert.match(html, /hero-sunset-desktop-v3.mp4/);
+    assert.doesNotMatch(html, /hero-mediterranean-sunset(?:-loop-v2)?\.(?:mp4|webp)/);
     assert.match(html, /class="deferred-route-map"/);
     assert.doesNotMatch(html, /maplibregl-canvas/);
   }
