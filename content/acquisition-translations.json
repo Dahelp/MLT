@@ -1780,5 +1780,11 @@
     "ru": "Тёмно-серый металлик",
     "it": "Grigio scuro metallizzato",
     "pl": "Ciemnoszary metalik"
+  },
+  "passenger seats": {
+    "de": "Passagiersitze",
+    "ru": "пассажирских мест",
+    "it": "posti passeggero",
+    "pl": "miejsc pasażerskich"
   }
 }
