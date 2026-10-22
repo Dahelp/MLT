@@ -308,3 +308,18 @@ test("legal pages translate content and metadata for every locale and use curren
     }
   }
 });
+
+
+test("Freedom omits the legacy journey flow in every public language and layout", async () => {
+  for (const locale of ["en", "de", "ru", "it", "pl"]) {
+    for (const suffix of ["", "mobile-site/"]) {
+      const response = await render(`/${locale}/collections/freedom/${suffix}`);
+      assert.equal(response.status, 200);
+      const html = await response.text();
+      assert.doesNotMatch(html, /class="detail-flow"|class="flow-grid"/);
+      assert.ok(html.includes("#concierge-chat"));
+    }
+    const html = await (await render(`/${locale}/collections/signature/`)).text();
+    assert.match(html, /class="detail-flow"/);
+  }
+});
