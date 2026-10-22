@@ -1,0 +1,617 @@
+{
+  "de": {
+    "eyebrow": "Rechtliches",
+    "privacy": "Datenschutz",
+    "imprint": "Impressum",
+    "terms": "AGB",
+    "home": "MLT entdecken",
+    "pages": {
+      "imprint": {
+        "title": "Impressum",
+        "intro": "Angaben gemäß § 5 DDG",
+        "sections": [
+          [
+            "Anbieter",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nDeutschland"
+          ],
+          [
+            "Kontakt",
+            "Telefon: +49 176 325 23 799\nMobil: +49 176 303 35 242\nE-Mail: info@mlt-lifestyle.com\nInternet: https://mlt-lifestyle.com"
+          ],
+          [
+            "Registereintrag",
+            "Eingetragen im Handelsregister beim Amtsgericht Dresden.\nRegisternummer: HRB 14693"
+          ],
+          [
+            "Umsatzsteuer",
+            "Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: DE 185964940"
+          ],
+          [
+            "EU-Streitbeilegung",
+            "Plattform der EU-Kommission zur Online-Streitbeilegung: https://ec.europa.eu/consumers/odr"
+          ]
+        ]
+      },
+      "privacy": {
+        "title": "Datenschutzerklärung",
+        "intro": "Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst.",
+        "sections": [
+          [
+            "Verantwortliche Stelle",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37, 01239 Dresden, Deutschland\nE-Mail: info@mlt-lifestyle.com"
+          ],
+          [
+            "Erhebung und Verarbeitung",
+            "Wir erheben personenbezogene Daten nur, soweit dies für unsere Dienstleistungen, die Vertragsabwicklung oder gesetzliche Pflichten erforderlich ist. Dazu können Kontakt-, Identitäts-, Führerschein-, Buchungs- und Zahlungsdaten gehören. Vollständige Kreditkartendaten werden nicht in unseren Systemen gespeichert."
+          ],
+          [
+            "Zweck der Verarbeitung",
+            "Die Verarbeitung dient vorvertraglichen Maßnahmen und der Vertragserfüllung, der Identitätsprüfung, gesetzlichen Dokumentationspflichten sowie der Sicherheit unserer Fahrzeuge und Unterkünfte."
+          ],
+          [
+            "Weitergabe an Dritte",
+            "Daten werden nur weitergegeben, wenn dies für die Vertragsabwicklung erforderlich ist, etwa an Zahlungsdienstleister oder Versicherungen, oder wenn eine gesetzliche Verpflichtung besteht."
+          ],
+          [
+            "Speicherdauer",
+            "Wir löschen Daten, sobald der Speicherzweck entfällt und keine gesetzlichen Aufbewahrungsfristen entgegenstehen. Handels- und steuerrechtliche Fristen betragen in der Regel sechs bis zehn Jahre."
+          ],
+          [
+            "Ihre Rechte",
+            "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch nach Art. 15–21 DS-GVO."
+          ],
+          [
+            "Datensicherheit",
+            "Wir setzen technische und organisatorische Sicherheitsmaßnahmen einschließlich SSL/TLS-Verschlüsselung ein, um Ihre Daten vor unbefugtem Zugriff zu schützen."
+          ],
+          [
+            "Beschwerderecht",
+            "Sie können sich bei einer Datenschutzaufsichtsbehörde beschweren, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer Daten gegen die DS-GVO verstößt."
+          ],
+          [
+            "Cookies",
+            "Technisch notwendige Cookies sind für den Betrieb der Website erforderlich. Statistik- und Marketing-Cookies werden nur nach ausdrücklicher Einwilligung gemäß Art. 6 Abs. 1 lit. a DS-GVO gesetzt. Ihre Auswahl können Sie jederzeit über die Cookie-Einstellungen ändern."
+          ]
+        ]
+      },
+      "terms": {
+        "title": "Allgemeine Geschäftsbedingungen",
+        "intro": "MLT Maschinenhandel GmbH Import-Export",
+        "sections": [
+          [
+            "§ 1 Geltungsbereich",
+            "Diese AGB gelten für Verträge über die Vermietung von Fahrzeugen sowie Ferienwohnungen durch die MLT Maschinenhandel GmbH Import-Export."
+          ],
+          [
+            "§ 2 Vertragsschluss",
+            "Die Darstellung auf der Website ist kein bindendes Angebot. Ein Vertrag kommt erst durch die schriftliche Buchungsbestätigung, auch per E-Mail, durch den Vermieter zustande."
+          ],
+          [
+            "§ 3 Mietgegenstand und Nutzung",
+            "Mietgegenstände dürfen nur zum vereinbarten Zweck genutzt und nicht ohne Zustimmung untervermietet werden. Fahrer benötigen die passende gültige Fahrerlaubnis. Die Fahrzeugnutzung ist auf die vertraglich vereinbarten Länder innerhalb der EU begrenzt."
+          ],
+          [
+            "§ 4 Preise und Zahlung",
+            "Es gelten die bei Buchung vereinbarten Preise. Zahlungen erfolgen per Kreditkarte oder Überweisung. Bei Fahrzeugmiete wird eine Kaution zur Absicherung möglicher Schäden oder Verstöße fällig."
+          ],
+          [
+            "§ 5 Pflichten des Mieters",
+            "Der Mietgegenstand ist pfleglich zu behandeln. Schäden, Defekte oder Unfälle sind unverzüglich mitzuteilen; bei Unfällen ist die Polizei hinzuzuziehen."
+          ],
+          [
+            "§ 6 Haftung des Vermieters",
+            "Der Vermieter haftet für Vorsatz und grobe Fahrlässigkeit. Bei leichter Fahrlässigkeit besteht eine Haftung nur bei Verletzung wesentlicher Vertragspflichten. Die Haftung für Leben, Körper und Gesundheit bleibt unberührt."
+          ],
+          [
+            "§ 7 Haftung des Mieters",
+            "Der Mieter haftet für von ihm zu vertretende Schäden. Die vereinbarte Selbstbeteiligung gilt nicht bei grober Fahrlässigkeit oder Vorsatz."
+          ],
+          [
+            "§ 8 Stornierung und Rücktritt",
+            "Die konkreten Stornofristen und Gebühren ergeben sich aus der Buchungsbestätigung. Bei höherer Gewalt oder kurzfristigem Defekt kann der Vermieter zurücktreten; bereits gezahlter Mietpreis wird in diesem Fall erstattet."
+          ],
+          [
+            "§ 9 Datenschutz",
+            "Personenbezogene Daten werden gemäß unserer Datenschutzerklärung und der DS-GVO verarbeitet."
+          ],
+          [
+            "§ 10 Schlussbestimmungen",
+            "Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Erfüllungsort und Gerichtsstand ist Dresden, soweit der Mieter Kaufmann ist. Die Unwirksamkeit einzelner Regelungen berührt die übrigen Bestimmungen nicht."
+          ]
+        ]
+      }
+    }
+  },
+  "en": {
+    "eyebrow": "Legal",
+    "privacy": "Privacy",
+    "imprint": "Legal notice",
+    "terms": "Terms and conditions",
+    "home": "Explore MLT",
+    "pages": {
+      "imprint": {
+        "title": "Legal notice",
+        "intro": "Information pursuant to Section 5 DDG",
+        "sections": [
+          [
+            "Provider",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nGermany"
+          ],
+          [
+            "Contact",
+            "Telephone: +49 176 325 23 799\nMobile: +49 176 303 35 242\nEmail: info@mlt-lifestyle.com\nWebsite: https://mlt-lifestyle.com"
+          ],
+          [
+            "Commercial register",
+            "Registered in the commercial register at Dresden Local Court.\nRegistration number: HRB 14693"
+          ],
+          [
+            "VAT",
+            "VAT identification number pursuant to Section 27a of the German VAT Act: DE 185964940"
+          ],
+          [
+            "EU dispute resolution",
+            "European Commission platform for online dispute resolution: https://ec.europa.eu/consumers/odr"
+          ]
+        ]
+      },
+      "privacy": {
+        "title": "Privacy policy",
+        "intro": "We take the protection of your personal data very seriously.",
+        "sections": [
+          [
+            "Data controller",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nGermany\nEmail: info@mlt-lifestyle.com"
+          ],
+          [
+            "Collection and processing",
+            "We collect personal data only where necessary for our services, contract administration or legal obligations. This may include contact, identity, driving licence, booking and payment data. Full credit card details are not stored in our systems."
+          ],
+          [
+            "Purpose of processing",
+            "Processing serves pre-contractual measures and contract performance, identity verification, statutory documentation obligations and the security of our vehicles and accommodation."
+          ],
+          [
+            "Disclosure to third parties",
+            "Data is disclosed only where necessary for contract performance, for example to payment service providers or insurers, or where required by law."
+          ],
+          [
+            "Retention period",
+            "We delete data once its purpose no longer applies and no statutory retention periods prevent deletion. Retention periods under commercial and tax law are generally six to ten years."
+          ],
+          [
+            "Your rights",
+            "You have the rights of access, rectification, erasure, restriction of processing, data portability and objection under Articles 15–21 GDPR."
+          ],
+          [
+            "Data security",
+            "We use technical and organisational security measures, including SSL/TLS encryption, to protect your data against unauthorised access."
+          ],
+          [
+            "Right to complain",
+            "You may lodge a complaint with a data protection supervisory authority if you believe that the processing of your data infringes the GDPR."
+          ],
+          [
+            "Cookies",
+            "Strictly necessary cookies are required to operate the website. Statistics and marketing cookies are set only with explicit consent under Article 6(1)(a) GDPR. You can change your choice at any time through the cookie settings."
+          ]
+        ]
+      },
+      "terms": {
+        "title": "Terms and conditions",
+        "intro": "MLT Maschinenhandel GmbH Import-Export",
+        "sections": [
+          [
+            "§ 1 Scope",
+            "These terms apply to contracts for the rental of vehicles and holiday accommodation by MLT Maschinenhandel GmbH Import-Export."
+          ],
+          [
+            "§ 2 Conclusion of contract",
+            "The presentation on the website is not a binding offer. A contract is concluded only when the lessor issues a written booking confirmation, including by email."
+          ],
+          [
+            "§ 3 Rental property and use",
+            "Rented property may be used only for the agreed purpose and may not be sublet without consent. Drivers must hold the appropriate valid driving licence. Vehicle use is restricted to the contractually agreed countries within the EU."
+          ],
+          [
+            "§ 4 Prices and payment",
+            "The prices agreed at booking apply. Payments are made by credit card or bank transfer. Vehicle rental requires a deposit to secure against possible damage or breaches."
+          ],
+          [
+            "§ 5 Obligations of the renter",
+            "The rented property must be treated with care. Damage, defects or accidents must be reported immediately; the police must be contacted in the event of an accident."
+          ],
+          [
+            "§ 6 Liability of the lessor",
+            "The lessor is liable for intent and gross negligence. In cases of slight negligence, liability applies only to breaches of essential contractual obligations. Liability for injury to life, body or health remains unaffected."
+          ],
+          [
+            "§ 7 Liability of the renter",
+            "The renter is liable for damage for which they are responsible. The agreed excess does not apply in cases of gross negligence or intent."
+          ],
+          [
+            "§ 8 Cancellation and withdrawal",
+            "The applicable cancellation deadlines and fees are set out in the booking confirmation. In cases of force majeure or a last-minute defect, the lessor may withdraw; any rental price already paid will then be refunded."
+          ],
+          [
+            "§ 9 Data protection",
+            "Personal data is processed in accordance with our privacy policy and the GDPR."
+          ],
+          [
+            "§ 10 Final provisions",
+            "German law applies, excluding the UN Convention on Contracts for the International Sale of Goods. The place of performance and jurisdiction is Dresden where the renter is a merchant. The invalidity of individual provisions does not affect the remaining provisions."
+          ]
+        ]
+      }
+    }
+  },
+  "ru": {
+    "eyebrow": "Правовая информация",
+    "privacy": "Конфиденциальность",
+    "imprint": "Реквизиты",
+    "terms": "Условия",
+    "home": "Открыть MLT",
+    "pages": {
+      "imprint": {
+        "title": "Юридическая информация",
+        "intro": "Сведения согласно § 5 DDG",
+        "sections": [
+          [
+            "Поставщик услуг",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nГермания"
+          ],
+          [
+            "Контакты",
+            "Телефон: +49 176 325 23 799\nМобильный: +49 176 303 35 242\nEmail: info@mlt-lifestyle.com\nСайт: https://mlt-lifestyle.com"
+          ],
+          [
+            "Торговый реестр",
+            "Зарегистрировано в торговом реестре при участковом суде Дрездена.\nРегистрационный номер: HRB 14693"
+          ],
+          [
+            "НДС",
+            "Идентификационный номер плательщика НДС согласно § 27a Закона Германии о налоге на добавленную стоимость: DE 185964940"
+          ],
+          [
+            "Разрешение споров в ЕС",
+            "Платформа Европейской комиссии для онлайн-разрешения споров: https://ec.europa.eu/consumers/odr"
+          ]
+        ]
+      },
+      "privacy": {
+        "title": "Политика конфиденциальности",
+        "intro": "Мы серьёзно относимся к защите ваших персональных данных.",
+        "sections": [
+          [
+            "Оператор персональных данных",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nГермания\nEmail: info@mlt-lifestyle.com"
+          ],
+          [
+            "Сбор и обработка",
+            "Мы собираем персональные данные только в объёме, необходимом для предоставления услуг, исполнения договоров или выполнения требований закона. Это могут быть контактные и идентификационные данные, сведения водительского удостоверения, бронирования и платежей. Полные данные банковских карт в наших системах не хранятся."
+          ],
+          [
+            "Цели обработки",
+            "Данные обрабатываются для подготовки и исполнения договоров, проверки личности, выполнения установленных законом требований к документации и обеспечения безопасности наших автомобилей и объектов размещения."
+          ],
+          [
+            "Передача третьим лицам",
+            "Данные передаются только в случаях, необходимых для исполнения договора, например платёжным сервисам или страховым компаниям, либо при наличии установленной законом обязанности."
+          ],
+          [
+            "Срок хранения",
+            "Мы удаляем данные, когда цель хранения достигнута и установленные законом сроки хранения не препятствуют удалению. Сроки хранения по торговому и налоговому законодательству обычно составляют от шести до десяти лет."
+          ],
+          [
+            "Ваши права",
+            "Вы имеете право на доступ, исправление, удаление, ограничение обработки, переносимость данных и возражение в соответствии со статьями 15–21 GDPR."
+          ],
+          [
+            "Безопасность данных",
+            "Мы применяем технические и организационные меры безопасности, включая шифрование SSL/TLS, для защиты данных от несанкционированного доступа."
+          ],
+          [
+            "Право на жалобу",
+            "Вы можете обратиться с жалобой в надзорный орган по защите данных, если считаете, что обработка ваших данных нарушает GDPR."
+          ],
+          [
+            "Файлы cookie",
+            "Технически необходимые cookie обеспечивают работу сайта. Статистические и маркетинговые cookie устанавливаются только с явного согласия согласно статье 6(1)(a) GDPR. Изменить свой выбор можно в любое время в настройках cookie."
+          ]
+        ]
+      },
+      "terms": {
+        "title": "Общие условия",
+        "intro": "MLT Maschinenhandel GmbH Import-Export",
+        "sections": [
+          [
+            "§ 1 Область применения",
+            "Эти условия распространяются на договоры аренды автомобилей и жилья для отдыха, заключаемые с MLT Maschinenhandel GmbH Import-Export."
+          ],
+          [
+            "§ 2 Заключение договора",
+            "Информация на сайте не является обязывающим предложением. Договор заключается только после письменного подтверждения бронирования арендодателем, в том числе по электронной почте."
+          ],
+          [
+            "§ 3 Объект аренды и использование",
+            "Объект аренды разрешается использовать только по согласованному назначению и нельзя передавать в субаренду без согласия. Водитель должен иметь действующее водительское удостоверение соответствующей категории. Использование автомобиля ограничено согласованными в договоре странами ЕС."
+          ],
+          [
+            "§ 4 Цены и оплата",
+            "Действуют цены, согласованные при бронировании. Оплата производится банковской картой или переводом. При аренде автомобиля взимается залог для обеспечения покрытия возможного ущерба или нарушений."
+          ],
+          [
+            "§ 5 Обязанности арендатора",
+            "Арендатор обязан бережно обращаться с объектом аренды. О повреждениях, неисправностях и авариях необходимо сообщать незамедлительно; при аварии следует вызвать полицию."
+          ],
+          [
+            "§ 6 Ответственность арендодателя",
+            "Арендодатель несёт ответственность за умысел и грубую неосторожность. При лёгкой неосторожности ответственность возникает только при нарушении существенных договорных обязательств. Ответственность за вред жизни и здоровью сохраняется."
+          ],
+          [
+            "§ 7 Ответственность арендатора",
+            "Арендатор отвечает за ущерб, возникший по его вине. Согласованная франшиза не применяется при умысле или грубой неосторожности."
+          ],
+          [
+            "§ 8 Отмена и отказ от договора",
+            "Конкретные сроки отмены и сборы указаны в подтверждении бронирования. При форс-мажоре или неисправности, возникшей незадолго до начала аренды, арендодатель вправе отказаться от договора; уплаченная арендная плата в этом случае возвращается."
+          ],
+          [
+            "§ 9 Защита данных",
+            "Персональные данные обрабатываются в соответствии с нашей политикой конфиденциальности и GDPR."
+          ],
+          [
+            "§ 10 Заключительные положения",
+            "Применяется право Германии, исключая Конвенцию ООН о договорах международной купли-продажи товаров. Если арендатор является коммерсантом, местом исполнения и судебной юрисдикцией является Дрезден. Недействительность отдельных положений не влияет на остальные положения."
+          ]
+        ]
+      }
+    }
+  },
+  "it": {
+    "eyebrow": "Informazioni legali",
+    "privacy": "Privacy",
+    "imprint": "Note legali",
+    "terms": "Condizioni generali",
+    "home": "Scopri MLT",
+    "pages": {
+      "imprint": {
+        "title": "Note legali",
+        "intro": "Informazioni ai sensi del § 5 DDG",
+        "sections": [
+          [
+            "Fornitore",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nGermania"
+          ],
+          [
+            "Contatti",
+            "Telefono: +49 176 325 23 799\nCellulare: +49 176 303 35 242\nEmail: info@mlt-lifestyle.com\nSito web: https://mlt-lifestyle.com"
+          ],
+          [
+            "Registro delle imprese",
+            "Iscritta nel registro delle imprese presso il tribunale distrettuale di Dresda.\nNumero di iscrizione: HRB 14693"
+          ],
+          [
+            "IVA",
+            "Numero di identificazione IVA ai sensi del § 27a della legge tedesca sull’IVA: DE 185964940"
+          ],
+          [
+            "Risoluzione delle controversie nell’UE",
+            "Piattaforma della Commissione europea per la risoluzione delle controversie online: https://ec.europa.eu/consumers/odr"
+          ]
+        ]
+      },
+      "privacy": {
+        "title": "Informativa sulla privacy",
+        "intro": "Prendiamo molto sul serio la protezione dei tuoi dati personali.",
+        "sections": [
+          [
+            "Titolare del trattamento",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nGermania\nEmail: info@mlt-lifestyle.com"
+          ],
+          [
+            "Raccolta e trattamento",
+            "Raccogliamo dati personali solo nella misura necessaria per i nostri servizi, l’esecuzione dei contratti o gli obblighi di legge. Possono includere dati di contatto, identità, patente, prenotazione e pagamento. I dati completi delle carte di credito non sono memorizzati nei nostri sistemi."
+          ],
+          [
+            "Finalità del trattamento",
+            "Il trattamento serve alle attività precontrattuali e all’esecuzione del contratto, alla verifica dell’identità, agli obblighi legali di documentazione e alla sicurezza dei nostri veicoli e alloggi."
+          ],
+          [
+            "Comunicazione a terzi",
+            "I dati sono comunicati solo quando necessario per l’esecuzione del contratto, ad esempio a fornitori di servizi di pagamento o assicurazioni, oppure quando richiesto dalla legge."
+          ],
+          [
+            "Periodo di conservazione",
+            "Cancelliamo i dati quando la finalità viene meno e non sussistono obblighi legali di conservazione. I termini previsti dal diritto commerciale e fiscale sono generalmente da sei a dieci anni."
+          ],
+          [
+            "I tuoi diritti",
+            "Hai diritto di accesso, rettifica, cancellazione, limitazione del trattamento, portabilità dei dati e opposizione ai sensi degli articoli 15–21 GDPR."
+          ],
+          [
+            "Sicurezza dei dati",
+            "Adottiamo misure tecniche e organizzative, compresa la crittografia SSL/TLS, per proteggere i tuoi dati da accessi non autorizzati."
+          ],
+          [
+            "Diritto di reclamo",
+            "Puoi presentare un reclamo a un’autorità di controllo per la protezione dei dati se ritieni che il trattamento violi il GDPR."
+          ],
+          [
+            "Cookie",
+            "I cookie strettamente necessari consentono il funzionamento del sito. I cookie statistici e di marketing sono impostati solo con consenso esplicito ai sensi dell’articolo 6(1)(a) GDPR. Puoi modificare la scelta in qualsiasi momento nelle impostazioni dei cookie."
+          ]
+        ]
+      },
+      "terms": {
+        "title": "Condizioni generali",
+        "intro": "MLT Maschinenhandel GmbH Import-Export",
+        "sections": [
+          [
+            "§ 1 Ambito di applicazione",
+            "Le presenti condizioni si applicano ai contratti di noleggio di veicoli e locazione di alloggi per vacanze da parte di MLT Maschinenhandel GmbH Import-Export."
+          ],
+          [
+            "§ 2 Conclusione del contratto",
+            "La presentazione sul sito non costituisce un’offerta vincolante. Il contratto è concluso solo con la conferma scritta della prenotazione da parte del locatore, anche via email."
+          ],
+          [
+            "§ 3 Bene locato e utilizzo",
+            "I beni locati possono essere utilizzati solo per lo scopo concordato e non possono essere sublocati senza consenso. I conducenti devono possedere una patente valida e appropriata. L’utilizzo dei veicoli è limitato ai paesi dell’UE concordati nel contratto."
+          ],
+          [
+            "§ 4 Prezzi e pagamento",
+            "Si applicano i prezzi concordati alla prenotazione. I pagamenti avvengono tramite carta di credito o bonifico. Per il noleggio di veicoli è richiesta una cauzione a garanzia di eventuali danni o violazioni."
+          ],
+          [
+            "§ 5 Obblighi del conduttore",
+            "Il bene locato deve essere trattato con cura. Danni, difetti o incidenti devono essere segnalati immediatamente; in caso di incidente occorre contattare la polizia."
+          ],
+          [
+            "§ 6 Responsabilità del locatore",
+            "Il locatore risponde per dolo e colpa grave. In caso di colpa lieve, la responsabilità sussiste solo per la violazione di obblighi contrattuali essenziali. Resta invariata la responsabilità per danni alla vita, all’integrità fisica e alla salute."
+          ],
+          [
+            "§ 7 Responsabilità del conduttore",
+            "Il conduttore risponde dei danni a lui imputabili. La franchigia concordata non si applica in caso di colpa grave o dolo."
+          ],
+          [
+            "§ 8 Cancellazione e recesso",
+            "I termini e le spese di cancellazione sono indicati nella conferma della prenotazione. In caso di forza maggiore o guasto poco prima dell’inizio, il locatore può recedere; il canone già versato viene rimborsato."
+          ],
+          [
+            "§ 9 Protezione dei dati",
+            "I dati personali sono trattati secondo la nostra informativa sulla privacy e il GDPR."
+          ],
+          [
+            "§ 10 Disposizioni finali",
+            "Si applica il diritto tedesco, esclusa la Convenzione ONU sui contratti di vendita internazionale di beni. Il luogo di adempimento e il foro competente sono a Dresda se il conduttore è un commerciante. L’invalidità di singole disposizioni non pregiudica le altre."
+          ]
+        ]
+      }
+    }
+  },
+  "pl": {
+    "eyebrow": "Informacje prawne",
+    "privacy": "Prywatność",
+    "imprint": "Dane prawne",
+    "terms": "Warunki ogólne",
+    "home": "Odkryj MLT",
+    "pages": {
+      "imprint": {
+        "title": "Informacje prawne",
+        "intro": "Informacje zgodnie z § 5 DDG",
+        "sections": [
+          [
+            "Usługodawca",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nNiemcy"
+          ],
+          [
+            "Kontakt",
+            "Telefon: +49 176 325 23 799\nTelefon komórkowy: +49 176 303 35 242\nEmail: info@mlt-lifestyle.com\nStrona internetowa: https://mlt-lifestyle.com"
+          ],
+          [
+            "Rejestr handlowy",
+            "Spółka wpisana do rejestru handlowego przy sądzie rejonowym w Dreźnie.\nNumer rejestrowy: HRB 14693"
+          ],
+          [
+            "VAT",
+            "Numer identyfikacyjny VAT zgodnie z § 27a niemieckiej ustawy o VAT: DE 185964940"
+          ],
+          [
+            "Rozstrzyganie sporów w UE",
+            "Platforma Komisji Europejskiej do internetowego rozstrzygania sporów: https://ec.europa.eu/consumers/odr"
+          ]
+        ]
+      },
+      "privacy": {
+        "title": "Polityka prywatności",
+        "intro": "Bardzo poważnie traktujemy ochronę Twoich danych osobowych.",
+        "sections": [
+          [
+            "Administrator danych",
+            "MLT Maschinenhandel GmbH Import-Export\nNiedersedlitzer Straße 37\n01239 Dresden\nNiemcy\nEmail: info@mlt-lifestyle.com"
+          ],
+          [
+            "Gromadzenie i przetwarzanie",
+            "Gromadzimy dane osobowe wyłącznie w zakresie niezbędnym do świadczenia usług, realizacji umów lub obowiązków prawnych. Mogą to być dane kontaktowe, tożsamości, prawa jazdy, rezerwacji i płatności. Pełne dane kart kredytowych nie są przechowywane w naszych systemach."
+          ],
+          [
+            "Cel przetwarzania",
+            "Dane są przetwarzane w celu podjęcia działań przed zawarciem umowy i jej wykonania, weryfikacji tożsamości, spełnienia ustawowych obowiązków dokumentacyjnych oraz zapewnienia bezpieczeństwa naszych pojazdów i obiektów noclegowych."
+          ],
+          [
+            "Udostępnianie osobom trzecim",
+            "Dane są udostępniane wyłącznie, gdy jest to niezbędne do wykonania umowy, na przykład dostawcom usług płatniczych lub ubezpieczycielom, albo gdy wymaga tego prawo."
+          ],
+          [
+            "Okres przechowywania",
+            "Usuwamy dane, gdy cel ich przechowywania ustaje i nie obowiązują ustawowe okresy przechowywania. Okresy wynikające z prawa handlowego i podatkowego wynoszą zwykle od sześciu do dziesięciu lat."
+          ],
+          [
+            "Twoje prawa",
+            "Przysługują Ci prawa dostępu, sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia danych i sprzeciwu zgodnie z artykułami 15–21 RODO."
+          ],
+          [
+            "Bezpieczeństwo danych",
+            "Stosujemy techniczne i organizacyjne środki bezpieczeństwa, w tym szyfrowanie SSL/TLS, chroniące dane przed nieuprawnionym dostępem."
+          ],
+          [
+            "Prawo do skargi",
+            "Możesz złożyć skargę do organu nadzorczego ochrony danych, jeśli uważasz, że przetwarzanie Twoich danych narusza RODO."
+          ],
+          [
+            "Pliki cookie",
+            "Niezbędne technicznie pliki cookie zapewniają działanie strony. Statystyczne i marketingowe pliki cookie są ustawiane wyłącznie za wyraźną zgodą zgodnie z artykułem 6(1)(a) RODO. Wybór można zmienić w dowolnym momencie w ustawieniach plików cookie."
+          ]
+        ]
+      },
+      "terms": {
+        "title": "Ogólne warunki umów",
+        "intro": "MLT Maschinenhandel GmbH Import-Export",
+        "sections": [
+          [
+            "§ 1 Zakres zastosowania",
+            "Niniejsze warunki dotyczą umów wynajmu pojazdów i lokali wakacyjnych przez MLT Maschinenhandel GmbH Import-Export."
+          ],
+          [
+            "§ 2 Zawarcie umowy",
+            "Prezentacja na stronie nie stanowi wiążącej oferty. Umowa zostaje zawarta dopiero po pisemnym potwierdzeniu rezerwacji przez wynajmującego, również drogą email."
+          ],
+          [
+            "§ 3 Przedmiot najmu i użytkowanie",
+            "Przedmiot najmu może być używany wyłącznie zgodnie z uzgodnionym przeznaczeniem i nie może być podnajmowany bez zgody. Kierowcy muszą posiadać odpowiednie ważne prawo jazdy. Użytkowanie pojazdu jest ograniczone do uzgodnionych w umowie krajów UE."
+          ],
+          [
+            "§ 4 Ceny i płatność",
+            "Obowiązują ceny uzgodnione przy rezerwacji. Płatności dokonuje się kartą kredytową lub przelewem. Przy wynajmie pojazdu wymagana jest kaucja zabezpieczająca ewentualne szkody lub naruszenia."
+          ],
+          [
+            "§ 5 Obowiązki najemcy",
+            "Z przedmiotem najmu należy obchodzić się starannie. Szkody, usterki lub wypadki należy zgłaszać niezwłocznie; w razie wypadku trzeba wezwać policję."
+          ],
+          [
+            "§ 6 Odpowiedzialność wynajmującego",
+            "Wynajmujący odpowiada za działanie umyślne i rażące niedbalstwo. Przy lekkim niedbalstwie odpowiedzialność dotyczy wyłącznie naruszenia istotnych obowiązków umownych. Odpowiedzialność za szkody na życiu, ciele i zdrowiu pozostaje bez zmian."
+          ],
+          [
+            "§ 7 Odpowiedzialność najemcy",
+            "Najemca odpowiada za szkody, za które ponosi winę. Uzgodniony udział własny nie obowiązuje w przypadku rażącego niedbalstwa lub działania umyślnego."
+          ],
+          [
+            "§ 8 Anulowanie i odstąpienie",
+            "Terminy i opłaty anulowania określa potwierdzenie rezerwacji. W przypadku siły wyższej lub usterki powstałej krótko przed rozpoczęciem wynajmujący może odstąpić od umowy; uiszczona opłata za najem zostanie zwrócona."
+          ],
+          [
+            "§ 9 Ochrona danych",
+            "Dane osobowe są przetwarzane zgodnie z naszą polityką prywatności i RODO."
+          ],
+          [
+            "§ 10 Postanowienia końcowe",
+            "Obowiązuje prawo niemieckie z wyłączeniem Konwencji ONZ o umowach międzynarodowej sprzedaży towarów. Miejscem wykonania i właściwością sądową jest Drezno, jeżeli najemca jest kupcem. Nieważność poszczególnych postanowień nie wpływa na pozostałe."
+          ]
+        ]
+      }
+    }
+  }
+}

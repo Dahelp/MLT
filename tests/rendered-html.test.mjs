@@ -284,3 +284,27 @@ test("investment page translates headings, calculator and metadata for every sit
   if(locale!=="en"){assert.ok(!html.includes('>Investment Amount'),locale);assert.ok(!html.includes('>Calculate Returns<'),locale);assert.ok(!html.includes('>Investment Inquiry<'),locale);}
  }
 });
+
+test("legal pages translate content and metadata for every locale and use current company contacts", async () => {
+  const copy = JSON.parse(await readFile(new URL("content/legal.json", root), "utf8"));
+  for (const locale of ["en", "de", "ru", "it", "pl"]) {
+    for (const slug of ["imprint", "privacy", "terms"]) {
+      const response = await render(`/${locale}/legal/${slug}/`);
+      assert.equal(response.status, 200);
+      const html = (await response.text()).replace(/<!--[\s\S]*?-->/g, "");
+      const page = copy[locale].pages[slug];
+      assert.ok(html.includes(`<h1>${page.title}</h1>`), `${locale}/${slug}`);
+      assert.ok(html.includes(`<title>${page.title} — MLT</title>`), `${locale}/${slug} metadata`);
+      assert.ok(html.includes(`MLT / ${copy[locale].eyebrow}`));
+      assert.equal((html.match(/<section>/g) || []).length, page.sections.length);
+      assert.doesNotMatch(html, /Elena Bokova|dresden@mlt-maschinen\.de|www\.mlt-maschinen\.de|§ 5 TMG/);
+      if (locale !== "de") assert.doesNotMatch(html, /Wir nehmen den Schutz|§ 1 Geltungsbereich|Vertretung/);
+      if (slug !== "terms") assert.ok(html.includes('href="mailto:info@mlt-lifestyle.com"'));
+      if (slug === "imprint") {
+        assert.equal(page.sections.length, 5);
+        assert.ok(html.includes('href="https://mlt-lifestyle.com"'));
+        assert.ok(page.intro.includes("5 DDG"));
+      }
+    }
+  }
+});
