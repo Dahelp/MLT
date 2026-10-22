@@ -1600,5 +1600,17 @@
     "ru": "Свернуть характеристики",
     "it": "Riduci le caratteristiche",
     "pl": "Zwiń dane techniczne"
+  },
+  "No motorhomes are currently listed.": {
+    "de": "Derzeit sind keine Wohnmobile im Angebot.",
+    "ru": "Сейчас нет автодомов в продаже.",
+    "it": "Al momento non ci sono camper in vendita.",
+    "pl": "Obecnie nie ma kamperów w sprzedaży."
+  },
+  "Tell our sales team what you are looking for.": {
+    "de": "Teilen Sie unserem Verkaufsteam Ihre Wünsche mit.",
+    "ru": "Расскажите нашей команде продаж, что вы ищете.",
+    "it": "Comunica al nostro team vendite cosa cerchi.",
+    "pl": "Powiedz naszemu zespołowi sprzedaży, czego szukasz."
   }
 }
