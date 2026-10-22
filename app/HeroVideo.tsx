@@ -34,16 +34,18 @@ export default function HeroVideo({ locale }: { locale: "en" | "de" | "ru" | "it
   }[locale];
   return <>
     <picture className="light-hero-image">
-      <source media="(max-width: 700px)" srcSet="/hero-sunset-mobile-v3.webp" width={400} height={704} />
-      <img className="light-hero-image hero-video-poster" src="/hero-sunset-desktop-v3.webp" width={1280} height={704} alt="" fetchPriority="high" decoding="async" />
+      <source media="(max-width: 700px)" srcSet="/hero-sunset-mobile-v4.webp" width={400} height={704} />
+      <img className="light-hero-image hero-video-poster" src="/hero-sunset-desktop-v4.webp" width={1280} height={704} alt="" fetchPriority="high" decoding="async" />
     </picture>
     <video ref={video} className={`light-hero-image light-hero-video${frameReady ? " hero-video-ready" : ""}`} autoPlay muted loop playsInline preload="auto" width={1280} height={704} aria-hidden="true" onPlaying={() => {
       const element = video.current;
       if (element && "requestVideoFrameCallback" in element) element.requestVideoFrameCallback(() => setFrameReady(true));
       else setFrameReady(true);
     }} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}>
-      <source media="(max-width: 700px)" src="/hero-sunset-mobile-v3.mp4" type="video/mp4" />
-      <source src="/hero-sunset-desktop-v3.mp4" type="video/mp4" />
+      <source media="(max-width: 700px)" src="/hero-sunset-mobile-v4.webm" type='video/webm; codecs="vp9"' />
+      <source media="(max-width: 700px)" src="/hero-sunset-mobile-v4.mp4" type="video/mp4" />
+      <source src="/hero-sunset-desktop-v4.webm" type='video/webm; codecs="vp9"' />
+      <source src="/hero-sunset-desktop-v4.mp4" type="video/mp4" />
     </video>
     <button className="hero-video-toggle" type="button" aria-label={labels[playing ? 0 : 1]} onClick={() => {
       if (playing) video.current?.pause();
