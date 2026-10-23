@@ -24,6 +24,11 @@ overrides:
   image-size: ^2.0.3
   source-map-js: ^1.2.2
 
+patchedDependencies:
+  braces@3.0.3:
+    hash: 781f5101d039fa1fa19e3baaf411c8c7925d7fa6949c3905aa90e924279c88bb
+    path: patches/braces@3.0.3.patch
+
 importers:
 
   .:
@@ -4375,7 +4380,7 @@ snapshots:
     dependencies:
       balanced-match: 4.0.4
 
-  braces@3.0.3:
+  braces@3.0.3(patch_hash=781f5101d039fa1fa19e3baaf411c8c7925d7fa6949c3905aa90e924279c88bb):
     dependencies:
       fill-range: 7.1.1
 
@@ -5432,7 +5437,7 @@ snapshots:
 
   micromatch@4.0.8:
     dependencies:
-      braces: 3.0.3
+      braces: 3.0.3(patch_hash=781f5101d039fa1fa19e3baaf411c8c7925d7fa6949c3905aa90e924279c88bb)
       picomatch: 2.3.2
 
   mime-db@1.54.0: {}
