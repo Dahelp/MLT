@@ -1,5 +1,8 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/security.php';
+mlt_security_guard(['GET', 'POST']);
+
 header('Content-Type: application/json; charset=utf-8');header('Cache-Control: no-store');
 require_once __DIR__.'/booking.php';
 $db=mlt_db(mlt_settings());if(!$db){http_response_code(503);echo json_encode(['error'=>'Service unavailable.']);exit;}

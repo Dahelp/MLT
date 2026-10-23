@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/security.php';
+mlt_security_guard(['POST']);
+
 header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex, nofollow, noarchive');
 header('Cache-Control: no-store, max-age=0');

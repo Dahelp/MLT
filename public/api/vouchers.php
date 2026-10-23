@@ -1,5 +1,8 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/security.php';
+mlt_security_guard(['GET', 'POST']);
+
 header('Content-Type: application/json; charset=utf-8');header('Cache-Control: no-store, max-age=0');
 require_once __DIR__.'/booking.php';require_once __DIR__.'/voucher-payments.php';
 function voucher_reply(array $data,int $status=200): never {http_response_code($status);echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);exit;}

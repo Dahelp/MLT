@@ -60,6 +60,16 @@ if($mode==='test-shared-stock'){
 }
 if($mode==='prepare-concurrency'){$pdo->exec('UPDATE mlt_voucher_stock SET quantity=7 WHERE id=1');echo 'OK';exit;}
 if($mode==='cancel-first'){$pdo->exec('UPDATE mlt_orders SET status="cancelled" WHERE id=1');echo 'OK';exit;}
+if($mode==='prepare-email-ownership'){
+    $pdo->exec('UPDATE mlt_orders SET customer_email="client@example.test" WHERE id=4');
+    $pdo->exec('INSERT INTO mlt_orders (user_id,reference_code,customer_email,total_amount,status,first_name,last_name) VALUES (NULL,"MLT-GUEST","client@example.test",1000,"requested","Guest","Client")');
+    echo 'OK';exit;
+}
+if($mode==='reset-email-ownership'){
+    $pdo->exec('UPDATE mlt_orders SET customer_email="agency@example.test" WHERE id=4');
+    $pdo->exec('DELETE FROM mlt_orders WHERE reference_code="MLT-GUEST"');
+    echo 'OK';exit;
+}
 if($mode==='summary'){echo json_encode(['campaign'=>mlt_voucher_campaigns($pdo,true)[0],'concurrentPaid'=>$pdo->query('SELECT paid_amount FROM mlt_orders WHERE id=3')->fetchColumn(),'vouchers'=>$pdo->query('SELECT COUNT(*) FROM mlt_vouchers')->fetchColumn()]);exit;}
 
 check(mlt_voucher_providers(['stripe_secret_key'=>'sk_test_example'])['stripe']===false,'Production voucher sales reject test-money credentials.');

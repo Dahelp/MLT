@@ -1,7 +1,15 @@
 Options -Indexes
+ServerSignature Off
+LimitRequestBody 12582912
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+  RewriteRule ^(?:vendor|node_modules|tests|scripts|db|drizzle|worker|examples|\.git)(?:/|$) - [F,L,NC]
+  RewriteRule ^uploads/.*\.(?:php[0-9]?|phtml|phar|cgi|pl|py|sh)(?:[./]|$) - [F,L,NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?mlt-lifestyle\.com$ [NC]
+  RewriteRule ^ https://mlt-lifestyle.com%{REQUEST_URI} [R=308,L]
   RewriteRule ^(en|de|ru|it|pl)/acquisitions/mlt-explorer-preview/?$ /$1/acquisitions/mercedes-benz-v-300-marco-polo/ [R=301,L]
   RewriteRule ^(index\.html)?$ /en/ [R=301,L]
   RewriteCond %{HTTP:Sec-CH-UA-Mobile} "^\?1$" [OR]
@@ -16,8 +24,12 @@ Options -Indexes
   Header always set Accept-CH "Sec-CH-UA-Mobile"
   Header always merge Vary "User-Agent"
   Header always merge Vary "Sec-CH-UA-Mobile"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+  Header always set Content-Security-Policy "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self' https://www.paypal.com https://www.sandbox.paypal.com https://checkout.stripe.com; upgrade-insecure-requests"
+  Header always unset X-Powered-By
   Header always set X-Content-Type-Options "nosniff"
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Referrer-Policy "no-referrer"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set X-Robots-Tag "noindex, nofollow, noarchive"
   Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
@@ -45,3 +57,7 @@ Options -Indexes
 <Files "booking.php">
   Require all denied
 </Files>
+
+<FilesMatch "(?i)(\.(?:sql|sqlite3?|db|bak|old|orig|save|swp|dist|map|ts|tsx|mjs|jsonl|pem|key)$|^(?:composer\.(?:json|lock)|package\.json|pnpm-lock\.yaml|.*config\.php|security\.php|voucher-core\.php|voucher-payments\.php|chat-access\.php|journey-pricing\.php)$)">
+  Require all denied
+</FilesMatch>

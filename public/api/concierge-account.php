@@ -1,5 +1,8 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/security.php';
+mlt_security_guard(['POST']);
+
 header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: no-store, max-age=0');
 require_once __DIR__ . '/booking.php';
 $body=json_decode(file_get_contents('php://input'),true); if(!is_array($body))$body=[];

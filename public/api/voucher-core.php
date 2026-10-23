@@ -126,7 +126,7 @@ function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $refere
     try {
         // Same lock order as cash payment recording: journey first, then voucher.
         $q=$db->prepare('SELECT * FROM mlt_orders WHERE reference_code=? FOR UPDATE');$q->execute([$reference]);$order=$q->fetch();
-        if(!$order||((int)$order['user_id']!==(int)$user['id']&&strcasecmp($order['customer_email'],$user['email'])!==0))throw new DomainException('Journey not found.');
+        if(!$order||((int)$order['user_id']!==(int)$user['id']))throw new DomainException('Journey not found.');
         $q=$db->prepare('SELECT * FROM mlt_vouchers WHERE id=? AND user_id=? FOR UPDATE');$q->execute([$voucherId,$user['id']]);$v=$q->fetch();if(!$v)throw new DomainException('Voucher not found.');
         $operation='redeem:'.$user['id'].':'.$key;
         $q=$db->prepare('SELECT voucher_id,order_id,delta_cents,balance_cents FROM mlt_voucher_ledger WHERE operation_key=?');$q->execute([$operation]);$previous=$q->fetch();
@@ -162,7 +162,7 @@ function mlt_voucher_hold_checkout(PDO $db, string $reference, string $provider,
 function mlt_voucher_authorize_journey(PDO $db,string $reference): array {
     $user=mlt_voucher_user($db);if(!$user)throw new DomainException('Please sign in before paying.');
     $q=$db->prepare('SELECT user_id,customer_email,status,archived_at,collection_name,travel_days FROM mlt_orders WHERE reference_code=?');$q->execute([$reference]);$o=$q->fetch();
-    if(!$o||((int)$o['user_id']!==(int)$user['id']&&strcasecmp($o['customer_email'],$user['email'])!==0)||in_array($o['status'],['cancelled','completed'],true)||!empty($o['archived_at']))throw new DomainException('This journey cannot accept payments from your account.');
+    if(!$o||((int)$o['user_id']!==(int)$user['id'])||in_array($o['status'],['cancelled','completed'],true)||!empty($o['archived_at']))throw new DomainException('This journey cannot accept payments from your account.');
     return $o;
 }
 

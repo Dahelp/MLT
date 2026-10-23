@@ -29,6 +29,16 @@ test('real MySQL voucher money, ownership, inventory, multi-quantity purchases, 
  try{
   for(let i=0;i<80;i++){try{await request('catalog');break}catch{await new Promise(r=>setTimeout(r,100))}}
   assert.equal((await request('mine',{},null)).status,401);
+  await run('prepare-email-ownership');
+  try {
+   const own = await request('orders',{},'traveller','account.php');assert.equal(own.status,200);
+   assert.ok(!own.data.orders.some(o=>['MLT-OTHER','MLT-GUEST'].includes(o.reference_code)),'Matching email cannot expose guest orders or another user orders');
+   for(const reference of ['MLT-OTHER','MLT-GUEST']){
+    assert.equal((await request('order',{reference},'traveller','account.php')).status,404);
+    assert.equal((await request('client_note',{reference,note:'Unauthorized change'},'traveller','account.php')).status,404);
+    assert.equal((await request('status',{reference},'traveller','journey-checkout.php')).status,409);
+   }
+  } finally { await run('reset-email-ownership'); }
   assert.equal((await request('status',{reference:'MLT-CONCURRENT'},'traveller','journey-checkout.php')).status,200);
   assert.equal((await request('status',{reference:'MLT-OTHER'},'traveller','journey-checkout.php')).status,409);
   for(const role of ['traveller','agency','manager','concierge','salesmanager'])assert.equal((await request('admin',{},role)).status,403);

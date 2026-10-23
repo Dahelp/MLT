@@ -29,6 +29,8 @@ function mlt_db(array $settings): ?PDO {
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN route_points_json TEXT NULL AFTER route_json'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN service_items_json TEXT NULL AFTER extras_json'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN extras_amount DECIMAL(12,2) NOT NULL DEFAULT 0 AFTER total_amount'); } catch (Throwable $error) {}
+        // Permanently disable the three legacy source-code bootstrap credentials.
+        $pdo->exec("UPDATE mlt_users SET password_hash='!disabled-legacy-bootstrap', session_hash=NULL, session_expires_at=NULL WHERE SHA2(password_hash,256) IN ('baa17903527536a5362f8db6bbe366438f932d2202227220a35a52767b7544bd','64e578ca667d57e5d1dff7a0cbb7b8f24192e20a518fee1f328878473479fa04','eb939897abf856f6668118529a62d7dac56613b60eb03dbc710d10c340f2dee6')");
         return $pdo;
     } catch (Throwable $error) { error_log('MLT database unavailable: ' . $error->getMessage()); return null; }
 }

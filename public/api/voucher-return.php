@@ -1,5 +1,8 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/security.php';
+mlt_security_guard(['GET']);
+
 require_once __DIR__.'/booking.php';require_once __DIR__.'/voucher-payments.php';
 $result='error';
 try{

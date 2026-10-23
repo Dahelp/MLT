@@ -11,5 +11,5 @@ class UsersTestDatabase extends ChatTestDatabase {
   parent::exec("INSERT INTO mlt_chat_conversations (user_id,access_hash,name,email,department) SELECT 5,'other-hash','Traveller','traveller@mlt-lifestyle.com','sales' WHERE NOT EXISTS(SELECT 1 FROM mlt_chat_conversations WHERE user_id=5)");
  }
  public function exec(string $sql):int|false{if(str_starts_with($sql,'CREATE TABLE IF NOT EXISTS mlt_user_email_history'))return parent::exec('CREATE TABLE IF NOT EXISTS mlt_user_email_history (user_id INTEGER,email TEXT,PRIMARY KEY(user_id,email))');return parent::exec($sql);}
- public function prepare(string $sql,array $options=[]):PDOStatement|false{$sql=str_replace(' FOR UPDATE','',$sql);$sql=str_replace('DATE_ADD(NOW(), INTERVAL 30 DAY)',"datetime('now','+30 days')",$sql);$sql=str_replace('ON DUPLICATE KEY UPDATE email=email','ON CONFLICT DO NOTHING',$sql);return parent::prepare($sql,$options);}
+ public function prepare(string $sql,array $options=[]):PDOStatement|false{$sql=str_replace(' FOR UPDATE','',$sql);$sql=str_replace('DATE_ADD(NOW(), INTERVAL 1 DAY)',"datetime('now','+1 day')",$sql);$sql=str_replace('ON DUPLICATE KEY UPDATE email=email','ON CONFLICT DO NOTHING',$sql);return parent::prepare($sql,$options);}
 }

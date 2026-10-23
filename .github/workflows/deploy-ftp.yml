@@ -52,8 +52,11 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: pdo_mysql, mbstring, curl
+          extensions: pdo_mysql, pdo_sqlite, mbstring, curl
           coverage: none
+
+      - name: Verify API security and staff access
+        run: node --test tests/security-api.test.mjs tests/admin-users-api.test.mjs tests/acquisitions-api.test.mjs tests/chat-api.test.mjs tests/sales-investments-api.test.mjs tests/operations-access.test.mjs tests/chat-departments.test.mjs
 
       - name: Verify voucher money, permissions and concurrent inventory
         env:
@@ -67,7 +70,7 @@ jobs:
       - name: Prepare voucher backend dependencies before updating existing payment handlers
         run: |
           mkdir -p voucher-preflight/api
-          cp public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
+          cp public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
 
       - name: Publish voucher backend dependencies
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -75,7 +78,7 @@ jobs:
           server: w021f859.kasserver.com
           username: ${{ secrets.MLT_FTP_USERNAME }}
           password: ${{ secrets.MLT_FTP_PASSWORD }}
-          protocol: ftp
+          protocol: ftps
           local-dir: ./voucher-preflight/
           server-dir: /
           state-name: .voucher-backend-sync.json
@@ -86,6 +89,6 @@ jobs:
           server: w021f859.kasserver.com
           username: ${{ secrets.MLT_FTP_USERNAME }}
           password: ${{ secrets.MLT_FTP_PASSWORD }}
-          protocol: ftp
+          protocol: ftps
           local-dir: ./static-export/
           server-dir: /

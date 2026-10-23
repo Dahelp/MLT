@@ -1,5 +1,8 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/security.php';
+mlt_security_guard(['GET']);
+
 require_once __DIR__ . '/booking.php';
 
 $reference = substr(trim((string)($_GET['reference'] ?? '')),0,80); $sessionId=substr(trim((string)($_GET['session_id'] ?? '')),0,160);

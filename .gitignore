@@ -44,3 +44,9 @@ next-env.d.ts
 /outputs/
 /work/
 /static-export/
+
+# Production credentials and private database exports
+/public/paypal-config.php
+*.sql
+*.sqlite
+*.sqlite3

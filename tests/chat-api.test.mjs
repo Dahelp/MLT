@@ -8,7 +8,7 @@ import {createServer} from 'node:net';
 const php=process.env.PHP_BINARY||'php';
 test('chat queues enforce server authorization and retain existing conversations',async()=>{
  const directory=await mkdtemp(path.join(tmpdir(),'mlt-chat-'));
- for(const file of ['chat.php','chat-access.php','concierge-account.php'])await cp(new URL('../public/api/'+file,import.meta.url),path.join(directory,file));
+ for(const file of ['chat.php','chat-access.php','concierge-account.php','security.php'])await cp(new URL('../public/api/'+file,import.meta.url),path.join(directory,file));
  await cp(new URL('./chat-test-booking.php',import.meta.url),path.join(directory,'booking.php'));
  const port=await new Promise(resolve=>{const server=createServer();server.listen(0,'127.0.0.1',()=>{const port=server.address().port;server.close(()=>resolve(port))})});
  const server=spawn(php,['-S',`127.0.0.1:${port}`,'-t',directory],{stdio:['ignore','ignore','pipe']});let log='';server.stderr.on('data',data=>log+=data);
