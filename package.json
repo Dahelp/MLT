@@ -9,7 +9,7 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "vinext start",
-    "test": "node --test tests/braces-security.test.mjs && pnpm run build && node --test tests/rendered-html.test.mjs tests/shared-core.test.mjs tests/mobile-home-viewport.test.mjs tests/viewport-diagnostics.test.mjs tests/design-system.test.mjs",
+    "test": "node --test tests/braces-security.test.mjs && pnpm run build && node --test tests/map-worker.test.mjs tests/rendered-html.test.mjs tests/shared-core.test.mjs tests/mobile-home-viewport.test.mjs tests/viewport-diagnostics.test.mjs tests/design-system.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
   },

@@ -12,6 +12,8 @@ const binary = process.env.APACHE_BINARY || 'C:/xampp82/apache/bin/httpd.exe';
 test('Apache applies security headers and blocks private files and executable uploads', { skip: !existsSync(binary) }, async () => {
   const dir = await mkdtemp(path.join(tmpdir(), 'mlt-apache-security-'));
   const web = path.join(dir, 'web'); await mkdir(path.join(web, 'uploads'), { recursive: true });
+  await mkdir(path.join(web, 'assets'));
+  await writeFile(path.join(web, 'assets/maplibre-gl-worker-test.js'), 'self.onmessage = () => {};');
   await cp(new URL('../public/.htaccess', import.meta.url), path.join(web, '.htaccess'));
   await cp(new URL('../public/uploads/.htaccess', import.meta.url), path.join(web, 'uploads/.htaccess'));
   for (const file of ['page.html', 'endpoint.php', '.env', 'backup.sql', 'paypal-config.php', 'uploads/test.php', 'uploads/photo.webp']) await writeFile(path.join(web, file), 'fixture');
@@ -42,6 +44,9 @@ DocumentRoot "${unix(web)}"
     assert.equal(page.headers.get('X-Frame-Options'), 'SAMEORIGIN');
     assert.equal(page.headers.get('Referrer-Policy'), 'strict-origin', 'Map tiles receive the origin without leaking page paths or parameters');
     assert.equal((await get('/endpoint.php')).headers.get('Referrer-Policy'), 'no-referrer', 'API and payment callbacks retain stricter privacy');
+    const worker = await get('/assets/maplibre-gl-worker-test.js');
+    assert.equal(worker.status, 200, 'Security rules must allow the bundled GeoJSON worker');
+    assert.match(worker.headers.get('Content-Type'), /javascript/);
     assert.ok(page.headers.get('Content-Security-Policy').includes("object-src 'none'"));
     for (const p of ['/.env', '/backup.sql', '/paypal-config.php', '/uploads/test.php']) assert.equal((await get(p)).status, 403, p);
     assert.equal((await get('/uploads/photo.webp')).status, 200);
