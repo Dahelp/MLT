@@ -29,7 +29,11 @@ LimitRequestBody 12582912
   Header always set Content-Security-Policy "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self' https://www.paypal.com https://www.sandbox.paypal.com https://checkout.stripe.com; upgrade-insecure-requests"
   Header always unset X-Powered-By
   Header always set X-Content-Type-Options "nosniff"
-  Header always set Referrer-Policy "no-referrer"
+  # OSM requires a valid Referer. Share only the origin, never paths or queries.
+  Header always set Referrer-Policy "strict-origin"
+  <FilesMatch "\.php$">
+    Header always set Referrer-Policy "no-referrer"
+  </FilesMatch>
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set X-Robots-Tag "noindex, nofollow, noarchive"
   Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"

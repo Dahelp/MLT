@@ -14,7 +14,7 @@ test('Apache applies security headers and blocks private files and executable up
   const web = path.join(dir, 'web'); await mkdir(path.join(web, 'uploads'), { recursive: true });
   await cp(new URL('../public/.htaccess', import.meta.url), path.join(web, '.htaccess'));
   await cp(new URL('../public/uploads/.htaccess', import.meta.url), path.join(web, 'uploads/.htaccess'));
-  for (const file of ['page.html', '.env', 'backup.sql', 'paypal-config.php', 'uploads/test.php', 'uploads/photo.webp']) await writeFile(path.join(web, file), 'fixture');
+  for (const file of ['page.html', 'endpoint.php', '.env', 'backup.sql', 'paypal-config.php', 'uploads/test.php', 'uploads/photo.webp']) await writeFile(path.join(web, file), 'fixture');
   await mkdir(path.join(web, '.well-known/acme-challenge'), { recursive: true });
   await writeFile(path.join(web, '.well-known/acme-challenge/test'), 'challenge');
   const port = await new Promise(resolve => { const s = createServer(); s.listen(0, '127.0.0.1', () => { const p = s.address().port; s.close(() => resolve(p)); }); });
@@ -40,6 +40,8 @@ DocumentRoot "${unix(web)}"
     for (let i = 0; i < 80; i++) { try { await get('/page.html'); break; } catch { await new Promise(r => setTimeout(r, 100)); } }
     const page = await get('/page.html'); assert.equal(page.status, 200);
     assert.equal(page.headers.get('X-Frame-Options'), 'SAMEORIGIN');
+    assert.equal(page.headers.get('Referrer-Policy'), 'strict-origin', 'Map tiles receive the origin without leaking page paths or parameters');
+    assert.equal((await get('/endpoint.php')).headers.get('Referrer-Policy'), 'no-referrer', 'API and payment callbacks retain stricter privacy');
     assert.ok(page.headers.get('Content-Security-Policy').includes("object-src 'none'"));
     for (const p of ['/.env', '/backup.sql', '/paypal-config.php', '/uploads/test.php']) assert.equal((await get(p)).status, 403, p);
     assert.equal((await get('/uploads/photo.webp')).status, 200);
