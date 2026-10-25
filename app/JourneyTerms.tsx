@@ -1,34 +1,62 @@
 "use client";
-import {type JourneyTerms as Terms} from '../content/journey-terms';
-import TermsDialog from './TermsDialog';
+import {useState} from 'react';
+import {type JourneyTerms as Terms,journeyPaymentRows,journeyCancellation,nextJourneyPayment} from '../content/journey-terms';
+import {journeyCopy} from '../content/journey-copy';
+import styles from './journey-costs.module.css';
 
-/** Uses native disclosure and existing typography. No new layout or style rules. */
-export default function JourneyTerms({terms:t,locale='en',popup=false,expanded=false,arrival}:{terms:Terms|null;locale?:string;popup?:boolean;expanded?:boolean;arrival?:string}){
-  if(!t)return null;
-  const ru=locale==='ru';
-  const money=(n:number)=>new Intl.NumberFormat(ru?'ru-RU':'en-GB',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(n);
-  if(popup)return <TermsDialog label={ru?'Оплата, гарантийный депозит и отмена':'Payment, security and cancellation'}><JourneyTerms terms={t} locale={locale} arrival={arrival} expanded/></TermsDialog>;
-  return <details open={expanded||undefined}><summary>{ru?'Оплата, гарантийный депозит и отмена':'Payment, security and cancellation'}</summary>
-    <p>{t.variant==='signature_tailored'?'Signature Tailored':t.variant==='freedom_plus'?'Freedom+':t.variant} · {t.policy.label}: {money(t.policy.security)}. {ru?'Гарантийный депозит вносится отдельно и не входит в стоимость тура.':'Security is collected separately and is outside the tour price.'}</p>
-    {t.planningFee>0&&<p>Planning Fee: {t.total?money(t.planningFee):'€500–1,500'}. {ru?'Отдельный невозвратный сбор при старте разработки маршрута. Точную сумму назначает администратор. Аванс 30% — после утверждения маршрута.':'Separate non-refundable fee when route planning starts. The administrator confirms the amount. The 30% advance follows route approval.'}</p>}
-    <p>{ru?'Этапы оплаты':'Payment stages'}: {t.policy.stages.map((p,i)=>`${p}%${t.policy.dueDays[i]===null?'':ru?` — за ${t.policy.dueDays[i]} дней до поездки`:` — ${t.policy.dueDays[i]} days before arrival`}`).join(' / ')}.
-      {t.variant==='private'&&(ru?' Первый платёж — после подписания договора.':' First payment follows contract signing.')}
-      {t.policy.cashFinal&&(ru?' Финальный платёж также можно внести наличными на месте.':' The final payment may also be made in cash on arrival.')}</p>
-    {t.total>0&&<ul>{t.policy.stages.map((percent,i)=>{
-      const previous=t.policy.stages.slice(0,i).reduce((sum,p)=>sum+p,0);
-      const amount=i===t.policy.stages.length-1?t.total-t.planningFee-Math.round(t.tourTotal*previous)/100:Math.round(t.tourTotal*(previous+percent))/100-Math.round(t.tourTotal*previous)/100;
-      const days=t.policy.dueDays[i];let due='';
-      if(days!==null&&arrival&&/^\d{4}-\d{2}-\d{2}$/.test(arrival)){const date=new Date(arrival+'T12:00:00Z');date.setUTCDate(date.getUTCDate()-days);if(Number.isFinite(date.getTime()))due=date.toLocaleDateString(ru?'ru-RU':'en-GB',{timeZone:'UTC'});}
-      return <li key={i}>{i+1}. {money(amount)}{due?` — ${due}`:''}</li>;
-    })}</ul>}
-    {t.protectionAmount>0&&<p>{ru?'Доплата за защиту рассчитана от базового тарифа и включена в финальный платёж.':'Protection is calculated on the base package price and included in the final payment.'}</p>}
-    {t.total>0&&<p>{ru?'Стоимость путешествия':'Journey price'}: {money(t.tourTotal)}. MLT Flexible Protection: {money(t.protectionAmount)} ({t.protectionPercent}%). {ru?'Итого с отдельным Planning Fee, без гарантийного депозита':'Total including separate Planning Fee, excluding security'}: {money(t.total)}.</p>}
-    <p>{ru?'Условия отмены (дней до начала)':'Cancellation (days before arrival)'}:</p>
-    <ul>{t.policy.cancellation.map((r,i)=>{
-      const range=i===0?`> ${r[0]}`:r[0]===0?`< ${t.policy.cancellation[i-1][0]}`:`${r[0]}–${t.policy.cancellation[i-1][0]}`;
-      const text=r[1]===100?(ru?'без возврата':'no refund'):typeof r[1]==='number'?(ru?`удержание ${r[1]}% аванса`:`${r[1]}% retained of advance`):r[2]?(ru?'возврат аванса за вычетом 100 €':'advance refunded less €100'):r[1]==='route_cost'?(ru?'возврат за вычетом подготовки маршрута':'refund less route preparation costs'):(ru?'возврат за вычетом фактических расходов':'refund less actual expenses');
-      return <li key={i}>{range}: {text}.</li>;
-    })}</ul>
-    {t.protectionPercent>0&&<p>MLT Flexible Protection: {t.protectionTerms}</p>}
-  </details>;
+export default function JourneyTerms({terms:t,locale='en',expanded=false,arrival,paid,preview=false,legacy=false,legacyCosts}:{terms:Terms|null;locale?:string;popup?:boolean;expanded?:boolean;arrival?:string;paid?:number;preview?:boolean;legacy?:boolean;legacyCosts?:{total:number;paid:number;advance:number}}){
+  const [cancelDate,setCancelDate]=useState('');
+  const copy=journeyCopy[locale as keyof typeof journeyCopy]||journeyCopy.en;
+  const dateLocale=({ru:'ru-RU',en:'en-GB',de:'de-DE',it:'it-IT',pl:'pl-PL'} as Record<string,string>)[locale]||'en-GB';
+  const money=(n:number)=>new Intl.NumberFormat(dateLocale,{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(n);
+  if(!t)return legacy?<section className={styles.summary} data-journey-costs aria-label={copy.title}><h3>{copy.title}</h3>{legacyCosts&&<dl className={styles.rows}><div><dt>{copy.total}</dt><dd>{money(legacyCosts.total)}</dd></div><div><dt>{copy.paid}</dt><dd>{money(legacyCosts.paid)}</dd></div><div><dt>{copy.remaining}</dt><dd>{money(Math.max(0,legacyCosts.total-legacyCosts.paid))}</dd></div><div><dt>{copy.next}</dt><dd>{money(Math.max(0,legacyCosts.paid<legacyCosts.advance?legacyCosts.advance-legacyCosts.paid:legacyCosts.total-legacyCosts.paid))}</dd></div></dl>}<p>{copy.unknown}</p></section>:null;
+  const round=(n:number)=>Math.round(n*100)/100;
+  const advance=round(t.tourTotal*t.policy.advance/100);
+  const received=paid===undefined?advance+t.planningFee:Math.max(0,paid);
+  const rows=journeyPaymentRows(t);
+  const dueDate=(days:number|null)=>{
+    if(days===null)return '';
+    if(!arrival)return `${days} ${copy.before}`;
+    const date=new Date(arrival+'T12:00:00Z');date.setUTCDate(date.getUTCDate()-days);
+    return Number.isFinite(date.getTime())?new Intl.DateTimeFormat(dateLocale,{timeZone:'UTC'}).format(date):`${days} ${copy.before}`;
+  };
+  const until=arrival&&cancelDate?Math.max(0,Math.floor((Date.parse(arrival+'T00:00:00Z')-Date.parse(cancelDate+'T00:00:00Z'))/86400000)):null;
+  const cancellation=until===null?null:journeyCancellation(t,until,received);
+  return <section className={styles.summary} aria-label={copy.title} data-journey-costs>
+    <h3>{copy.title}</h3>
+    <dl className={styles.rows}>
+      <div><dt>{copy.package}</dt><dd>{money(t.base)}</dd></div>
+      {t.tourTotal>t.base&&<div><dt>{copy.guests}</dt><dd>+{money(round(t.tourTotal-t.base))}</dd></div>}
+      {t.planningFee>0&&<div><dt>{copy.planning}</dt><dd>{preview?'€500–1,500':money(t.planningFee)}</dd></div>}
+      {t.protectionPercent>0&&<div><dt>{copy.protection} ({t.protectionPercent}%)</dt><dd>+{money(t.protectionAmount)}</dd></div>}
+      <div><dt><strong>{copy.total}</strong></dt><dd><strong>{preview&&t.planningFee?`${money(t.tourTotal+500)}–${money(t.tourTotal+1500)}`:money(t.total)}</strong></dd></div>
+      {paid!==undefined&&<><div><dt>{copy.paid}</dt><dd>{money(paid)}</dd></div><div><dt>{copy.remaining}</dt><dd>{money(Math.max(0,round(t.total-paid)))}</dd></div><div><dt>{copy.next}</dt><dd>{money(nextJourneyPayment(t,paid))}</dd></div></>}
+    </dl>
+    {preview&&t.planningFee>0&&<p>{copy.estimate}</p>}
+    {paid!==undefined&&nextJourneyPayment(t,paid)===0&&paid<t.total&&<p>{copy.wait}</p>}
+    <ol className={styles.stages}>
+      {t.planningFee>0&&<li><strong>{copy.planning}: {preview?'€500–1,500':money(t.planningFee)}</strong></li>}
+      {rows.map((row,i)=><li key={i}><strong>{i===0?copy.advance:i===rows.length-1?copy.final:copy.stage} · {row.percent}% — {money(row.amount)}</strong><span>{row.days===null?(i===0?(t.variant==='private'?copy.contract:t.variant==='signature_tailored'?copy.approved:copy.now):copy.agreed):dueDate(row.days)}</span></li>)}
+    </ol>
+    {!arrival&&<p>{copy.chooseDate}</p>}
+    {t.policy.cashFinal&&<p>{copy.cash}</p>}
+    <p><strong>{copy.security}: {money(t.policy.security)}</strong><br/>{copy.securityNote}</p>
+    {paid!==undefined&&<p>{copy.balance}</p>}
+    <details open={expanded||undefined} className={styles.cancellation}>
+      <summary>{copy.cancel}</summary>
+      <p>{paid===undefined?(t.planningFee>0?`${copy.advance} ${money(advance)} + Planning Fee ${money(t.planningFee)}`:copy.basis):copy.actual}: <strong>{money(received)}</strong>. {copy.advanceBasis} {t.planningFee>0&&copy.planningLost}</p>
+      {arrival&&<label>{copy.cancelDate}<input aria-label={copy.cancelDate} type="date" max={arrival} value={cancelDate} onInput={e=>setCancelDate(e.currentTarget.value)} onChange={e=>setCancelDate(e.target.value)}/></label>}
+      {cancellation&&<div role="status" className={styles.result}><p>{copy.days}: {until}</p>{cancellation.refund===null?<p>{t.protectionPercent?copy.protected:copy.manual}</p>:<><p>{copy.return}: <strong>{money(cancellation.refund)}</strong></p><p>{copy.retain}: <strong>{money(cancellation.retained!)}</strong></p></>}</div>}
+      {received===0&&<p>{copy.noMoney}</p>}
+      <p>{copy.range}:</p>
+      {t.protectionPercent>0?<p>{copy.protected} {t.protectionTerms}</p>:<ul>{t.policy.cancellation.map((r,i)=>{
+        const prev=Number(t.policy.cancellation[i-1]?.[0]);
+        const low=Number(r[0]);
+        const range=i===0?`${copy.more} ${low}`:low===0?`${copy.less} ${prev}`:`${low}–${i===1?prev:prev-1}`;
+        const result=journeyCancellation(t,i===0?low+1:low,received);
+        return <li key={i}><strong>{range}:</strong> {result.refund===null?`${copy.refund} ${copy.costs}`:`${copy.return}: ${money(result.refund)} · ${copy.retain}: ${money(result.retained!)}`}{typeof r[1]==='number'&&r[1]!==100?` (${r[1]}% × ${money(advance)})`:r[2]?` (${copy.fixed} ${money(Number(r[2]))})`:''}</li>;
+      })}</ul>}
+      <p>{copy.noAction}</p>
+    </details>
+  </section>;
 }

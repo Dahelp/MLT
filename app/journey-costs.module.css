@@ -1,0 +1,17 @@
+.summary{margin-block:var(--mlt-content-gap);padding-block:16px;border-block:1px solid currentColor;font:400 var(--mlt-text-body)/1.5 var(--mlt-font-ui);color:inherit;min-width:0;overflow-wrap:anywhere}
+.summary h3{margin:0 0 16px;font:400 var(--mlt-text-subtitle)/1.15 var(--mlt-font-display);color:inherit}
+.summary p{margin:16px 0;font:inherit;color:inherit}
+.summary .rows{display:grid;grid-template-columns:1fr;gap:8px;margin:0}
+.summary .rows>div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:0;border:0;border-radius:0;background:transparent;color:inherit}
+.summary .rows dt{font:inherit;letter-spacing:normal;text-transform:none;color:inherit;margin:0}
+.summary .rows dd{font:inherit;color:inherit;margin:0;text-align:right;flex-shrink:0}
+.stages{display:grid;gap:16px;padding-left:24px;margin:24px 0}
+.stages li{padding-left:8px}
+.stages span{display:block}
+.cancellation summary{cursor:pointer;font-weight:700;padding-block:8px}
+.cancellation label{display:grid;gap:8px}
+.cancellation input{font:inherit;padding:8px;border:1px solid currentColor;border-radius:var(--mlt-radius-control);background:transparent;color:inherit;min-width:0;max-width:100%;color-scheme:normal}
+.cancellation ul{padding-left:24px;display:grid;gap:16px}
+.result{border-block:1px solid currentColor;margin-block:16px}
+.note{font:400 var(--mlt-text-body)/1.5 var(--mlt-font-ui)}
+@media(max-width:580px){.summary .rows>div{flex-wrap:wrap;gap:0 16px}.summary .rows dd{margin-left:auto}}

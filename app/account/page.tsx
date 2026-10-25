@@ -738,7 +738,7 @@ export default function Account({
                             {jsonList(o.route_json).join(" · ") ||
                               "MLT journey"}
                           </strong>
-                          <JourneyTerms terms={orderTerms(o.journey_terms_json)} locale={locale} arrival={o.arrival_date}/>
+                          <JourneyTerms terms={orderTerms(o.journey_terms_json)} locale={locale} arrival={o.arrival_date} paid={orderPaid} legacy legacyCosts={{total:orderTotal,paid:orderPaid,advance:Number(o.deposit_amount||orderTotal*0.2)}}/>
                           <dl>
                             <div>
                               <dt>{t.dates}</dt>
@@ -1186,12 +1186,13 @@ export default function Account({
                 <dt>{t.paid}</dt>
                 <dd>
                   {money(
-                    selectedOrder.paid_amount || selectedOrder.amount,
+                    selectedOrder.paid_amount || 0,
                     selectedOrder.currency,
                   )}
                 </dd>
               </div>
             </dl>
+            <JourneyTerms terms={orderTerms(selectedOrder.journey_terms_json)} locale={locale} arrival={selectedOrder.arrival_date} paid={Number(selectedOrder.paid_amount||0)} expanded legacy legacyCosts={{total:Number(selectedOrder.total_amount||selectedOrder.amount||0),paid:Number(selectedOrder.paid_amount||0),advance:Number(selectedOrder.deposit_amount||Number(selectedOrder.total_amount||selectedOrder.amount||0)*0.2)}}/>
             <section className="journey-client-updates">
               <p className="account-eyebrow">ВАША ПОЕЗДКА</p>
               <div>
@@ -1286,7 +1287,7 @@ export default function Account({
                 paymentAmount,
               )}
             </b>
-            <JourneyTerms terms={paymentTerms} locale={locale} arrival={paymentOrderState?.arrival_date} popup/>
+            <JourneyTerms terms={paymentTerms} locale={locale} arrival={paymentOrderState?.arrival_date} paid={paymentPaid} legacy legacyCosts={{total:paymentTotal,paid:paymentPaid,advance:Number(paymentOrderState?.deposit_amount||paymentTotal*0.2)}}/>
             {paymentTerms&&<JourneyProtection terms={paymentTerms} paid={paymentPaid} locale={locale} disabled={busy} onChange={changeProtection}/>}
             {paymentTerms&&paymentAmount<=0&&<p>{locale==='ru'?'Следующий платёж доступен после утверждения маршрута или подписания договора.':'The next payment is available after route approval or contract signing.'}</p>}
             <label className="legal-check">

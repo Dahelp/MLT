@@ -331,3 +331,11 @@ test("all collections omit the legacy journey flow in every language and layout"
     assert.ok(html.includes('class="detail-cta"'));
   }
 });
+
+test('customers see calculated payment amounts before confirmation in every supported language and layout',async()=>{
+ for(const locale of ['en','de','ru','it','pl'])for(const slug of ['freedom','signature','concierge','private'])for(const suffix of ['','mobile-site/']){
+  const route=`/${locale}/collections/${slug}/${suffix}`;const html=await(await render(route)).text();assert.match(html,/data-journey-costs/,route);assert.match(html,/1500|1[\s\u00a0\u202f,.]500|2000|2[\s\u00a0\u202f,.]000|3000|3[\s\u00a0\u202f,.]000/,route);
+  if(slug==='freedom')assert.match(html,/298/,route+' advance');
+  if(slug==='private')assert.match(html,/3[\s\u00a0\u202f,.]?980/,route+' advance');
+ }
+});

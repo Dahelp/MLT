@@ -48,3 +48,13 @@ test('extra guests belong to the tour advance; protection uses the fixed package
  const result=php(`$t=mlt_journey_terms(['collection'=>'freedom','days'=>7,'guests'=>3,'flexibleProtection'=>true],['enabled'=>true,'percent'=>5.5,'terms'=>'Approved test terms']);$next=mlt_journey_next_payment($t,0);$t['protectionPercent']=0;echo json_encode(['base'=>$t['base'],'tour'=>$t['tourTotal'],'protection'=>$t['protectionAmount'],'advance'=>$next,'refund'=>mlt_journey_cancellation($t,30,$next)['refund']]);`);
  assert.deepEqual(result,{base:1490,tour:1680,protection:81.95,advance:336,refund:168});
 });
+
+test('customer cancellation calculator agrees with server for boundaries, paid balances and protection',()=>{
+ const module={exports:{}};const source=ts.transpileModule(fs.readFileSync(path.join(root,'content/journey-terms.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,esModuleInterop:true,target:ts.ScriptTarget.ES2022}}).outputText;
+ new Function('require','module','exports',source)(()=>JSON.parse(fs.readFileSync(path.join(root,'public/data/journey-pricing.json'),'utf8')),module,module.exports);
+ const cases=php(`$out=[];foreach(['freedom','freedom_plus','signature','signature_tailored','concierge','private'] as $id){$t=mlt_journey_terms(['collection'=>$id,'days'=>7]);foreach([0,14,15,29,30,59,60,61,89,90,91,119,120,121,179,180,181] as $d){foreach([0,100,$t['tourTotal']*$t['policy']['advance']/100+$t['planningFee'],$t['total']] as $paid){$out[]=['terms'=>$t,'days'=>$d,'paid'=>$paid,'expected'=>mlt_journey_cancellation($t,$d,$paid)];}}}echo json_encode($out);`);
+ for(const c of cases){const actual=module.exports.journeyCancellation(c.terms,c.days,c.paid);assert.equal(actual.refund,c.expected.refund);if(actual.refund!==null)assert.equal(actual.retained,Math.round((c.paid-actual.refund)*100)/100);}
+ const t=module.exports.collectionTerms('freedom',false,1680,1490);assert.equal(t.tourTotal,1680);assert.deepEqual(module.exports.journeyPaymentRows(t).map(x=>x.amount),[336,1344]);
+ const tailored=module.exports.collectionTerms('signature',true,2490,2490);assert.equal(tailored.total,2990);assert.deepEqual(module.exports.journeyPaymentRows(tailored).map(x=>x.amount),[747,1743]);
+ assert.equal(module.exports.journeyCancellation({...t,protectionPercent:5},30,336).refund,null);
+});
