@@ -310,16 +310,24 @@ test("legal pages translate content and metadata for every locale and use curren
 });
 
 
-test("Freedom omits the legacy journey flow in every public language and layout", async () => {
+test("all collections omit the legacy journey flow in every language and layout", async () => {
   for (const locale of ["en", "de", "ru", "it", "pl"]) {
-    for (const suffix of ["", "mobile-site/"]) {
-      const response = await render(`/${locale}/collections/freedom/${suffix}`);
-      assert.equal(response.status, 200);
-      const html = await response.text();
-      assert.doesNotMatch(html, /class="detail-flow"|class="flow-grid"/);
-      assert.ok(html.includes("#concierge-chat"));
+    for (const slug of ["freedom", "signature", "concierge", "private", "honeymoon"]) {
+      for (const suffix of ["", "mobile-site/", "mobile-preview/"]) {
+        const route = '/' + locale + '/collections/' + slug + '/' + suffix;
+        const response = await render(route);
+        assert.equal(response.status, 200, route);
+        const html = await response.text();
+        assert.doesNotMatch(html, /class="detail-flow"|class="flow-grid"/, route);
+        assert.ok(html.includes("#concierge-chat"), route + ' retains its contact action');
+        assert.ok(html.includes('data-site-footer='), route + ' retains its footer');
+      }
     }
-    const html = await (await render(`/${locale}/collections/signature/`)).text();
-    assert.match(html, /class="detail-flow"/);
+  }
+  for (const slug of ["freedom", "signature", "concierge", "private", "honeymoon"]) {
+    const html = await (await render('/collections/' + slug + '/')).text();
+    assert.doesNotMatch(html, /class="detail-flow"|class="flow-grid"/);
+    assert.ok(html.includes('class="detail-intro"'));
+    assert.ok(html.includes('class="detail-cta"'));
   }
 });
