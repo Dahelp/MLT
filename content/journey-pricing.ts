@@ -1,6 +1,6 @@
 import pricing from "../public/data/journey-pricing.json";
 
-/** Fallback tariffs shared with PHP. Active catalog records override base prices. */
+/** Approved fixed package tariffs shared with PHP. */
 export const journeyRates = pricing.collections;
 export type JourneyCollectionId = keyof typeof journeyRates;
 export const freedomPlusRates: Record<number, number> = pricing.freedomPlus;
@@ -15,6 +15,7 @@ export function parseCatalogData(value?: string | null): Record<string, unknown>
 }
 
 export function resolveJourneyRates(id: JourneyCollectionId, dataJson?: string | null): { d: number; p: number }[] {
+  if (["freedom", "signature", "concierge", "private"].includes(id)) return journeyRates[id];
   const pricing = parseCatalogData(dataJson).pricing;
   const rows = Array.isArray(pricing)
     ? pricing.map(row => ({ d: Number(row?.days), p: Number(row?.price) }))
@@ -28,7 +29,7 @@ export function journeyPrice(id: string, days: number, basePrice: number, upgrad
   if (!upgraded) return basePrice;
   // Durations supplied only by the catalog retain a defined price.
   if (id === "freedom") return freedomPlusRates[days] ?? basePrice + 300;
-  if (id === "signature") return signatureTailoredRates[days] ?? basePrice + 500;
+  if (id === "signature") return basePrice;
   return basePrice;
 }
 

@@ -33,7 +33,7 @@ try {
     if($action==='redeem'){
         if(empty($body['consent']))voucher_reply(['error'=>'Please confirm the voucher payment.'],400);
         mlt_voucher_verify_credit($db,$settings,(int)($body['voucherId']??0),(int)$user['id']);
-        voucher_reply(mlt_voucher_redeem($db,$user,(int)($body['voucherId']??0),(string)($body['reference']??''),(string)($body['requestId']??'')));
+        voucher_reply(mlt_voucher_redeem($db,$user,(int)($body['voucherId']??0),(string)($body['reference']??''),(string)($body['requestId']??''),in_array($body['paymentKind']??'full',['full','deposit','balance'],true)?($body['paymentKind']??'full'):'full'));
     }
     if(!$rights['view']&&!$rights['manage'])voucher_reply(['error'=>'Voucher access is not granted for your role.'],403);
     if($action==='admin'){

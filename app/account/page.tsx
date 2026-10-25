@@ -7,6 +7,9 @@ import ChevronIcon from "../ChevronIcon";
 import { mapPoints } from "../../content/mlt";
 import "./account.css";
 import VoucherWallet,{VoucherRedeem,JourneyCheckoutNotice} from "./VoucherWallet";
+import JourneyTerms from '../JourneyTerms';
+import JourneyProtection from './JourneyProtection';
+import {orderTerms,nextJourneyPayment} from '../../content/journey-terms';
 import {voucherCopy} from "../../content/vouchers";
 type L = "en" | "de" | "ru" | "it" | "pl";
 type U = {
@@ -39,6 +42,7 @@ type O = {
   amount: string | null;
   total_amount?: string | null;
   deposit_amount?: string | null;
+  journey_terms_json?: string;
   paid_amount?: string | null;
   currency: string;
   collection_name: string;
@@ -209,7 +213,8 @@ const money = (n: number | string | null | undefined, c = "EUR") =>
   new Intl.NumberFormat("ru-RU", {
     style: "currency",
     currency: c,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: Number(n || 0) % 1 ? 2 : 0,
+    maximumFractionDigits: 2,
   }).format(Number(n || 0));
 const collectionTitle = (name: string | null | undefined) => {
   const label = name || "Journey";
@@ -469,10 +474,18 @@ export default function Account({
     paymentOrderState?.total_amount || paymentOrderState?.amount || 0,
   );
   const paymentPaid = Number(paymentOrderState?.paid_amount || 0);
-  const paymentDeposit =
-    Number(paymentOrderState?.deposit_amount || 0) || paymentTotal * 0.2;
+  const paymentTerms=orderTerms(paymentOrderState?.journey_terms_json);
+  const paymentDeposit = paymentTerms ? nextJourneyPayment(paymentTerms,paymentPaid) : Number(paymentOrderState?.deposit_amount || 0) || paymentTotal * 0.2;
+  const paymentAmount=paymentTerms&&(!paymentTerms.routeApproved||!paymentTerms.contractSigned)?paymentDeposit:modal==='deposit'||(modal==='balance'&&paymentTerms)?paymentDeposit:Math.max(0,paymentTotal-paymentPaid);
+  const changeProtection=async(enabled:boolean)=>{if(!paymentOrderState)return;setBusy(true);setConsent(false);try{const d=await api('journey_protection',{reference:paymentOrderState.reference_code,enabled});setPaymentOrder({...paymentOrderState,total_amount:String(d.terms.total),journey_terms_json:JSON.stringify(d.terms)});await load();}catch(e){setPaymentError((e as Error).message)}finally{setBusy(false)}};
   const depositLabel = (order: O) => {
-    const amount = Number(order.deposit_amount || 0);
+    const terms=orderTerms(order.journey_terms_json);
+    const amount = terms?nextJourneyPayment(terms,Number(order.paid_amount||0)):Number(order.deposit_amount || 0);
+    if(terms){
+      if(amount<=0)return locale==='ru'?'Ожидается подтверждение MLT':'Awaiting MLT confirmation';
+      const label=terms.planningFee>Number(order.paid_amount||0)?'Planning Fee':locale==='ru'?'Следующий платёж':'Next payment';
+      return label+' '+money(amount,order.currency);
+    }
     return amount
       ? locale === "ru"
         ? `Оплатить аванс ${money(amount, order.currency)}`
@@ -481,7 +494,7 @@ export default function Account({
           : `Pay deposit ${money(amount, order.currency)}`
       : t.deposit;
   };
-  const depositTitle =
+  const depositTitle = paymentTerms ? (paymentTerms.planningFee>paymentPaid?'Planning Fee':locale==='ru'?'Следующий платёж':'Next payment') :
     paymentOrderState && Number(paymentOrderState.deposit_amount || 0) > 0
       ? locale === "ru"
         ? "Оплатить аванс"
@@ -702,7 +715,7 @@ export default function Account({
                       orderDue = Math.max(
                         0,
                         orderTotal -
-                          Math.max(orderPaid, Number(o.deposit_amount || 0)),
+                          orderPaid,
                       );
                     return (
                       <article
@@ -725,6 +738,7 @@ export default function Account({
                             {jsonList(o.route_json).join(" · ") ||
                               "MLT journey"}
                           </strong>
+                          <JourneyTerms terms={orderTerms(o.journey_terms_json)} locale={locale} arrival={o.arrival_date}/>
                           <dl>
                             <div>
                               <dt>{t.dates}</dt>
@@ -775,7 +789,7 @@ export default function Account({
                                 setConsent(false);
                               }}
                             >
-                              {t.balance}
+                              {orderTerms(o.journey_terms_json)?depositLabel(o):t.balance}
                             </button>
                           ) : (
                             <>
@@ -1261,7 +1275,7 @@ export default function Account({
             </button>
             <p className="account-eyebrow">{t.secure}</p>
             <h2>
-              {modal === "deposit"
+              {paymentTerms&&(!paymentTerms.routeApproved||!paymentTerms.contractSigned)?depositTitle:modal === "deposit"
                 ? depositTitle
                 : modal === "balance"
                   ? t.balance
@@ -1269,13 +1283,12 @@ export default function Account({
             </h2>
             <b>
               {money(
-                modal === "deposit"
-                  ? paymentDeposit
-                  : modal === "balance"
-                    ? paymentTotal - paymentPaid
-                    : paymentTotal - paymentPaid,
+                paymentAmount,
               )}
             </b>
+            <JourneyTerms terms={paymentTerms} locale={locale} arrival={paymentOrderState?.arrival_date} popup/>
+            {paymentTerms&&<JourneyProtection terms={paymentTerms} paid={paymentPaid} locale={locale} disabled={busy} onChange={changeProtection}/>}
+            {paymentTerms&&paymentAmount<=0&&<p>{locale==='ru'?'Следующий платёж доступен после утверждения маршрута или подписания договора.':'The next payment is available after route approval or contract signing.'}</p>}
             <label className="legal-check">
               <input
                 type="checkbox"
@@ -1285,18 +1298,18 @@ export default function Account({
               <span>{t.consent}</span>
             </label>
             <JourneyCheckoutNotice locale={locale} reference={paymentOrderState!.reference_code} onClosed={()=>{setModal(null);setPaymentOrder(null);setMessage(locale==='ru'?'Предыдущая оплата закрыта. Выберите способ оплаты заново.':'Previous checkout closed. Please choose your payment method again.');load();}}/>
-            <VoucherRedeem locale={locale} consent={consent} reference={paymentOrderState!.reference_code} dueCents={Math.max(0,Math.round((paymentTotal-paymentPaid)*100))} onApplied={()=>{setModal(null);setPaymentOrder(null);setMessage(voucherCopy[locale].applied);load();}}/>
+            <VoucherRedeem locale={locale} paymentKind={modal} consent={consent} reference={paymentOrderState!.reference_code} dueCents={Math.max(0,Math.round(paymentAmount*100))} onApplied={()=>{setModal(null);setPaymentOrder(null);setMessage(voucherCopy[locale].applied);load();}}/>
             <div>
               <button
                 className={paymentProvider === "paypal" ? "is-loading" : ""}
-                disabled={!consent || busy}
+                disabled={!consent || busy || paymentAmount<=0}
                 onClick={() => pay("paypal")}
               >
                 {paymentProvider === "paypal" ? "Opening PayPal…" : "PayPal"}
               </button>
               <button
                 className={paymentProvider === "stripe" ? "is-loading" : ""}
-                disabled={!consent || busy}
+                disabled={!consent || busy || paymentAmount<=0}
                 onClick={() => pay("stripe")}
               >
                 {paymentProvider === "stripe" ? "Opening Stripe…" : "Stripe"}

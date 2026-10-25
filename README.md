@@ -33,7 +33,7 @@ node scripts/export-static.mjs
 - `content/home.ts` — тексты и карточки обеих главных.
 - `content/mlt.ts`, `content/collection-details.ts`, `content/collection-routes.ts` — коллекции и резервные маршруты.
 - `content/collection-products.ts` — единые правила чтения продуктов из каталога.
-- `public/data/journey-pricing.json` — резервные тарифы для React и PHP. Действующие цены каталога имеют приоритет в конфигураторах и карточках главных.
+- `public/data/journey-pricing.json` — утверждённые фиксированные тарифы и условия Freedom, Freedom+, Signature, Tailored, Concierge и Private для React и PHP. Для остальных коллекций сохраняется приоритет каталога. Новые заказы хранят снимок условий; прежние согласованные суммы не пересчитываются.
 - `content/booking-ui.ts`, `content/mobile-booking.ts`, `content/freedom-booking.ts` — тексты конфигураторов.
 - `content/site.ts`, `content/footer.ts` — контакты, локали, логотипы и переводы подвала.
 - `app/CoverflowCarousel.tsx` — общий механизм каруселей; внешний вид задаётся шаблоном.

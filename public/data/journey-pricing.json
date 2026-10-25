@@ -3,12 +3,20 @@
     "freedom": [{"d":7,"p":1490},{"d":10,"p":1990},{"d":14,"p":2590},{"d":21,"p":3690},{"d":30,"p":4990}],
     "signature": [{"d":7,"p":2490},{"d":10,"p":4290},{"d":14,"p":5890}],
     "concierge": [{"d":7,"p":4990},{"d":10,"p":6590},{"d":14,"p":8990}],
-    "private": [{"d":7,"p":19900},{"d":10,"p":28429},{"d":14,"p":39800},{"d":21,"p":59700}],
+    "private": [{"d":7,"p":19900},{"d":10,"p":28490},{"d":14,"p":39800},{"d":21,"p":59700}],
     "honeymoon": [{"d":7,"p":5900},{"d":10,"p":7000},{"d":14,"p":8900}],
     "proposal": [{"d":3,"p":0}]
   },
   "freedomPlus": {"7":1790,"10":2340,"14":3040,"21":4190,"30":5490},
-  "signatureTailored": {"7":2990,"10":4290,"14":5890},
+  "signatureTailored": {"7":2490,"10":4290,"14":5890},
+  "policies": {
+    "freedom": {"cancellationBasis":"advance","boundaryRule":"lower_retention","advance":20,"security":1500,"label":"Security Deposit","stages":[20,80],"dueDays":[null,30],"cashFinal":true,"cancellation":[[60,"expenses",100],[30,50],[15,70],[0,100]]},
+    "freedom_plus": {"cancellationBasis":"advance","boundaryRule":"lower_retention","advance":20,"security":1500,"label":"Security Deposit","stages":[20,80],"dueDays":[null,30],"cashFinal":false,"cancellation":[[90,"route_cost"],[60,30],[30,50],[0,100]]},
+    "signature": {"cancellationBasis":"advance","boundaryRule":"lower_retention","advance":20,"security":1500,"label":"Security Guarantee / MLT Journey Protection Deposit","stages":[20,80],"dueDays":[null,30],"cashFinal":false,"cancellation":[[120,"expenses"],[90,30],[60,50],[0,100]]},
+    "signature_tailored": {"cancellationBasis":"advance","boundaryRule":"lower_retention","advance":30,"security":1500,"label":"Security Guarantee / MLT Journey Protection Deposit","stages":[30,70],"dueDays":[null,null],"cashFinal":false,"planningMin":500,"planningMax":1500,"cancellation":[[120,"expenses"],[90,30],[60,50],[0,100]]},
+    "concierge": {"cancellationBasis":"advance","boundaryRule":"lower_retention","advance":20,"security":2000,"label":"Security Guarantee / MLT Journey Protection Deposit","stages":[20,80],"dueDays":[null,30],"cashFinal":false,"cancellation":[[120,"expenses"],[90,30],[60,50],[0,100]]},
+    "private": {"cancellationBasis":"advance","boundaryRule":"lower_retention","advance":20,"security":3000,"label":"Security Guarantee / MLT Journey Protection Deposit","stages":[20,30,50],"dueDays":[null,60,30],"cashFinal":true,"cancellation":[[180,"expenses"],[120,30],[60,50],[0,100]]}
+  },
   "extraGuestRate": 190,
   "legacyPaymentDurations": {"private":{"30":85286}}
 }

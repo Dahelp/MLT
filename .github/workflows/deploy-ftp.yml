@@ -45,15 +45,15 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build and test shared site core
-        run: pnpm test
-
       - name: Set up PHP for monetary integration tests
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: pdo_mysql, pdo_sqlite, mbstring, curl
           coverage: none
+
+      - name: Build and test shared site core
+        run: pnpm test
 
       - name: Verify API security and staff access
         run: node --test tests/security-api.test.mjs tests/admin-users-api.test.mjs tests/acquisitions-api.test.mjs tests/chat-api.test.mjs tests/sales-investments-api.test.mjs tests/operations-access.test.mjs tests/chat-departments.test.mjs
@@ -64,13 +64,20 @@ jobs:
           MLT_VOUCHER_TEST_PASSWORD: voucher-test-only
         run: node --test tests/vouchers-api.test.mjs
 
+      - name: Verify journey pricing, payment stages and booking conditions
+        env:
+          MLT_PRICING_TEST_DSN: mysql:host=127.0.0.1;port=3306
+          MLT_PRICING_TEST_PASSWORD: voucher-test-only
+        run: node --test tests/journey-api.test.mjs
+
       - name: Export static preview
         run: node scripts/export-static.mjs
 
       - name: Prepare voucher backend dependencies before updating existing payment handlers
         run: |
-          mkdir -p voucher-preflight/api
-          cp public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
+          mkdir -p voucher-preflight/api voucher-preflight/data
+          cp public/api/journey-pricing.php public/api/journey-terms.php public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
+          cp public/data/journey-pricing.json voucher-preflight/data/
 
       - name: Publish voucher backend dependencies
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__.'/journey-terms.php';
 
 function mlt_settings(): array {
     $path = dirname(__DIR__) . '/paypal-config.php';
@@ -29,6 +30,8 @@ function mlt_db(array $settings): ?PDO {
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN route_points_json TEXT NULL AFTER route_json'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN service_items_json TEXT NULL AFTER extras_json'); } catch (Throwable $error) {}
         try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN extras_amount DECIMAL(12,2) NOT NULL DEFAULT 0 AFTER total_amount'); } catch (Throwable $error) {}
+        try { $pdo->exec('ALTER TABLE mlt_orders ADD COLUMN journey_terms_json TEXT NULL'); } catch (Throwable $error) {}
+        $pdo->exec('CREATE TABLE IF NOT EXISTS mlt_journey_settings (id INT PRIMARY KEY, settings_json TEXT NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
         // Permanently disable the three legacy source-code bootstrap credentials.
         $pdo->exec("UPDATE mlt_users SET password_hash='!disabled-legacy-bootstrap', session_hash=NULL, session_expires_at=NULL WHERE SHA2(password_hash,256) IN ('baa17903527536a5362f8db6bbe366438f932d2202227220a35a52767b7544bd','64e578ca667d57e5d1dff7a0cbb7b8f24192e20a518fee1f328878473479fa04','eb939897abf856f6668118529a62d7dac56613b60eb03dbc710d10c340f2dee6')");
         return $pdo;
@@ -37,12 +40,15 @@ function mlt_db(array $settings): ?PDO {
 
 function mlt_create_order(PDO $db, string $reference, array $body, array $customer): void {
     try {
+        $terms = isset(mlt_journey_pricing()['policies'][mlt_journey_variant($body)]) ? mlt_journey_terms($body,mlt_protection_settings($db)) : null;
         $route = array_values(array_filter(is_array($body['route'] ?? null) ? $body['route'] : [], 'is_string'));
         $extras = array_values(array_filter(is_array($body['extras'] ?? null) ? $body['extras'] : [], 'is_string'));
         $user = $db->prepare('SELECT id FROM mlt_users WHERE email = ? LIMIT 1'); $user->execute([$customer['email']]); $userId = $user->fetchColumn() ?: null;
         $statement = $db->prepare('INSERT INTO mlt_orders (user_id, reference_code, confirmation_id, first_name, last_name, customer_email, phone, collection_name, vehicle_name, country_name, guests, travel_days, arrival_date, departure_date, route_json, extras_json, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $statement->execute([$userId, $reference, $body['confirmationId'] ?? null, $customer['firstName'], $customer['lastName'], $customer['email'], $customer['phone'], $body['collection'] ?? null, $body['vehicle'] ?? null, $body['country'] ?? null, $body['guests'] ?? null, (int)($body['days'] ?? 0) ?: null, $body['arrival'] ?? null, $body['departure'] ?? null, json_encode($route, JSON_UNESCAPED_UNICODE), json_encode($extras, JSON_UNESCAPED_UNICODE), $body['notes'] ?? null]);
+        if ($terms) $db->prepare('UPDATE mlt_orders SET total_amount=?,journey_terms_json=? WHERE reference_code=?')->execute([$terms['total'],json_encode($terms,JSON_THROW_ON_ERROR),$reference]);
     } catch (Throwable $error) {
+        if ($error instanceof DomainException) throw $error;
         error_log('MLT order could not be saved: ' . $error->getMessage());
     }
 }
@@ -61,8 +67,19 @@ function mlt_mark_stripe_order_paid(PDO $db, string $reference, string $sessionI
 
 // The legacy $total argument is intentionally ignored: prices come only from the saved order.
 function mlt_payment_quote(PDO $db, string $reference, float $total, string $kind): ?array {
-    $q=$db->prepare('SELECT id,total_amount,amount,paid_amount,deposit_amount FROM mlt_orders WHERE reference_code=? LIMIT 1');$q->execute([$reference]);$order=$q->fetch(); if(!$order)return null;
+    $q=$db->prepare('SELECT id,total_amount,amount,paid_amount,deposit_amount,journey_terms_json FROM mlt_orders WHERE reference_code=? LIMIT 1');$q->execute([$reference]);$order=$q->fetch(); if(!$order)return null;
     $storedTotal=(float)($order['total_amount'] ?? 0); if($storedTotal<=0){$storedTotal=(float)($order['amount']??0);if($storedTotal<=0)return null;$db->prepare('UPDATE mlt_orders SET total_amount=? WHERE id=?')->execute([$storedTotal,$order['id']]);}
+    $terms=mlt_order_terms($order);
+    if ($terms) {
+        $paid=(float)($order['paid_amount']??0);
+        if ($kind==='deposit' || $kind==='balance') $amount=mlt_journey_next_payment($terms,$paid);
+        else {
+            if (empty($terms['contractSigned']) || empty($terms['routeApproved'])) $amount=mlt_journey_next_payment($terms,$paid);
+            else $amount=max(0,$storedTotal-$paid);
+        }
+        if($amount<=.009)return null;
+        return ['amount'=>$amount,'total'=>$storedTotal,'paid'=>$paid,'kind'=>$kind];
+    }
     $paid=(float)($order['paid_amount'] ?? 0); $due=max(0,$storedTotal-$paid); $customDeposit=(float)($order['deposit_amount'] ?? 0); $amount=$kind==='deposit' ? min($due,round($customDeposit>0?$customDeposit:$storedTotal*.2,2)) : $due;
     if($kind==='deposit' && $paid>0)$amount=$due; if($amount<=0.009)return null;
     return ['amount'=>$amount,'total'=>$storedTotal,'paid'=>$paid,'kind'=>$kind==='deposit'&&$paid>0?'balance':$kind];

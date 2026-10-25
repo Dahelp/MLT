@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__.'/journey-terms.php';
 
 // All voucher money is stored in integer cents. No client supplied prices or balances.
 function mlt_voucher_schema(PDO $db): void {
@@ -120,7 +121,7 @@ function mlt_voucher_issue(PDO $db, string $reference, string $provider, string 
 
 function mlt_voucher_expired(?string $expires):bool { return $expires!==null&&strtotime($expires.' UTC')<=time(); }
 
-function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $reference, string $key): array {
+function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $reference, string $key, string $paymentKind = 'full'): array {
     if(!preg_match('/^[a-zA-Z0-9-]{16,80}$/',$key))throw new DomainException('Invalid request identifier.');
     $db->beginTransaction();
     try {
@@ -136,6 +137,8 @@ function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $refere
         $q=$db->prepare('SELECT 1 FROM mlt_journey_checkout_holds WHERE order_id=?');$q->execute([$order['id']]);if($q->fetchColumn())throw new DomainException('A card or PayPal checkout is still active for this journey. Complete it or wait for it to expire before applying a voucher.');
         if($v['status']!=='active'||mlt_voucher_expired($v['expires_at']))throw new DomainException('This voucher is unavailable or expired.');
         $due=max(0,(int)round((float)($order['total_amount']??0)*100)-(int)round((float)$order['paid_amount']*100));
+        $terms=mlt_order_terms($order);
+        if($terms && ($paymentKind!=='full' || empty($terms['routeApproved']) || empty($terms['contractSigned'])))$due=min($due,(int)round(mlt_journey_next_payment($terms,(float)$order['paid_amount'])*100));
         $amount=min((int)$v['balance_cents'],$due);if($amount<=0)throw new DomainException('No payable balance or available voucher credit.');
         $balance=(int)$v['balance_cents']-$amount;
         $db->prepare('UPDATE mlt_vouchers SET balance_cents=?,status=? WHERE id=?')->execute([$balance,$balance===0?'used':'active',$voucherId]);

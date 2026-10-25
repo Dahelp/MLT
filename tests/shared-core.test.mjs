@@ -29,13 +29,13 @@ const products = load("content/collection-products.ts");
 const home = load("content/home.ts");
 const site = load("content/site.ts");
 
-test("catalog prices override fallback consistently, including invalid data and custom durations", () => {
+test("approved tariffs stay fixed; other collections retain catalog pricing", () => {
   for (const input of [undefined, "broken json", "null", "[]", '{"pricing":[null,{}, {"days":0,"price":99}]}']) {
     assert.deepEqual(pricing.resolveJourneyRates("signature", input), pricing.journeyRates.signature);
   }
   const data = JSON.stringify({ pricing: [{ days: 12, price: 4500 }, { days: 5, price: 1800 }, { days: 12, price: 4600 }, { days: 4, price: -1 }] });
-  assert.deepEqual(pricing.resolveJourneyRates("signature", data), [{ d: 5, p: 1800 }, { d: 12, p: 4600 }]);
-  assert.deepEqual(pricing.resolveJourneyRates("freedom", '{"pricing":{"12":2500}}'), [{ d: 12, p: 2500 }]);
+  assert.deepEqual(pricing.resolveJourneyRates("honeymoon", data), [{ d: 5, p: 1800 }, { d: 12, p: 4600 }]);
+  assert.deepEqual(pricing.resolveJourneyRates("honeymoon", '{"pricing":{"12":2500}}'), [{ d: 12, p: 2500 }]);
   assert.equal(pricing.journeyPrice("freedom", 10, 1990, true), 2340);
   assert.equal(pricing.journeyPrice("freedom", 12, 2500, true), 2800);
   assert.equal(pricing.journeyPrice("signature", 14, 5890, true), 5890);
@@ -47,8 +47,8 @@ test("both home layouts use catalog duration and price labels in every language"
   for (const locale of site.siteLocales) {
     const cards = home.homeCollectionCards(locale, catalog);
     assert.equal(cards.length, 5);
-    assert.match(cards[0].rate, /5/);
-    assert.match(cards[0].days, /5–12/);
+    assert.match(cards[0].rate, /1[,. \u00a0\u202f]?490/);
+    assert.match(cards[0].days, /7–30/);
   }
   assert.equal(home.homeCollectionCards("en")[0].rate, "From €1,490 for 7 days");
 });
