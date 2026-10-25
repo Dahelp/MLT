@@ -43,3 +43,8 @@ test('cancellation favourable boundary days, fixed administrative charge, planni
  assert.equal(php(`$t=mlt_journey_terms(['collection'=>'signature_tailored','days'=>7]);echo json_encode(mlt_journey_cancellation($t,121,1247,100));`).refund,647);
  assert.equal(php(`$t=mlt_journey_terms(['collection'=>'freedom_plus','days'=>7]);echo json_encode(mlt_journey_cancellation($t,91,358));`).manualReview,true);
 });
+
+test('extra guests belong to the tour advance; protection uses the fixed package price and does not inflate retention',()=>{
+ const result=php(`$t=mlt_journey_terms(['collection'=>'freedom','days'=>7,'guests'=>3,'flexibleProtection'=>true],['enabled'=>true,'percent'=>5.5,'terms'=>'Approved test terms']);$next=mlt_journey_next_payment($t,0);$t['protectionPercent']=0;echo json_encode(['base'=>$t['base'],'tour'=>$t['tourTotal'],'protection'=>$t['protectionAmount'],'advance'=>$next,'refund'=>mlt_journey_cancellation($t,30,$next)['refund']]);`);
+ assert.deepEqual(result,{base:1490,tour:1680,protection:81.95,advance:336,refund:168});
+});

@@ -72,7 +72,7 @@ function mlt_journey_cancellation(array $terms, int $daysBefore, float $paid, ?f
                 return ['manualReview'=>$cost===null,'planningRetained'=>$planning,'refund'=>$cost===null?null:round(max(0,$refundable-max(0,$cost)),2)];
             }
             if ((int)$row[1] === 100) return ['manualReview'=>false,'planningRetained'=>$planning,'refund'=>0];
-            $amount = (float)$terms['base'] * $terms['policy']['advance']/100;
+            $amount = (float)$terms['tourTotal'] * $terms['policy']['advance']/100;
             return ['manualReview'=>false,'planningRetained'=>$planning,'refund'=>round(max(0,$refundable-$amount*$row[1]/100),2)];
         }
     }
