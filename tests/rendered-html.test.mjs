@@ -4,6 +4,18 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
+test("Scout Passport exports its mobile form, brand strip and private admin destination", async () => {
+  const response = await render('/scout-passport/');
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /MLT Scout Passport/);
+  assert.match(html, /Curate\. Capture\. Contribute to the MLT route/);
+  for (const field of ['scoutName','title','country','latitude','longitude','description','parking','booking']) assert.ok(html.includes(`name="${field}"`), field);
+  assert.match(html, /data-site-footer="main"/);
+  assert.doesNotMatch(html, /class="mlt-chat-widget/);
+  assert.equal((await render('/admin/base-location/')).status, 200);
+});
+
 test("voucher offer is present in both home layouts and localized purchase pages preserve the shared footer", async () => {
   for(const locale of ["en","de","ru","it","pl"]){
     for(const suffix of ["","mobile-site/"]){

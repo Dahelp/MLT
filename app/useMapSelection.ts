@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { mapPoints } from "../content/mlt";
+import { useRoutePoints } from "./useRoutePoints";
 
 export function useMapSelection() {
+  const { points: mapPoints } = useRoutePoints();
   const [country, setCountry] = useState("All");
   const [selected, setSelected] = useState<string[]>(["dolomites", "como"]);
   const [distance, setDistance] = useState<number | null>(null);
@@ -11,7 +12,7 @@ export function useMapSelection() {
     if (!mapPoints.some(point => point.id === id)) return;
     setDistance(null);
     setSelected(current => current.includes(id) ? current.filter(point => point !== id) : [...current, id]);
-  }, []);
+  }, [mapPoints]);
   const onDistanceChange = useCallback((value: number | null) => setDistance(value), []);
   return { country, setCountry, selected, distance, toggle, onDistanceChange };
 }

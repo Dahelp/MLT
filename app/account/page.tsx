@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import SiteHeader from "../SiteHeader";
 import RealRouteMap from "../plan/RealRouteMap";
 import ChevronIcon from "../ChevronIcon";
-import { mapPoints } from "../../content/mlt";
+import { useRoutePoints, type RoutePoint } from "../useRoutePoints";
 import "./account.css";
 import VoucherWallet,{VoucherRedeem,JourneyCheckoutNotice} from "./VoucherWallet";
 import JourneyTerms from '../JourneyTerms';
@@ -252,7 +252,7 @@ const routeDefaults: Record<string, string[]> = {
   "winter-alps-expedition": ["tyrol", "salzburg"],
   "black-forest-experience": ["blackforest", "bavaria"],
 };
-const mapRouteIds = (items: string[]) =>
+const routeIds = (items: string[], mapPoints: RoutePoint[]) =>
   Array.from(
     new Set(
       items.flatMap((item) => {
@@ -274,6 +274,8 @@ export default function Account({
 }: {
   initialTab?: "home" | "journeys" | "documents" | "profile" | "vouchers";
 }) {
+  const { points: mapPoints } = useRoutePoints();
+  const mapRouteIds = (items: string[]) => routeIds(items, mapPoints);
   const operationsDestination = (role?: string) => {
     const next = new URLSearchParams(location.search).get("next") || "";
     return authorizedOperationsDestination(role, next);

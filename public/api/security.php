@@ -63,7 +63,7 @@ function mlt_security_guard(array $methods = ['POST'], bool $webhook = false): v
         if (($origin !== '' && !in_array($origin, $allowed, true)) || ($_SERVER['HTTP_SEC_FETCH_SITE'] ?? '') === 'cross-site') mlt_security_error(403, 'Invalid request origin.');
     }
     if (strtolower(trim(explode(';', $_SERVER['CONTENT_TYPE'] ?? '')[0])) !== 'application/json') mlt_security_error(415, 'JSON content type required.');
-    $maximum = $endpoint === 'catalog.php' ? 12 * 1024 * 1024 : 128 * 1024;
+    $maximum = in_array($endpoint, ['catalog.php', 'scout.php'], true) ? 12 * 1024 * 1024 : 128 * 1024;
     if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > $maximum) mlt_security_error(413, 'Request is too large.');
     $raw = file_get_contents('php://input', false, null, 0, $maximum + 1);
     if ($raw === false || strlen($raw) > $maximum) mlt_security_error(413, 'Request is too large.');

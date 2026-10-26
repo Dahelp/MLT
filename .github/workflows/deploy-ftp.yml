@@ -49,14 +49,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: pdo_mysql, pdo_sqlite, mbstring, curl
+          extensions: pdo_mysql, pdo_sqlite, mbstring, curl, gd
           coverage: none
 
       - name: Build and test shared site core
         run: pnpm test
 
       - name: Verify API security and staff access
-        run: node --test tests/security-api.test.mjs tests/admin-users-api.test.mjs tests/acquisitions-api.test.mjs tests/chat-api.test.mjs tests/sales-investments-api.test.mjs tests/operations-access.test.mjs tests/chat-departments.test.mjs
+        run: node --test tests/security-api.test.mjs tests/admin-users-api.test.mjs tests/acquisitions-api.test.mjs tests/chat-api.test.mjs tests/sales-investments-api.test.mjs tests/operations-access.test.mjs tests/chat-departments.test.mjs tests/scout-api.test.mjs
 
       - name: Verify voucher money, permissions and concurrent inventory
         env:

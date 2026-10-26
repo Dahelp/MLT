@@ -35,6 +35,7 @@ LimitRequestBody 12582912
     Header always set Referrer-Policy "no-referrer"
   </FilesMatch>
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Permissions-Policy "camera=(self), microphone=(), geolocation=(self)" "expr=%{REQUEST_URI} =~ m#^/scout-passport(?:/|$)#"
   Header always set X-Robots-Tag "noindex, nofollow, noarchive"
   Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
   <FilesMatch "\.html$">
@@ -62,6 +63,6 @@ LimitRequestBody 12582912
   Require all denied
 </Files>
 
-<FilesMatch "(?i)(\.(?:sql|sqlite3?|db|bak|old|orig|save|swp|dist|map|ts|tsx|mjs|jsonl|pem|key)$|^(?:composer\.(?:json|lock)|package\.json|pnpm-lock\.yaml|.*config\.php|security\.php|voucher-core\.php|voucher-payments\.php|chat-access\.php|journey-pricing\.php)$)">
+<FilesMatch "(?i)(\.(?:sql|sqlite3?|db|bak|old|orig|save|swp|dist|map|ts|tsx|mjs|jsonl|pem|key)$|^(?:composer\.(?:json|lock)|package\.json|pnpm-lock\.yaml|.*config\.php|security\.php|voucher-core\.php|voucher-payments\.php|chat-access\.php|journey-pricing\.php|scout-core\.php)$)">
   Require all denied
 </FilesMatch>

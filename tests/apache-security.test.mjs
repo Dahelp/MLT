@@ -13,6 +13,9 @@ test('Apache applies security headers and blocks private files and executable up
   const dir = await mkdtemp(path.join(tmpdir(), 'mlt-apache-security-'));
   const web = path.join(dir, 'web'); await mkdir(path.join(web, 'uploads'), { recursive: true });
   await mkdir(path.join(web, 'assets'));
+  await mkdir(path.join(web, 'scout-passport'));
+  await writeFile(path.join(web, 'scout-passport/index.html'), 'Scout passport fixture');
+  await writeFile(path.join(web, 'scout-core.php'), 'private helper fixture');
   await writeFile(path.join(web, 'assets/maplibre-gl-worker-test.js'), 'self.onmessage = () => {};');
   await cp(new URL('../public/.htaccess', import.meta.url), path.join(web, '.htaccess'));
   await cp(new URL('../public/uploads/.htaccess', import.meta.url), path.join(web, 'uploads/.htaccess'));
@@ -42,6 +45,11 @@ DocumentRoot "${unix(web)}"
     for (let i = 0; i < 80; i++) { try { await get('/page.html'); break; } catch { await new Promise(r => setTimeout(r, 100)); } }
     const page = await get('/page.html'); assert.equal(page.status, 200);
     assert.equal(page.headers.get('X-Frame-Options'), 'SAMEORIGIN');
+    assert.equal(page.headers.get('Permissions-Policy'), 'camera=(), microphone=(), geolocation=()');
+    const scoutPage = await get('/scout-passport/index.html');
+    assert.equal(scoutPage.status, 200);
+    assert.equal(scoutPage.headers.get('Permissions-Policy'), 'camera=(self), microphone=(), geolocation=(self)', 'Only the scout page can ask for camera and GPS');
+    assert.equal((await get('/scout-core.php')).status, 403);
     assert.equal(page.headers.get('Referrer-Policy'), 'strict-origin', 'Map tiles receive the origin without leaking page paths or parameters');
     assert.equal((await get('/endpoint.php')).headers.get('Referrer-Policy'), 'no-referrer', 'API and payment callbacks retain stricter privacy');
     const worker = await get('/assets/maplibre-gl-worker-test.js');

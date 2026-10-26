@@ -2,7 +2,8 @@
 import SiteFooter from "../SiteFooter";
 import type { Locale } from "../../content/i18n";
 import { useEffect, useMemo, useState } from "react";
-import { collections, experiences, fleet, mapPoints } from "../../content/mlt";
+import { collections, experiences, fleet } from "../../content/mlt";
+import { useRoutePoints } from "../useRoutePoints";
 import { collectionDe } from "../../content/i18n";
 import { journeyRates, type JourneyCollectionId } from "../../content/journey-pricing";
 const texts = {
@@ -11,6 +12,7 @@ const texts = {
 } as const;
 const countryDe: Record<string, string> = { Italy: "Italien", Austria: "Österreich", Germany: "Deutschland" };
 export default function ProposalPage({ initialSiteLocale }: { initialSiteLocale?: Locale } = {}) {
+  const { points: mapPoints } = useRoutePoints();
   const footerLocale = initialSiteLocale;
   const [ready, setReady] = useState(false); const [locale, setLocale] = useState<"en" | "de">("en"); const [data, setData] = useState({ country: "Italy", guests: "2 guests", vehicle: "granduca", collection: "signature", arrival: "2026-09-17", departure: "2026-09-27", route: ["dolomites", "como"], extras: [] as string[] });
   useEffect(() => { const q = new URLSearchParams(location.search); const dates = q.get("dates")?.split("_"); setLocale(q.get("lang") === "de" || (!q.get("lang") && localStorage.getItem("mlt-locale") === "de") ? "de" : "en"); setData({ country: q.get("country") || "Italy", guests: q.get("guests") || "2 guests", vehicle: q.get("vehicle") || "granduca", collection: q.get("collection") || "signature", arrival: dates?.[0] || "2026-09-17", departure: dates?.[1] || "2026-09-27", route: q.get("route")?.split(",").filter(Boolean) || ["dolomites", "como"], extras: q.get("extras")?.split(",").filter(Boolean) || [] }); setReady(true); }, []);

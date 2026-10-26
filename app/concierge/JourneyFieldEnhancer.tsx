@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { experiences, journeyRoutes, mapPoints } from "../../content/mlt";
+import { experiences, journeyRoutes } from "../../content/mlt";
+import { useRoutePoints } from "../useRoutePoints";
 
 type Targets={route:HTMLTextAreaElement;points:HTMLTextAreaElement;services:HTMLTextAreaElement;serviceHost:HTMLDivElement};
 type Service={title:string;price:number};
@@ -17,6 +18,7 @@ function ChoiceDropdown({choices,selected,onToggle,placeholder,selectedWord}:{ch
 export default function JourneyFieldEnhancer(){
  const [targets,setTargets]=useState<Targets|null>(null),[revision,setRevision]=useState(0);
  useEffect(()=>{const locate=()=>{const route=document.querySelector<HTMLTextAreaElement>('.concierge-detail textarea[name="route"]'),points=document.querySelector<HTMLTextAreaElement>('.concierge-detail textarea[name="points"]'),services=document.querySelector<HTMLTextAreaElement>('.concierge-detail textarea[name="services"]'),locale=localStorage.getItem("mlt-operations-locale")||"en",labels=locale==="ru"?["Маршруты","Места и точки карты","Дополнительные услуги"]:locale==="de"?["Routen","Orte und Kartenpunkte","Zusatzleistungen"]:["Routes","Places and map points","Additional services"];[route,points].forEach((node,index)=>{const text=node?.parentElement?.firstChild;if(text?.nodeType===Node.TEXT_NODE)text.nodeValue=labels[index]});let serviceHost=document.querySelector<HTMLDivElement>(".journey-services-host");if(services&&!serviceHost){serviceHost=document.createElement("div");serviceHost.className="journey-services-host";services.parentElement?.insertAdjacentElement("afterend",serviceHost)}if(serviceHost)serviceHost.dataset.label=labels[2];setTargets(route&&points&&services&&serviceHost?{route,points,services,serviceHost}:null)};locate();const observer=new MutationObserver(locate);observer.observe(document.body,{childList:true,subtree:true});return()=>observer.disconnect()},[]);
+ const { points: mapPoints } = useRoutePoints(Boolean(targets));
  if(!targets)return null;
  const locale=localStorage.getItem("mlt-operations-locale")||"en";
  const words=locale==="ru"?{choose:"Выберите варианты",selected:"выбрано"}:locale==="de"?{choose:"Optionen auswählen",selected:"ausgewählt"}:{choose:"Choose options",selected:"selected"};

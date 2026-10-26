@@ -1,5 +1,5 @@
 import type { Locale } from "../content/i18n";
-import { mapPoints } from "../content/mlt";
+import { useRoutePoints } from "./useRoutePoints";
 import { mapCopy } from "../content/map";
 
 type Props = {
@@ -13,6 +13,7 @@ type Props = {
 };
 
 export default function MapSelectionList({ locale, selected, distance, onToggle, variant = "main", className = "", itemClassName = "" }: Props) {
+  const { points: mapPoints } = useRoutePoints();
   const t = mapCopy[locale];
   const places = selected.flatMap(id => { const point = mapPoints.find(item => item.id === id); return point ? [point] : []; });
   const heading = <>{variant === "mobile" ? <b>{t.selected}</b> : <small>{t.selected}</small>}<span>{places.length} / {mapPoints.length}</span></>;

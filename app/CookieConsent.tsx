@@ -22,13 +22,14 @@ export default function CookieConsent() {
   useEffect(() => {
     setOpen(!localStorage.getItem("mlt-cookie-consent"));
     const routeLocale = location.pathname.split("/")[1] as Locale;
-    setLocale(locales.includes(routeLocale) ? routeLocale : "en");
+    setLocale(location.pathname.startsWith("/scout-passport") ? "ru" : locales.includes(routeLocale) ? routeLocale : "en");
   }, []);
   useEffect(() => { const close = (event: MouseEvent) => { if (!languageMenu.current?.contains(event.target as Node)) setLanguageOpen(false); }; document.addEventListener("mousedown", close); return () => document.removeEventListener("mousedown", close); }, []);
   const t = copy[locale];
   const save = (choice: "essential" | "all" | "preferences") => { const permitted = choice === "all" || (choice === "preferences" && analytics); localStorage.setItem("mlt-cookie-consent", JSON.stringify({ choice, analytics: permitted, date: new Date().toISOString() })); window.dispatchEvent(new CustomEvent("mlt-consent-change", { detail: { analytics: permitted } })); setOpen(false); };
   const changeLocale = (next: Locale) => {
     localStorage.setItem("mlt-locale", next);
+    if (location.pathname.startsWith("/scout-passport")) { setLocale(next); setLanguageOpen(false); return; }
     const segments = location.pathname.split("/");
     if (locales.includes(segments[1] as Locale)) segments[1] = next;
     else segments.splice(1, 0, next);

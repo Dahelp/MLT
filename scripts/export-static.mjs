@@ -54,6 +54,8 @@ const routes = [
   "/admin/applications",
   "/admin/payments",
   "/admin/catalog",
+  "/admin/base-location",
+  "/scout-passport",
   "/admin/acquisitions",
   "/admin/team",
   "/admin/chat",
