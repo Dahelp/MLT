@@ -1,22 +1,44 @@
 /** Stabilize the hero and finish an observed native pull-to-refresh bounce. */
 export const mobileHomeViewportScript = String.raw`(() => {
-  if (!/^\/(en|de|ru|it|pl)\/(?:mobile-site\/|mobile-preview\/)?$/.test(location.pathname) ||
-      !matchMedia('(max-width: 800px) and (pointer: coarse)').matches) return;
+  if (!matchMedia('(max-width: 800px) and (pointer: coarse)').matches) return;
+  const home = /^\/(en|de|ru|it|pl)\/(?:mobile-site\/|mobile-preview\/)?$/.test(location.pathname);
+  const publicPage = home || /^\/(en|de|ru|it|pl)\/(?:collections\/[^/]+(?:\/(?:mobile-site|mobile-preview))?|plan|proposal|investments|acquisitions(?:\/[^/]+)?|contact|about|smart-map|vouchers|legal\/[^/]+)\/?$/.test(location.pathname);
+  if (!publicPage) return;
   const root = document.documentElement;
   let width = window.innerWidth;
   const sizeHero = () => root.style.setProperty('--mlt-mobile-hero-height', window.innerHeight + 'px');
-  sizeHero();
-  window.addEventListener('resize', () => {
+  if (home) sizeHero();
+  if (home) window.addEventListener('resize', () => {
     // Browser toolbars change height without rotating the device. Keep the hero stable.
     if (Math.abs(window.innerWidth - width) < 80) return;
     width = window.innerWidth;
     sizeHero();
   }, { passive: true });
 
+  // Safari may finish the negative part of the gesture before the new document runs.
+  // Remember only a downward refresh gesture that started at the top of this page.
+  const refreshKey = 'mlt-pull-refresh';
+  let previousPull = false;
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(refreshKey) || 'null');
+    previousPull = saved?.path === location.pathname && Date.now() - saved.time < 15000;
+    sessionStorage.removeItem(refreshKey);
+  } catch {}
+  let touchOrigin;
+  window.addEventListener('touchstart', event => {
+    touchOrigin = window.scrollY <= 1 ? event.touches?.[0]?.clientY : undefined;
+    try { sessionStorage.removeItem(refreshKey); } catch {}
+  }, { passive: true });
+  window.addEventListener('touchmove', event => {
+    const y = event.touches?.[0]?.clientY;
+    if (touchOrigin === undefined || y === undefined || y - touchOrigin < 60 || window.scrollY > 1) return;
+    try { sessionStorage.setItem(refreshKey, JSON.stringify({ path: location.pathname, time: Date.now() })); } catch {}
+  }, { passive: true });
+
   const navigation = performance.getEntriesByType('navigation')[0];
   if (navigation?.type !== 'reload' || location.hash) return;
-  let bounced = false;
-  let released = false;
+  let bounced = previousPull;
+  let released = previousPull;
   let timer;
   let expiry;
   const clean = () => {
