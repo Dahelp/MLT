@@ -9,11 +9,28 @@ test("Scout Passport exports its mobile form, brand strip and private admin dest
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /MLT Scout Passport/);
-  assert.match(html, /Curate\. Capture\. Contribute to the MLT route/);
+  assert.match(html, /Находите\. Снимайте\. Дополняйте маршруты MLT/);
   for (const field of ['scoutName','title','country','latitude','longitude','description','parking','booking']) assert.ok(html.includes(`name="${field}"`), field);
   assert.match(html, /data-site-footer="main"/);
   assert.doesNotMatch(html, /class="mlt-chat-widget/);
   assert.equal((await render('/admin/base-location/')).status, 200);
+});
+
+test("all scout languages render the shared site menu and translated form without the removed introduction", async () => {
+  const translations = JSON.parse(await readFile(new URL('public/data/scout-i18n.json', root), 'utf8'));
+  for (const locale of ['en','de','ru','it','pl']) {
+    const response = await render(`/${locale}/scout-passport/`);
+    assert.equal(response.status,200);
+    const html = await response.text();
+    assert.ok(html.includes(`class="scout-page" lang="${locale}"`));
+    assert.match(html,/mlt-site-header/);
+    assert.ok(html.includes(`href="/${locale}/smart-map/"`));
+    assert.ok(html.includes(`href="/${locale}/contact/"`));
+    assert.ok(html.includes(translations[locale].form.scoutName));
+    assert.ok(html.includes(translations[locale].form.sectionPhotos));
+    assert.ok(html.includes(translations[locale].form.submit));
+    assert.doesNotMatch(html,/class="scout-intro"|class="scout-meta"|class="mlt-chat-widget/);
+  }
 });
 
 test("voucher offer is present in both home layouts and localized purchase pages preserve the shared footer", async () => {

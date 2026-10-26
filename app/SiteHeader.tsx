@@ -7,7 +7,7 @@ import { useState } from "react";
 import { LanguageMenu, type SiteLanguage } from "./LanguageMenu";
 import { AcquisitionsDropdown, CollectionsDropdown, siteNavLabels } from "./SiteNavDropdown";
 
-export default function SiteHeader({ locale, isHome = false }: { locale: SiteLanguage; isHome?: boolean }) {
+export default function SiteHeader({ locale, isHome = false, onLocaleChange }: { locale: SiteLanguage; isHome?: boolean; onLocaleChange?: (locale: SiteLanguage) => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const t = siteNavLabels(locale);
   const pathname = usePathname();
@@ -23,7 +23,7 @@ export default function SiteHeader({ locale, isHome = false }: { locale: SiteLan
       <a href={`/${locale}/contact/`}>{t.contact}</a></div>
     </nav>
     <div className="light-actions">
-      <LanguageMenu locale={locale} onChange={changeSiteLocale} />
+      <LanguageMenu locale={locale} onChange={onLocaleChange || changeSiteLocale} />
       <a className="account-nav-link" href={`/${locale}/account/`} aria-label={t.account}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.8-3.7 3.3-5.5 7.5-5.5s6.7 1.8 7.5 5.5"/></svg></a>
       <button className="light-menu" type="button" onClick={() => setMenuOpen((open) => !open)} aria-expanded={menuOpen} aria-label={t.toggleMenu}><span/><span/></button>
     </div>

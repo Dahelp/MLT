@@ -32,7 +32,7 @@ function ChatSession({pathname,department}:{pathname:string;department:"concierg
   const title=department==="sales"?"MLT Manager":"MLT Concierge";
   const [open,setOpen]=useState(false),[state,setState]=useState<ChatState>({messages:[],unread:0,operatorsOnline:0}),[busy,setBusy]=useState(false),[error,setError]=useState("");
   const listRef=useRef<HTMLDivElement>(null);
-  const hidden=["/admin","/manager","/concierge","/sales","/scout-passport"].some(section=>pathname===section||pathname.startsWith(`${section}/`))||pathname.startsWith("/mobile-preview");
+  const hidden=["/admin","/manager","/concierge","/sales","/scout-passport"].some(section=>pathname===section||pathname.startsWith(`${section}/`))||/^\/(?:en\/|de\/|ru\/|it\/|pl\/)?scout-passport(?:\/|$)/.test(pathname)||pathname.startsWith("/mobile-preview");
   const isCollectionPage=pathname.includes("/collections/");
   const sync=useCallback(async(markRead=false)=>{const token=localStorage.getItem(tokenKey)||"";try{const data=await api(token?{action:"sync",token,markRead,department}:{action:"status",department});setState(data);setError("");}catch{/* keep chat available during transient network errors */}},[department,tokenKey]);
   useEffect(()=>{if(hidden)return;sync(open);const timer=window.setInterval(()=>sync(open),open?3000:9000);return()=>window.clearInterval(timer)},[hidden,open,sync]);

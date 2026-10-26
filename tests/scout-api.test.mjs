@@ -10,6 +10,8 @@ import { randomUUID, randomBytes } from 'node:crypto';
 test('Scout Passport: private moderation, valid portraits, retry safety, revision and map publication', async () => {
   const directory = await mkdtemp(path.join(tmpdir(), 'mlt-scout-'));
   const apiDirectory = path.join(directory, 'api'); await mkdir(apiDirectory);
+  await mkdir(path.join(directory, 'data'));
+  await cp(new URL('../public/data/scout-i18n.json', import.meta.url), path.join(directory, 'data/scout-i18n.json'));
   for (const file of ['scout.php', 'scout-core.php', 'security.php']) await cp(new URL(`../public/api/${file}`, import.meta.url), path.join(apiDirectory, file));
   await cp(new URL('./scout-test-booking.php', import.meta.url), path.join(apiDirectory, 'booking.php'));
   const php = process.env.PHP_BINARY || 'php';
@@ -18,8 +20,8 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
   const port = await new Promise(resolve => { const server = createServer(); server.listen(0, '127.0.0.1', () => { const port = server.address().port; server.close(() => resolve(port)); }); });
   const server = spawn(php, ['-S', `127.0.0.1:${port}`, '-t', directory], { stdio: ['ignore', 'ignore', 'pipe'] });
   let log = ''; server.stderr.on('data', chunk => { log += chunk; });
-  const request = async (body, role) => {
-    const response = await fetch(`http://127.0.0.1:${port}/api/scout.php`, { method: 'POST', headers: { 'Content-Type': 'application/json', ...(role ? { Authorization: `Bearer test-${role}-token` } : {}) }, body: JSON.stringify(body) });
+  const request = async (body, role, locale = "ru") => {
+    const response = await fetch(`http://127.0.0.1:${port}/api/scout.php`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-MLT-Locale': locale, ...(role ? { Authorization: `Bearer test-${role}-token` } : {}) }, body: JSON.stringify(body) });
     const raw = await response.text();
     try { return { status: response.status, data: JSON.parse(raw) }; } catch { throw Error(raw + log); }
   };
@@ -30,6 +32,12 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
       for (const action of ['list', 'moderate', 'publish', 'unpublish', 'revision_link']) assert.equal((await request({ action }, role)).status, 403, `${role}: ${action}`);
     }
     for (const invalid of [{ latitude: '' }, { longitude: 181 }, { category: 'invalid' }, { photos: [portrait] }, { photos: [portrait, landscape] }, { photos: [portrait, 'data:image/svg+xml;base64,PHN2Zy8+'] }, { website: 'bot' }]) assert.equal((await request({ ...fields, ...invalid })).status, 400);
+    const messages = JSON.parse(await (await import('node:fs/promises')).readFile(new URL('../public/data/scout-i18n.json', import.meta.url), 'utf8'));
+    for (const locale of ['en','de','ru','it','pl']) {
+      const forbidden = await request({action:'list'}, undefined, locale);
+      assert.equal(forbidden.status,403); assert.equal(forbidden.data.code,'adminRequired');
+      assert.equal(forbidden.data.error,messages[locale].errors.adminRequired);
+    }
     let submitted = await request(fields); assert.equal(submitted.status, 200, JSON.stringify(submitted.data));
     let card = submitted.data.card;
     assert.equal(card.status, 'pending'); assert.equal(card.isPublished, false); assert.equal(card.photos.length, 2);

@@ -35,7 +35,7 @@ LimitRequestBody 12582912
     Header always set Referrer-Policy "no-referrer"
   </FilesMatch>
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
-  Header always set Permissions-Policy "camera=(self), microphone=(), geolocation=(self)" "expr=%{REQUEST_URI} =~ m#^/scout-passport(?:/|$)#"
+  Header always set Permissions-Policy "camera=(self), microphone=(), geolocation=(self)" "expr=%{REQUEST_URI} =~ m#^/(?:en/|de/|ru/|it/|pl/)?scout-passport(?:/|$)#"
   Header always set X-Robots-Tag "noindex, nofollow, noarchive"
   Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
   <FilesMatch "\.html$">

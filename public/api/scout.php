@@ -7,9 +7,9 @@ require_once __DIR__.'/booking.php';
 require_once __DIR__.'/scout-core.php';
 $body=json_decode(file_get_contents('php://input'),true) ?: [];
 $action=$_SERVER['REQUEST_METHOD']==='GET' ? (string)($_GET['action']??'points') : (string)($body['action']??'');
-if ($_SERVER['REQUEST_METHOD']==='GET' && $action!=='points') mlt_security_error(405,'Используйте POST.');
+if ($_SERVER['REQUEST_METHOD']==='GET' && $action!=='points') mlt_scout_error(405,'usePost');
 $db=mlt_db(mlt_settings());
-if (!$db) mlt_security_error(503,'MLT Base временно недоступна. Попробуйте позже.');
+if (!$db) mlt_scout_error(503,'unavailable');
 mlt_scout_schema($db);
 
 if ($action==='points') {
@@ -27,17 +27,17 @@ if ($action==='read') {
 
 if ($action==='submit' || $action==='resubmit') {
     mlt_security_limit('scout-submit:'.($_SERVER['REMOTE_ADDR']??''),20,3600);
-    if (mlt_scout_text($body,'website',200)!=='') mlt_security_error(400,'Не удалось отправить форму.');
+    if (mlt_scout_text($body,'website',200)!=='') mlt_scout_error(400,'requestFailed');
     $requestId=mlt_scout_text($body,'requestId',36,true);
     $key=mlt_scout_text($body,'editToken',64,true);
-    if (!preg_match('/^[a-f0-9-]{36}$/D',$requestId) || !preg_match('/^[a-f0-9]{64}$/D',$key)) mlt_security_error(400,'Обновите страницу и повторите отправку.');
+    if (!preg_match('/^[a-f0-9-]{36}$/D',$requestId) || !preg_match('/^[a-f0-9]{64}$/D',$key)) mlt_scout_error(400,'refresh');
     $fields=mlt_scout_fields($body);
     $reference=$action==='resubmit' ? mlt_scout_text($body,'reference',32,true) : '';
     $existing=null;
     if ($reference!=='') { $existing=mlt_scout_find($db,$reference); mlt_scout_authorize($existing,$key); }
     else { $q=$db->prepare('SELECT s.*,(SELECT is_active FROM mlt_route_points WHERE id=s.published_point_id) AS map_active FROM mlt_scout_submissions s WHERE request_id=?'); $q->execute([$requestId]); $existing=$q->fetch() ?: null; if($existing)mlt_scout_authorize($existing,$key); }
     if ($existing && $existing['last_request_id']===$requestId) { echo json_encode(['ok'=>true,'card'=>mlt_scout_card($existing)]); exit; }
-    if ($action==='resubmit' && ($existing['status']!=='revision' || (int)($body['version']??0)!==(int)$existing['version'])) mlt_security_error(409,'Статус карточки изменился. Обновите страницу.');
+    if ($action==='resubmit' && ($existing['status']!=='revision' || (int)($body['version']??0)!==(int)$existing['version'])) mlt_scout_error(409,'statusChanged');
     $photos=mlt_scout_photos($body['photos']??null,$existing?json_decode($existing['photos_json'],true):[]);
     $written=[];
     try {
@@ -46,7 +46,7 @@ if ($action==='submit' || $action==='resubmit') {
             $locked=mlt_scout_find($db,$reference,true);
             mlt_scout_authorize($locked,$key);
             if($locked['last_request_id']===$requestId){$db->rollBack();echo json_encode(['ok'=>true,'card'=>mlt_scout_card($locked)]);exit;}
-            if ($locked['status']!=='revision' || (int)$locked['version']!==(int)($body['version']??0)) { $db->rollBack(); mlt_security_error(409,'Статус карточки изменился. Обновите страницу.'); }
+            if ($locked['status']!=='revision' || (int)$locked['version']!==(int)($body['version']??0)) { $db->rollBack(); mlt_scout_error(409,'statusChanged'); }
         }
         $directory=dirname(__DIR__).'/uploads/scout';
         if(!is_dir($directory) && !mkdir($directory,0755,true) && !is_dir($directory)) throw new RuntimeException('Scout upload directory');
@@ -82,11 +82,11 @@ if ($action==='submit' || $action==='resubmit') {
 $token=preg_replace('/^Bearer\s+/i','',(string)($_SERVER['HTTP_AUTHORIZATION']??''));
 $q=$db->prepare('SELECT id,role FROM mlt_users WHERE session_hash=? AND session_expires_at>NOW() LIMIT 1');
 $q->execute([hash('sha256',$token)]);$operator=$q->fetch();
-if(!$token || ($operator['role']??'')!=='admin')mlt_security_error(403,'Доступ разрешён только администратору.');
+if(!$token || ($operator['role']??'')!=='admin')mlt_scout_error(403,'adminRequired');
 
 if($action==='list'){
     $status=mlt_scout_text($body,'status',24);
-    if($status!==''&&!in_array($status,['pending','accepted','rejected','revision'],true))mlt_security_error(400,'Неизвестный статус.');
+    if($status!==''&&!in_array($status,['pending','accepted','rejected','revision'],true))mlt_scout_error(400,'unknownStatus');
     $search=mlt_scout_text($body,'search',180);
     $page=max(1,min(10000,(int)($body['page']??1)));$offset=($page-1)*24;
     $where=[];$params=[];
@@ -104,23 +104,23 @@ if(in_array($action,['moderate','publish','unpublish','revision_link'],true)){
     $reference=mlt_scout_text($body,'reference',32,true);
     $status=$action==='moderate'?mlt_scout_text($body,'status',24,true):'';
     $note=mlt_scout_text($body,'reviewNote',2000);
-    if($action==='moderate'&&(!in_array($status,['accepted','rejected','revision'],true)||($status==='revision'&&$note==='')))mlt_security_error(400,'Для доработки добавьте комментарий скауту.');
+    if($action==='moderate'&&(!in_array($status,['accepted','rejected','revision'],true)||($status==='revision'&&$note==='')))mlt_scout_error(400,'revisionNote');
     $db->beginTransaction();
     try{
         $row=mlt_scout_find($db,$reference,true);
-        if(!$row){$db->rollBack();mlt_security_error(404,'Карточка не найдена.');}
-        if((int)$row['version']!==(int)($body['version']??0)){$db->rollBack();mlt_security_error(409,'Карточку уже изменили. Обновите список.');}
+        if(!$row){$db->rollBack();mlt_scout_error(404,'cardMissing');}
+        if((int)$row['version']!==(int)($body['version']??0)){$db->rollBack();mlt_scout_error(409,'reviewConflict');}
         $extra=[];
         if($action==='moderate'){
             if($status!=='accepted'&&$row['published_point_id'])$db->prepare('UPDATE mlt_route_points SET is_active=0 WHERE id=?')->execute([$row['published_point_id']]);
             $db->prepare('UPDATE mlt_scout_submissions SET status=?,review_note=?,reviewed_by=?,version=version+1,updated_at=NOW() WHERE id=?')->execute([$status,$note,$operator['id'],$row['id']]);
         }elseif($action==='revision_link'){
-            if($row['status']!=='revision'){$db->rollBack();mlt_security_error(409,'Ссылка для редактирования доступна после возврата на доработку.');}
+            if($row['status']!=='revision'){$db->rollBack();mlt_scout_error(409,'revisionOnly');}
             $key=bin2hex(random_bytes(32));
             $db->prepare('UPDATE mlt_scout_submissions SET edit_token_hash=?,version=version+1,updated_at=NOW() WHERE id=?')->execute([hash('sha256',$key),$row['id']]);
             $extra=['editToken'=>$key];
         }elseif($action==='publish'){
-            if($row['status']!=='accepted'){$db->rollBack();mlt_security_error(409,'Сначала примите карточку.');}
+            if($row['status']!=='accepted'){$db->rollBack();mlt_scout_error(409,'acceptFirst');}
             $values=[$row['title'],$row['country_name'],$row['latitude'],$row['longitude'],$row['description'],json_decode($row['photos_json'],true)[0]];
             if($row['published_point_id']){
                 $pointId=(int)$row['published_point_id'];
@@ -139,4 +139,4 @@ if(in_array($action,['moderate','publish','unpublish','revision_link'],true)){
         echo json_encode(['ok'=>true,'card'=>$card,...$extra],JSON_UNESCAPED_UNICODE);exit;
     }catch(Throwable $error){if($db->inTransaction())$db->rollBack();throw $error;}
 }
-mlt_security_error(400,'Неизвестное действие.');
+mlt_scout_error(400,'unknownAction');

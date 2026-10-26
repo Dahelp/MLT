@@ -74,6 +74,7 @@ const routes = [
   ...locales.flatMap((locale) => pageRoutes.map((route) => `/${locale}${route}`)),
   ...locales.flatMap((locale) => [`/${locale}/investments`, `/${locale}/acquisitions`, `/${locale}/contact`, `/${locale}/about`, `/${locale}/smart-map`]),
   ...locales.flatMap(locale => listingSlugs.map(slug => `/${locale}/acquisitions/${slug}`)),
+  ...locales.map((locale) => `/${locale}/scout-passport`),
   ...locales.map((locale) => `/${locale}/mobile-preview`),
   ...locales.flatMap((locale) => mobilePreviewCollections.map((slug) => `/${locale}/collections/${slug}/mobile-preview`)),
   ...locales.map((locale) => `/${locale}/mobile-site`),
