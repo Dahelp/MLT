@@ -6,13 +6,19 @@ type Request=(action:string,payload?:object)=>Promise<any>;
 export function JourneySettings({request,locale}:{request:Request;locale:string}){
   const [data,setData]=useState<{percent:number;enabled:boolean;terms:string}|null>(null),[message,setMessage]=useState(''),[busy,setBusy]=useState(false);
   useEffect(()=>{request('journey_settings').then(d=>setData(d.settings)).catch(e=>setMessage(e.message));},[]);
-  const ru=locale==='ru';
-  return <section className="concierge-table"><h2>MLT Flexible Protection</h2>{data&&<form className="journey-editor" onSubmit={async e=>{e.preventDefault();setBusy(true);try{await request('journey_settings_save',data);setMessage(ru?'Сохранено':'Saved');}catch(e){setMessage((e as Error).message)}finally{setBusy(false)}}}>
-    <label>{ru?'Доплата':'Surcharge'}<input type="number" min={5} max={8} step="0.01" required value={data.percent} onChange={e=>setData({...data,percent:Number(e.target.value)})}/></label>
-    <label>{ru?'Утверждённые условия переноса и возврата':'Approved rescheduling and refund terms'}<textarea required={data.enabled} value={data.terms} onChange={e=>setData({...data,terms:e.target.value})}/></label>
-    <label><input type="checkbox" checked={data.enabled} onChange={e=>setData({...data,enabled:e.target.checked})}/>{ru?'Предлагать клиентам':'Offer to clients'}</label><button disabled={busy}>{ru?'Сохранить':'Save'}</button>
-  </form>}<p role="status">{message}</p></section>;
+  const labels={
+    ru:{section:'Условия оплаты и возврата',intro:'Дополнительная защита путешествия: доплата и условия переноса или отмены.',percent:'Доплата, %',terms:'Утверждённые условия переноса и возврата',offer:'Предлагать клиентам',save:'Сохранить',saving:'Сохранение…',saved:'Сохранено'},
+    en:{section:'Payment and refund terms',intro:'Optional journey protection: surcharge and rescheduling or cancellation terms.',percent:'Surcharge, %',terms:'Approved rescheduling and refund terms',offer:'Offer to clients',save:'Save',saving:'Saving…',saved:'Saved'},
+    de:{section:'Zahlungs- und Erstattungsbedingungen',intro:'Optionaler Reiseschutz: Aufpreis und Bedingungen für Umbuchung oder Stornierung.',percent:'Aufpreis, %',terms:'Genehmigte Umbuchungs- und Erstattungsbedingungen',offer:'Kunden anbieten',save:'Speichern',saving:'Wird gespeichert…',saved:'Gespeichert'}
+  };
+  const t=labels[locale as keyof typeof labels]||labels.en;
+  return <details className="concierge-table journey-settings"><summary>{t.section}</summary><h3>MLT Flexible Protection</h3><p>{t.intro}</p>{data&&<form className="journey-editor" onSubmit={async e=>{e.preventDefault();setBusy(true);setMessage('');try{await request('journey_settings_save',data);setMessage(t.saved)}catch(e){setMessage((e as Error).message)}finally{setBusy(false)}}}>
+    <label>{t.percent}<input type="number" min={5} max={8} step="0.01" required value={data.percent} onChange={e=>setData({...data,percent:Number(e.target.value)})}/></label>
+    <label>{t.terms}<textarea required={data.enabled} value={data.terms} onChange={e=>setData({...data,terms:e.target.value})}/></label>
+    <label className="journey-settings-toggle"><input type="checkbox" checked={data.enabled} onChange={e=>setData({...data,enabled:e.target.checked})}/>{t.offer}</label><button disabled={busy}>{busy?t.saving:t.save}</button>
+  </form>}<p role="status">{message}</p></details>;
 }
+
 export function JourneyTermsEditor({raw,reference,request,locale,onSaved}:{raw?:string;reference:string;request:Request;locale:string;onSaved:()=>void}){
   const terms=orderTerms(raw),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),ru=locale==='ru';
   if(!terms)return null;

@@ -4,6 +4,24 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
+test("every admin route renders exactly one shared workspace with the same navigation", async () => {
+  const sections = ['overview','applications','payments','vouchers','catalog','acquisitions','investments','users','base-location','team','chat'];
+  for (const section of ['', ...sections]) {
+    const response = await render(`/admin/${section ? section + '/' : ''}`);
+    assert.equal(response.status, 200, section);
+    const html = await response.text();
+    assert.equal((html.match(/class="staff-sidebar"/g) || []).length, 1, section);
+    assert.equal((html.match(/class="staff-topbar"/g) || []).length, 1, section);
+    assert.equal((html.match(/class="staff-logout"/g) || []).length, 1, section);
+    const nav = html.match(/<nav aria-label="Workspace navigation">(.*?)<\/nav>/s)?.[1];
+    assert.ok(nav, section);
+    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(match => match[1]), sections.map(key => `/admin/${key}/`), section);
+    const active = section || 'overview';
+    assert.match(nav, new RegExp(`href="/admin/${active}/"[^>]*aria-current="page"`), active);
+    assert.doesNotMatch(html.match(/class="staff-topbar-start"(.*?)<\/div>/s)?.[1] || '', /vouchers/);
+  }
+});
+
 test("Scout Passport exports its mobile form, brand strip and private admin destination", async () => {
   const response = await render('/scout-passport/');
   assert.equal(response.status, 200);

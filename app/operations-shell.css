@@ -1,0 +1,51 @@
+.operations-shell{font:16px/1.5 "Segoe UI",Arial,sans-serif;background:#e7e4df;color:#272924}
+.operations-main{min-width:0}
+.operations-menu-backdrop{display:none}
+.operations-content{min-width:0;padding:40px clamp(20px,4vw,64px) 64px}
+.operations-content>header h1{margin:0 0 12px;font:400 clamp(38px,4vw,64px)/1.08 Georgia,serif}
+.operations-content>header p{margin:0;color:#716b63;font-size:17px;line-height:1.55}
+.operations-shell .staff-topbar{padding-inline:20px}
+.operations-shell .staff-sidebar{gap:18px;padding:28px 16px}
+.operations-shell .staff-sidebar nav{gap:5px;flex:1;min-height:0;align-content:start;overflow:auto}
+.operations-shell .staff-sidebar nav a{padding:12px;min-height:46px;font-size:16px;font-weight:500}
+.operations-shell .staff-sidebar nav a.active{font-weight:700}
+.operations-shell .staff-identity{overflow-wrap:anywhere}
+.operations-shell .staff-logout{display:flex;align-items:center;justify-content:space-between;gap:12px;font:600 16px "Segoe UI",Arial,sans-serif}
+.operations-shell .staff-logout svg{width:21px;height:21px;flex-shrink:0}
+.operations-shell .staff-logout:hover{border-color:#e4b087;background:#ffffff08}
+.operations-shell .staff-sidebar a:focus-visible,.operations-shell .staff-logout:focus-visible{outline:2px solid #e4b087;outline-offset:3px}
+.operations-content.concierge-main{padding:40px clamp(20px,4vw,64px) 64px}
+.operations-shell .concierge-tabs button b{display:inline-grid;min-width:28px;height:28px;place-items:center;margin-left:8px;border-radius:50%;background:#ffffff30;font:700 16px "Segoe UI",Arial,sans-serif}
+.operations-shell .concierge-tabs button:not(.active) b{color:#9b6139;background:#f5e7d9}
+.operations-shell .account-eyebrow,.operations-shell .concierge-table th{font-size:13px;letter-spacing:.05em}
+.operations-shell .concierge-table td,.operations-shell .concierge-table td small{font-size:16px}
+.operations-shell .concierge-table i{font-size:14px}
+.operations-content.staff-editor{padding:0;min-height:0;background:#e7e4df}
+.operations-content.staff-editor>section{padding:40px clamp(20px,4vw,64px) 64px}
+.operations-content.staff-investments{padding:0}
+.operations-content.voucher-admin{max-width:none}
+.operations-shell.operations-chat{height:100dvh;min-height:0}
+.operations-chat>.operations-main{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.operations-content.staff-chat-main{flex:1;padding:0;height:auto;min-height:0}
+.operations-shell .chat-desk-gate,.operations-shell .concierge-gate{min-height:calc(100dvh - 64px)}
+.operations-shell .concierge-loading{min-height:calc(100dvh - 64px);background:#e7e4df}
+.journey-settings>summary{cursor:pointer;font-weight:600;font-size:18px;color:#6f472a}
+.journey-settings .journey-settings-toggle{display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:0}
+.journey-settings .journey-settings-toggle input{appearance:auto;width:20px;min-height:20px;height:20px;flex:0 0 20px;padding:0;accent-color:#a66a43}
+@media(min-width:761px){.operations-shell:has(.staff-topbar[data-collapsed=true]) .staff-logout{justify-content:center;padding-inline:0}.operations-shell:has(.staff-topbar[data-collapsed=true]) .staff-logout:after{content:none}}
+@media(max-width:760px){
+ .operations-content,.operations-content.concierge-main,.operations-content.staff-editor>section{padding:28px 16px 48px}
+ .operations-shell .staff-sidebar{display:none;position:fixed;z-index:40;top:58px;left:0;width:min(290px,calc(100vw - 48px));height:calc(100dvh - 58px)!important;padding:24px 16px;gap:18px;overflow:hidden;box-shadow:16px 0 40px #0003}
+ .operations-shell[data-mobile-open=true] .staff-sidebar{display:flex}
+ .operations-menu-backdrop{display:block;position:fixed;z-index:35;inset:58px 0 0;border:0;background:#171c1766;cursor:pointer}
+ .operations-shell .staff-brand img{width:90px}
+ .operations-shell .staff-identity{display:grid}
+ .operations-shell .staff-sidebar nav{display:grid;gap:5px;overflow:auto;flex:1;scrollbar-width:thin}
+ .operations-shell .staff-sidebar nav a{padding:10px 12px;white-space:normal}
+ .operations-shell .staff-logout{min-height:44px;padding:10px 12px}
+ .operations-shell .staff-topbar{padding-inline:16px}
+ .operations-shell .staff-topbar .staff-collapse{display:flex}
+ .operations-chat>.operations-main{height:100dvh;min-height:430px}
+ .operations-content.staff-chat-main .chat-desk-body{height:100%}
+ .operations-content.staff-chat-main.operations-chat{height:100%;min-height:0}
+}
