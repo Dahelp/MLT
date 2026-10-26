@@ -1265,7 +1265,7 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
  .mlt-site-header .mlt-nav-dropdown-menu a{font-size:16px!important}
 }
 @media(max-width:480px){
- .mlt-site-header .light-brand{width:108px}
+ .mlt-site-header .light-brand{width:108px;left:calc(50% - 34px)}
  .mlt-site-header .light-actions{right:14px;left:14px;gap:6px}
  .mlt-site-header .header-language-trigger{width:62px;height:34px;padding:0 7px;gap:5px}
  .mlt-site-header .header-language-trigger>svg{display:none}
