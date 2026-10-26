@@ -8,22 +8,38 @@ export default function HeroVideo({ locale }: { locale: "en" | "de" | "ru" | "it
   const [frameReady, setFrameReady] = useState(false);
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => {
+    let startTimer: ReturnType<typeof setTimeout> | undefined;
+    const start = () => {
       const element = video.current;
       if (!element) return;
       if (media.matches) { element.pause(); setPlaying(false); }
       else void element.play().then(() => {
         setPlaying(!element.paused);
-        // Native autoplay can have emitted playing before React attached handlers.
+        // Reveal only a decoded video frame; the still remains underneath.
         if (element.readyState >= 2) {
           if ("requestVideoFrameCallback" in element) element.requestVideoFrameCallback(() => setFrameReady(true));
           else setFrameReady(true);
         }
       }).catch(() => setPlaying(false));
     };
+    const queueStart = () => {
+      clearTimeout(startTimer);
+      startTimer = setTimeout(start, 250);
+    };
+    const update = () => {
+      clearTimeout(startTimer);
+      window.removeEventListener("load", queueStart);
+      if (media.matches) { video.current?.pause(); setPlaying(false); }
+      else if (document.readyState === "complete") queueStart();
+      else window.addEventListener("load", queueStart, { once: true });
+    };
     update();
     media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
+    return () => {
+      clearTimeout(startTimer);
+      window.removeEventListener("load", queueStart);
+      media.removeEventListener("change", update);
+    };
   }, []);
   const labels = {
     en: ["Pause background video", "Play background video"],
@@ -37,7 +53,7 @@ export default function HeroVideo({ locale }: { locale: "en" | "de" | "ru" | "it
       <source media="(max-width: 700px)" srcSet="/hero-sunset-mobile-v4.webp" width={400} height={704} />
       <img className="light-hero-image hero-video-poster" src="/hero-sunset-desktop-v4.webp" width={1280} height={704} alt="" fetchPriority="high" decoding="async" />
     </picture>
-    <video ref={video} className={`light-hero-image light-hero-video${frameReady ? " hero-video-ready" : ""}`} autoPlay muted loop playsInline preload="auto" width={1280} height={704} aria-hidden="true" onPlaying={() => {
+    <video ref={video} className={`light-hero-image light-hero-video${frameReady ? " hero-video-ready" : ""}`} muted loop playsInline preload="none" width={1280} height={704} aria-hidden="true" onPlaying={() => {
       const element = video.current;
       if (element && "requestVideoFrameCallback" in element) element.requestVideoFrameCallback(() => setFrameReady(true));
       else setFrameReady(true);

@@ -199,13 +199,14 @@ test("keeps safeguards and critical interactions in source", async () => {
   for (const boundary of [italy, austria, germany]) assert.equal(JSON.parse(boundary).type, "FeatureCollection");
 });
 
-test("home hero keeps a persistent still beneath native autoplay and defers the map", async () => {
+test("home hero keeps a persistent still while video waits until after page load", async () => {
   for (const pathname of ["/en/", "/en/mobile-site/"]) {
     const response = await render(pathname);
     const html = await response.text();
     assert.equal(response.status, 200);
     assert.match(html, /class="light-hero-image hero-video-poster"[^>]+fetchPriority="high"/);
-    assert.match(html, /<video[^>]+autoPlay=""[^>]+muted=""/);
+    assert.match(html, /<video[^>]+muted=""[^>]+preload="none"/);
+    assert.doesNotMatch(html, /<video[^>]+autoPlay=/);
     assert.ok(html.indexOf("hero-video-poster") < html.indexOf("<video"));
     assert.match(html, /<source[^>]+media="\(max-width: 700px\)"[^>]+srcSet="\/hero-sunset-mobile-v4.webp"/);
     assert.match(html, /<source[^>]+media="\(max-width: 700px\)"[^>]+src="\/hero-sunset-mobile-v4.mp4"/);

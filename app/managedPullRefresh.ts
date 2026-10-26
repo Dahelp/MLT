@@ -17,6 +17,7 @@ export const managedPullRefreshScript = String.raw`(() => {
   let start;
   let distance = 0;
   let captured = false;
+  let reloadTimer;
   const reset = () => { start = undefined; distance = 0; captured = false; };
   const eligible = target => {
     if (target?.closest?.('input,textarea,select,[contenteditable="true"],[role="dialog"],[data-no-pull-refresh]')) return false;
@@ -26,6 +27,7 @@ export const managedPullRefreshScript = String.raw`(() => {
     return window.getSelection?.()?.type !== 'Range';
   };
   const begin = event => {
+    if (reloadTimer !== undefined) return;
     reset();
     if (event.touches.length !== 1 || window.scrollY > 1 ||
         Math.abs((window.visualViewport?.scale || 1) - 1) > .01 || !eligible(event.target)) return;
@@ -49,14 +51,19 @@ export const managedPullRefreshScript = String.raw`(() => {
     report(distance >= 80 ? 'managed-armed' : 'managed-pulling');
   };
   const finish = () => {
+    if (reloadTimer !== undefined) return;
     if (!captured || distance < 80) { reset(); report('managed-ready'); return; }
     start = undefined;
     captured = false;
     state.attempts += 1;
     report('managed-reload');
-    window.location.reload();
+    // Let the native touch/refresh controller finish this gesture first.
+    reloadTimer = setTimeout(() => {
+      reloadTimer = undefined;
+      window.location.reload();
+    }, 150);
   };
-  const cancel = () => { reset(); report('managed-ready'); };
+  const cancel = () => { clearTimeout(reloadTimer); reloadTimer = undefined; reset(); report('managed-ready'); };
   window.addEventListener('touchstart', begin, { passive: true, capture: true });
   window.addEventListener('touchmove', move, { passive: false, capture: true });
   window.addEventListener('touchend', finish, { passive: true, capture: true });
