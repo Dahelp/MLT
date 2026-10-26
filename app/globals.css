@@ -38,6 +38,8 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: auto; }
+html.mlt-managed-refresh,html.mlt-managed-refresh body{overscroll-behavior-y:none}
+.mlt-refresh-indicator{position:fixed;z-index:10001;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);padding:12px 16px;border:1px solid var(--mlt-bronze-dark);border-radius:var(--mlt-radius-control);background:var(--mlt-nav-paper);color:var(--mlt-nav-ink);box-shadow:var(--mlt-dropdown-shadow);font:16px/1.4 var(--mlt-font-ui);text-align:center;pointer-events:none}
 body { margin: 0; background: var(--ink); color: var(--paper); font-family: Arial, Helvetica, sans-serif; }
 button, select { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }

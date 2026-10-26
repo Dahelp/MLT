@@ -13,6 +13,7 @@ import AnchorNavigation from "./AnchorNavigation";
 import { viewportDiagnosticScript } from "./viewportDiagnostics";
 import ViewportDiagnostics from "./ViewportDebugPanel";
 import { mobileHomeViewportScript } from "./mobileHomeViewport";
+import { managedPullRefreshScript } from "./managedPullRefresh";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mlt-lifestyle.com"),
@@ -49,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head><script dangerouslySetInnerHTML={{ __html: viewportDiagnosticScript + mobileHomeViewportScript }} /></head>
+      <head><script dangerouslySetInnerHTML={{ __html: viewportDiagnosticScript + managedPullRefreshScript + mobileHomeViewportScript }} /></head>
       <body>{children}<AdminReturn/><AnchorNavigation /><ViewportDiagnostics /><JourneyFieldEnhancer /><ChatWidget /><CookieConsent /></body>
     </html>
   );

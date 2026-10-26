@@ -15,6 +15,9 @@ export const mobileHomeViewportScript = String.raw`(() => {
     sizeHero();
   }, { passive: true });
 
+  if (window.__MLT_MANAGED_REFRESH__) return;
+  if (new URLSearchParams(location.search || '').get('viewport-debug') === '1' &&
+      new URLSearchParams(location.search || '').get('refresh-mode') === 'raw') return;
   const navigation = performance.getEntriesByType('navigation')[0];
   let active = navigation?.type === 'reload' && !location.hash;
   const state = window.__MLT_REFRESH_STATE__ = { status: active ? 'watching' : 'idle', attempts: 0, nativeInset: 0 };

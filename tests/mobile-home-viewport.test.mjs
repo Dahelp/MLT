@@ -10,7 +10,7 @@ function page({type='reload',hash='',path='/en/',mobile=true,ignoredScrolls=0,lo
  const emit=(name,event={})=>{for(const fn of [...(events.get(name)||[])])fn(event)};
  const viewport={scale:1,addEventListener:(name,fn)=>add('visual:'+name,fn),removeEventListener:(name,fn)=>remove('visual:'+name,fn)};
  const win={innerWidth:390,innerHeight:661,visualViewport:viewport,get scrollY(){return y},addEventListener:(name,fn)=>add(name,fn),removeEventListener:(name,fn)=>remove(name,fn),scrollTo:o=>{calls.push({time:now,...o});if(calls.length>ignoredScrolls)y=o.top}};
- const ctx={location:{pathname:path,hash},matchMedia:()=>({matches:mobile}),document:{readyState:loaded?'complete':'loading',documentElement:{classList:{add(){},remove(){}},style:{setProperty:(n,v)=>values.set(n,v),removeProperty:n=>values.delete(n)}}},performance:{getEntriesByType:()=>[{type}]},window:win,setTimeout:(fn,delay)=>{timers.set(++id,{at:now+delay,fn});return id},clearTimeout:id=>timers.delete(id)};
+ const ctx={URLSearchParams,location:{pathname:path,hash},matchMedia:()=>({matches:mobile}),document:{readyState:loaded?'complete':'loading',documentElement:{classList:{add(){},remove(){}},style:{setProperty:(n,v)=>values.set(n,v),removeProperty:n=>values.delete(n)}}},performance:{getEntriesByType:()=>[{type}]},window:win,setTimeout:(fn,delay)=>{timers.set(++id,{at:now+delay,fn});return id},clearTimeout:id=>timers.delete(id)};
  vm.runInNewContext(parsed.script,ctx);
  const advance=t=>{while(true){const next=[...timers.entries()].filter(([,v])=>v.at<=t).sort((a,b)=>a[1].at-b[1].at)[0];if(!next)break;now=next[1].at;timers.delete(next[0]);next[1].fn()}now=t};
  return{calls,values,win,viewport,advance,event:emit,sample:(time,scroll)=>{advance(time);y=scroll;emit('scroll')},y:()=>y};

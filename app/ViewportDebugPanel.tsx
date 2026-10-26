@@ -30,7 +30,7 @@ export default function ViewportDiagnostics() {
     <div>docY: {String(sample?.documentY)} · visualY: {String(sample?.visualY)} · pageY: {String(sample?.visualPageY)}</div>
     <div>header: {String(sample?.headerTop)} · hero: {String(sample?.heroTop)} / {String(sample?.heroHeight)}</div>
     <div>{String(sample?.navigation)} · {String(sample?.event)} · height: {String(sample?.visualHeight)} / {String(sample?.windowHeight)}</div>
-    <div>refresh: {String(sample?.refreshStatus)} · attempts: {String(sample?.refreshAttempts)} · inset: {String(sample?.nativeTopInset)}</div>
+    <div>refresh: {String(sample?.refreshStatus)} · attempts: {String(sample?.refreshAttempts)} · inset: {String(sample?.nativeTopInset)} · blocked: {String(sample?.preventedMoves)}</div>
     <button type="button" style={{ minHeight: 40, padding: "6px 12px", marginTop: 6, border: "1px solid #777", borderRadius: 6, background: "#eee", color: "#111" }} onClick={async () => {
       try {
         await navigator.clipboard.writeText(JSON.stringify({ userAgent: navigator.userAgent, path: location.pathname, samples: window.__MLT_VIEWPORT_LOG__ }, null, 2));
