@@ -90,6 +90,16 @@ jobs:
           server-dir: /
           state-name: .voucher-backend-sync.json
 
+      - name: Verify asset publishing safety
+        run: python3 -m unittest discover -s tests -p 'test_publish_assets.py'
+
+      - name: Publish immutable assets before pages
+        env:
+          FTP_SERVER: w021f859.kasserver.com
+          FTP_USERNAME: ${{ secrets.MLT_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.MLT_FTP_PASSWORD }}
+        run: python3 scripts/publish-assets.py ./static-export/assets
+
       - name: Deploy by FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -99,3 +109,9 @@ jobs:
           protocol: ftps
           local-dir: ./static-export/
           server-dir: /
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            assets
+            assets/**
