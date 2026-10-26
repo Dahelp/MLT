@@ -16,71 +16,106 @@ export const mobileHomeViewportScript = String.raw`(() => {
   }, { passive: true });
 
   const navigation = performance.getEntriesByType('navigation')[0];
-  if (navigation?.type !== 'reload' || location.hash) return;
-
-  // A native refresh can restore +60px without exposing its negative bounce.
-  // During reload, normalize the top 180px after the browser toolbars settle.
-  // Keep observing briefly: WebKit can reapply its offset after scrollTo returns.
-  const state = window.__MLT_REFRESH_STATE__ = { status: 'watching', attempts: 0 };
+  let active = navigation?.type === 'reload' && !location.hash;
+  const state = window.__MLT_REFRESH_STATE__ = { status: active ? 'watching' : 'idle', attempts: 0 };
   const report = status => {
+    if (state.status === status) return;
     state.status = status;
     window.__MLT_RECORD_VIEWPORT__?.('refresh-' + status);
   };
   let loaded = document.readyState === 'complete';
+  let fingerDown = false;
+  let pulled = false;
   let timer;
   let expiry;
-  const clean = reason => {
+  // Cancel a correction, not the passive detection of the next native pull.
+  const suspend = reason => {
     clearTimeout(timer);
     clearTimeout(expiry);
-    window.removeEventListener('scroll', observe);
-    window.removeEventListener('resize', observe);
-    window.removeEventListener('load', ready);
-    window.removeEventListener('pageshow', ready);
-    window.removeEventListener('touchstart', freshTouch);
-    window.removeEventListener('wheel', freshTouch);
-    window.removeEventListener('keydown', freshTouch);
-    window.removeEventListener('pagehide', leave);
-    window.visualViewport?.removeEventListener('scroll', observe);
-    window.visualViewport?.removeEventListener('resize', observe);
+    expiry = undefined;
+    active = false;
     report(reason);
+  };
+  const expire = () => {
+    clearTimeout(expiry);
+    expiry = setTimeout(() => suspend('idle'), 10000);
   };
   const settle = () => {
     const viewport = window.visualViewport;
     const y = window.scrollY;
-    if (!loaded || y < 0) return;
-    if (y > 180) { clean('deep-scroll'); return; }
-    if (viewport && Math.abs(viewport.scale - 1) >= 0.01) { clean('zoom'); return; }
+    if (!active || !loaded || fingerDown || y < 0) return;
+    if (y > 180) { suspend('deep-scroll'); return; }
+    if (viewport && Math.abs(viewport.scale - 1) >= 0.01) { suspend('zoom'); return; }
     if (viewport && Math.abs(viewport.offsetTop || 0) > 1) return;
     if (y <= 1) { report('at-top'); return; }
     state.attempts += 1;
     report('correcting');
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    // Verify the actual position instead of assuming the browser accepted the call.
     clearTimeout(timer);
     timer = setTimeout(settle, 450);
   };
   function observe() {
+    // A fresh downward overscroll can happen long after load without a new document.
+    if (fingerDown && window.scrollY < -1 && !pulled) {
+      pulled = true;
+      active = true;
+      report('pulling');
+    }
+    if (!active) return;
     clearTimeout(timer);
-    if (window.scrollY > 180) { clean('deep-scroll'); return; }
-    if (loaded) timer = setTimeout(settle, 450);
+    if (window.scrollY > 180) { suspend('deep-scroll'); return; }
+    if (loaded && !fingerDown) timer = setTimeout(settle, 450);
   }
-  function freshTouch() { clean('user-input'); }
-  function leave() { clean('pagehide'); }
+  function startTouch() {
+    fingerDown = true;
+    pulled = false;
+    suspend('user-input');
+    observe();
+  }
+  function endTouch() {
+    fingerDown = false;
+    if (pulled && active) {
+      report('settling');
+      expire();
+    }
+    observe();
+  }
+  function otherInput() { pulled = false; suspend('user-input'); }
   function ready() {
     loaded = true;
-    if (!expiry) expiry = setTimeout(() => clean('expired'), 10000);
+    if (active && !expiry) expire();
     observe();
+  }
+  function leave(event) {
+    suspend('pagehide');
+    if (event?.persisted) { fingerDown = false; pulled = false; return; }
+    window.removeEventListener('scroll', observe);
+    window.removeEventListener('resize', observe);
+    window.removeEventListener('load', ready);
+    window.removeEventListener('pageshow', ready);
+    window.removeEventListener('touchstart', startTouch);
+    window.removeEventListener('touchmove', observe);
+    window.removeEventListener('touchend', endTouch);
+    window.removeEventListener('touchcancel', endTouch);
+    window.removeEventListener('wheel', otherInput);
+    window.removeEventListener('keydown', otherInput);
+    window.removeEventListener('pagehide', leave);
+    window.visualViewport?.removeEventListener('scroll', observe);
+    window.visualViewport?.removeEventListener('resize', observe);
   }
   window.addEventListener('scroll', observe, { passive: true });
   window.addEventListener('resize', observe, { passive: true });
   window.addEventListener('load', ready, { passive: true });
   window.addEventListener('pageshow', ready, { passive: true });
-  window.addEventListener('touchstart', freshTouch, { passive: true });
-  window.addEventListener('wheel', freshTouch, { passive: true });
-  window.addEventListener('keydown', freshTouch);
+  window.addEventListener('touchstart', startTouch, { passive: true });
+  window.addEventListener('touchmove', observe, { passive: true });
+  window.addEventListener('touchend', endTouch, { passive: true });
+  window.addEventListener('touchcancel', endTouch, { passive: true });
+  window.addEventListener('wheel', otherInput, { passive: true });
+  window.addEventListener('keydown', otherInput);
   window.addEventListener('pagehide', leave);
   window.visualViewport?.addEventListener('scroll', observe, { passive: true });
   window.visualViewport?.addEventListener('resize', observe, { passive: true });
-  report('watching');
+  window.__MLT_RECORD_VIEWPORT__?.('refresh-' + state.status);
   if (loaded) ready();
 })();`;

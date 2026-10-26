@@ -75,3 +75,32 @@ test('replays the October 26 iPhone toolbar trace with no negative scroll sample
   p.advance(4522);assert.equal(p.y(),0,path);p.advance(5000);assert.equal(p.win.__MLT_REFRESH_STATE__.status,'at-top');
  }
 });
+
+test('a new pull rearms correction after an earlier normal gesture cancelled it',()=>{
+ const p=page();p.event('touchstart');p.sample(100,155);p.event('touchend');p.advance(1500);assert.equal(p.calls.length,0);
+ p.event('touchstart');p.sample(2000,-136);p.event('touchend');p.sample(2200,60);p.advance(2650);assert.equal(p.y(),0);assert.equal(p.calls.length,1);
+});
+for(const type of ['reload','navigate','back_forward'])test(`pull detection remains available after startup on ${type}`,()=>{
+ const p=page({type});p.advance(30000);p.event('touchstart');p.sample(30100,-60);p.event('touchend');p.sample(30200,60);p.advance(30650);assert.equal(p.y(),0);assert.equal(p.calls.length,1);
+});
+test('does not correct an overscroll while the finger is still held down',()=>{
+ const p=page();p.event('touchstart');p.sample(100,-60);p.sample(200,60);p.advance(1000);assert.equal(p.calls.length,0);p.event('touchend');p.advance(1450);assert.equal(p.y(),0);
+});
+test('a normal touch scroll preserves its intentional shallow position',()=>{
+ const p=page();p.event('touchstart');p.sample(100,120);p.event('touchend');p.advance(1000);assert.equal(p.y(),120);assert.equal(p.calls.length,0);
+});
+test('a new gesture cancels the previous pull correction without disabling the next pull',()=>{
+ const p=page();p.event('touchstart');p.sample(100,-60);p.event('touchend');p.sample(200,60);p.event('touchstart');p.sample(300,100);p.event('touchend');p.advance(1000);assert.equal(p.calls.length,0);
+ p.event('touchstart');p.sample(1100,-60);p.event('touchend');p.sample(1200,60);p.advance(1650);assert.equal(p.y(),0);
+});
+test('pull detection survives a back-forward cache restore',()=>{
+ const p=page();p.event('pagehide',{persisted:true});p.event('pageshow',{persisted:true});p.event('touchstart');p.sample(100,-60);p.event('touchend');p.sample(200,60);p.advance(650);assert.equal(p.y(),0);assert.equal(p.calls.length,1);
+});
+test('replays the measured cancelled guard and repeated native pulls from the latest iPhone log',()=>{
+ const samples=JSON.parse(readFileSync(new URL('./fixtures/iphone-repeated-pull.json',import.meta.url),'utf8'));
+ for(const path of ['/ru/','/ru/collections/freedom/mobile-site/','/ru/contact/']) {
+  const p=page({path});
+  for(const [time,event,y,height,offset]of samples){p.win.innerHeight=height;p.viewport.offsetTop=offset;p.sample(time,y);p.event(event.startsWith('visual-')?'visual:'+event.slice(7):event)}
+  p.advance(14000);assert.equal(p.y(),0,path);assert.ok(p.calls.length>=2);assert.equal(p.win.__MLT_REFRESH_STATE__.status,'at-top');
+ }
+});
