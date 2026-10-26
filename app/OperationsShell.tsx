@@ -4,7 +4,7 @@ import {usePathname} from "next/navigation";
 import OperationsSidebar from "./OperationsSidebar";
 import OperationsTopbar from "./OperationsTopbar";
 import {useOperatorIdentity} from "./OperatorIdentity";
-import {useOperationsLocale} from "./useOperationsLocale";
+import {useOperationsLocale, useOperationsHydrated} from "./useOperationsLocale";
 import {operationsLabels, type OperationsScope, type OperationsSection} from "../content/operations-navigation";
 import "./operations-shell.css";
 
@@ -27,6 +27,8 @@ export default function OperationsShell({scope, active, children, operator, cont
   const parent = useContext(ShellContext);
   const identity = useOperatorIdentity(!parent && !operator?.name);
   const [locale, setLocale] = useOperationsLocale();
+  const hydrated = useOperationsHydrated();
+  const ready = hydrated && locale === (document.documentElement.dataset.operationsLocale || "en");
   const [collapsed, setCollapsed] = useState(false);
   const [mobile, setMobile] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -39,7 +41,11 @@ export default function OperationsShell({scope, active, children, operator, cont
     parent.setTopbar({...department && {department}, unread, enableNotifications, applicationCount});
     return () => parent.setTopbar(undefined);
   }, [parent, department, unread, enableNotifications, applicationCount]);
-  useEffect(() => {setCollapsed(localStorage.getItem("mlt-operations-collapsed") === "true")}, []);
+  useEffect(() => {
+    const saved = localStorage.getItem("mlt-operations-collapsed") === "true";
+    setCollapsed(saved);
+    if (!parent) document.documentElement.dataset.operationsCollapsed = String(saved);
+  }, [parent]);
   useEffect(() => {
     const media = matchMedia("(max-width:760px)");
     const update = () => {setMobile(media.matches); setMobileOpen(false)};
@@ -58,11 +64,12 @@ export default function OperationsShell({scope, active, children, operator, cont
   }, [mobile, mobileOpen]);
   const toggleSidebar = () => mobile ? setMobileOpen(value => !value) : setCollapsed(value => {
     localStorage.setItem("mlt-operations-collapsed", String(!value));
+    document.documentElement.dataset.operationsCollapsed = String(!value);
     return !value;
   });
   const current = operator?.name ? operator : identity;
   if (parent) return <><div className={`operations-content ${contentClassName} ${className}`}>{children}</div>{overlay}</>;
-  return <ShellContext.Provider value={context}><main lang={locale} data-mobile-open={mobileOpen} className={`staff-workspace operations-shell ${className} ${active === "chat" ? "operations-chat" : ""}`}>
+  return <ShellContext.Provider value={context}><main lang={locale} data-operations-ready={ready} data-mobile-open={mobileOpen} className={`staff-workspace operations-shell ${className} ${active === "chat" ? "operations-chat" : ""}`}>
     <OperationsSidebar scope={scope} active={active} role={current?.role || scope} name={current?.name || "MLT"} locale={locale} onNavigate={() => setMobileOpen(false)}/>
     {mobileOpen && <button type="button" className="operations-menu-backdrop" aria-label={operationsLabels[locale].closeMenu} onClick={() => setMobileOpen(false)}/>}
     <div className="staff-main operations-main">

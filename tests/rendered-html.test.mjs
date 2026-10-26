@@ -10,6 +10,8 @@ test("every admin route renders exactly one shared workspace with the same navig
     const response = await render(`/admin/${section ? section + '/' : ''}`);
     assert.equal(response.status, 200, section);
     const html = await response.text();
+    assert.ok(html.indexOf('root.dataset.operationsLocale') >= 0 && html.indexOf('root.dataset.operationsLocale') < html.indexOf('<body'), 'Saved operations language must be applied in head');
+    assert.match(html, /class="operations-localized"><span lang="en">Overview<\/span><span lang="de">Übersicht<\/span><span lang="ru">Обзор<\/span>/);
     assert.equal((html.match(/class="staff-sidebar"/g) || []).length, 1, section);
     assert.equal((html.match(/class="staff-topbar"/g) || []).length, 1, section);
     assert.equal((html.match(/class="staff-logout"/g) || []).length, 1, section);

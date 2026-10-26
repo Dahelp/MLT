@@ -1,0 +1,2 @@
+.operations-localized>span{display:none}
+html:not([data-operations-locale=ru]):not([data-operations-locale=de]) .operations-localized>span[lang=en],html[data-operations-locale=ru] .operations-localized>span[lang=ru],html[data-operations-locale=de] .operations-localized>span[lang=de]{display:inline}

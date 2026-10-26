@@ -1,5 +1,6 @@
 "use client";
 import {operationsLabels, operationsNavigation, type OperationsScope, type OperationsSection, type StaffLocale} from "../content/operations-navigation";
+import OperationsText from "./OperationsText";
 export type {StaffLocale} from "../content/operations-navigation";
 
 function Icon({section}: {section: OperationsSection | "logout"}) {
@@ -12,6 +13,7 @@ function Icon({section}: {section: OperationsSection | "logout"}) {
 }
 export default function OperationsSidebar({scope,active,role,name,locale,onNavigate}:{scope:OperationsScope;active:OperationsSection;role:string;name:string;locale:StaffLocale;onNavigate?:()=>void}) {
  const t=operationsLabels[locale];
- const roleLabel=role==="admin"?t.admin:scope==="sales"?t.salesmanager:scope==="manager"?t.manager:t.concierge;
- return <aside className="staff-sidebar" id="operations-navigation"><a className="staff-brand" href="/"><img src="/mlt-logo.svg" alt="MLT"/></a><div className="staff-identity"><strong>{name}</strong><small>{roleLabel}</small></div><nav aria-label={t.navigation}>{operationsNavigation(scope,locale).map(({href,label,key})=><a key={key} href={href} onClick={onNavigate} title={label} aria-label={label} aria-current={active===key?"page":undefined} className={active===key?"active":""}><Icon section={key}/><span className="staff-nav-label">{label}</span></a>)}{role==="admin"&&scope!=="admin"&&<a className="staff-admin-link" href="/admin/team/" title={t.team}><span className="staff-nav-label">← {t.team}</span></a>}</nav><button type="button" className="staff-logout" title={t.logout} aria-label={t.logout} onClick={()=>{localStorage.removeItem("mlt-account-token");location.assign("/account/")}}><span className="staff-nav-label">{t.logout}</span><Icon section="logout"/></button></aside>;
+ const roleKey=role==="admin"?"admin":scope==="sales"?"salesmanager":scope==="manager"?"manager":"concierge";
+ const localized=(key:keyof typeof t)=><OperationsText values={{en:operationsLabels.en[key],de:operationsLabels.de[key],ru:operationsLabels.ru[key]}}/>;
+ return <aside className="staff-sidebar" id="operations-navigation"><a className="staff-brand" href="/"><img src="/mlt-logo.svg" alt="MLT"/></a><div className="staff-identity"><strong title={name}>{name}</strong><small>{localized(roleKey)}</small></div><nav aria-label={t.navigation}>{operationsNavigation(scope,locale).map(({href,label,key})=><a key={key} href={href} onClick={onNavigate} title={label} aria-label={label} aria-current={active===key?"page":undefined} className={active===key?"active":""}><Icon section={key}/><span className="staff-nav-label">{localized(key)}</span></a>)}{role==="admin"&&scope!=="admin"&&<a className="staff-admin-link" href="/admin/team/" title={t.team}><span className="staff-nav-label">← {localized("team")}</span></a>}</nav><button type="button" className="staff-logout" title={t.logout} aria-label={t.logout} onClick={()=>{localStorage.removeItem("mlt-account-token");location.assign("/account/")}}><span className="staff-nav-label">{localized("logout")}</span><Icon section="logout"/></button></aside>;
 }

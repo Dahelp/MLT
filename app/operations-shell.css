@@ -1,4 +1,5 @@
 .operations-shell{font:16px/1.5 "Segoe UI",Arial,sans-serif;background:#e7e4df;color:#272924}
+.operations-shell[data-operations-ready=false] .operations-main>:not(.staff-topbar){visibility:hidden}
 .operations-main{min-width:0}
 .operations-menu-backdrop{display:none}
 .operations-content{min-width:0;padding:40px clamp(20px,4vw,64px) 64px}
@@ -7,9 +8,9 @@
 .operations-shell .staff-topbar{padding-inline:20px}
 .operations-shell .staff-sidebar{gap:18px;padding:28px 16px}
 .operations-shell .staff-sidebar nav{gap:5px;flex:1;min-height:0;align-content:start;overflow:auto}
-.operations-shell .staff-sidebar nav a{padding:12px;min-height:46px;font-size:16px;font-weight:500}
-.operations-shell .staff-sidebar nav a.active{font-weight:700}
-.operations-shell .staff-identity{overflow-wrap:anywhere}
+.operations-shell .staff-sidebar nav a{padding:12px;min-height:46px;font-size:16px;font-weight:600}
+.operations-shell .staff-identity{min-width:0;min-height:64px;align-content:start}
+.operations-shell .staff-identity strong{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;line-height:1.2}
 .operations-shell .staff-logout{display:flex;align-items:center;justify-content:space-between;gap:12px;font:600 16px "Segoe UI",Arial,sans-serif}
 .operations-shell .staff-logout svg{width:21px;height:21px;flex-shrink:0}
 .operations-shell .staff-logout:hover{border-color:#e4b087;background:#ffffff08}
@@ -32,7 +33,13 @@
 .journey-settings>summary{cursor:pointer;font-weight:600;font-size:18px;color:#6f472a}
 .journey-settings .journey-settings-toggle{display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:0}
 .journey-settings .journey-settings-toggle input{appearance:auto;width:20px;min-height:20px;height:20px;flex:0 0 20px;padding:0;accent-color:#a66a43}
-@media(min-width:761px){.operations-shell:has(.staff-topbar[data-collapsed=true]) .staff-logout{justify-content:center;padding-inline:0}.operations-shell:has(.staff-topbar[data-collapsed=true]) .staff-logout:after{content:none}}
+@media(min-width:761px){
+ html[data-operations-collapsed=true] .operations-shell{grid-template-columns:78px minmax(0,1fr)}
+ html[data-operations-collapsed=true] .operations-shell .staff-sidebar{padding-inline:13px}
+ html[data-operations-collapsed=true] .operations-shell .staff-brand img{width:46px}
+ html[data-operations-collapsed=true] .operations-shell .staff-identity,html[data-operations-collapsed=true] .operations-shell .staff-nav-label{display:none}
+ html[data-operations-collapsed=true] .operations-shell .staff-sidebar nav a,html[data-operations-collapsed=true] .operations-shell .staff-logout{justify-content:center;padding-inline:0}
+}
 @media(max-width:760px){
  .operations-content,.operations-content.concierge-main,.operations-content.staff-editor>section{padding:28px 16px 48px}
  .operations-shell .staff-sidebar{display:none;position:fixed;z-index:40;top:58px;left:0;width:min(290px,calc(100vw - 48px));height:calc(100dvh - 58px)!important;padding:24px 16px;gap:18px;overflow:hidden;box-shadow:16px 0 40px #0003}
