@@ -1,6 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import {readFileSync} from 'node:fs';
 import {operationsNavigation} from '../content/operations-navigation.ts';
+
+test('admin links work on the deployed static Apache site without an RSC server', () => {
+  const sidebar = readFileSync(new URL('../app/OperationsSidebar.tsx', import.meta.url),'utf8');
+  // The exporter publishes HTML, not the .rsc endpoints requested by next/link.
+  assert.doesNotMatch(sidebar, /from\s+["']next\/link["']/);
+});
 
 test('admin navigation has one fixed order with overview first and vouchers after payments', () => {
   const expected = ['overview','applications','payments','vouchers','catalog','sales','investments','users','base-location','team','chat'];
