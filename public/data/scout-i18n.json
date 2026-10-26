@@ -110,7 +110,7 @@
       "openForm": "Open scout form",
       "copyLink": "Copy link",
       "refresh": "Refresh list",
-      "linkCopied": "Form link copied. You can send it to scouts.",
+      "linkCopied": "Link copied",
       "scoutLink": "Link for scouts: {url}",
       "filterLabel": "Location status",
       "all": "All",
@@ -140,7 +140,8 @@
       "unpublish": "Remove from maps",
       "revisionLink": "Create and copy revision link",
       "sendLink": "Send this link to the scout",
-      "replacesLink": "The new link replaces the previous personal link for this location."
+      "replacesLink": "The new link replaces the previous personal link for this location.",
+      "tools": "Form and list actions"
     },
     "errors": {
       "requestFailed": "Could not complete the request. Please try again.",
@@ -281,7 +282,7 @@
       "openForm": "Scout-Formular öffnen",
       "copyLink": "Link kopieren",
       "refresh": "Liste aktualisieren",
-      "linkCopied": "Formularlink kopiert. Sie können ihn an Scouts senden.",
+      "linkCopied": "Link kopiert",
       "scoutLink": "Link für Scouts: {url}",
       "filterLabel": "Status des Ortes",
       "all": "Alle",
@@ -311,7 +312,8 @@
       "unpublish": "Von Karten entfernen",
       "revisionLink": "Link zur Überarbeitung erstellen und kopieren",
       "sendLink": "Diesen Link an den Scout senden",
-      "replacesLink": "Der neue Link ersetzt den bisherigen persönlichen Link für diesen Ort."
+      "replacesLink": "Der neue Link ersetzt den bisherigen persönlichen Link für diesen Ort.",
+      "tools": "Formular- und Listenaktionen"
     },
     "errors": {
       "requestFailed": "Die Anfrage konnte nicht ausgeführt werden. Bitte versuchen Sie es erneut.",
@@ -452,7 +454,7 @@
       "openForm": "Открыть форму скаута",
       "copyLink": "Копировать ссылку",
       "refresh": "Обновить список",
-      "linkCopied": "Ссылка на форму скопирована — её можно отправить скаутам.",
+      "linkCopied": "Ссылка скопирована",
       "scoutLink": "Ссылка для скаутов: {url}",
       "filterLabel": "Статус локации",
       "all": "Все",
@@ -482,7 +484,8 @@
       "unpublish": "Убрать с карт",
       "revisionLink": "Создать и скопировать ссылку на доработку",
       "sendLink": "Отправьте эту ссылку скауту",
-      "replacesLink": "Новая ссылка заменяет предыдущую персональную ссылку этой карточки."
+      "replacesLink": "Новая ссылка заменяет предыдущую персональную ссылку этой карточки.",
+      "tools": "Действия с формой и списком"
     },
     "errors": {
       "requestFailed": "Не удалось выполнить запрос. Попробуйте ещё раз.",
@@ -623,7 +626,7 @@
       "openForm": "Apri il modulo scout",
       "copyLink": "Copia il link",
       "refresh": "Aggiorna l’elenco",
-      "linkCopied": "Link al modulo copiato. Puoi inviarlo agli scout.",
+      "linkCopied": "Link copiato",
       "scoutLink": "Link per gli scout: {url}",
       "filterLabel": "Stato del luogo",
       "all": "Tutti",
@@ -653,7 +656,8 @@
       "unpublish": "Rimuovi dalle mappe",
       "revisionLink": "Crea e copia il link per le modifiche",
       "sendLink": "Invia questo link allo scout",
-      "replacesLink": "Il nuovo link sostituisce il precedente link personale del luogo."
+      "replacesLink": "Il nuovo link sostituisce il precedente link personale del luogo.",
+      "tools": "Azioni del modulo e dell’elenco"
     },
     "errors": {
       "requestFailed": "Impossibile completare la richiesta. Riprova.",
@@ -794,7 +798,7 @@
       "openForm": "Otwórz formularz scouta",
       "copyLink": "Kopiuj link",
       "refresh": "Odśwież listę",
-      "linkCopied": "Skopiowano link do formularza. Możesz wysłać go scoutom.",
+      "linkCopied": "Link skopiowany",
       "scoutLink": "Link dla scoutów: {url}",
       "filterLabel": "Status miejsca",
       "all": "Wszystkie",
@@ -824,7 +828,8 @@
       "unpublish": "Usuń z map",
       "revisionLink": "Utwórz i skopiuj link do poprawy",
       "sendLink": "Wyślij ten link scoutowi",
-      "replacesLink": "Nowy link zastępuje poprzedni osobisty link do tego zgłoszenia."
+      "replacesLink": "Nowy link zastępuje poprzedni osobisty link do tego zgłoszenia.",
+      "tools": "Działania formularza i listy"
     },
     "errors": {
       "requestFailed": "Nie udało się wykonać operacji. Spróbuj ponownie.",

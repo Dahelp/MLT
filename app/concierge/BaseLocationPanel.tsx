@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { scoutEditLink, scoutRequest, type ScoutCard, type ScoutStatus } from "../../content/scout";
 import "./base-location.css";
 import { scoutCopy, scoutFormat, scoutPath, scoutCategoriesFor } from "../../content/scout-i18n";
@@ -10,22 +10,36 @@ export default function BaseLocationPanel({ locale }: { locale: OperationsLocale
   const t = scoutCopy[locale].admin, statuses = scoutCopy[locale].statuses;
   const [cards, setCards] = useState<ScoutCard[]>([]), [counts, setCounts] = useState<Record<string, number>>({});
   const [status, setStatus] = useState(""), [search, setSearch] = useState(""), [query, setQuery] = useState(""), [page, setPage] = useState(1), [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true), [error, setError] = useState(""), [message, setMessage] = useState(""), [refresh, setRefresh] = useState(0);
+  const [loading, setLoading] = useState(true), [error, setError] = useState(""), [message, setMessage] = useState(""), [refresh, setRefresh] = useState(0), [copied, setCopied] = useState(false);
   useEffect(() => {
     let active = true;
-    setLoading(true); setError(""); setMessage("");
+    setLoading(true); setError(""); setMessage(""); setCopied(false);
     scoutRequest("list", { status, search: query, page }, true, locale).then(result => { if (active) { setCards(result.cards); setCounts(result.counts); setTotal(result.total); } }).catch(value => { if (active) setError(value.message); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [status, query, page, refresh, locale]);
+  useEffect(() => {
+    if (!copied) return;
+    const timer = window.setTimeout(() => { setCopied(false); setMessage(""); }, 3500);
+    return () => window.clearTimeout(timer);
+  }, [copied]);
   const find = (event: FormEvent) => { event.preventDefault(); setPage(1); setQuery(search.trim()); };
-  const copyForm = async () => { try { await navigator.clipboard.writeText(`${location.origin}${scoutPath(locale)}`); setMessage(t.linkCopied); } catch { setMessage(scoutFormat(t.scoutLink, { url: `${location.origin}${scoutPath(locale)}` })); } };
+  const copyForm = async () => { try { await navigator.clipboard.writeText(`${location.origin}${scoutPath(locale)}`); setCopied(true); setMessage(t.linkCopied); } catch { setMessage(scoutFormat(t.scoutLink, { url: `${location.origin}${scoutPath(locale)}` })); } };
   return <section className="base-location-panel" lang={locale}>
-    <div className="base-location-toolbar"><div><a href={scoutPath(locale)} target="_blank" rel="noreferrer">{t.openForm}</a><button type="button" onClick={copyForm}>{t.copyLink}</button></div><button type="button" onClick={() => setRefresh(value => value + 1)} disabled={loading}>{t.refresh}</button></div>
-    <nav className="base-location-filters" aria-label={t.filterLabel}>{[["", t.all], ...Object.entries(statuses)].map(([value, label]) => <button key={value} type="button" aria-pressed={status === value} onClick={() => { setStatus(value); setPage(1); }}>{label}<b>{value ? counts[value] || 0 : Object.values(counts).reduce((sum, count) => sum + count, 0)}</b></button>)}</nav>
-    <form className="base-location-search" onSubmit={find}><input aria-label={t.searchLabel} placeholder={t.searchPlaceholder} maxLength={180} value={search} onChange={event => setSearch(event.target.value)} /><button>{t.search}</button></form>
+    <div className="base-location-controls">
+      <div className="base-location-toolbar">
+        <nav className="base-location-filters" aria-label={t.filterLabel}>{[["", t.all], ...Object.entries(statuses)].map(([value, label]) => <button key={value} type="button" aria-pressed={status === value} onClick={() => { setStatus(value); setPage(1); }}><span>{label}</span><b>{value ? counts[value] || 0 : Object.values(counts).reduce((sum, count) => sum + count, 0)}</b></button>)}</nav>
+        <div className="base-location-tools" role="group" aria-label={t.tools}>
+          <a className="base-location-icon-button" href={scoutPath(locale)} target="_blank" rel="noreferrer" aria-label={t.openForm} title={t.openForm}><ToolbarIcon name="open" /></a>
+          <button className={`base-location-icon-button${copied ? " is-copied" : ""}`} type="button" onClick={copyForm} aria-label={t.copyLink} title={t.copyLink}><ToolbarIcon name={copied ? "check" : "copy"} /></button>
+          <button className="base-location-icon-button" type="button" onClick={() => setRefresh(value => value + 1)} disabled={loading} aria-label={t.refresh} title={t.refresh}><ToolbarIcon name="refresh" spinning={loading} /></button>
+          {message && <p role="status" className="base-location-toast"><ToolbarIcon name={copied ? "check" : "copy"} /><span>{message}</span></p>}
+        </div>
+      </div>
+      <form className="base-location-search" onSubmit={find}><input aria-label={t.searchLabel} placeholder={t.searchPlaceholder} maxLength={180} value={search} onChange={event => setSearch(event.target.value)} /><button type="submit" className="base-location-icon-button" aria-label={t.search} title={t.search}><ToolbarIcon name="search" /></button></form>
+    </div>
     <p className="base-location-help">{t.help}</p>
-    {error && <p className="base-location-error" role="alert">{error}</p>}{message && <p role="status" className="base-location-message">{message}</p>}
-    {loading ? <p role="status">{t.loading}</p> : <><div className="base-location-grid">{cards.map(card => <LocationCard key={`${card.reference}:${card.version}`} card={card} locale={locale} onChanged={() => setRefresh(value => value + 1)} />)}</div>{cards.length === 0 && !error && <div className="base-location-empty"><h2>{query ? t.noResults : t.emptyTitle}</h2><p>{query ? t.noResultsHelp : t.emptyHelp}</p></div>}<div className="base-location-pagination"><button disabled={page === 1} onClick={() => setPage(value => value - 1)}>{t.previous}</button><span>{scoutFormat(t.pagination, { page, total })}</span><button disabled={page * 24 >= total} onClick={() => setPage(value => value + 1)}>{t.next}</button></div></>}
+    {error && <p className="base-location-error" role="alert">{error}</p>}
+    {loading ? <p role="status">{t.loading}</p> : <><div className="base-location-grid">{cards.map(card => <LocationCard key={`${card.reference}:${card.version}`} card={card} locale={locale} onChanged={() => setRefresh(value => value + 1)} />)}</div>{cards.length === 0 && !error && <div className="base-location-empty"><h2>{query ? t.noResults : t.emptyTitle}</h2><p>{query ? t.noResultsHelp : t.emptyHelp}</p></div>}{(page > 1 || total > 24) && <div className="base-location-pagination"><button disabled={page === 1} onClick={() => setPage(value => value - 1)}>{t.previous}</button><span>{scoutFormat(t.pagination, { page, total })}</span><button disabled={page * 24 >= total} onClick={() => setPage(value => value + 1)}>{t.next}</button></div>}</>}
   </section>;
 }
 
@@ -64,4 +78,15 @@ function LocationCard({ card, locale, onChanged }: { card: ScoutCard; locale: Op
     {card.status === "revision" && <><button type="button" className="base-location-link-button" disabled={busy} onClick={revisionLink}>{t.revisionLink}</button>{link && <label>{t.sendLink}<input readOnly value={link} onFocus={event => event.currentTarget.select()} /><small>{t.replacesLink}</small></label>}</>}
     </div>
   </article>;
+}
+
+function ToolbarIcon({ name, spinning = false }: { name: "open" | "copy" | "refresh" | "check" | "search"; spinning?: boolean }) {
+  const paths: Record<typeof name, ReactNode> = {
+    open: <><path d="M14 3h7v7M21 3 11 13" /><path d="M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5" /></>,
+    copy: <><rect x="8" y="8" width="13" height="13" rx="2" /><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" /></>,
+    refresh: <><path d="M20 7v5h-5M4 17v-5h5" /><path d="M6.2 6.2A8 8 0 0 1 20 12M4 12a8 8 0 0 0 13.8 5.8" /></>,
+    check: <path d="m5 12 4 4L19 6" />,
+    search: <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></>,
+  };
+  return <svg className={spinning ? "is-spinning" : undefined} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
