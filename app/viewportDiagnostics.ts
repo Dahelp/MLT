@@ -24,12 +24,16 @@ export const viewportDiagnosticScript = String.raw`(() => {
       heroTop: round(hero?.getBoundingClientRect().top),
       heroHeight: round(hero?.getBoundingClientRect().height),
       fonts: document.fonts?.status,
-      persisted: !!event.persisted
+      persisted: !!event.persisted,
+      refreshStatus: window.__MLT_REFRESH_STATE__?.status || null,
+      refreshAttempts: window.__MLT_REFRESH_STATE__?.attempts || 0
     };
     if (sample.event === 'scroll' && log.length && sample.time - log[log.length - 1].time < 100) return;
     log.push(sample);
-    if (log.length > 80) log.shift();
+    // Preserve startup evidence when toolbar animation emits dozens of resize events.
+    if (log.length > 240) log.splice(60, 1);
   };
+  window.__MLT_RECORD_VIEWPORT__ = record;
   ['load', 'pageshow', 'resize', 'scroll', 'touchstart', 'touchend', 'pagehide'].forEach(type => window.addEventListener(type, record, { passive: true }));
   window.visualViewport?.addEventListener('resize', () => record('visual-resize'), { passive: true });
   window.visualViewport?.addEventListener('scroll', () => record('visual-scroll'), { passive: true });
