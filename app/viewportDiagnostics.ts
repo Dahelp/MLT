@@ -12,6 +12,8 @@ export const viewportDiagnosticScript = String.raw`(() => {
       event: typeof event === 'string' ? event : event.type,
       time: Math.round(performance.now()),
       navigation: performance.getEntriesByType('navigation')[0]?.type,
+      readyState: document.readyState || null,
+      loadEventEnd: round(performance.getEntriesByType('navigation')[0]?.loadEventEnd),
       documentY: round(window.scrollY),
       rootY: round(document.scrollingElement?.scrollTop),
       phoneY: round(phone?.scrollTop),
@@ -41,6 +43,11 @@ export const viewportDiagnosticScript = String.raw`(() => {
   window.visualViewport?.addEventListener('resize', () => record('visual-resize'), { passive: true });
   window.visualViewport?.addEventListener('scroll', () => record('visual-scroll'), { passive: true });
   document.addEventListener('DOMContentLoaded', () => record('dom-ready'), { once: true });
+  document.addEventListener('readystatechange', () => record('ready-state'));
+  window.addEventListener('error', event => {
+    const target = event.target;
+    record('error:' + (target?.currentSrc || target?.src || target?.href || event.message || 'unknown'));
+  }, true);
   document.fonts?.ready.then(() => record('fonts-ready'));
   record('head');
 })();`;
