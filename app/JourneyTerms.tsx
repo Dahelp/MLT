@@ -1,7 +1,7 @@
 "use client";
 import {useState} from 'react';
 import {type JourneyTerms as Terms,journeyPaymentRows,journeyCancellation,nextJourneyPayment} from '../content/journey-terms';
-import {journeyCopy} from '../content/journey-copy';
+import {journeyCopy,localizeProtectionTerms} from '../content/journey-copy';
 import styles from './journey-costs.module.css';
 
 export default function JourneyTerms({terms:t,locale='en',expanded=false,arrival,paid,preview=false,legacy=false,legacyCosts}:{terms:Terms|null;locale?:string;popup?:boolean;expanded?:boolean;arrival?:string;paid?:number;preview?:boolean;legacy?:boolean;legacyCosts?:{total:number;paid:number;advance:number}}){
@@ -49,7 +49,7 @@ export default function JourneyTerms({terms:t,locale='en',expanded=false,arrival
       {cancellation&&<div role="status" className={styles.result}><p>{copy.days}: {until}</p>{cancellation.refund===null?<p>{t.protectionPercent?copy.protected:copy.manual}</p>:<><p>{copy.return}: <strong>{money(cancellation.refund)}</strong></p><p>{copy.retain}: <strong>{money(cancellation.retained!)}</strong></p></>}</div>}
       {received===0&&<p>{copy.noMoney}</p>}
       <p>{copy.range}:</p>
-      {t.protectionPercent>0?<p>{copy.protected} {t.protectionTerms}</p>:<ul>{t.policy.cancellation.map((r,i)=>{
+      {t.protectionPercent>0?<p>{copy.protected} {localizeProtectionTerms(t.protectionTerms,locale)}</p>:<ul>{t.policy.cancellation.map((r,i)=>{
         const prev=Number(t.policy.cancellation[i-1]?.[0]);
         const low=Number(r[0]);
         const range=i===0?`${copy.more} ${low}`:low===0?`${copy.less} ${prev}`:`${low}–${i===1?prev:prev-1}`;

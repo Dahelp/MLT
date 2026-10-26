@@ -122,3 +122,14 @@ test("voucher captions reflect the selected denomination in every language",()=>
 
 test("voucher navigation only belongs to home, voucher and collection routes",()=>{const {showsVoucherNavigation}=load("content/site.ts");for(const locale of ['en','ru','de','it','pl']){for(const suffix of ['', 'vouchers/', 'collections/freedom/','mobile-site/','mobile-preview/signature/'])assert.equal(showsVoucherNavigation(`/${locale}/${suffix}`),true);for(const suffix of ['investments/','acquisitions/','contact/','smart-map/','account/','legal/terms/'])assert.equal(showsVoucherNavigation(`/${locale}/${suffix}`),false);}});
 test("investment translations cover every phrase and localize year counts",()=>{const {investmentTranslations,investmentYears}=load('content/investment-i18n.ts');const keys=Object.keys(investmentTranslations.ru);for(const locale of ['de','it','pl'])assert.deepEqual(Object.keys(investmentTranslations[locale]),keys);assert.equal(investmentYears(1,'ru'),'1 год');assert.equal(investmentYears(3,'ru'),'3 года');assert.equal(investmentYears(5,'ru'),'5 лет');});
+
+test('standard protection terms use all five languages while custom agreed conditions stay unchanged',()=>{
+ const {defaultProtectionTerms,localizeProtectionTerms}=load('content/journey-copy.ts');
+ const expected={en:'cancellation',ru:'отмену поездки',de:'Stornierung',it:'cancellazione',pl:'anulowania podróży'};
+ for(const [locale,word] of Object.entries(expected)){
+  const text=localizeProtectionTerms(defaultProtectionTerms,locale);assert.ok(text.includes(word),locale);assert.ok(text.includes('MLT'));
+  assert.equal(localizeProtectionTerms('Individually approved terms: 12 days, 45%.',locale),'Individually approved terms: 12 days, 45%.');
+ }
+ assert.equal(localizeProtectionTerms(defaultProtectionTerms.replaceAll(' ', '\n'), 'ru'),localizeProtectionTerms(defaultProtectionTerms,'ru'));
+ assert.ok(fs.readFileSync(path.join(root,'public/api/journey-terms.php'),'utf8').includes(defaultProtectionTerms));
+});
