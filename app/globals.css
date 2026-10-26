@@ -1300,7 +1300,11 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
  .mlt-site-header .light-actions .light-menu,.mlt-site-header .light-actions .account-nav-link{box-sizing:border-box;flex:0 0 36px;width:36px;height:36px;min-width:36px;min-height:36px;max-width:36px;max-height:36px;padding:0;aspect-ratio:1;border-radius:50%;appearance:none}
 }
 
-@media(max-width:800px){.home-light .light-video-hero{height:var(--mlt-mobile-hero-height,100svh)}}
+@media(max-width:800px){
+ .home-light .light-video-hero{height:var(--mlt-mobile-hero-height,100svh)}
+ html.mlt-native-scroll-inset{overflow-anchor:none}
+ html.mlt-native-scroll-inset body{position:relative;top:var(--mlt-native-scroll-inset,0px);overflow-anchor:none}
+}
 
 @media (max-width: 760px) {
   :root { --mlt-section-padding: 24px; --mlt-section-gap: 48px; --mlt-page-gutter: 24px; --mlt-text-body: 16px; }

@@ -26,7 +26,8 @@ export const viewportDiagnosticScript = String.raw`(() => {
       fonts: document.fonts?.status,
       persisted: !!event.persisted,
       refreshStatus: window.__MLT_REFRESH_STATE__?.status || null,
-      refreshAttempts: window.__MLT_REFRESH_STATE__?.attempts || 0
+      refreshAttempts: window.__MLT_REFRESH_STATE__?.attempts || 0,
+      nativeTopInset: window.__MLT_REFRESH_STATE__?.nativeInset || 0
     };
     if (sample.event === 'scroll' && log.length && sample.time - log[log.length - 1].time < 100) return;
     log.push(sample);

@@ -10,7 +10,7 @@ function page({type='reload',hash='',path='/en/',mobile=true,ignoredScrolls=0,lo
  const emit=(name,event={})=>{for(const fn of [...(events.get(name)||[])])fn(event)};
  const viewport={scale:1,addEventListener:(name,fn)=>add('visual:'+name,fn),removeEventListener:(name,fn)=>remove('visual:'+name,fn)};
  const win={innerWidth:390,innerHeight:661,visualViewport:viewport,get scrollY(){return y},addEventListener:(name,fn)=>add(name,fn),removeEventListener:(name,fn)=>remove(name,fn),scrollTo:o=>{calls.push({time:now,...o});if(calls.length>ignoredScrolls)y=o.top}};
- const ctx={location:{pathname:path,hash},matchMedia:()=>({matches:mobile}),document:{readyState:loaded?'complete':'loading',documentElement:{style:{setProperty:(n,v)=>values.set(n,v)}}},performance:{getEntriesByType:()=>[{type}]},window:win,setTimeout:(fn,delay)=>{timers.set(++id,{at:now+delay,fn});return id},clearTimeout:id=>timers.delete(id)};
+ const ctx={location:{pathname:path,hash},matchMedia:()=>({matches:mobile}),document:{readyState:loaded?'complete':'loading',documentElement:{classList:{add(){},remove(){}},style:{setProperty:(n,v)=>values.set(n,v),removeProperty:n=>values.delete(n)}}},performance:{getEntriesByType:()=>[{type}]},window:win,setTimeout:(fn,delay)=>{timers.set(++id,{at:now+delay,fn});return id},clearTimeout:id=>timers.delete(id)};
  vm.runInNewContext(parsed.script,ctx);
  const advance=t=>{while(true){const next=[...timers.entries()].filter(([,v])=>v.at<=t).sort((a,b)=>a[1].at-b[1].at)[0];if(!next)break;now=next[1].at;timers.delete(next[0]);next[1].fn()}now=t};
  return{calls,values,win,viewport,advance,event:emit,sample:(time,scroll)=>{advance(time);y=scroll;emit('scroll')},y:()=>y};
@@ -51,8 +51,8 @@ for (const route of ['','mobile-site/','mobile-preview/','collections/signature/
 test('retries when the browser ignores the first scrollTo calls during native refresh',()=>{
  const p=page({ignoredScrolls:2});p.sample(100,60);p.advance(550);assert.equal(p.y(),60);p.advance(1000);assert.equal(p.y(),60);p.advance(1450);assert.equal(p.y(),0);assert.equal(p.calls.length,3);
 });
-test('corrects a native offset that is reapplied after the first successful call',()=>{
- const p=page();p.sample(100,60);p.advance(550);assert.equal(p.y(),0);p.sample(850,60);p.advance(1300);assert.equal(p.y(),0);assert.equal(p.calls.length,2);
+test('compensates the document when the native host reapplies an offset after a successful scrollTo',()=>{
+ const p=page();p.sample(100,60);p.advance(550);assert.equal(p.y(),0);p.sample(850,60);p.advance(1300);assert.equal(p.y(),60);assert.equal(p.win.__MLT_REFRESH_STATE__.nativeInset,60);assert.equal(p.calls.length,1);
 });
 test('new interaction cancels retries after an initial correction',()=>{
  const p=page();p.sample(100,60);p.advance(550);p.event('touchstart');p.sample(850,60);p.advance(5000);assert.equal(p.y(),60);assert.equal(p.calls.length,1);
@@ -101,6 +101,25 @@ test('replays the measured cancelled guard and repeated native pulls from the la
  for(const path of ['/ru/','/ru/collections/freedom/mobile-site/','/ru/contact/']) {
   const p=page({path});
   for(const [time,event,y,height,offset]of samples){p.win.innerHeight=height;p.viewport.offsetTop=offset;p.sample(time,y);p.event(event.startsWith('visual-')?'visual:'+event.slice(7):event)}
-  p.advance(14000);assert.equal(p.y(),0,path);assert.ok(p.calls.length>=2);assert.equal(p.win.__MLT_REFRESH_STATE__.status,'at-top');
+  p.advance(14000);assert.equal((p.win.__MLT_REFRESH_STATE__.nativeInset||0)-p.y(),0,path);assert.ok(p.calls.length>=1);
+ }
+});
+
+test('removes compensation if the host later allows a stable real top position',()=>{
+ const p=page();p.sample(100,60);p.advance(550);p.sample(565,60);p.advance(1015);assert.equal(p.win.__MLT_REFRESH_STATE__.nativeInset,60);
+ p.sample(1200,0);p.advance(1650);assert.equal(p.win.__MLT_REFRESH_STATE__.nativeInset,0);assert.equal(p.values.has('--mlt-native-scroll-inset'),false);
+});
+test('compensation is measured and remains during intentional scrolling',()=>{
+ const p=page();p.sample(100,72);p.advance(550);p.sample(565,72);p.advance(1015);assert.equal(p.win.__MLT_REFRESH_STATE__.nativeInset,72);
+ p.event('touchstart');p.sample(1200,350);p.event('touchend');p.advance(2000);assert.equal(p.y(),350);assert.equal(p.win.__MLT_REFRESH_STATE__.nativeInset,72);assert.equal(p.calls.length,1);
+});
+test('bounds attempts when the host never accepts scrollTo at all',()=>{
+ const p=page({ignoredScrolls:100});p.sample(100,60);p.advance(3000);assert.equal(p.calls.length,3);assert.equal(p.win.__MLT_REFRESH_STATE__.status,'compensated');assert.equal(p.win.__MLT_REFRESH_STATE__.nativeInset,60);
+});
+test('replays the real host repeatedly reasserting its 60px offset after successful zero positions',()=>{
+ const samples=JSON.parse(readFileSync(new URL('./fixtures/iphone-reasserted-inset.json',import.meta.url),'utf8'));
+ for(const path of ['/ru/','/ru/collections/freedom/mobile-site/','/ru/contact/']) {
+  const p=page({path});for(const [time,event,y,height,offset]of samples){p.win.innerHeight=height;p.viewport.offsetTop=offset;p.sample(time,y);p.event(event.startsWith('visual-')?'visual:'+event.slice(7):event)}
+  p.advance(6500);assert.equal(p.y(),60);assert.equal(p.win.__MLT_REFRESH_STATE__.nativeInset,60);assert.equal(p.values.get('--mlt-native-scroll-inset'),'60px');assert.equal(p.calls.length,1);
  }
 });
