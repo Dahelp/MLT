@@ -11,11 +11,18 @@ export default function ViewportDiagnostics() {
   const [copied, setCopied] = useState(false);
   useEffect(() => {
     if (new URLSearchParams(location.search).get("viewport-debug") !== "1") return;
-    setEnabled(true);
-    const update = () => setSample(window.__MLT_VIEWPORT_LOG__?.at(-1));
+    const update = () => {
+      // Keep the consent dialog unobstructed; measurements continue in the head script.
+      setEnabled(Boolean(localStorage.getItem("mlt-cookie-consent")));
+      setSample(window.__MLT_VIEWPORT_LOG__?.at(-1));
+    };
     update();
     const interval = window.setInterval(update, 300);
-    return () => clearInterval(interval);
+    window.addEventListener("mlt-consent-change", update);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("mlt-consent-change", update);
+    };
   }, []);
   if (!enabled) return null;
   return <aside aria-label="Диагностика экрана" style={{ position: "fixed", zIndex: 10000, bottom: "calc(8px + env(safe-area-inset-bottom, 0px))", left: 8, right: 8, padding: 12, borderRadius: 8, background: "#fff", color: "#111", boxShadow: "0 2px 12px #0005", font: "12px/1.5 monospace" }}>
