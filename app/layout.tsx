@@ -18,6 +18,7 @@ import { operationsBootstrapScript } from "./operationsBootstrap";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mlt-lifestyle.com"),
+  verification: { google: "o3np5MupRFWQGtHivSPr8iwXtHcJfT8XHBLa52U1mpo" },
   title: "MLT — Individual Road Expeditions",
   description: "Private luxury road expeditions across Europe, composed around you.",
   openGraph: {
