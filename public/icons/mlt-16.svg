@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Creator: CorelDRAW 2020 (64-Bit) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.3547mm" height="1.3547mm" version="1.0" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"
+viewBox="0 0 0.0647 0.0647"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+    <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="0.0519" y1="0.0214" x2="0.0519" y2="0.0239">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="0.0506" y1="0.0321" x2="0.0532" y2="0.0321">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id2" gradientUnits="userSpaceOnUse" x1="0.0291" y1="0.0296" x2="0.0317" y2="0.0296">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id3" gradientUnits="userSpaceOnUse" x1="0.0388" y1="0.0378" x2="0.0388" y2="0.0353">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id4" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0332" x2="0.0053" y2="0.0332">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id5" gradientUnits="userSpaceOnUse" x1="0.0223" y1="0.0254" x2="0.004" y2="0.0338">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id6" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.062" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id7" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.062" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id8" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.062" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id9" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.062" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id10" gradientUnits="userSpaceOnUse" x1="0.0026" y1="0.0422" x2="0.0623" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id11" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id12" gradientUnits="userSpaceOnUse" x1="0.003" y1="0.0422" x2="0.0616" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id13" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id14" gradientUnits="userSpaceOnUse" x1="0.0027" y1="0.0422" x2="0.062" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id15" gradientUnits="userSpaceOnUse" x1="0.0025" y1="0.0422" x2="0.0621" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id16" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id17" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id18" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id19" gradientUnits="userSpaceOnUse" x1="0.0028" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id20" gradientUnits="userSpaceOnUse" x1="0.0029" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id21" gradientUnits="userSpaceOnUse" x1="0.0027" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+    <linearGradient id="id22" gradientUnits="userSpaceOnUse" x1="0.0031" y1="0.0422" x2="0.0619" y2="0.0422">
+     <stop offset="0" stop-opacity="1" stop-color="#CF9B6F"/>
+     <stop offset="0.4" stop-opacity="1" stop-color="#CF9363"/>
+     <stop offset="1" stop-opacity="1" stop-color="#A27350"/>
+    </linearGradient>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect fill="#FEFEFE" width="0.0647" height="0.0647"/>
+  <g id="_2866990615600">
+   <polygon fill="url(#id0)" points="0.0619,0.0214 0.0419,0.0214 0.0444,0.0239 0.0594,0.0239 "/>
+   <polygon fill="url(#id1)" points="0.0532,0.0353 0.0532,0.0265 0.0506,0.0265 0.0506,0.0378 "/>
+   <polygon fill="url(#id2)" points="0.0317,0.0378 0.0317,0.0239 0.0292,0.0214 0.0292,0.0378 "/>
+   <polygon fill="url(#id3)" points="0.0342,0.0378 0.0433,0.0378 0.0407,0.0353 0.0342,0.0353 "/>
+   <polygon fill="url(#id4)" points="0.0053,0.0353 0.0053,0.0311 0.0028,0.0286 0.0028,0.0378 "/>
+   <path fill="url(#id5)" d="M0.0131 0.0323l0 0 -0 0 -0 -0zm0.0104 0.0055l0 -0.0131 0 0 0 -0.0033 -0.0104 0.0104 -0.0104 -0.0104 0 0.0036 0 0 0.0011 0.0011 0.0063 0.0063 0 0 0.003 0.003 0.0078 -0.0078 0 0.0078 0.0025 0.0025z"/>
+   <polygon fill="url(#id6)" points="0.005,0.0433 0.005,0.0411 0.0047,0.0411 0.0039,0.0422 0.0031,0.0411 0.0028,0.0411 0.0028,0.0433 0.003,0.0433 0.003,0.0415 0.0039,0.0426 0.0039,0.0426 0.0047,0.0415 0.0047,0.0433 "/>
+   <path fill="url(#id7)" d="M0.0073 0.0422c0,0.0002 0.0001,0.0005 0.0003,0.0006 0.0002,0.0002 0.0004,0.0003 0.0006,0.0003 0.0003,0 0.0005,-0.0001 0.0006,-0.0002 0.0002,-0.0002 0.0002,-0.0004 0.0002,-0.0006 0,-0.0003 -0.0001,-0.0005 -0.0003,-0.0006 -0.0002,-0.0002 -0.0004,-0.0003 -0.0006,-0.0003 -0.0003,0 -0.0005,0.0001 -0.0006,0.0002 -0.0002,0.0002 -0.0002,0.0004 -0.0002,0.0006zm-0.0003 0c0,-0.0003 0.0001,-0.0006 0.0003,-0.0008 0.0002,-0.0002 0.0005,-0.0003 0.0008,-0.0003 0.0003,0 0.0006,0.0001 0.0008,0.0003 0.0002,0.0002 0.0003,0.0005 0.0003,0.0008 0,0.0003 -0.0001,0.0006 -0.0003,0.0008 -0.0002,0.0002 -0.0005,0.0003 -0.0008,0.0003 -0.0003,0 -0.0006,-0.0001 -0.0008,-0.0003 -0.0002,-0.0002 -0.0003,-0.0005 -0.0003,-0.0008l0 0z"/>
+   <polygon fill="url(#id8)" points="0.0119,0.0433 0.0121,0.0433 0.013,0.0411 0.0128,0.0411 0.012,0.0429 0.0112,0.0411 0.0109,0.0411 "/>
+   <polygon fill="url(#id9)" points="0.0162,0.0433 0.0162,0.043 0.0152,0.043 0.0152,0.0423 0.0161,0.0423 0.0161,0.042 0.0152,0.042 0.0152,0.0413 0.0162,0.0413 0.0162,0.0411 0.0149,0.0411 0.0149,0.0433 "/>
+   <path fill="url(#id10)" d="M0.0185 0.0431l0 0 0 0 0 -0 0 0c0,-0 -0,-0.0001 -0,-0.0001 -0,-0 -0.0001,-0.0001 -0.0001,-0.0001l-0 0 0 0 -0 0 0 0c-0.0001,0 -0.0001,0 -0.0001,0 -0,0 -0.0001,0.0001 -0.0001,0.0001l0 0c0,0 0,0.0001 0.0001,0.0001 0,0 0.0001,0.0001 0.0001,0.0001 0,0 0.0001,-0 0.0001,-0.0001 0,-0 0,-0.0001 0,-0.0001z"/>
+   <polygon fill="url(#id11)" points="0.0234,0.0411 0.0231,0.0411 0.0231,0.0433 0.0245,0.0433 0.0245,0.043 0.0234,0.043 "/>
+   <polygon fill="url(#id12)" points="0.0268,0.0411 0.0265,0.0411 0.0265,0.0433 0.0268,0.0433 "/>
+   <polygon fill="url(#id13)" points="0.0297,0.0433 0.0299,0.0433 0.0308,0.0411 0.0305,0.0411 0.0298,0.0429 0.029,0.0411 0.0287,0.0411 "/>
+   <polygon fill="url(#id14)" points="0.034,0.0411 0.0327,0.0411 0.0327,0.0433 0.034,0.0433 0.034,0.043 0.0329,0.043 0.0329,0.0423 0.0339,0.0423 0.0339,0.042 0.0329,0.042 0.0329,0.0413 0.034,0.0413 "/>
+   <path fill="url(#id15)" d="M0.0365 0.0429l0 0 -0 0 -0 0 0 0c-0.0001,0 -0.0001,0 -0.0001,0 -0,0 -0.0001,0.0001 -0.0001,0.0001l0 0 0 0 0 0 0 0c0,0 0,0.0001 0.0001,0.0001 0,0 0.0001,0.0001 0.0001,0.0001 0.0001,0 0.0001,-0 0.0001,-0.0001 0,-0 0,-0.0001 0,-0.0001 0,-0 -0,-0.0001 -0,-0.0001 -0,-0 -0.0001,-0.0001 -0.0001,-0.0001z"/>
+   <polygon fill="url(#id16)" points="0.0422,0.0413 0.0422,0.0411 0.0403,0.0411 0.0403,0.0413 0.0411,0.0413 0.0411,0.0433 0.0414,0.0433 0.0414,0.0413 "/>
+   <path fill="url(#id17)" d="M0.0446 0.0413c-0.0001,0 -0.0002,0 -0.0003,0l0 0.0008 0.0003 0c0.0001,0 0.0003,-0 0.0004,-0.0001 0.0001,-0.0001 0.0002,-0.0002 0.0002,-0.0003 0,-0.0003 -0.0002,-0.0004 -0.0005,-0.0004zm-0.0006 0.0019l0.0003 0 0 -0.0009 0.0004 0 0.0007 0.0009 0.0003 0 -0.0008 -0.0009c0.0001,-0 0.0003,-0.0001 0.0004,-0.0002 0.0001,-0.0001 0.0001,-0.0002 0.0001,-0.0004 0,-0.0004 -0.0003,-0.0007 -0.0008,-0.0007 -0,0 -0.0001,0 -0.0003,0 -0.0002,0 -0.0003,0 -0.0003,0l0 0.0022z"/>
+   <path fill="url(#id18)" d="M0.0484 0.0414l-0.0004 0.0009 0.0008 0 -0.0004 -0.0009zm-0.0011 0.0019l0.0003 0 0.0003 -0.0007 0.001 0 0.0003 0.0007 0.0003 0 -0.001 -0.0022 -0.0002 0 -0.001 0.0022z"/>
+   <polygon fill="url(#id19)" points="0.0518,0.0433 0.052,0.0433 0.053,0.0411 0.0527,0.0411 0.0519,0.0429 0.0512,0.0411 0.0509,0.0411 "/>
+   <polygon fill="url(#id20)" points="0.0561,0.0411 0.0548,0.0411 0.0548,0.0433 0.0562,0.0433 0.0562,0.043 0.0551,0.043 0.0551,0.0423 0.056,0.0423 0.056,0.042 0.0551,0.042 0.0551,0.0413 0.0561,0.0413 "/>
+   <polygon fill="url(#id21)" points="0.0596,0.0433 0.0596,0.043 0.0585,0.043 0.0585,0.0411 0.0582,0.0411 0.0582,0.0433 "/>
+   <path fill="url(#id22)" d="M0.0618 0.0429l0 0 -0 0 0 0 -0 0c-0.0001,0 -0.0001,0 -0.0001,0 -0,0 -0.0001,0.0001 -0.0001,0.0001l0 0 0 0 0 0 0 0c0,0 0,0.0001 0.0001,0.0001 0,0 0.0001,0.0001 0.0001,0.0001 0.0001,0 0.0001,-0 0.0001,-0.0001 0,-0 0.0001,-0.0001 0.0001,-0.0001 0,-0 -0,-0.0001 -0.0001,-0.0001 -0,-0 -0.0001,-0.0001 -0.0001,-0.0001z"/>
+  </g>
+ </g>
+</svg>
