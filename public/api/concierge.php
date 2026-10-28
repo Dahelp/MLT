@@ -61,7 +61,8 @@ if ($database && $commercial) {
     $stored = true;
 } elseif ($database) mlt_create_order($database, $reference, $body, ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $clean($body['phone'] ?? '', 80)]);
 $token = (string)($settings['telegram_bot_token'] ?? (getenv('TELEGRAM_BOT_TOKEN') ?: ''));
-$chatId = (string)($settings['telegram_chat_id'] ?? (getenv('TELEGRAM_CHAT_ID') ?: ''));
+require_once __DIR__ . '/telegram-routing.php';
+$chatId = mlt_inquiry_telegram_chat($settings, $clean($body['source'] ?? '', 100));
 
 if ($token && $chatId) {
     $route = array_slice(array_filter(array_map($clean, is_array($body['route'] ?? null) ? $body['route'] : [])), 0, 12);

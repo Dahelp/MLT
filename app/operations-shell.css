@@ -21,7 +21,7 @@
 .operations-shell .account-eyebrow,.operations-shell .concierge-table th{font-size:13px;letter-spacing:.05em}
 .operations-shell .concierge-table td,.operations-shell .concierge-table td small{font-size:16px}
 .operations-shell .concierge-table i{font-size:14px}
-.operations-content.staff-editor{padding:0;min-height:0;background:#e7e4df}
+.operations-content.staff-editor{padding:0;min-height:0;background:#e7e4df;color:#252822}
 .operations-content.staff-editor>section{padding:40px clamp(20px,4vw,64px) 64px}
 .operations-content.staff-investments{padding:0}
 .operations-content.voucher-admin{max-width:none}
