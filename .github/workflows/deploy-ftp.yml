@@ -73,11 +73,17 @@ jobs:
       - name: Export static preview
         run: node scripts/export-static.mjs
 
+      - name: Prepare server-side Telegram sales destination
+        env:
+          MLT_TELEGRAM_SALES_CHAT_ID: ${{ vars.MLT_TELEGRAM_SALES_CHAT_ID }}
+        run: node scripts/prepare-telegram-routing.mjs static-export/api/telegram-sales-destination.php
+
       - name: Prepare voucher backend dependencies before updating existing payment handlers
         run: |
           mkdir -p voucher-preflight/api voucher-preflight/data
           cp public/api/journey-pricing.php public/api/journey-terms.php public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
           cp public/data/journey-pricing.json voucher-preflight/data/
+          cp public/api/telegram-routing.php static-export/api/telegram-sales-destination.php voucher-preflight/api/
 
       - name: Publish voucher backend dependencies
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -89,6 +95,13 @@ jobs:
           local-dir: ./voucher-preflight/
           server-dir: /
           state-name: .voucher-backend-sync.json
+
+      - name: Verify deployed Telegram routing
+        env:
+          FTP_SERVER: w021f859.kasserver.com
+          FTP_USERNAME: ${{ secrets.MLT_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.MLT_FTP_PASSWORD }}
+        run: python3 scripts/verify-telegram-routing-deployment.py
 
       - name: Verify asset publishing safety
         run: python3 -m unittest discover -s tests -p 'test_publish_assets.py'
