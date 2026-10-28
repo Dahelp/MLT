@@ -20,13 +20,21 @@ export default function CookieConsent() {
   const [languageOpen, setLanguageOpen] = useState(false);
   const languageMenu = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    setOpen(!localStorage.getItem("mlt-cookie-consent"));
+    try {
+      const saved = JSON.parse(localStorage.getItem("mlt-cookie-consent") || "null");
+      setOpen(!saved || !["essential", "all", "preferences"].includes(saved.choice) || typeof saved.analytics !== "boolean");
+    } catch { setOpen(true); }
     const routeLocale = location.pathname.split("/")[1] as Locale;
     setLocale(location.pathname.startsWith("/scout-passport") ? "ru" : locales.includes(routeLocale) ? routeLocale : "en");
   }, []);
   useEffect(() => { const close = (event: MouseEvent) => { if (!languageMenu.current?.contains(event.target as Node)) setLanguageOpen(false); }; document.addEventListener("mousedown", close); return () => document.removeEventListener("mousedown", close); }, []);
   const t = copy[locale];
-  const save = (choice: "essential" | "all" | "preferences") => { const permitted = choice === "all" || (choice === "preferences" && analytics); localStorage.setItem("mlt-cookie-consent", JSON.stringify({ choice, analytics: permitted, date: new Date().toISOString() })); window.dispatchEvent(new CustomEvent("mlt-consent-change", { detail: { analytics: permitted } })); setOpen(false); };
+  const save = (choice: "essential" | "all" | "preferences") => {
+    const permitted = choice === "all" || (choice === "preferences" && analytics);
+    try { localStorage.setItem("mlt-cookie-consent", JSON.stringify({ choice, analytics: permitted, date: new Date().toISOString() })); } catch { /* Apply this visit's choice even when storage is unavailable. */ }
+    window.dispatchEvent(new CustomEvent("mlt-consent-change", { detail: { analytics: permitted } }));
+    setOpen(false);
+  };
   const changeLocale = (next: Locale) => {
     localStorage.setItem("mlt-locale", next);
     const segments = location.pathname.split("/");

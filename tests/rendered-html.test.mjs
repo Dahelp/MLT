@@ -155,6 +155,19 @@ async function render(pathname = "/") {
   );
 }
 
+test("GTM appears once in head and its noscript fallback opens the body on both public layouts", async () => {
+  for (const route of ["/en/", "/it/", "/en/mobile-site/", "/it/collections/private/mobile-site/"]) {
+    const response = await render(route);
+    assert.equal(response.status, 200, route);
+    const html = await response.text();
+    const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/)?.[1] || "";
+    assert.equal((head.match(/id="mlt-google-tag-manager"/g) || []).length, 1, route);
+    assert.match(head, /GTM-KPR2RQPG/, route);
+    assert.ok(head.indexOf('id="mlt-google-tag-manager"') < head.indexOf('root.dataset.operationsLocale'), route);
+    assert.match(html, /<body><noscript><iframe src="https:\/\/www\.googletagmanager\.com\/ns\.html\?id=GTM-KPR2RQPG" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"><\/iframe><\/noscript>/, route);
+  }
+});
+
 test("renders the public MLT experience with indexable metadata", async () => {
   const redirect = await render("/");
   assert.equal(redirect.status, 307);

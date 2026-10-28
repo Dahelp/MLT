@@ -15,6 +15,7 @@ import ViewportDiagnostics from "./ViewportDebugPanel";
 import { mobileHomeViewportScript } from "./mobileHomeViewport";
 import { managedPullRefreshScript } from "./managedPullRefresh";
 import { operationsBootstrapScript } from "./operationsBootstrap";
+import { googleTagManagerScript, googleTagManagerNoscriptUrl } from "./googleTagManager";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mlt-lifestyle.com"),
@@ -55,8 +56,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head><script dangerouslySetInnerHTML={{ __html: operationsBootstrapScript + viewportDiagnosticScript + managedPullRefreshScript + mobileHomeViewportScript }} /></head>
-      <body>{children}<AdminReturn/><AnchorNavigation /><ViewportDiagnostics /><JourneyFieldEnhancer /><ChatWidget /><CookieConsent /></body>
+      <head><script id="mlt-google-tag-manager" dangerouslySetInnerHTML={{ __html: googleTagManagerScript }} /><script dangerouslySetInnerHTML={{ __html: operationsBootstrapScript + viewportDiagnosticScript + managedPullRefreshScript + mobileHomeViewportScript }} /></head>
+      <body><noscript><iframe src={googleTagManagerNoscriptUrl} height="0" width="0" style={{ display: "none", visibility: "hidden" }} title="Google Tag Manager" /></noscript>{children}<AdminReturn/><AnchorNavigation /><ViewportDiagnostics /><JourneyFieldEnhancer /><ChatWidget /><CookieConsent /></body>
     </html>
   );
 }
