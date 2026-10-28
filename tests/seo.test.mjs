@@ -40,7 +40,7 @@ test("utility pages stay noindex and invalid collections return a real 404",asyn
   const response=await render(route);assert.equal(response.status,200,route);
   const data=headData(await response.text());assert.match(data.meta.find(m=>m.name==="robots")?.content||"",/noindex/,route);
  }
- for(const route of ["/en/collections/proposal/","/ru/collections/missing/","/en/legal/missing/"])assert.equal((await render(route)).status,404,route);
+ for(const route of ["/en/collections/proposal/","/ru/collections/missing/","/en/legal/missing/","/not-a-locale/"])assert.equal((await render(route)).status,404,route);
 });
 
 test("sitemap contains only canonical public URLs with language alternates",()=>{

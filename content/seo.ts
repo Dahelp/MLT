@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { Locale } from "./i18n";
 import { siteLocales } from "./site";
 import pages from "./seo-pages.json";
@@ -17,7 +18,7 @@ export function pageAlternates(locale: Locale, suffix = "") {
 export function publicMetadata(locale: Locale, suffix = ""): Metadata {
   const alternates = pageAlternates(locale, suffix);
   const record = (pages as Record<string, { title: string; description: string; keywords: string[] }>)[alternates.canonical];
-  if (!record) throw new Error(`Missing public metadata: ${alternates.canonical}`);
+  if (!record) notFound();
   return {
     title: record.title, description: record.description, keywords: record.keywords,
     alternates, robots: publicRobots,
