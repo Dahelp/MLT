@@ -1,12 +1,12 @@
 {
   "research": {
     "primaryMarket": "Италия",
-    "primaryLanguage": "it",
+    "primaryLanguage": "en",
     "date": "2026-10-28",
     "googleStatisticsAvailable": false,
-    "reason": "Google Keyword Planner и Search Console не подключены. Публичный Google Trends ответил HTTP 429. Частотность и показатели спроса не выдумывались.",
+    "reason": "Проект только запущен. Собственная статистика поисковых показов и переходов пока отсутствует. Внешние данные о частотности запросов также пока не получены.",
     "source": "Запросы подобраны по соответствию продукту, языку и коммерческому намерению; это рабочая семантика, а не рейтинг частотности Google.",
-    "neededData": "Google Keyword Planner: регион Italy, язык Italian, сеть Google, последние 12 полных месяцев; Keyword, Avg. monthly searches, Competition. Дополнительно Search Console: страна Italy, запрос, страница, показы, клики, CTR и позиция.",
+    "neededData": "Для дальнейшего исследования общего спроса: Google Keyword Planner, регион Italy, основной язык English; Italian — отдельно для итальянской версии. Исследование рыночного спроса не требует накопленной статистики нового сайта. Search Console будет полезна позднее, когда накопятся показы и переходы.",
     "excludedIntent": "Не позиционировать премиальные путешествия как дешёвую аренду без сервиса. Noleggio camper и camper economici не назначены главными ключами страниц пакетов: намерение может не совпадать с продуктом.",
     "sources": [
       "https://support.google.com/google-ads/answer/3022575?hl=it",
@@ -23,14 +23,14 @@
   },
   "rows": [
     {
-      "url": "https://mlt-lifestyle.com/it/",
-      "path": "/it/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/",
+      "path": "/en/",
+      "locale": "en",
       "group": "public",
-      "title": "Viaggi in camper in Europa su misura | MLT",
-      "description": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
-      "keywords": "viaggi in camper Europa,MLT,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/",
+      "title": "Luxury Motorhome Holidays in Europe | MLT",
+      "description": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
+      "keywords": "luxury motorhome holidays Europe,MLT,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -64,28 +64,28 @@
           "href": "https://mlt-lifestyle.com/en/"
         }
       ],
-      "primaryQuery": "viaggi in camper Europa",
+      "primaryQuery": "luxury motorhome holidays Europe",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Spedizioni individuali in motorhome",
-        "suggestedHeading": "Viaggi in camper in Europa su misura",
-        "suggestedParagraph": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
+        "currentH1": "Individual Motorhome Expeditions",
+        "suggestedHeading": "Luxury Motorhome Holidays in Europe",
+        "suggestedParagraph": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/about/",
-      "path": "/it/about/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/about/",
+      "path": "/en/about/",
+      "locale": "en",
       "group": "public",
-      "title": "Chi è MLT | Viaggi individuali in Europa",
-      "description": "Scopri come MLT crea viaggi individuali in Europa con camper premium, itinerari curati e un servizio personale.",
-      "keywords": "chi è MLT,viaggi individuali",
-      "canonical": "https://mlt-lifestyle.com/it/about/",
+      "title": "About MLT | Individual Journeys Across Europe",
+      "description": "Discover MLT's approach to individual European journeys, premium motorhomes and personal service.",
+      "keywords": "about MLT,individual journeys",
+      "canonical": "https://mlt-lifestyle.com/en/about/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -119,13 +119,13 @@
           "href": "https://mlt-lifestyle.com/en/about/"
         }
       ],
-      "primaryQuery": "chi è MLT",
+      "primaryQuery": "about MLT",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "Un modo più attento di viaggiare.",
+        "currentH1": "A more considered way to move.",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -133,14 +133,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/account/",
-      "path": "/it/account/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/account/",
+      "path": "/en/account/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/account/",
+      "canonical": "https://mlt-lifestyle.com/en/account/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -152,14 +152,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/account/documents/",
-      "path": "/it/account/documents/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/account/documents/",
+      "path": "/en/account/documents/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/account/documents/",
+      "canonical": "https://mlt-lifestyle.com/en/account/documents/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -171,14 +171,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/account/journeys/",
-      "path": "/it/account/journeys/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/account/journeys/",
+      "path": "/en/account/journeys/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/account/journeys/",
+      "canonical": "https://mlt-lifestyle.com/en/account/journeys/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -190,14 +190,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/account/profile/",
-      "path": "/it/account/profile/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/account/profile/",
+      "path": "/en/account/profile/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/account/profile/",
+      "canonical": "https://mlt-lifestyle.com/en/account/profile/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -209,14 +209,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/account/vouchers/",
-      "path": "/it/account/vouchers/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/account/vouchers/",
+      "path": "/en/account/vouchers/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/account/vouchers/",
+      "canonical": "https://mlt-lifestyle.com/en/account/vouchers/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -228,14 +228,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/acquisitions/",
-      "path": "/it/acquisitions/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/acquisitions/",
+      "path": "/en/acquisitions/",
+      "locale": "en",
       "group": "public",
-      "title": "Camper in vendita | MLT Acquisitions",
-      "description": "Scopri i camper premium, confronta le caratteristiche e invia una richiesta direttamente al team vendite MLT.",
-      "keywords": "camper in vendita,acquistare camper",
-      "canonical": "https://mlt-lifestyle.com/it/acquisitions/",
+      "title": "Motorhomes for Sale | MLT Acquisitions",
+      "description": "Explore premium motorhomes, compare the details and enquire directly with the MLT sales team.",
+      "keywords": "motorhomes for sale,buy a motorhome",
+      "canonical": "https://mlt-lifestyle.com/en/acquisitions/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -269,28 +269,28 @@
           "href": "https://mlt-lifestyle.com/en/acquisitions/"
         }
       ],
-      "primaryQuery": "camper in vendita",
+      "primaryQuery": "motorhomes for sale",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Trova la tua prossima casa su ruote.",
-        "suggestedHeading": "Camper in vendita",
-        "suggestedParagraph": "Scopri i camper premium, confronta le caratteristiche e invia una richiesta direttamente al team vendite MLT.",
+        "currentH1": "Find your next residence on wheels.",
+        "suggestedHeading": "Motorhomes for Sale",
+        "suggestedParagraph": "Explore premium motorhomes, compare the details and enquire directly with the MLT sales team.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/acquisitions/mercedes-benz-v-300-marco-polo/",
-      "path": "/it/acquisitions/mercedes-benz-v-300-marco-polo/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/acquisitions/mercedes-benz-v-300-marco-polo/",
+      "path": "/en/acquisitions/mercedes-benz-v-300-marco-polo/",
+      "locale": "en",
       "group": "public",
-      "title": "Mercedes-Benz V 300 Marco Polo | MLT Acquisto",
-      "description": "4MATIC · Allestimento Westfalia originale · 08/2019 · Roma, Italia Prezzo 44.900 €.",
-      "keywords": "Mercedes-Benz V 300 Marco Polo,Camper in vendita,MLT",
-      "canonical": "https://mlt-lifestyle.com/it/acquisitions/mercedes-benz-v-300-marco-polo/",
+      "title": "Mercedes-Benz V 300 Marco Polo | MLT Acquisitions",
+      "description": "4MATIC · Original Westfalia camper · 08/2019 · Rome, Italy Price €44,900.",
+      "keywords": "Mercedes-Benz V 300 Marco Polo,Motorhomes for Sale,MLT",
+      "canonical": "https://mlt-lifestyle.com/en/acquisitions/mercedes-benz-v-300-marco-polo/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -333,14 +333,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/concierge/",
-      "path": "/it/collections/concierge/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/concierge/",
+      "path": "/en/collections/concierge/",
+      "locale": "en",
       "group": "public",
-      "title": "Viaggi in camper con concierge | MLT Concierge",
-      "description": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
-      "keywords": "viaggi in camper con concierge,MLT Concierge,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/concierge/",
+      "title": "Motorhome Holidays with Concierge | MLT Concierge",
+      "description": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
+      "keywords": "motorhome holidays with concierge,MLT Concierge,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/concierge/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -374,28 +374,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/concierge/"
         }
       ],
-      "primaryQuery": "viaggi in camper con concierge",
+      "primaryQuery": "motorhome holidays with concierge",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Concierge Collection",
-        "suggestedHeading": "Viaggi in camper con concierge",
-        "suggestedParagraph": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
+        "suggestedHeading": "Motorhome Holidays with Concierge",
+        "suggestedParagraph": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/concierge/mobile-preview/",
-      "path": "/it/collections/concierge/mobile-preview/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/concierge/mobile-preview/",
+      "path": "/en/collections/concierge/mobile-preview/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/collections/concierge/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/en/collections/concierge/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -407,14 +407,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/concierge/mobile-site/",
-      "path": "/it/collections/concierge/mobile-site/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/concierge/mobile-site/",
+      "path": "/en/collections/concierge/mobile-site/",
+      "locale": "en",
       "group": "mobile",
-      "title": "Viaggi in camper con concierge | MLT Concierge",
-      "description": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
-      "keywords": "viaggi in camper con concierge,MLT Concierge,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/concierge/",
+      "title": "Motorhome Holidays with Concierge | MLT Concierge",
+      "description": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
+      "keywords": "motorhome holidays with concierge,MLT Concierge,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/concierge/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -448,28 +448,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/concierge/"
         }
       ],
-      "primaryQuery": "viaggi in camper con concierge",
+      "primaryQuery": "motorhome holidays with concierge",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Concierge Collection",
-        "suggestedHeading": "Viaggi in camper con concierge",
-        "suggestedParagraph": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
+        "suggestedHeading": "Motorhome Holidays with Concierge",
+        "suggestedParagraph": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/freedom/",
-      "path": "/it/collections/freedom/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/freedom/",
+      "path": "/en/collections/freedom/",
+      "locale": "en",
       "group": "public",
-      "title": "Viaggi in camper in libertà | MLT Freedom",
-      "description": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
-      "keywords": "viaggi in camper in libertà,MLT Freedom,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/freedom/",
+      "title": "Self-Drive Motorhome Holidays | MLT Freedom",
+      "description": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
+      "keywords": "self drive motorhome holidays,MLT Freedom,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/freedom/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -503,28 +503,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/freedom/"
         }
       ],
-      "primaryQuery": "viaggi in camper in libertà",
+      "primaryQuery": "self drive motorhome holidays",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Freedom Collection",
-        "suggestedHeading": "Viaggi in camper in libertà",
-        "suggestedParagraph": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
+        "suggestedHeading": "Self-Drive Motorhome Holidays",
+        "suggestedParagraph": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/freedom/mobile-preview/",
-      "path": "/it/collections/freedom/mobile-preview/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/freedom/mobile-preview/",
+      "path": "/en/collections/freedom/mobile-preview/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/collections/freedom/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/en/collections/freedom/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -536,14 +536,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/freedom/mobile-site/",
-      "path": "/it/collections/freedom/mobile-site/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/freedom/mobile-site/",
+      "path": "/en/collections/freedom/mobile-site/",
+      "locale": "en",
       "group": "mobile",
-      "title": "Viaggi in camper in libertà | MLT Freedom",
-      "description": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
-      "keywords": "viaggi in camper in libertà,MLT Freedom,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/freedom/",
+      "title": "Self-Drive Motorhome Holidays | MLT Freedom",
+      "description": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
+      "keywords": "self drive motorhome holidays,MLT Freedom,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/freedom/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -577,28 +577,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/freedom/"
         }
       ],
-      "primaryQuery": "viaggi in camper in libertà",
+      "primaryQuery": "self drive motorhome holidays",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Freedom Collection",
-        "suggestedHeading": "Viaggi in camper in libertà",
-        "suggestedParagraph": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
+        "suggestedHeading": "Self-Drive Motorhome Holidays",
+        "suggestedParagraph": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/honeymoon/",
-      "path": "/it/collections/honeymoon/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/honeymoon/",
+      "path": "/en/collections/honeymoon/",
+      "locale": "en",
       "group": "public",
-      "title": "Luna di miele in camper in Europa | MLT Honeymoon",
-      "description": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
-      "keywords": "luna di miele in camper,MLT Honeymoon,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/honeymoon/",
+      "title": "Motorhome Honeymoon in Europe | MLT Honeymoon",
+      "description": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
+      "keywords": "motorhome honeymoon Europe,MLT Honeymoon,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/honeymoon/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -632,28 +632,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/honeymoon/"
         }
       ],
-      "primaryQuery": "luna di miele in camper",
+      "primaryQuery": "motorhome honeymoon Europe",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Honeymoon Collection",
-        "suggestedHeading": "Luna di miele in camper in Europa",
-        "suggestedParagraph": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
+        "suggestedHeading": "Motorhome Honeymoon in Europe",
+        "suggestedParagraph": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/honeymoon/mobile-preview/",
-      "path": "/it/collections/honeymoon/mobile-preview/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/honeymoon/mobile-preview/",
+      "path": "/en/collections/honeymoon/mobile-preview/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/collections/honeymoon/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/en/collections/honeymoon/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -665,14 +665,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/honeymoon/mobile-site/",
-      "path": "/it/collections/honeymoon/mobile-site/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/honeymoon/mobile-site/",
+      "path": "/en/collections/honeymoon/mobile-site/",
+      "locale": "en",
       "group": "mobile",
-      "title": "Luna di miele in camper in Europa | MLT Honeymoon",
-      "description": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
-      "keywords": "luna di miele in camper,MLT Honeymoon,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/honeymoon/",
+      "title": "Motorhome Honeymoon in Europe | MLT Honeymoon",
+      "description": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
+      "keywords": "motorhome honeymoon Europe,MLT Honeymoon,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/honeymoon/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -706,28 +706,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/honeymoon/"
         }
       ],
-      "primaryQuery": "luna di miele in camper",
+      "primaryQuery": "motorhome honeymoon Europe",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Honeymoon Collection",
-        "suggestedHeading": "Luna di miele in camper in Europa",
-        "suggestedParagraph": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
+        "suggestedHeading": "Motorhome Honeymoon in Europe",
+        "suggestedParagraph": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/private/",
-      "path": "/it/collections/private/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/private/",
+      "path": "/en/collections/private/",
+      "locale": "en",
       "group": "public",
-      "title": "Viaggi in camper con autista | MLT Private",
-      "description": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
-      "keywords": "camper con autista,MLT Private,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/private/",
+      "title": "Luxury Motorhome Travel with a Driver | MLT Private",
+      "description": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
+      "keywords": "motorhome with driver Europe,MLT Private,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/private/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -761,28 +761,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/private/"
         }
       ],
-      "primaryQuery": "camper con autista",
+      "primaryQuery": "motorhome with driver Europe",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "MLT Private Collection",
-        "suggestedHeading": "Viaggi in camper con autista",
-        "suggestedParagraph": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
+        "currentH1": "",
+        "suggestedHeading": "Luxury Motorhome Travel with a Driver",
+        "suggestedParagraph": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/private/mobile-preview/",
-      "path": "/it/collections/private/mobile-preview/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/private/mobile-preview/",
+      "path": "/en/collections/private/mobile-preview/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/collections/private/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/en/collections/private/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -794,14 +794,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/private/mobile-site/",
-      "path": "/it/collections/private/mobile-site/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/private/mobile-site/",
+      "path": "/en/collections/private/mobile-site/",
+      "locale": "en",
       "group": "mobile",
-      "title": "Viaggi in camper con autista | MLT Private",
-      "description": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
-      "keywords": "camper con autista,MLT Private,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/private/",
+      "title": "Luxury Motorhome Travel with a Driver | MLT Private",
+      "description": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
+      "keywords": "motorhome with driver Europe,MLT Private,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/private/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -835,28 +835,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/private/"
         }
       ],
-      "primaryQuery": "camper con autista",
+      "primaryQuery": "motorhome with driver Europe",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "MLT Private Collection",
-        "suggestedHeading": "Viaggi in camper con autista",
-        "suggestedParagraph": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
+        "currentH1": "",
+        "suggestedHeading": "Luxury Motorhome Travel with a Driver",
+        "suggestedParagraph": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/signature/",
-      "path": "/it/collections/signature/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/signature/",
+      "path": "/en/collections/signature/",
+      "locale": "en",
       "group": "public",
-      "title": "Vacanze in camper su misura | MLT Signature",
-      "description": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
-      "keywords": "vacanze in camper su misura,MLT Signature,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/signature/",
+      "title": "Tailor-Made Motorhome Holidays | MLT Signature",
+      "description": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
+      "keywords": "tailor made motorhome holidays,MLT Signature,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/signature/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -890,28 +890,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/signature/"
         }
       ],
-      "primaryQuery": "vacanze in camper su misura",
+      "primaryQuery": "tailor made motorhome holidays",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Signature Collection",
-        "suggestedHeading": "Vacanze in camper su misura",
-        "suggestedParagraph": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
+        "suggestedHeading": "Tailor-Made Motorhome Holidays",
+        "suggestedParagraph": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/signature/mobile-preview/",
-      "path": "/it/collections/signature/mobile-preview/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/signature/mobile-preview/",
+      "path": "/en/collections/signature/mobile-preview/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/collections/signature/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/en/collections/signature/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -923,14 +923,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/collections/signature/mobile-site/",
-      "path": "/it/collections/signature/mobile-site/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/collections/signature/mobile-site/",
+      "path": "/en/collections/signature/mobile-site/",
+      "locale": "en",
       "group": "mobile",
-      "title": "Vacanze in camper su misura | MLT Signature",
-      "description": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
-      "keywords": "vacanze in camper su misura,MLT Signature,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/collections/signature/",
+      "title": "Tailor-Made Motorhome Holidays | MLT Signature",
+      "description": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
+      "keywords": "tailor made motorhome holidays,MLT Signature,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/collections/signature/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -964,28 +964,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/signature/"
         }
       ],
-      "primaryQuery": "vacanze in camper su misura",
+      "primaryQuery": "tailor made motorhome holidays",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Signature Collection",
-        "suggestedHeading": "Vacanze in camper su misura",
-        "suggestedParagraph": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
+        "suggestedHeading": "Tailor-Made Motorhome Holidays",
+        "suggestedParagraph": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/contact/",
-      "path": "/it/contact/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/contact/",
+      "path": "/en/contact/",
+      "locale": "en",
       "group": "public",
-      "title": "Contatti MLT | Richieste e consulenza personale",
-      "description": "Contatta MLT per viaggi, acquisto di camper o investimenti. Trova l’indirizzo e-mail, i numeri di telefono e la sede di Dresda.",
-      "keywords": "contatti MLT,MLT Dresda",
-      "canonical": "https://mlt-lifestyle.com/it/contact/",
+      "title": "Contact MLT | Personal Enquiries",
+      "description": "Contact the MLT team about journeys, motorhome acquisitions or investments. Find our email, phone number and Dresden office address.",
+      "keywords": "MLT contact,MLT Dresden",
+      "canonical": "https://mlt-lifestyle.com/en/contact/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -1019,13 +1019,13 @@
           "href": "https://mlt-lifestyle.com/en/contact/"
         }
       ],
-      "primaryQuery": "contatti MLT",
+      "primaryQuery": "MLT contact",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "Iniziamo con una conversazione personale.",
+        "currentH1": "A private conversation starts here.",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -1033,14 +1033,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/investments/",
-      "path": "/it/investments/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/investments/",
+      "path": "/en/investments/",
+      "locale": "en",
       "group": "public",
-      "title": "Investimenti in camper | MLT",
-      "description": "Scopri il programma di investimento MLT per camper, le condizioni e i calcoli esemplificativi. Parla dei dettagli con un consulente personale.",
-      "keywords": "investimenti in camper,programma MLT",
-      "canonical": "https://mlt-lifestyle.com/it/investments/",
+      "title": "Motorhome Investments | MLT",
+      "description": "Explore the MLT motorhome investment programme, its conditions and illustrative calculations. Discuss the details with a personal manager.",
+      "keywords": "motorhome investments,MLT investment programme",
+      "canonical": "https://mlt-lifestyle.com/en/investments/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -1074,28 +1074,28 @@
           "href": "https://mlt-lifestyle.com/en/investments/"
         }
       ],
-      "primaryQuery": "investimenti in camper",
+      "primaryQuery": "motorhome investments",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Investi nella libertà. Ottieni un reddito passivo.",
-        "suggestedHeading": "Investimenti in camper",
-        "suggestedParagraph": "Scopri il programma di investimento MLT per camper, le condizioni e i calcoli esemplificativi. Parla dei dettagli con un consulente personale.",
+        "currentH1": "Invest in Freedom. Earn Effortless Returns.",
+        "suggestedHeading": "Motorhome Investments",
+        "suggestedParagraph": "Explore the MLT motorhome investment programme, its conditions and illustrative calculations. Discuss the details with a personal manager.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/legal/imprint/",
-      "path": "/it/legal/imprint/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/legal/imprint/",
+      "path": "/en/legal/imprint/",
+      "locale": "en",
       "group": "public",
-      "title": "Note legali — MLT",
-      "description": "Dati societari e contatti di MLT Maschinenhandel GmbH Import-Export, con sede legale e informazioni sul registro delle imprese.",
-      "keywords": "dati societari MLT",
-      "canonical": "https://mlt-lifestyle.com/it/legal/imprint/",
+      "title": "Legal notice — MLT",
+      "description": "Company details and contact information for MLT Maschinenhandel GmbH Import-Export, including its registered office and commercial register information.",
+      "keywords": "MLT company details",
+      "canonical": "https://mlt-lifestyle.com/en/legal/imprint/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -1129,13 +1129,13 @@
           "href": "https://mlt-lifestyle.com/en/legal/imprint/"
         }
       ],
-      "primaryQuery": "dati societari MLT",
+      "primaryQuery": "MLT company details",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "Note legali",
+        "currentH1": "Legal notice",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -1143,14 +1143,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/legal/privacy/",
-      "path": "/it/legal/privacy/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/legal/privacy/",
+      "path": "/en/legal/privacy/",
+      "locale": "en",
       "group": "public",
-      "title": "Informativa sulla privacy — MLT",
-      "description": "Come MLT tratta i dati personali, utilizza i cookie e gestisce le richieste. Informazioni sulla privacy, sui tuoi diritti e sui contatti.",
-      "keywords": "informativa privacy MLT",
-      "canonical": "https://mlt-lifestyle.com/it/legal/privacy/",
+      "title": "Privacy policy — MLT",
+      "description": "How MLT processes personal data, uses cookies and handles enquiries. Read about data protection, your rights and contact details.",
+      "keywords": "MLT privacy policy",
+      "canonical": "https://mlt-lifestyle.com/en/legal/privacy/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -1184,13 +1184,13 @@
           "href": "https://mlt-lifestyle.com/en/legal/privacy/"
         }
       ],
-      "primaryQuery": "informativa privacy MLT",
+      "primaryQuery": "MLT privacy policy",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "Informativa sulla privacy",
+        "currentH1": "Privacy policy",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -1198,14 +1198,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/legal/terms/",
-      "path": "/it/legal/terms/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/legal/terms/",
+      "path": "/en/legal/terms/",
+      "locale": "en",
       "group": "public",
-      "title": "Condizioni generali — MLT",
-      "description": "Leggi le condizioni generali MLT relative a prenotazioni, pagamenti e cancellazioni, e agli obblighi delle parti.",
-      "keywords": "condizioni generali MLT",
-      "canonical": "https://mlt-lifestyle.com/it/legal/terms/",
+      "title": "Terms and conditions — MLT",
+      "description": "Read the MLT general terms, including booking, payment and cancellation conditions and the responsibilities of the parties.",
+      "keywords": "MLT general terms",
+      "canonical": "https://mlt-lifestyle.com/en/legal/terms/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -1239,13 +1239,13 @@
           "href": "https://mlt-lifestyle.com/en/legal/terms/"
         }
       ],
-      "primaryQuery": "condizioni generali MLT",
+      "primaryQuery": "MLT general terms",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "Condizioni generali",
+        "currentH1": "Terms and conditions",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -1253,14 +1253,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/mobile-preview/",
-      "path": "/it/mobile-preview/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/mobile-preview/",
+      "path": "/en/mobile-preview/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT — Mobile Homepage Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/en/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -1272,14 +1272,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/mobile-site/",
-      "path": "/it/mobile-site/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/mobile-site/",
+      "path": "/en/mobile-site/",
+      "locale": "en",
       "group": "mobile",
-      "title": "Viaggi in camper in Europa su misura | MLT",
-      "description": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
-      "keywords": "viaggi in camper Europa,MLT,viaggi in camper,Europa,itinerari individuali",
-      "canonical": "https://mlt-lifestyle.com/it/",
+      "title": "Luxury Motorhome Holidays in Europe | MLT",
+      "description": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
+      "keywords": "luxury motorhome holidays Europe,MLT,motorhome journeys,Europe,individual travel",
+      "canonical": "https://mlt-lifestyle.com/en/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -1313,28 +1313,28 @@
           "href": "https://mlt-lifestyle.com/en/"
         }
       ],
-      "primaryQuery": "viaggi in camper Europa",
+      "primaryQuery": "luxury motorhome holidays Europe",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Spedizioni individuali in motorhome",
-        "suggestedHeading": "Viaggi in camper in Europa su misura",
-        "suggestedParagraph": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
+        "currentH1": "Individual Motorhome Expeditions",
+        "suggestedHeading": "Luxury Motorhome Holidays in Europe",
+        "suggestedParagraph": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/plan/",
-      "path": "/it/plan/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/plan/",
+      "path": "/en/plan/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/plan/",
+      "canonical": "https://mlt-lifestyle.com/en/plan/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -1346,14 +1346,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/proposal/",
-      "path": "/it/proposal/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/proposal/",
+      "path": "/en/proposal/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/proposal/",
+      "canonical": "https://mlt-lifestyle.com/en/proposal/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -1365,14 +1365,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/scout-passport/",
-      "path": "/it/scout-passport/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/scout-passport/",
+      "path": "/en/scout-passport/",
+      "locale": "en",
       "group": "utility",
       "title": "MLT Scout Passport",
-      "description": "Scopri. Fotografa. Arricchisci gli itinerari MLT",
+      "description": "Curate. Capture. Contribute to the MLT route",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/it/scout-passport/",
+      "canonical": "https://mlt-lifestyle.com/en/scout-passport/",
       "robots": "noindex, nofollow",
       "hreflang": [
         {
@@ -1410,14 +1410,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/smart-map/",
-      "path": "/it/smart-map/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/smart-map/",
+      "path": "/en/smart-map/",
+      "locale": "en",
       "group": "public",
-      "title": "MLT Smart Map | Destinazioni selezionate in Europa",
-      "description": "Esplora destinazioni selezionate in Europa e crea il tuo itinerario con la mappa interattiva MLT Smart Map.",
-      "keywords": "MLT Smart Map,destinazioni europee",
-      "canonical": "https://mlt-lifestyle.com/it/smart-map/",
+      "title": "MLT Smart Map | Curated Routes Across Europe",
+      "description": "Explore curated European destinations and compose your journey with the interactive MLT Smart Map.",
+      "keywords": "MLT Smart Map,European destinations",
+      "canonical": "https://mlt-lifestyle.com/en/smart-map/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -1457,22 +1457,22 @@
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Luoghi straordinari. Un itinerario intelligente.",
+        "currentH1": "Remarkable places. One intelligent route.",
         "suggestedHeading": "MLT Smart Map",
-        "suggestedParagraph": "Esplora destinazioni selezionate in Europa e crea il tuo itinerario con la mappa interattiva MLT Smart Map.",
+        "suggestedParagraph": "Explore curated European destinations and compose your journey with the interactive MLT Smart Map.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/it/vouchers/",
-      "path": "/it/vouchers/",
-      "locale": "it",
+      "url": "https://mlt-lifestyle.com/en/vouchers/",
+      "path": "/en/vouchers/",
+      "locale": "en",
       "group": "public",
-      "title": "Voucher viaggio MLT | Credito per il prossimo viaggio",
-      "description": "Scopri i voucher MLT, i valori disponibili e le condizioni di acquisto. Usa il credito per un viaggio MLT e gestisci il saldo nel tuo account.",
-      "keywords": "voucher viaggio MLT,credito viaggio",
-      "canonical": "https://mlt-lifestyle.com/it/vouchers/",
+      "title": "MLT Travel Vouchers | Credit for Your Next Journey",
+      "description": "Discover MLT travel vouchers, available values and purchase conditions. Use your travel credit towards an MLT journey and manage the balance in your account.",
+      "keywords": "MLT travel vouchers,travel credit",
+      "canonical": "https://mlt-lifestyle.com/en/vouchers/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -1506,15 +1506,15 @@
           "href": "https://mlt-lifestyle.com/en/vouchers/"
         }
       ],
-      "primaryQuery": "voucher viaggio MLT",
+      "primaryQuery": "MLT travel vouchers",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Voucher",
-        "suggestedHeading": "Voucher viaggio MLT",
-        "suggestedParagraph": "Scopri i voucher MLT, i valori disponibili e le condizioni di acquisto. Usa il credito per un viaggio MLT e gestisci il saldo nel tuo account.",
+        "currentH1": "Vouchers",
+        "suggestedHeading": "MLT Travel Vouchers",
+        "suggestedParagraph": "Discover MLT travel vouchers, available values and purchase conditions. Use your travel credit towards an MLT journey and manage the balance in your account.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
@@ -3017,14 +3017,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/",
-      "path": "/en/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/",
+      "path": "/it/",
+      "locale": "it",
       "group": "public",
-      "title": "Luxury Motorhome Holidays in Europe | MLT",
-      "description": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
-      "keywords": "luxury motorhome holidays Europe,MLT,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/",
+      "title": "Viaggi in camper in Europa su misura | MLT",
+      "description": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
+      "keywords": "viaggi in camper Europa,MLT,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3058,28 +3058,28 @@
           "href": "https://mlt-lifestyle.com/en/"
         }
       ],
-      "primaryQuery": "luxury motorhome holidays Europe",
+      "primaryQuery": "viaggi in camper Europa",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Individual Motorhome Expeditions",
-        "suggestedHeading": "Luxury Motorhome Holidays in Europe",
-        "suggestedParagraph": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
+        "currentH1": "Spedizioni individuali in motorhome",
+        "suggestedHeading": "Viaggi in camper in Europa su misura",
+        "suggestedParagraph": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/about/",
-      "path": "/en/about/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/about/",
+      "path": "/it/about/",
+      "locale": "it",
       "group": "public",
-      "title": "About MLT | Individual Journeys Across Europe",
-      "description": "Discover MLT's approach to individual European journeys, premium motorhomes and personal service.",
-      "keywords": "about MLT,individual journeys",
-      "canonical": "https://mlt-lifestyle.com/en/about/",
+      "title": "Chi è MLT | Viaggi individuali in Europa",
+      "description": "Scopri come MLT crea viaggi individuali in Europa con camper premium, itinerari curati e un servizio personale.",
+      "keywords": "chi è MLT,viaggi individuali",
+      "canonical": "https://mlt-lifestyle.com/it/about/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3113,13 +3113,13 @@
           "href": "https://mlt-lifestyle.com/en/about/"
         }
       ],
-      "primaryQuery": "about MLT",
+      "primaryQuery": "chi è MLT",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "A more considered way to move.",
+        "currentH1": "Un modo più attento di viaggiare.",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -3127,14 +3127,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/account/",
-      "path": "/en/account/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/account/",
+      "path": "/it/account/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/account/",
+      "canonical": "https://mlt-lifestyle.com/it/account/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3146,14 +3146,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/account/documents/",
-      "path": "/en/account/documents/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/account/documents/",
+      "path": "/it/account/documents/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/account/documents/",
+      "canonical": "https://mlt-lifestyle.com/it/account/documents/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3165,14 +3165,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/account/journeys/",
-      "path": "/en/account/journeys/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/account/journeys/",
+      "path": "/it/account/journeys/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/account/journeys/",
+      "canonical": "https://mlt-lifestyle.com/it/account/journeys/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3184,14 +3184,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/account/profile/",
-      "path": "/en/account/profile/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/account/profile/",
+      "path": "/it/account/profile/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/account/profile/",
+      "canonical": "https://mlt-lifestyle.com/it/account/profile/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3203,14 +3203,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/account/vouchers/",
-      "path": "/en/account/vouchers/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/account/vouchers/",
+      "path": "/it/account/vouchers/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/account/vouchers/",
+      "canonical": "https://mlt-lifestyle.com/it/account/vouchers/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3222,14 +3222,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/acquisitions/",
-      "path": "/en/acquisitions/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/acquisitions/",
+      "path": "/it/acquisitions/",
+      "locale": "it",
       "group": "public",
-      "title": "Motorhomes for Sale | MLT Acquisitions",
-      "description": "Explore premium motorhomes, compare the details and enquire directly with the MLT sales team.",
-      "keywords": "motorhomes for sale,buy a motorhome",
-      "canonical": "https://mlt-lifestyle.com/en/acquisitions/",
+      "title": "Camper in vendita | MLT Acquisitions",
+      "description": "Scopri i camper premium, confronta le caratteristiche e invia una richiesta direttamente al team vendite MLT.",
+      "keywords": "camper in vendita,acquistare camper",
+      "canonical": "https://mlt-lifestyle.com/it/acquisitions/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3263,28 +3263,28 @@
           "href": "https://mlt-lifestyle.com/en/acquisitions/"
         }
       ],
-      "primaryQuery": "motorhomes for sale",
+      "primaryQuery": "camper in vendita",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Find your next residence on wheels.",
-        "suggestedHeading": "Motorhomes for Sale",
-        "suggestedParagraph": "Explore premium motorhomes, compare the details and enquire directly with the MLT sales team.",
+        "currentH1": "Trova la tua prossima casa su ruote.",
+        "suggestedHeading": "Camper in vendita",
+        "suggestedParagraph": "Scopri i camper premium, confronta le caratteristiche e invia una richiesta direttamente al team vendite MLT.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/acquisitions/mercedes-benz-v-300-marco-polo/",
-      "path": "/en/acquisitions/mercedes-benz-v-300-marco-polo/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/acquisitions/mercedes-benz-v-300-marco-polo/",
+      "path": "/it/acquisitions/mercedes-benz-v-300-marco-polo/",
+      "locale": "it",
       "group": "public",
-      "title": "Mercedes-Benz V 300 Marco Polo | MLT Acquisitions",
-      "description": "4MATIC · Original Westfalia camper · 08/2019 · Rome, Italy Price €44,900.",
-      "keywords": "Mercedes-Benz V 300 Marco Polo,Motorhomes for Sale,MLT",
-      "canonical": "https://mlt-lifestyle.com/en/acquisitions/mercedes-benz-v-300-marco-polo/",
+      "title": "Mercedes-Benz V 300 Marco Polo | MLT Acquisto",
+      "description": "4MATIC · Allestimento Westfalia originale · 08/2019 · Roma, Italia Prezzo 44.900 €.",
+      "keywords": "Mercedes-Benz V 300 Marco Polo,Camper in vendita,MLT",
+      "canonical": "https://mlt-lifestyle.com/it/acquisitions/mercedes-benz-v-300-marco-polo/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3327,14 +3327,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/concierge/",
-      "path": "/en/collections/concierge/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/concierge/",
+      "path": "/it/collections/concierge/",
+      "locale": "it",
       "group": "public",
-      "title": "Motorhome Holidays with Concierge | MLT Concierge",
-      "description": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
-      "keywords": "motorhome holidays with concierge,MLT Concierge,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/concierge/",
+      "title": "Viaggi in camper con concierge | MLT Concierge",
+      "description": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
+      "keywords": "viaggi in camper con concierge,MLT Concierge,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/concierge/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3368,28 +3368,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/concierge/"
         }
       ],
-      "primaryQuery": "motorhome holidays with concierge",
+      "primaryQuery": "viaggi in camper con concierge",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Concierge Collection",
-        "suggestedHeading": "Motorhome Holidays with Concierge",
-        "suggestedParagraph": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
+        "suggestedHeading": "Viaggi in camper con concierge",
+        "suggestedParagraph": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/concierge/mobile-preview/",
-      "path": "/en/collections/concierge/mobile-preview/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/concierge/mobile-preview/",
+      "path": "/it/collections/concierge/mobile-preview/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/collections/concierge/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/it/collections/concierge/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3401,14 +3401,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/concierge/mobile-site/",
-      "path": "/en/collections/concierge/mobile-site/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/concierge/mobile-site/",
+      "path": "/it/collections/concierge/mobile-site/",
+      "locale": "it",
       "group": "mobile",
-      "title": "Motorhome Holidays with Concierge | MLT Concierge",
-      "description": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
-      "keywords": "motorhome holidays with concierge,MLT Concierge,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/concierge/",
+      "title": "Viaggi in camper con concierge | MLT Concierge",
+      "description": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
+      "keywords": "viaggi in camper con concierge,MLT Concierge,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/concierge/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3442,28 +3442,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/concierge/"
         }
       ],
-      "primaryQuery": "motorhome holidays with concierge",
+      "primaryQuery": "viaggi in camper con concierge",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Concierge Collection",
-        "suggestedHeading": "Motorhome Holidays with Concierge",
-        "suggestedParagraph": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
+        "suggestedHeading": "Viaggi in camper con concierge",
+        "suggestedParagraph": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/freedom/",
-      "path": "/en/collections/freedom/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/freedom/",
+      "path": "/it/collections/freedom/",
+      "locale": "it",
       "group": "public",
-      "title": "Self-Drive Motorhome Holidays | MLT Freedom",
-      "description": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
-      "keywords": "self drive motorhome holidays,MLT Freedom,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/freedom/",
+      "title": "Viaggi in camper in libertà | MLT Freedom",
+      "description": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
+      "keywords": "viaggi in camper in libertà,MLT Freedom,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/freedom/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3497,28 +3497,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/freedom/"
         }
       ],
-      "primaryQuery": "self drive motorhome holidays",
+      "primaryQuery": "viaggi in camper in libertà",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Freedom Collection",
-        "suggestedHeading": "Self-Drive Motorhome Holidays",
-        "suggestedParagraph": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
+        "suggestedHeading": "Viaggi in camper in libertà",
+        "suggestedParagraph": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/freedom/mobile-preview/",
-      "path": "/en/collections/freedom/mobile-preview/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/freedom/mobile-preview/",
+      "path": "/it/collections/freedom/mobile-preview/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/collections/freedom/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/it/collections/freedom/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3530,14 +3530,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/freedom/mobile-site/",
-      "path": "/en/collections/freedom/mobile-site/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/freedom/mobile-site/",
+      "path": "/it/collections/freedom/mobile-site/",
+      "locale": "it",
       "group": "mobile",
-      "title": "Self-Drive Motorhome Holidays | MLT Freedom",
-      "description": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
-      "keywords": "self drive motorhome holidays,MLT Freedom,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/freedom/",
+      "title": "Viaggi in camper in libertà | MLT Freedom",
+      "description": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
+      "keywords": "viaggi in camper in libertà,MLT Freedom,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/freedom/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3571,28 +3571,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/freedom/"
         }
       ],
-      "primaryQuery": "self drive motorhome holidays",
+      "primaryQuery": "viaggi in camper in libertà",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Freedom Collection",
-        "suggestedHeading": "Self-Drive Motorhome Holidays",
-        "suggestedParagraph": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
+        "suggestedHeading": "Viaggi in camper in libertà",
+        "suggestedParagraph": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/honeymoon/",
-      "path": "/en/collections/honeymoon/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/honeymoon/",
+      "path": "/it/collections/honeymoon/",
+      "locale": "it",
       "group": "public",
-      "title": "Motorhome Honeymoon in Europe | MLT Honeymoon",
-      "description": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
-      "keywords": "motorhome honeymoon Europe,MLT Honeymoon,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/honeymoon/",
+      "title": "Luna di miele in camper in Europa | MLT Honeymoon",
+      "description": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
+      "keywords": "luna di miele in camper,MLT Honeymoon,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/honeymoon/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3626,28 +3626,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/honeymoon/"
         }
       ],
-      "primaryQuery": "motorhome honeymoon Europe",
+      "primaryQuery": "luna di miele in camper",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Honeymoon Collection",
-        "suggestedHeading": "Motorhome Honeymoon in Europe",
-        "suggestedParagraph": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
+        "suggestedHeading": "Luna di miele in camper in Europa",
+        "suggestedParagraph": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/honeymoon/mobile-preview/",
-      "path": "/en/collections/honeymoon/mobile-preview/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/honeymoon/mobile-preview/",
+      "path": "/it/collections/honeymoon/mobile-preview/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/collections/honeymoon/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/it/collections/honeymoon/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3659,14 +3659,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/honeymoon/mobile-site/",
-      "path": "/en/collections/honeymoon/mobile-site/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/honeymoon/mobile-site/",
+      "path": "/it/collections/honeymoon/mobile-site/",
+      "locale": "it",
       "group": "mobile",
-      "title": "Motorhome Honeymoon in Europe | MLT Honeymoon",
-      "description": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
-      "keywords": "motorhome honeymoon Europe,MLT Honeymoon,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/honeymoon/",
+      "title": "Luna di miele in camper in Europa | MLT Honeymoon",
+      "description": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
+      "keywords": "luna di miele in camper,MLT Honeymoon,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/honeymoon/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3700,28 +3700,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/honeymoon/"
         }
       ],
-      "primaryQuery": "motorhome honeymoon Europe",
+      "primaryQuery": "luna di miele in camper",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Honeymoon Collection",
-        "suggestedHeading": "Motorhome Honeymoon in Europe",
-        "suggestedParagraph": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
+        "suggestedHeading": "Luna di miele in camper in Europa",
+        "suggestedParagraph": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/private/",
-      "path": "/en/collections/private/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/private/",
+      "path": "/it/collections/private/",
+      "locale": "it",
       "group": "public",
-      "title": "Luxury Motorhome Travel with a Driver | MLT Private",
-      "description": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
-      "keywords": "motorhome with driver Europe,MLT Private,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/private/",
+      "title": "Viaggi in camper con autista | MLT Private",
+      "description": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
+      "keywords": "camper con autista,MLT Private,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/private/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3755,28 +3755,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/private/"
         }
       ],
-      "primaryQuery": "motorhome with driver Europe",
+      "primaryQuery": "camper con autista",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "",
-        "suggestedHeading": "Luxury Motorhome Travel with a Driver",
-        "suggestedParagraph": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
+        "currentH1": "MLT Private Collection",
+        "suggestedHeading": "Viaggi in camper con autista",
+        "suggestedParagraph": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/private/mobile-preview/",
-      "path": "/en/collections/private/mobile-preview/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/private/mobile-preview/",
+      "path": "/it/collections/private/mobile-preview/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/collections/private/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/it/collections/private/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3788,14 +3788,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/private/mobile-site/",
-      "path": "/en/collections/private/mobile-site/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/private/mobile-site/",
+      "path": "/it/collections/private/mobile-site/",
+      "locale": "it",
       "group": "mobile",
-      "title": "Luxury Motorhome Travel with a Driver | MLT Private",
-      "description": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
-      "keywords": "motorhome with driver Europe,MLT Private,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/private/",
+      "title": "Viaggi in camper con autista | MLT Private",
+      "description": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
+      "keywords": "camper con autista,MLT Private,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/private/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3829,28 +3829,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/private/"
         }
       ],
-      "primaryQuery": "motorhome with driver Europe",
+      "primaryQuery": "camper con autista",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "",
-        "suggestedHeading": "Luxury Motorhome Travel with a Driver",
-        "suggestedParagraph": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
+        "currentH1": "MLT Private Collection",
+        "suggestedHeading": "Viaggi in camper con autista",
+        "suggestedParagraph": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/signature/",
-      "path": "/en/collections/signature/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/signature/",
+      "path": "/it/collections/signature/",
+      "locale": "it",
       "group": "public",
-      "title": "Tailor-Made Motorhome Holidays | MLT Signature",
-      "description": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
-      "keywords": "tailor made motorhome holidays,MLT Signature,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/signature/",
+      "title": "Vacanze in camper su misura | MLT Signature",
+      "description": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
+      "keywords": "vacanze in camper su misura,MLT Signature,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/signature/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3884,28 +3884,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/signature/"
         }
       ],
-      "primaryQuery": "tailor made motorhome holidays",
+      "primaryQuery": "vacanze in camper su misura",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Signature Collection",
-        "suggestedHeading": "Tailor-Made Motorhome Holidays",
-        "suggestedParagraph": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
+        "suggestedHeading": "Vacanze in camper su misura",
+        "suggestedParagraph": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/signature/mobile-preview/",
-      "path": "/en/collections/signature/mobile-preview/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/signature/mobile-preview/",
+      "path": "/it/collections/signature/mobile-preview/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT Collection — Mobile Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/collections/signature/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/it/collections/signature/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -3917,14 +3917,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/collections/signature/mobile-site/",
-      "path": "/en/collections/signature/mobile-site/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/collections/signature/mobile-site/",
+      "path": "/it/collections/signature/mobile-site/",
+      "locale": "it",
       "group": "mobile",
-      "title": "Tailor-Made Motorhome Holidays | MLT Signature",
-      "description": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
-      "keywords": "tailor made motorhome holidays,MLT Signature,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/collections/signature/",
+      "title": "Vacanze in camper su misura | MLT Signature",
+      "description": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
+      "keywords": "vacanze in camper su misura,MLT Signature,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/collections/signature/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -3958,28 +3958,28 @@
           "href": "https://mlt-lifestyle.com/en/collections/signature/"
         }
       ],
-      "primaryQuery": "tailor made motorhome holidays",
+      "primaryQuery": "vacanze in camper su misura",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
         "currentH1": "MLT Signature Collection",
-        "suggestedHeading": "Tailor-Made Motorhome Holidays",
-        "suggestedParagraph": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
+        "suggestedHeading": "Vacanze in camper su misura",
+        "suggestedParagraph": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/contact/",
-      "path": "/en/contact/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/contact/",
+      "path": "/it/contact/",
+      "locale": "it",
       "group": "public",
-      "title": "Contact MLT | Personal Enquiries",
-      "description": "Contact the MLT team about journeys, motorhome acquisitions or investments. Find our email, phone number and Dresden office address.",
-      "keywords": "MLT contact,MLT Dresden",
-      "canonical": "https://mlt-lifestyle.com/en/contact/",
+      "title": "Contatti MLT | Richieste e consulenza personale",
+      "description": "Contatta MLT per viaggi, acquisto di camper o investimenti. Trova l’indirizzo e-mail, i numeri di telefono e la sede di Dresda.",
+      "keywords": "contatti MLT,MLT Dresda",
+      "canonical": "https://mlt-lifestyle.com/it/contact/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -4013,13 +4013,13 @@
           "href": "https://mlt-lifestyle.com/en/contact/"
         }
       ],
-      "primaryQuery": "MLT contact",
+      "primaryQuery": "contatti MLT",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "A private conversation starts here.",
+        "currentH1": "Iniziamo con una conversazione personale.",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -4027,14 +4027,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/investments/",
-      "path": "/en/investments/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/investments/",
+      "path": "/it/investments/",
+      "locale": "it",
       "group": "public",
-      "title": "Motorhome Investments | MLT",
-      "description": "Explore the MLT motorhome investment programme, its conditions and illustrative calculations. Discuss the details with a personal manager.",
-      "keywords": "motorhome investments,MLT investment programme",
-      "canonical": "https://mlt-lifestyle.com/en/investments/",
+      "title": "Investimenti in camper | MLT",
+      "description": "Scopri il programma di investimento MLT per camper, le condizioni e i calcoli esemplificativi. Parla dei dettagli con un consulente personale.",
+      "keywords": "investimenti in camper,programma MLT",
+      "canonical": "https://mlt-lifestyle.com/it/investments/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -4068,28 +4068,28 @@
           "href": "https://mlt-lifestyle.com/en/investments/"
         }
       ],
-      "primaryQuery": "motorhome investments",
+      "primaryQuery": "investimenti in camper",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Invest in Freedom. Earn Effortless Returns.",
-        "suggestedHeading": "Motorhome Investments",
-        "suggestedParagraph": "Explore the MLT motorhome investment programme, its conditions and illustrative calculations. Discuss the details with a personal manager.",
+        "currentH1": "Investi nella libertà. Ottieni un reddito passivo.",
+        "suggestedHeading": "Investimenti in camper",
+        "suggestedParagraph": "Scopri il programma di investimento MLT per camper, le condizioni e i calcoli esemplificativi. Parla dei dettagli con un consulente personale.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/legal/imprint/",
-      "path": "/en/legal/imprint/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/legal/imprint/",
+      "path": "/it/legal/imprint/",
+      "locale": "it",
       "group": "public",
-      "title": "Legal notice — MLT",
-      "description": "Company details and contact information for MLT Maschinenhandel GmbH Import-Export, including its registered office and commercial register information.",
-      "keywords": "MLT company details",
-      "canonical": "https://mlt-lifestyle.com/en/legal/imprint/",
+      "title": "Note legali — MLT",
+      "description": "Dati societari e contatti di MLT Maschinenhandel GmbH Import-Export, con sede legale e informazioni sul registro delle imprese.",
+      "keywords": "dati societari MLT",
+      "canonical": "https://mlt-lifestyle.com/it/legal/imprint/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -4123,13 +4123,13 @@
           "href": "https://mlt-lifestyle.com/en/legal/imprint/"
         }
       ],
-      "primaryQuery": "MLT company details",
+      "primaryQuery": "dati societari MLT",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "Legal notice",
+        "currentH1": "Note legali",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -4137,14 +4137,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/legal/privacy/",
-      "path": "/en/legal/privacy/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/legal/privacy/",
+      "path": "/it/legal/privacy/",
+      "locale": "it",
       "group": "public",
-      "title": "Privacy policy — MLT",
-      "description": "How MLT processes personal data, uses cookies and handles enquiries. Read about data protection, your rights and contact details.",
-      "keywords": "MLT privacy policy",
-      "canonical": "https://mlt-lifestyle.com/en/legal/privacy/",
+      "title": "Informativa sulla privacy — MLT",
+      "description": "Come MLT tratta i dati personali, utilizza i cookie e gestisce le richieste. Informazioni sulla privacy, sui tuoi diritti e sui contatti.",
+      "keywords": "informativa privacy MLT",
+      "canonical": "https://mlt-lifestyle.com/it/legal/privacy/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -4178,13 +4178,13 @@
           "href": "https://mlt-lifestyle.com/en/legal/privacy/"
         }
       ],
-      "primaryQuery": "MLT privacy policy",
+      "primaryQuery": "informativa privacy MLT",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "Privacy policy",
+        "currentH1": "Informativa sulla privacy",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -4192,14 +4192,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/legal/terms/",
-      "path": "/en/legal/terms/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/legal/terms/",
+      "path": "/it/legal/terms/",
+      "locale": "it",
       "group": "public",
-      "title": "Terms and conditions — MLT",
-      "description": "Read the MLT general terms, including booking, payment and cancellation conditions and the responsibilities of the parties.",
-      "keywords": "MLT general terms",
-      "canonical": "https://mlt-lifestyle.com/en/legal/terms/",
+      "title": "Condizioni generali — MLT",
+      "description": "Leggi le condizioni generali MLT relative a prenotazioni, pagamenti e cancellazioni, e agli obblighi delle parti.",
+      "keywords": "condizioni generali MLT",
+      "canonical": "https://mlt-lifestyle.com/it/legal/terms/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -4233,13 +4233,13 @@
           "href": "https://mlt-lifestyle.com/en/legal/terms/"
         }
       ],
-      "primaryQuery": "MLT general terms",
+      "primaryQuery": "condizioni generali MLT",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": false,
         "status": "Отдельное добавление SEO-ключей не требуется",
-        "currentH1": "Terms and conditions",
+        "currentH1": "Condizioni generali",
         "suggestedHeading": "",
         "suggestedParagraph": "",
         "placement": "Сохранить фактическую информацию страницы.",
@@ -4247,14 +4247,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/mobile-preview/",
-      "path": "/en/mobile-preview/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/mobile-preview/",
+      "path": "/it/mobile-preview/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT — Mobile Homepage Preview",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/mobile-preview/",
+      "canonical": "https://mlt-lifestyle.com/it/mobile-preview/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -4266,14 +4266,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/mobile-site/",
-      "path": "/en/mobile-site/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/mobile-site/",
+      "path": "/it/mobile-site/",
+      "locale": "it",
       "group": "mobile",
-      "title": "Luxury Motorhome Holidays in Europe | MLT",
-      "description": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
-      "keywords": "luxury motorhome holidays Europe,MLT,motorhome journeys,Europe,individual travel",
-      "canonical": "https://mlt-lifestyle.com/en/",
+      "title": "Viaggi in camper in Europa su misura | MLT",
+      "description": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
+      "keywords": "viaggi in camper Europa,MLT,viaggi in camper,Europa,itinerari individuali",
+      "canonical": "https://mlt-lifestyle.com/it/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -4307,28 +4307,28 @@
           "href": "https://mlt-lifestyle.com/en/"
         }
       ],
-      "primaryQuery": "luxury motorhome holidays Europe",
+      "primaryQuery": "viaggi in camper Europa",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Individual Motorhome Expeditions",
-        "suggestedHeading": "Luxury Motorhome Holidays in Europe",
-        "suggestedParagraph": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
+        "currentH1": "Spedizioni individuali in motorhome",
+        "suggestedHeading": "Viaggi in camper in Europa su misura",
+        "suggestedParagraph": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/plan/",
-      "path": "/en/plan/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/plan/",
+      "path": "/it/plan/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/plan/",
+      "canonical": "https://mlt-lifestyle.com/it/plan/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -4340,14 +4340,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/proposal/",
-      "path": "/en/proposal/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/proposal/",
+      "path": "/it/proposal/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT — Individual Road Expeditions",
       "description": "Private luxury road expeditions across Europe, composed around you.",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/proposal/",
+      "canonical": "https://mlt-lifestyle.com/it/proposal/",
       "robots": "noindex, nofollow",
       "hreflang": [],
       "primaryQuery": "",
@@ -4359,14 +4359,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/scout-passport/",
-      "path": "/en/scout-passport/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/scout-passport/",
+      "path": "/it/scout-passport/",
+      "locale": "it",
       "group": "utility",
       "title": "MLT Scout Passport",
-      "description": "Curate. Capture. Contribute to the MLT route",
+      "description": "Scopri. Fotografa. Arricchisci gli itinerari MLT",
       "keywords": "",
-      "canonical": "https://mlt-lifestyle.com/en/scout-passport/",
+      "canonical": "https://mlt-lifestyle.com/it/scout-passport/",
       "robots": "noindex, nofollow",
       "hreflang": [
         {
@@ -4404,14 +4404,14 @@
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/smart-map/",
-      "path": "/en/smart-map/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/smart-map/",
+      "path": "/it/smart-map/",
+      "locale": "it",
       "group": "public",
-      "title": "MLT Smart Map | Curated Routes Across Europe",
-      "description": "Explore curated European destinations and compose your journey with the interactive MLT Smart Map.",
-      "keywords": "MLT Smart Map,European destinations",
-      "canonical": "https://mlt-lifestyle.com/en/smart-map/",
+      "title": "MLT Smart Map | Destinazioni selezionate in Europa",
+      "description": "Esplora destinazioni selezionate in Europa e crea il tuo itinerario con la mappa interattiva MLT Smart Map.",
+      "keywords": "MLT Smart Map,destinazioni europee",
+      "canonical": "https://mlt-lifestyle.com/it/smart-map/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -4451,22 +4451,22 @@
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Remarkable places. One intelligent route.",
+        "currentH1": "Luoghi straordinari. Un itinerario intelligente.",
         "suggestedHeading": "MLT Smart Map",
-        "suggestedParagraph": "Explore curated European destinations and compose your journey with the interactive MLT Smart Map.",
+        "suggestedParagraph": "Esplora destinazioni selezionate in Europa e crea il tuo itinerario con la mappa interattiva MLT Smart Map.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
     },
     {
-      "url": "https://mlt-lifestyle.com/en/vouchers/",
-      "path": "/en/vouchers/",
-      "locale": "en",
+      "url": "https://mlt-lifestyle.com/it/vouchers/",
+      "path": "/it/vouchers/",
+      "locale": "it",
       "group": "public",
-      "title": "MLT Travel Vouchers | Credit for Your Next Journey",
-      "description": "Discover MLT travel vouchers, available values and purchase conditions. Use your travel credit towards an MLT journey and manage the balance in your account.",
-      "keywords": "MLT travel vouchers,travel credit",
-      "canonical": "https://mlt-lifestyle.com/en/vouchers/",
+      "title": "Voucher viaggio MLT | Credito per il prossimo viaggio",
+      "description": "Scopri i voucher MLT, i valori disponibili e le condizioni di acquisto. Usa il credito per un viaggio MLT e gestisci il saldo nel tuo account.",
+      "keywords": "voucher viaggio MLT,credito viaggio",
+      "canonical": "https://mlt-lifestyle.com/it/vouchers/",
       "robots": "index, follow",
       "hreflang": [
         {
@@ -4500,15 +4500,15 @@
           "href": "https://mlt-lifestyle.com/en/vouchers/"
         }
       ],
-      "primaryQuery": "MLT travel vouchers",
+      "primaryQuery": "voucher viaggio MLT",
       "googleAverageMonthlySearches": null,
       "statisticsStatus": "Частотность Google по Италии не подтверждена; данные Keyword Planner / Search Console не получены.",
       "contentRecommendation": {
         "required": true,
         "status": "Рекомендовано; не внедрено в видимый текст",
-        "currentH1": "Vouchers",
-        "suggestedHeading": "MLT Travel Vouchers",
-        "suggestedParagraph": "Discover MLT travel vouchers, available values and purchase conditions. Use your travel credit towards an MLT journey and manage the balance in your account.",
+        "currentH1": "Voucher",
+        "suggestedHeading": "Voucher viaggio MLT",
+        "suggestedParagraph": "Scopri i voucher MLT, i valori disponibili e le condizioni di acquisto. Usa il credito per un viaggio MLT e gestisci il saldo nel tuo account.",
         "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
         "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
       }
