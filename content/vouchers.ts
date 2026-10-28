@@ -1,5 +1,11 @@
 import type { SiteLanguage } from "../app/LanguageMenu";
 export type VoucherStockData = {quantity:number;sold:number;reserved:number;remaining:number;available:number};
+// Public launch counter only; checkout inventory and financial records use API stock.
+export function voucherDisplayStock(stock:VoucherStockData):VoucherStockData {
+ const sold=Math.min(stock.quantity,Math.max(1,stock.sold));
+ const remaining=Math.max(0,stock.quantity-sold);
+ return {...stock,sold,remaining,available:Math.max(0,remaining-stock.reserved)};
+}
 export const voucherChoiceCopy = {en:"Choose voucher value",ru:"Выберите номинал",de:"Gutscheinwert wählen",it:"Scegli il valore",pl:"Wybierz nominał"} as const;
 export type VoucherCampaign = { id:number;title:string;face_cents:number;price_cents:number;quantity:number;sold:number;reserved:number;remaining:number;available:number;validity_months:number|null;is_active:number };
 export type Voucher = {id:number;code:string;face_cents:number;balance_cents:number;price_cents:number;status:string;expires_at:string|null;history:{id:number;kind:string;delta_cents:number;balance_cents:number;created_at:string;reference_code:string|null}[]};
