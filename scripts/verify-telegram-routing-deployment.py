@@ -2,12 +2,16 @@ import ftplib
 import hmac
 import os
 import ssl
+import sys
 from pathlib import Path
 
 files = {
     '/api/telegram-routing.php': Path('public/api/telegram-routing.php'),
     '/api/telegram-sales-destination.php': Path('static-export/api/telegram-sales-destination.php'),
+    '/api/telegram-sales-message.php': Path('public/api/telegram-sales-message.php'),
 }
+if '--include-handler' in sys.argv:
+    files['/api/concierge.php'] = Path('public/api/concierge.php')
 with ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=45) as ftp:
     ftp.connect(os.environ['FTP_SERVER'])
     ftp.login(os.environ['FTP_USERNAME'], os.environ['FTP_PASSWORD'])

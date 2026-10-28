@@ -83,7 +83,7 @@ jobs:
           mkdir -p voucher-preflight/api voucher-preflight/data
           cp public/api/journey-pricing.php public/api/journey-terms.php public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
           cp public/data/journey-pricing.json voucher-preflight/data/
-          cp public/api/telegram-routing.php static-export/api/telegram-sales-destination.php voucher-preflight/api/
+          cp public/api/telegram-routing.php public/api/telegram-sales-message.php static-export/api/telegram-sales-destination.php voucher-preflight/api/
 
       - name: Publish voucher backend dependencies
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -128,3 +128,10 @@ jobs:
             **/node_modules/**
             assets
             assets/**
+
+      - name: Verify deployed sales notification handler
+        env:
+          FTP_SERVER: w021f859.kasserver.com
+          FTP_USERNAME: ${{ secrets.MLT_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.MLT_FTP_PASSWORD }}
+        run: python3 scripts/verify-telegram-routing-deployment.py --include-handler
