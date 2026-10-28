@@ -1786,5 +1786,35 @@
     "ru": "пассажирских мест",
     "it": "posti passeggero",
     "pl": "miejsc pasażerskich"
+  },
+  "Mercedes-Benz V 300 Marco Polo 4MATIC combines everyday driving comfort with the freedom of a fully equipped camper. Original Westfalia conversion, first registered in August 2019, with 106,000 km. Price: €44,900 including VAT.": {
+    "de": "Der Mercedes-Benz V 300 Marco Polo 4MATIC verbindet Fahrkomfort im Alltag mit der Freiheit eines voll ausgestatteten Campers. Originaler Westfalia-Ausbau, Erstzulassung August 2019, 106.000 km. Preis: 44.900 € inklusive Mehrwertsteuer.",
+    "ru": "Mercedes-Benz V 300 Marco Polo 4MATIC сочетает повседневный комфорт с возможностями оборудованного автодома. Оригинальное переоборудование Westfalia, первая регистрация — август 2019 года, пробег 106 000 км. Цена: 44 900 € с НДС.",
+    "it": "Mercedes-Benz V 300 Marco Polo 4MATIC unisce il comfort quotidiano alla libertà di un camper completamente attrezzato. Allestimento originale Westfalia, prima immatricolazione agosto 2019, 106.000 km. Prezzo: 44.900 € IVA inclusa.",
+    "pl": "Mercedes-Benz V 300 Marco Polo 4MATIC łączy komfort codziennej jazdy ze swobodą w pełni wyposażonego kampera. Oryginalna zabudowa Westfalia, pierwsza rejestracja w sierpniu 2019 r., przebieg 106 000 km. Cena: 44 900 € z VAT."
+  },
+  "Left-hand drive. One previous accident. Engine output, emission class and climate-control configuration require confirmation due to differing technical records.": {
+    "de": "Linkslenker. Ein früherer Unfall. Motorleistung, Abgasnorm und Klimaanlagenkonfiguration müssen wegen abweichender technischer Unterlagen noch bestätigt werden.",
+    "ru": "Левый руль. Одно ДТП в прошлом. Мощность двигателя, экологический класс и конфигурация климат-контроля требуют подтверждения из-за расхождений в технических документах.",
+    "it": "Guida a sinistra. Un precedente incidente. Potenza del motore, classe di emissioni e configurazione del climatizzatore da confermare a causa di dati tecnici discordanti.",
+    "pl": "Kierownica po lewej stronie. Jeden wcześniejszy wypadek. Moc silnika, norma emisji i konfiguracja klimatyzacji wymagają potwierdzenia z powodu rozbieżności w dokumentacji technicznej."
+  },
+  "1 previous accident": {
+    "de": "1 früherer Unfall",
+    "ru": "1 ДТП в прошлом",
+    "it": "1 precedente incidente",
+    "pl": "1 wcześniejszy wypadek"
+  },
+  "Left-hand drive": {
+    "de": "Linkslenker",
+    "ru": "Левый руль",
+    "it": "Guida a sinistra",
+    "pl": "Kierownica po lewej stronie"
+  },
+  "VAT included": {
+    "de": "Mehrwertsteuer enthalten",
+    "ru": "НДС включён",
+    "it": "IVA inclusa",
+    "pl": "VAT w cenie"
   }
 }

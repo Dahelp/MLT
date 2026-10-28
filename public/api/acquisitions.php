@@ -120,6 +120,42 @@ if (!$check->fetch()) {
     $db->commit();
   } catch (Throwable $error) { $db->rollBack(); throw $error; }
 }
+// Apply the owner's confirmed sales facts once; retain subsequent manager edits.
+$migrationKey = 'acquisitions-marco-polo-confirmed-facts-2026-10-28';
+$check = $db->prepare('SELECT migration_key FROM mlt_content_migrations WHERE migration_key=?');
+$check->execute([$migrationKey]);
+if (!$check->fetch()) {
+  $db->beginTransaction();
+  try {
+    $claim = $db->prepare('INSERT IGNORE INTO mlt_content_migrations(migration_key) VALUES(?)');
+    $claim->execute([$migrationKey]);
+    if ($claim->rowCount()) {
+      $q = $db->prepare('SELECT description,specifications_json,equipment_json FROM mlt_acquisitions WHERE slug=?');
+      $q->execute(['mercedes-benz-v-300-marco-polo']);
+      $row = $q->fetch(PDO::FETCH_ASSOC);
+      if ($row) {
+        $specifications = json_decode($row['specifications_json'] ?? '[]', true) ?: [];
+        $specifications = array_values(array_filter($specifications, static fn($entry) => !in_array($entry['label'] ?? '', ['Accident history','Steering position','VAT included'], true)));
+        $specifications[] = ['label'=>'Accident history','value'=>'1 previous accident'];
+        $specifications[] = ['label'=>'Steering position','value'=>'Left-hand drive'];
+        $specifications[] = ['label'=>'VAT included','value'=>'Yes'];
+        $equipment = json_decode($row['equipment_json'] ?? '[]', true) ?: [];
+        foreach ($equipment as &$group) {
+          $group['items'] = array_map(static fn($item) => $item === 'Right-hand drive' ? 'Left-hand drive' : $item, $group['items'] ?? []);
+        }
+        unset($group);
+        $description = str_replace(
+          ['Price: €44,900.', 'Accident history, engine output, emission class and climate-control configuration require confirmation due to differing technical records.'],
+          ['Price: €44,900 including VAT.', 'Left-hand drive. One previous accident. Engine output, emission class and climate-control configuration require confirmation due to differing technical records.'],
+          (string)($row['description'] ?? '')
+        );
+        $q = $db->prepare('UPDATE mlt_acquisitions SET description=?,specifications_json=?,equipment_json=? WHERE slug=?');
+        $q->execute([$description,json_encode($specifications, JSON_UNESCAPED_UNICODE),json_encode($equipment, JSON_UNESCAPED_UNICODE),'mercedes-benz-v-300-marco-polo']);
+      }
+    }
+    $db->commit();
+  } catch (Throwable $error) { $db->rollBack(); throw $error; }
+}
 $body = json_decode(file_get_contents('php://input'), true); if (!is_array($body)) $body = [];
 $action = (string)($body['action'] ?? 'list');
 if ($action === 'list') { $rows = $db->query('SELECT * FROM mlt_acquisitions ORDER BY status,updated_at DESC')->fetchAll(PDO::FETCH_ASSOC); echo json_encode(['items' => $rows], JSON_UNESCAPED_UNICODE); exit; }
