@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { cp, mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { finalizeSeoHtml, createSitemap } from "./seo-export.mjs";
 
 const root = process.cwd();
 const output = process.env.MLT_EXPORT_DIR
@@ -23,7 +24,6 @@ const pageRoutes = [
   "/collections/concierge",
   "/collections/private",
   "/collections/honeymoon",
-  "/collections/proposal",
   "/legal/imprint",
   "/legal/privacy",
   "/legal/terms",
@@ -125,12 +125,14 @@ try {
           : `${content}, viewport-fit=cover${quote}`,
       );
     }
+    html = finalizeSeoHtml(html, route);
     const target = route === "/"
       ? path.join(output, "index.html")
       : path.join(output, route.slice(1), "index.html");
     await mkdir(path.dirname(target), { recursive: true });
     await writeFile(target, html, "utf8");
   }
+  await writeFile(path.join(output, "sitemap.xml"), createSitemap(listingSlugs), "utf8");
 } finally {
   server.kill();
 }

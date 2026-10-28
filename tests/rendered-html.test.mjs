@@ -154,15 +154,16 @@ async function render(pathname = "/") {
   );
 }
 
-test("renders the light MLT experience with noindex metadata", async () => {
+test("renders the public MLT experience with indexable metadata", async () => {
   const redirect = await render("/");
   assert.equal(redirect.status, 307);
   assert.equal(new URL(redirect.headers.get("location"), "http://localhost").pathname, "/en/");
   const response = await render("/en/");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /<title>MLT .* Individual Road Expeditions<\/title>/);
-  assert.match(html, /name="robots" content="noindex, nofollow, nocache"/);
+  assert.match(html, /<title>Luxury Motorhome Holidays in Europe \| MLT<\/title>/);
+  assert.match(html, /name="robots" content="index, follow"/);
+  assert.doesNotMatch(html, /name="(?:robots|googlebot)" content="[^"]*noindex/);
   assert.match(html, /MLT Smart Map/);
   assert.match(html, /Five ways to travel/i);
   assert.match(html, /MLT Freedom Collection/i);
@@ -174,7 +175,7 @@ test("renders all public MVP routes", async () => {
     "/en/", "/de/", "/ru/",
     "/en/smart-map/", "/de/smart-map/", "/ru/smart-map/", "/it/smart-map/", "/pl/smart-map/",
     "/en/investments/", "/ru/acquisitions/", "/en/contact/", "/de/about/",
-    "/en/collections/freedom/", "/en/collections/signature/", "/en/collections/concierge/", "/en/collections/private/", "/en/collections/honeymoon/", "/en/collections/proposal/",
+    "/en/collections/freedom/", "/en/collections/signature/", "/en/collections/concierge/", "/en/collections/private/", "/en/collections/honeymoon/",
     "/en/legal/imprint/", "/de/legal/privacy/", "/ru/legal/terms/",
   ];
   for (const route of routes) {
@@ -225,8 +226,10 @@ test("keeps safeguards and critical interactions in source", async () => {
     readFile(new URL(".gitignore", root), "utf8"),
   ]);
   assert.match(layout, /index:\s*false/);
-  assert.match(robots, /Disallow:\s*\//);
-  assert.match(htaccess, /X-Robots-Tag "noindex, nofollow, noarchive"/);
+  assert.match(robots, /Allow:\s*\//);
+  assert.doesNotMatch(robots, /Disallow:\s*\/\s*(?:\r?\n|$)/);
+  assert.match(robots, /Sitemap: https:\/\/mlt-lifestyle\.com\/sitemap\.xml/);
+  assert.match(htaccess, /X-Robots-Tag "noindex, nofollow, noarchive" "expr=/);
   assert.match(gitignore, /\.env\*/);
   assert.match(home, /collection-rail/);
   assert.match(home, /href=\{localPath\("\/smart-map\/"\)\}/);

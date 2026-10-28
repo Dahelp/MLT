@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
 import Home from "../HomePage";
-import { locales, type SiteLocale } from "./layout";
+import { type SiteLocale } from "./layout";
+import { publicMetadata } from "../../content/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: SiteLocale }> }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    alternates: {
-      canonical: `/${locale}/`,
-      languages: Object.fromEntries(locales.map((language) => [language, `/${language}/`])),
-    },
-    other: { "content-language": locale },
-  };
+  return publicMetadata(locale);
 }
 
 export default async function LocalizedHome({ params }: { params: Promise<{ locale: SiteLocale }> }) {

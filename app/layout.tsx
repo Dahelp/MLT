@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://mlt-lifestyle.com"),
   title: "MLT — Individual Road Expeditions",
   description: "Private luxury road expeditions across Europe, composed around you.",
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
@@ -31,11 +30,9 @@ export const metadata: Metadata = {
   robots: {
     index: false,
     follow: false,
-    nocache: true,
     googleBot: {
       index: false,
       follow: false,
-      noimageindex: true,
     },
   },
   icons: {

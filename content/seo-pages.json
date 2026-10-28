@@ -1,0 +1,1803 @@
+{
+  "/de/": {
+    "locale": "de",
+    "key": "home",
+    "title": "Individuelle Wohnmobilreisen in Europa | MLT",
+    "description": "Entdecken Sie Europa mit MLT: hochwertige Reisemobile, individuelle Routen und persönliche Betreuung. Finden Sie die passende Reisekollektion.",
+    "keywords": [
+      "Wohnmobilreisen Europa",
+      "MLT",
+      "Wohnmobilreisen",
+      "Europa",
+      "individuelle Reisen"
+    ],
+    "canonical": "/de/",
+    "primaryQuery": "Wohnmobilreisen Europa",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Individuelle Wohnmobil-Expeditionen",
+      "suggestedHeading": "Individuelle Wohnmobilreisen in Europa",
+      "suggestedParagraph": "Entdecken Sie Europa mit MLT: hochwertige Reisemobile, individuelle Routen und persönliche Betreuung. Finden Sie die passende Reisekollektion.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/about/": {
+    "locale": "de",
+    "key": "about",
+    "title": "Über MLT | Individuelle Reisen durch Europa",
+    "description": "Erfahren Sie, wie MLT individuelle Europareisen mit hochwertigen Reisemobilen, durchdachten Routen und persönlichem Service gestaltet.",
+    "keywords": [
+      "über MLT",
+      "individuelle Reisen"
+    ],
+    "canonical": "/de/about/",
+    "primaryQuery": "über MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Eine bewusstere Art zu reisen.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/de/acquisitions/": {
+    "locale": "de",
+    "key": "acquisitions",
+    "title": "Reisemobile kaufen | MLT Acquisitions",
+    "description": "Entdecken Sie hochwertige Reisemobile, vergleichen Sie die Ausstattung und richten Sie Ihre Anfrage direkt an das MLT Verkaufsteam.",
+    "keywords": [
+      "Reisemobile kaufen",
+      "Wohnmobile zum Verkauf"
+    ],
+    "canonical": "/de/acquisitions/",
+    "primaryQuery": "Reisemobile kaufen",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Finden Sie Ihr neues Zuhause auf Rädern.",
+      "suggestedHeading": "Reisemobile kaufen",
+      "suggestedParagraph": "Entdecken Sie hochwertige Reisemobile, vergleichen Sie die Ausstattung und richten Sie Ihre Anfrage direkt an das MLT Verkaufsteam.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/collections/concierge/": {
+    "locale": "de",
+    "key": "collections/concierge",
+    "title": "Wohnmobilreisen mit Concierge | MLT Concierge",
+    "description": "Mit MLT Concierge durch Europa reisen: ein hochwertiges Reisemobil, geplante Etappen, Reservierungen und persönliche Online-Betreuung unterwegs.",
+    "keywords": [
+      "Wohnmobilreisen mit Concierge",
+      "MLT Concierge",
+      "Wohnmobilreisen",
+      "Europa",
+      "individuelle Reisen"
+    ],
+    "canonical": "/de/collections/concierge/",
+    "primaryQuery": "Wohnmobilreisen mit Concierge",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Concierge Collection",
+      "suggestedHeading": "Wohnmobilreisen mit Concierge",
+      "suggestedParagraph": "Mit MLT Concierge durch Europa reisen: ein hochwertiges Reisemobil, geplante Etappen, Reservierungen und persönliche Online-Betreuung unterwegs.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/collections/freedom/": {
+    "locale": "de",
+    "key": "collections/freedom",
+    "title": "Wohnmobilurlaub auf eigene Faust | MLT Freedom",
+    "description": "Mit MLT Freedom Europa im eigenen Rhythmus entdecken: ein hochwertiges Reisemobil, eine kuratierte Karte und lokale Empfehlungen für Ihre Reise.",
+    "keywords": [
+      "Wohnmobilurlaub auf eigene Faust",
+      "MLT Freedom",
+      "Wohnmobilreisen",
+      "Europa",
+      "individuelle Reisen"
+    ],
+    "canonical": "/de/collections/freedom/",
+    "primaryQuery": "Wohnmobilurlaub auf eigene Faust",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Freedom Collection",
+      "suggestedHeading": "Wohnmobilurlaub auf eigene Faust",
+      "suggestedParagraph": "Mit MLT Freedom Europa im eigenen Rhythmus entdecken: ein hochwertiges Reisemobil, eine kuratierte Karte und lokale Empfehlungen für Ihre Reise.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/collections/honeymoon/": {
+    "locale": "de",
+    "key": "collections/honeymoon",
+    "title": "Flitterwochen im Wohnmobil | MLT Honeymoon",
+    "description": "Planen Sie Ihre Flitterwochen in Europa mit MLT: ein Reisemobil für zwei, eine romantische Route, private Aufenthalte und Concierge-Betreuung.",
+    "keywords": [
+      "Flitterwochen Wohnmobil",
+      "MLT Honeymoon",
+      "Wohnmobilreisen",
+      "Europa",
+      "individuelle Reisen"
+    ],
+    "canonical": "/de/collections/honeymoon/",
+    "primaryQuery": "Flitterwochen Wohnmobil",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Honeymoon Collection",
+      "suggestedHeading": "Flitterwochen im Wohnmobil",
+      "suggestedParagraph": "Planen Sie Ihre Flitterwochen in Europa mit MLT: ein Reisemobil für zwei, eine romantische Route, private Aufenthalte und Concierge-Betreuung.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/collections/private/": {
+    "locale": "de",
+    "key": "collections/private",
+    "title": "Wohnmobilreisen mit Fahrer | MLT Private",
+    "description": "Entdecken Sie MLT Private: eine individuelle Europareise im Reisemobil mit privatem Fahrer und persönlichem Service entlang Ihrer Route.",
+    "keywords": [
+      "Wohnmobil mit Fahrer",
+      "MLT Private",
+      "Wohnmobilreisen",
+      "Europa",
+      "individuelle Reisen"
+    ],
+    "canonical": "/de/collections/private/",
+    "primaryQuery": "Wohnmobil mit Fahrer",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Private Collection",
+      "suggestedHeading": "Wohnmobilreisen mit Fahrer",
+      "suggestedParagraph": "Entdecken Sie MLT Private: eine individuelle Europareise im Reisemobil mit privatem Fahrer und persönlichem Service entlang Ihrer Route.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/collections/signature/": {
+    "locale": "de",
+    "key": "collections/signature",
+    "title": "Wohnmobilreisen nach Maß | MLT Signature",
+    "description": "Entdecken Sie MLT Signature: Ihre individuelle Wohnmobilreise durch Europa mit persönlicher Route, reservierten Stellplätzen und ausgewählten Aktivitäten.",
+    "keywords": [
+      "Wohnmobilreisen nach Maß",
+      "MLT Signature",
+      "Wohnmobilreisen",
+      "Europa",
+      "individuelle Reisen"
+    ],
+    "canonical": "/de/collections/signature/",
+    "primaryQuery": "Wohnmobilreisen nach Maß",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Signature Collection",
+      "suggestedHeading": "Wohnmobilreisen nach Maß",
+      "suggestedParagraph": "Entdecken Sie MLT Signature: Ihre individuelle Wohnmobilreise durch Europa mit persönlicher Route, reservierten Stellplätzen und ausgewählten Aktivitäten.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/contact/": {
+    "locale": "de",
+    "key": "contact",
+    "title": "Kontakt zu MLT | Persönliche Beratung",
+    "description": "Kontaktieren Sie MLT zu Reisen, zum Kauf eines Reisemobils oder zu Investitionen. Hier finden Sie E-Mail, Telefonnummer und die Adresse in Dresden.",
+    "keywords": [
+      "MLT Kontakt",
+      "MLT Dresden"
+    ],
+    "canonical": "/de/contact/",
+    "primaryQuery": "MLT Kontakt",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Ein persönliches Gespräch beginnt hier.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/de/investments/": {
+    "locale": "de",
+    "key": "investments",
+    "title": "In Reisemobile investieren | MLT",
+    "description": "Informieren Sie sich über das MLT Investitionsprogramm für Reisemobile, seine Bedingungen und Beispielrechnungen. Lassen Sie sich persönlich beraten.",
+    "keywords": [
+      "Investition in Reisemobile",
+      "MLT Investitionsprogramm"
+    ],
+    "canonical": "/de/investments/",
+    "primaryQuery": "Investition in Reisemobile",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Investieren Sie in Freiheit. Erzielen Sie passive Erträge.",
+      "suggestedHeading": "In Reisemobile investieren",
+      "suggestedParagraph": "Informieren Sie sich über das MLT Investitionsprogramm für Reisemobile, seine Bedingungen und Beispielrechnungen. Lassen Sie sich persönlich beraten.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/legal/imprint/": {
+    "locale": "de",
+    "key": "legal/imprint",
+    "title": "Impressum — MLT",
+    "description": "Unternehmens- und Kontaktdaten der MLT Maschinenhandel GmbH Import-Export mit Firmensitz und Angaben zum Handelsregister.",
+    "keywords": [
+      "MLT Impressum"
+    ],
+    "canonical": "/de/legal/imprint/",
+    "primaryQuery": "MLT Impressum",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Impressum",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/de/legal/privacy/": {
+    "locale": "de",
+    "key": "legal/privacy",
+    "title": "Datenschutzerklärung — MLT",
+    "description": "Erfahren Sie, wie MLT personenbezogene Daten verarbeitet und Cookies nutzt. Informationen zum Datenschutz, Ihren Rechten und Kontaktmöglichkeiten.",
+    "keywords": [
+      "MLT Datenschutz"
+    ],
+    "canonical": "/de/legal/privacy/",
+    "primaryQuery": "MLT Datenschutz",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Datenschutzerklärung",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/de/legal/terms/": {
+    "locale": "de",
+    "key": "legal/terms",
+    "title": "Allgemeine Geschäftsbedingungen — MLT",
+    "description": "Lesen Sie die allgemeinen Geschäftsbedingungen von MLT zu Buchung, Zahlung und Stornierung sowie den Pflichten der Vertragsparteien.",
+    "keywords": [
+      "MLT AGB"
+    ],
+    "canonical": "/de/legal/terms/",
+    "primaryQuery": "MLT AGB",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Allgemeine Geschäftsbedingungen",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/de/smart-map/": {
+    "locale": "de",
+    "key": "smart-map",
+    "title": "MLT Smart Map | Ausgewählte Reiseziele in Europa",
+    "description": "Entdecken Sie ausgewählte Reiseziele in Europa und gestalten Sie Ihre persönliche Route mit der interaktiven MLT Smart Map.",
+    "keywords": [
+      "MLT Smart Map",
+      "Reiseziele Europa"
+    ],
+    "canonical": "/de/smart-map/",
+    "primaryQuery": "MLT Smart Map",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Besondere Orte. Eine intelligente Route.",
+      "suggestedHeading": "MLT Smart Map",
+      "suggestedParagraph": "Entdecken Sie ausgewählte Reiseziele in Europa und gestalten Sie Ihre persönliche Route mit der interaktiven MLT Smart Map.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/de/vouchers/": {
+    "locale": "de",
+    "key": "vouchers",
+    "title": "MLT Reisegutscheine | Guthaben für Ihre nächste Reise",
+    "description": "Entdecken Sie MLT Reisegutscheine, verfügbare Werte und Kaufbedingungen. Nutzen Sie Ihr Guthaben für eine MLT Reise und verwalten Sie es im Kundenkonto.",
+    "keywords": [
+      "MLT Reisegutscheine",
+      "Reiseguthaben"
+    ],
+    "canonical": "/de/vouchers/",
+    "primaryQuery": "MLT Reisegutscheine",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Gutscheine",
+      "suggestedHeading": "MLT Reisegutscheine",
+      "suggestedParagraph": "Entdecken Sie MLT Reisegutscheine, verfügbare Werte und Kaufbedingungen. Nutzen Sie Ihr Guthaben für eine MLT Reise und verwalten Sie es im Kundenkonto.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/": {
+    "locale": "en",
+    "key": "home",
+    "title": "Luxury Motorhome Holidays in Europe | MLT",
+    "description": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
+    "keywords": [
+      "luxury motorhome holidays Europe",
+      "MLT",
+      "motorhome journeys",
+      "Europe",
+      "individual travel"
+    ],
+    "canonical": "/en/",
+    "primaryQuery": "luxury motorhome holidays Europe",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Individual Motorhome Expeditions",
+      "suggestedHeading": "Luxury Motorhome Holidays in Europe",
+      "suggestedParagraph": "Explore Europe with MLT: premium motorhomes, individual routes and personal travel support. Discover our journey collections and plan your trip.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/about/": {
+    "locale": "en",
+    "key": "about",
+    "title": "About MLT | Individual Journeys Across Europe",
+    "description": "Discover MLT's approach to individual European journeys, premium motorhomes and personal service.",
+    "keywords": [
+      "about MLT",
+      "individual journeys"
+    ],
+    "canonical": "/en/about/",
+    "primaryQuery": "about MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "A more considered way to move.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/en/acquisitions/": {
+    "locale": "en",
+    "key": "acquisitions",
+    "title": "Motorhomes for Sale | MLT Acquisitions",
+    "description": "Explore premium motorhomes, compare the details and enquire directly with the MLT sales team.",
+    "keywords": [
+      "motorhomes for sale",
+      "buy a motorhome"
+    ],
+    "canonical": "/en/acquisitions/",
+    "primaryQuery": "motorhomes for sale",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Find your next residence on wheels.",
+      "suggestedHeading": "Motorhomes for Sale",
+      "suggestedParagraph": "Explore premium motorhomes, compare the details and enquire directly with the MLT sales team.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/collections/concierge/": {
+    "locale": "en",
+    "key": "collections/concierge",
+    "title": "Motorhome Holidays with Concierge | MLT Concierge",
+    "description": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
+    "keywords": [
+      "motorhome holidays with concierge",
+      "MLT Concierge",
+      "motorhome journeys",
+      "Europe",
+      "individual travel"
+    ],
+    "canonical": "/en/collections/concierge/",
+    "primaryQuery": "motorhome holidays with concierge",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Concierge Collection",
+      "suggestedHeading": "Motorhome Holidays with Concierge",
+      "suggestedParagraph": "Travel Europe with MLT Concierge: a premium motorhome, planned stops, reservations and online support throughout your journey.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/collections/freedom/": {
+    "locale": "en",
+    "key": "collections/freedom",
+    "title": "Self-Drive Motorhome Holidays | MLT Freedom",
+    "description": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
+    "keywords": [
+      "self drive motorhome holidays",
+      "MLT Freedom",
+      "motorhome journeys",
+      "Europe",
+      "individual travel"
+    ],
+    "canonical": "/en/collections/freedom/",
+    "primaryQuery": "self drive motorhome holidays",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Freedom Collection",
+      "suggestedHeading": "Self-Drive Motorhome Holidays",
+      "suggestedParagraph": "Explore Europe at your own pace with MLT Freedom: a premium motorhome, curated map and local recommendations for your independent journey.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/collections/honeymoon/": {
+    "locale": "en",
+    "key": "collections/honeymoon",
+    "title": "Motorhome Honeymoon in Europe | MLT Honeymoon",
+    "description": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
+    "keywords": [
+      "motorhome honeymoon Europe",
+      "MLT Honeymoon",
+      "motorhome journeys",
+      "Europe",
+      "individual travel"
+    ],
+    "canonical": "/en/collections/honeymoon/",
+    "primaryQuery": "motorhome honeymoon Europe",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Honeymoon Collection",
+      "suggestedHeading": "Motorhome Honeymoon in Europe",
+      "suggestedParagraph": "Plan a honeymoon in Europe with MLT: a premium motorhome for two, a romantic route, private stays and personal concierge support.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/collections/private/": {
+    "locale": "en",
+    "key": "collections/private",
+    "title": "Luxury Motorhome Travel with a Driver | MLT Private",
+    "description": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
+    "keywords": [
+      "motorhome with driver Europe",
+      "MLT Private",
+      "motorhome journeys",
+      "Europe",
+      "individual travel"
+    ],
+    "canonical": "/en/collections/private/",
+    "primaryQuery": "motorhome with driver Europe",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "",
+      "suggestedHeading": "Luxury Motorhome Travel with a Driver",
+      "suggestedParagraph": "Discover MLT Private: an individual European journey with a motorhome, private driver and personal service along your route.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/collections/signature/": {
+    "locale": "en",
+    "key": "collections/signature",
+    "title": "Tailor-Made Motorhome Holidays | MLT Signature",
+    "description": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
+    "keywords": [
+      "tailor made motorhome holidays",
+      "MLT Signature",
+      "motorhome journeys",
+      "Europe",
+      "individual travel"
+    ],
+    "canonical": "/en/collections/signature/",
+    "primaryQuery": "tailor made motorhome holidays",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Signature Collection",
+      "suggestedHeading": "Tailor-Made Motorhome Holidays",
+      "suggestedParagraph": "Discover MLT Signature: an individual motorhome journey in Europe with a personal route, reserved campsites and selected activities.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/contact/": {
+    "locale": "en",
+    "key": "contact",
+    "title": "Contact MLT | Personal Enquiries",
+    "description": "Contact the MLT team about journeys, motorhome acquisitions or investments. Find our email, phone number and Dresden office address.",
+    "keywords": [
+      "MLT contact",
+      "MLT Dresden"
+    ],
+    "canonical": "/en/contact/",
+    "primaryQuery": "MLT contact",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "A private conversation starts here.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/en/investments/": {
+    "locale": "en",
+    "key": "investments",
+    "title": "Motorhome Investments | MLT",
+    "description": "Explore the MLT motorhome investment programme, its conditions and illustrative calculations. Discuss the details with a personal manager.",
+    "keywords": [
+      "motorhome investments",
+      "MLT investment programme"
+    ],
+    "canonical": "/en/investments/",
+    "primaryQuery": "motorhome investments",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Invest in Freedom. Earn Effortless Returns.",
+      "suggestedHeading": "Motorhome Investments",
+      "suggestedParagraph": "Explore the MLT motorhome investment programme, its conditions and illustrative calculations. Discuss the details with a personal manager.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/legal/imprint/": {
+    "locale": "en",
+    "key": "legal/imprint",
+    "title": "Legal notice — MLT",
+    "description": "Company details and contact information for MLT Maschinenhandel GmbH Import-Export, including its registered office and commercial register information.",
+    "keywords": [
+      "MLT company details"
+    ],
+    "canonical": "/en/legal/imprint/",
+    "primaryQuery": "MLT company details",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Legal notice",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/en/legal/privacy/": {
+    "locale": "en",
+    "key": "legal/privacy",
+    "title": "Privacy policy — MLT",
+    "description": "How MLT processes personal data, uses cookies and handles enquiries. Read about data protection, your rights and contact details.",
+    "keywords": [
+      "MLT privacy policy"
+    ],
+    "canonical": "/en/legal/privacy/",
+    "primaryQuery": "MLT privacy policy",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Privacy policy",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/en/legal/terms/": {
+    "locale": "en",
+    "key": "legal/terms",
+    "title": "Terms and conditions — MLT",
+    "description": "Read the MLT general terms, including booking, payment and cancellation conditions and the responsibilities of the parties.",
+    "keywords": [
+      "MLT general terms"
+    ],
+    "canonical": "/en/legal/terms/",
+    "primaryQuery": "MLT general terms",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Terms and conditions",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/en/smart-map/": {
+    "locale": "en",
+    "key": "smart-map",
+    "title": "MLT Smart Map | Curated Routes Across Europe",
+    "description": "Explore curated European destinations and compose your journey with the interactive MLT Smart Map.",
+    "keywords": [
+      "MLT Smart Map",
+      "European destinations"
+    ],
+    "canonical": "/en/smart-map/",
+    "primaryQuery": "MLT Smart Map",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Remarkable places. One intelligent route.",
+      "suggestedHeading": "MLT Smart Map",
+      "suggestedParagraph": "Explore curated European destinations and compose your journey with the interactive MLT Smart Map.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/en/vouchers/": {
+    "locale": "en",
+    "key": "vouchers",
+    "title": "MLT Travel Vouchers | Credit for Your Next Journey",
+    "description": "Discover MLT travel vouchers, available values and purchase conditions. Use your travel credit towards an MLT journey and manage the balance in your account.",
+    "keywords": [
+      "MLT travel vouchers",
+      "travel credit"
+    ],
+    "canonical": "/en/vouchers/",
+    "primaryQuery": "MLT travel vouchers",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Vouchers",
+      "suggestedHeading": "MLT Travel Vouchers",
+      "suggestedParagraph": "Discover MLT travel vouchers, available values and purchase conditions. Use your travel credit towards an MLT journey and manage the balance in your account.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/": {
+    "locale": "it",
+    "key": "home",
+    "title": "Viaggi in camper in Europa su misura | MLT",
+    "description": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
+    "keywords": [
+      "viaggi in camper Europa",
+      "MLT",
+      "viaggi in camper",
+      "Europa",
+      "itinerari individuali"
+    ],
+    "canonical": "/it/",
+    "primaryQuery": "viaggi in camper Europa",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Spedizioni individuali in motorhome",
+      "suggestedHeading": "Viaggi in camper in Europa su misura",
+      "suggestedParagraph": "Scopri l’Europa con MLT: camper premium, itinerari individuali e assistenza personale. Esplora le collezioni e progetta il tuo viaggio.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/about/": {
+    "locale": "it",
+    "key": "about",
+    "title": "Chi è MLT | Viaggi individuali in Europa",
+    "description": "Scopri come MLT crea viaggi individuali in Europa con camper premium, itinerari curati e un servizio personale.",
+    "keywords": [
+      "chi è MLT",
+      "viaggi individuali"
+    ],
+    "canonical": "/it/about/",
+    "primaryQuery": "chi è MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Un modo più attento di viaggiare.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/it/acquisitions/": {
+    "locale": "it",
+    "key": "acquisitions",
+    "title": "Camper in vendita | MLT Acquisitions",
+    "description": "Scopri i camper premium, confronta le caratteristiche e invia una richiesta direttamente al team vendite MLT.",
+    "keywords": [
+      "camper in vendita",
+      "acquistare camper"
+    ],
+    "canonical": "/it/acquisitions/",
+    "primaryQuery": "camper in vendita",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Trova la tua prossima casa su ruote.",
+      "suggestedHeading": "Camper in vendita",
+      "suggestedParagraph": "Scopri i camper premium, confronta le caratteristiche e invia una richiesta direttamente al team vendite MLT.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/collections/concierge/": {
+    "locale": "it",
+    "key": "collections/concierge",
+    "title": "Viaggi in camper con concierge | MLT Concierge",
+    "description": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
+    "keywords": [
+      "viaggi in camper con concierge",
+      "MLT Concierge",
+      "viaggi in camper",
+      "Europa",
+      "itinerari individuali"
+    ],
+    "canonical": "/it/collections/concierge/",
+    "primaryQuery": "viaggi in camper con concierge",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Concierge Collection",
+      "suggestedHeading": "Viaggi in camper con concierge",
+      "suggestedParagraph": "Viaggia in Europa con MLT Concierge: camper premium, tappe pianificate, prenotazioni e assistenza personale online durante il viaggio.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/collections/freedom/": {
+    "locale": "it",
+    "key": "collections/freedom",
+    "title": "Viaggi in camper in libertà | MLT Freedom",
+    "description": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
+    "keywords": [
+      "viaggi in camper in libertà",
+      "MLT Freedom",
+      "viaggi in camper",
+      "Europa",
+      "itinerari individuali"
+    ],
+    "canonical": "/it/collections/freedom/",
+    "primaryQuery": "viaggi in camper in libertà",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Freedom Collection",
+      "suggestedHeading": "Viaggi in camper in libertà",
+      "suggestedParagraph": "Esplora l’Europa al tuo ritmo con MLT Freedom: un camper premium, una mappa curata e consigli locali per il tuo viaggio indipendente.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/collections/honeymoon/": {
+    "locale": "it",
+    "key": "collections/honeymoon",
+    "title": "Luna di miele in camper in Europa | MLT Honeymoon",
+    "description": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
+    "keywords": [
+      "luna di miele in camper",
+      "MLT Honeymoon",
+      "viaggi in camper",
+      "Europa",
+      "itinerari individuali"
+    ],
+    "canonical": "/it/collections/honeymoon/",
+    "primaryQuery": "luna di miele in camper",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Honeymoon Collection",
+      "suggestedHeading": "Luna di miele in camper in Europa",
+      "suggestedParagraph": "Organizza la luna di miele in Europa con MLT: camper premium per due, itinerario romantico, soste private e assistenza concierge.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/collections/private/": {
+    "locale": "it",
+    "key": "collections/private",
+    "title": "Viaggi in camper con autista | MLT Private",
+    "description": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
+    "keywords": [
+      "camper con autista",
+      "MLT Private",
+      "viaggi in camper",
+      "Europa",
+      "itinerari individuali"
+    ],
+    "canonical": "/it/collections/private/",
+    "primaryQuery": "camper con autista",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Private Collection",
+      "suggestedHeading": "Viaggi in camper con autista",
+      "suggestedParagraph": "Scopri MLT Private: un viaggio individuale in Europa in camper con autista privato e servizio personale lungo l’itinerario.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/collections/signature/": {
+    "locale": "it",
+    "key": "collections/signature",
+    "title": "Vacanze in camper su misura | MLT Signature",
+    "description": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
+    "keywords": [
+      "vacanze in camper su misura",
+      "MLT Signature",
+      "viaggi in camper",
+      "Europa",
+      "itinerari individuali"
+    ],
+    "canonical": "/it/collections/signature/",
+    "primaryQuery": "vacanze in camper su misura",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Signature Collection",
+      "suggestedHeading": "Vacanze in camper su misura",
+      "suggestedParagraph": "Scopri MLT Signature: un viaggio individuale in camper in Europa con itinerario personale, piazzole prenotate e attività selezionate.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/contact/": {
+    "locale": "it",
+    "key": "contact",
+    "title": "Contatti MLT | Richieste e consulenza personale",
+    "description": "Contatta MLT per viaggi, acquisto di camper o investimenti. Trova l’indirizzo e-mail, i numeri di telefono e la sede di Dresda.",
+    "keywords": [
+      "contatti MLT",
+      "MLT Dresda"
+    ],
+    "canonical": "/it/contact/",
+    "primaryQuery": "contatti MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Iniziamo con una conversazione personale.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/it/investments/": {
+    "locale": "it",
+    "key": "investments",
+    "title": "Investimenti in camper | MLT",
+    "description": "Scopri il programma di investimento MLT per camper, le condizioni e i calcoli esemplificativi. Parla dei dettagli con un consulente personale.",
+    "keywords": [
+      "investimenti in camper",
+      "programma MLT"
+    ],
+    "canonical": "/it/investments/",
+    "primaryQuery": "investimenti in camper",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Investi nella libertà. Ottieni un reddito passivo.",
+      "suggestedHeading": "Investimenti in camper",
+      "suggestedParagraph": "Scopri il programma di investimento MLT per camper, le condizioni e i calcoli esemplificativi. Parla dei dettagli con un consulente personale.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/legal/imprint/": {
+    "locale": "it",
+    "key": "legal/imprint",
+    "title": "Note legali — MLT",
+    "description": "Dati societari e contatti di MLT Maschinenhandel GmbH Import-Export, con sede legale e informazioni sul registro delle imprese.",
+    "keywords": [
+      "dati societari MLT"
+    ],
+    "canonical": "/it/legal/imprint/",
+    "primaryQuery": "dati societari MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Note legali",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/it/legal/privacy/": {
+    "locale": "it",
+    "key": "legal/privacy",
+    "title": "Informativa sulla privacy — MLT",
+    "description": "Come MLT tratta i dati personali, utilizza i cookie e gestisce le richieste. Informazioni sulla privacy, sui tuoi diritti e sui contatti.",
+    "keywords": [
+      "informativa privacy MLT"
+    ],
+    "canonical": "/it/legal/privacy/",
+    "primaryQuery": "informativa privacy MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Informativa sulla privacy",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/it/legal/terms/": {
+    "locale": "it",
+    "key": "legal/terms",
+    "title": "Condizioni generali — MLT",
+    "description": "Leggi le condizioni generali MLT relative a prenotazioni, pagamenti e cancellazioni, e agli obblighi delle parti.",
+    "keywords": [
+      "condizioni generali MLT"
+    ],
+    "canonical": "/it/legal/terms/",
+    "primaryQuery": "condizioni generali MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Condizioni generali",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/it/smart-map/": {
+    "locale": "it",
+    "key": "smart-map",
+    "title": "MLT Smart Map | Destinazioni selezionate in Europa",
+    "description": "Esplora destinazioni selezionate in Europa e crea il tuo itinerario con la mappa interattiva MLT Smart Map.",
+    "keywords": [
+      "MLT Smart Map",
+      "destinazioni europee"
+    ],
+    "canonical": "/it/smart-map/",
+    "primaryQuery": "MLT Smart Map",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Luoghi straordinari. Un itinerario intelligente.",
+      "suggestedHeading": "MLT Smart Map",
+      "suggestedParagraph": "Esplora destinazioni selezionate in Europa e crea il tuo itinerario con la mappa interattiva MLT Smart Map.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/it/vouchers/": {
+    "locale": "it",
+    "key": "vouchers",
+    "title": "Voucher viaggio MLT | Credito per il prossimo viaggio",
+    "description": "Scopri i voucher MLT, i valori disponibili e le condizioni di acquisto. Usa il credito per un viaggio MLT e gestisci il saldo nel tuo account.",
+    "keywords": [
+      "voucher viaggio MLT",
+      "credito viaggio"
+    ],
+    "canonical": "/it/vouchers/",
+    "primaryQuery": "voucher viaggio MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Voucher",
+      "suggestedHeading": "Voucher viaggio MLT",
+      "suggestedParagraph": "Scopri i voucher MLT, i valori disponibili e le condizioni di acquisto. Usa il credito per un viaggio MLT e gestisci il saldo nel tuo account.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/": {
+    "locale": "pl",
+    "key": "home",
+    "title": "Podróże kamperem po Europie na miarę | MLT",
+    "description": "Odkrywaj Europę z MLT: kampery premium, indywidualne trasy i osobista opieka. Poznaj kolekcje podróży i zaplanuj swój wyjazd.",
+    "keywords": [
+      "podróże kamperem po Europie",
+      "MLT",
+      "podróże kamperem",
+      "Europa",
+      "indywidualne trasy"
+    ],
+    "canonical": "/pl/",
+    "primaryQuery": "podróże kamperem po Europie",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Indywidualne wyprawy kamperem",
+      "suggestedHeading": "Podróże kamperem po Europie na miarę",
+      "suggestedParagraph": "Odkrywaj Europę z MLT: kampery premium, indywidualne trasy i osobista opieka. Poznaj kolekcje podróży i zaplanuj swój wyjazd.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/about/": {
+    "locale": "pl",
+    "key": "about",
+    "title": "O MLT | Indywidualne podróże po Europie",
+    "description": "Dowiedz się, jak MLT tworzy indywidualne podróże po Europie z kamperami premium, przemyślanymi trasami i osobistą obsługą.",
+    "keywords": [
+      "o MLT",
+      "podróże indywidualne"
+    ],
+    "canonical": "/pl/about/",
+    "primaryQuery": "o MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Podróże przemyślane w każdym detalu.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/pl/acquisitions/": {
+    "locale": "pl",
+    "key": "acquisitions",
+    "title": "Kampery na sprzedaż | MLT Acquisitions",
+    "description": "Poznaj kampery premium, porównaj ich wyposażenie i wyślij zapytanie bezpośrednio do zespołu sprzedaży MLT.",
+    "keywords": [
+      "kampery na sprzedaż",
+      "kupno kampera"
+    ],
+    "canonical": "/pl/acquisitions/",
+    "primaryQuery": "kampery na sprzedaż",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Znajdź swój nowy dom na kołach.",
+      "suggestedHeading": "Kampery na sprzedaż",
+      "suggestedParagraph": "Poznaj kampery premium, porównaj ich wyposażenie i wyślij zapytanie bezpośrednio do zespołu sprzedaży MLT.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/collections/concierge/": {
+    "locale": "pl",
+    "key": "collections/concierge",
+    "title": "Podróże kamperem z concierge | MLT Concierge",
+    "description": "Podróżuj po Europie z MLT Concierge: kamper premium, zaplanowane etapy, rezerwacje i osobista pomoc online podczas wyjazdu.",
+    "keywords": [
+      "podróże kamperem z concierge",
+      "MLT Concierge",
+      "podróże kamperem",
+      "Europa",
+      "indywidualne trasy"
+    ],
+    "canonical": "/pl/collections/concierge/",
+    "primaryQuery": "podróże kamperem z concierge",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Concierge Collection",
+      "suggestedHeading": "Podróże kamperem z concierge",
+      "suggestedParagraph": "Podróżuj po Europie z MLT Concierge: kamper premium, zaplanowane etapy, rezerwacje i osobista pomoc online podczas wyjazdu.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/collections/freedom/": {
+    "locale": "pl",
+    "key": "collections/freedom",
+    "title": "Samodzielne podróże kamperem | MLT Freedom",
+    "description": "Odkrywaj Europę we własnym tempie z MLT Freedom: kamper premium, mapa wybranych miejsc i lokalne rekomendacje na samodzielną podróż.",
+    "keywords": [
+      "samodzielne podróże kamperem",
+      "MLT Freedom",
+      "podróże kamperem",
+      "Europa",
+      "indywidualne trasy"
+    ],
+    "canonical": "/pl/collections/freedom/",
+    "primaryQuery": "samodzielne podróże kamperem",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Freedom Collection",
+      "suggestedHeading": "Samodzielne podróże kamperem",
+      "suggestedParagraph": "Odkrywaj Europę we własnym tempie z MLT Freedom: kamper premium, mapa wybranych miejsc i lokalne rekomendacje na samodzielną podróż.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/collections/honeymoon/": {
+    "locale": "pl",
+    "key": "collections/honeymoon",
+    "title": "Podróż poślubna kamperem po Europie | MLT Honeymoon",
+    "description": "Zaplanuj miesiąc miodowy w Europie z MLT: kamper premium dla dwojga, romantyczna trasa, prywatne postoje i opieka concierge.",
+    "keywords": [
+      "podróż poślubna kamperem",
+      "MLT Honeymoon",
+      "podróże kamperem",
+      "Europa",
+      "indywidualne trasy"
+    ],
+    "canonical": "/pl/collections/honeymoon/",
+    "primaryQuery": "podróż poślubna kamperem",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Honeymoon Collection",
+      "suggestedHeading": "Podróż poślubna kamperem po Europie",
+      "suggestedParagraph": "Zaplanuj miesiąc miodowy w Europie z MLT: kamper premium dla dwojga, romantyczna trasa, prywatne postoje i opieka concierge.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/collections/private/": {
+    "locale": "pl",
+    "key": "collections/private",
+    "title": "Podróże kamperem z kierowcą | MLT Private",
+    "description": "Poznaj MLT Private: indywidualną podróż po Europie kamperem z prywatnym kierowcą i osobistą obsługą na trasie.",
+    "keywords": [
+      "kamper z kierowcą",
+      "MLT Private",
+      "podróże kamperem",
+      "Europa",
+      "indywidualne trasy"
+    ],
+    "canonical": "/pl/collections/private/",
+    "primaryQuery": "kamper z kierowcą",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Private Collection",
+      "suggestedHeading": "Podróże kamperem z kierowcą",
+      "suggestedParagraph": "Poznaj MLT Private: indywidualną podróż po Europie kamperem z prywatnym kierowcą i osobistą obsługą na trasie.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/collections/signature/": {
+    "locale": "pl",
+    "key": "collections/signature",
+    "title": "Podróże kamperem na miarę | MLT Signature",
+    "description": "Poznaj MLT Signature: indywidualną podróż kamperem po Europie z osobistą trasą, zarezerwowanymi miejscami postojowymi i wybranymi atrakcjami.",
+    "keywords": [
+      "podróże kamperem na miarę",
+      "MLT Signature",
+      "podróże kamperem",
+      "Europa",
+      "indywidualne trasy"
+    ],
+    "canonical": "/pl/collections/signature/",
+    "primaryQuery": "podróże kamperem na miarę",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Signature Collection",
+      "suggestedHeading": "Podróże kamperem na miarę",
+      "suggestedParagraph": "Poznaj MLT Signature: indywidualną podróż kamperem po Europie z osobistą trasą, zarezerwowanymi miejscami postojowymi i wybranymi atrakcjami.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/contact/": {
+    "locale": "pl",
+    "key": "contact",
+    "title": "Kontakt z MLT | Podróże, kampery i inwestycje",
+    "description": "Skontaktuj się z MLT w sprawie podróży, zakupu kampera lub inwestycji. Sprawdź adres e-mail, telefony oraz adres biura w Dreźnie.",
+    "keywords": [
+      "kontakt MLT",
+      "MLT Drezno"
+    ],
+    "canonical": "/pl/contact/",
+    "primaryQuery": "kontakt MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Zacznijmy od osobistej rozmowy.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/pl/investments/": {
+    "locale": "pl",
+    "key": "investments",
+    "title": "Inwestycje w kampery | MLT",
+    "description": "Poznaj program inwestycyjny MLT dotyczący kamperów, jego warunki i przykładowe obliczenia. Omów szczegóły z osobistym opiekunem.",
+    "keywords": [
+      "inwestycje w kampery",
+      "program inwestycyjny MLT"
+    ],
+    "canonical": "/pl/investments/",
+    "primaryQuery": "inwestycje w kampery",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Inwestuj w wolność. Osiągaj pasywny dochód.",
+      "suggestedHeading": "Inwestycje w kampery",
+      "suggestedParagraph": "Poznaj program inwestycyjny MLT dotyczący kamperów, jego warunki i przykładowe obliczenia. Omów szczegóły z osobistym opiekunem.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/legal/imprint/": {
+    "locale": "pl",
+    "key": "legal/imprint",
+    "title": "Informacje prawne — MLT",
+    "description": "Dane firmy i kontakt do MLT Maschinenhandel GmbH Import-Export, w tym adres siedziby i informacje o wpisie do rejestru handlowego.",
+    "keywords": [
+      "dane firmy MLT"
+    ],
+    "canonical": "/pl/legal/imprint/",
+    "primaryQuery": "dane firmy MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Informacje prawne",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/pl/legal/privacy/": {
+    "locale": "pl",
+    "key": "legal/privacy",
+    "title": "Polityka prywatności — MLT",
+    "description": "Jak MLT przetwarza dane osobowe, korzysta z plików cookie i obsługuje zapytania. Informacje o prywatności, Twoich prawach i kontakcie.",
+    "keywords": [
+      "polityka prywatności MLT"
+    ],
+    "canonical": "/pl/legal/privacy/",
+    "primaryQuery": "polityka prywatności MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Polityka prywatności",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/pl/legal/terms/": {
+    "locale": "pl",
+    "key": "legal/terms",
+    "title": "Ogólne warunki umów — MLT",
+    "description": "Przeczytaj ogólne warunki MLT dotyczące rezerwacji, płatności, anulowania oraz obowiązków stron.",
+    "keywords": [
+      "ogólne warunki MLT"
+    ],
+    "canonical": "/pl/legal/terms/",
+    "primaryQuery": "ogólne warunki MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Ogólne warunki umów",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/pl/smart-map/": {
+    "locale": "pl",
+    "key": "smart-map",
+    "title": "MLT Smart Map | Wybrane miejsca w Europie",
+    "description": "Odkrywaj wybrane miejsca w Europie i układaj własną trasę podróży z interaktywną mapą MLT Smart Map.",
+    "keywords": [
+      "MLT Smart Map",
+      "miejsca w Europie"
+    ],
+    "canonical": "/pl/smart-map/",
+    "primaryQuery": "MLT Smart Map",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Niezwykłe miejsca. Jedna inteligentna trasa.",
+      "suggestedHeading": "MLT Smart Map",
+      "suggestedParagraph": "Odkrywaj wybrane miejsca w Europie i układaj własną trasę podróży z interaktywną mapą MLT Smart Map.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/pl/vouchers/": {
+    "locale": "pl",
+    "key": "vouchers",
+    "title": "Vouchery podróżne MLT | Środki na kolejną podróż",
+    "description": "Poznaj vouchery MLT, dostępne nominały oraz warunki zakupu. Wykorzystaj środki na podróż MLT i zarządzaj pozostałym saldem na swoim koncie.",
+    "keywords": [
+      "vouchery MLT",
+      "środki na podróż"
+    ],
+    "canonical": "/pl/vouchers/",
+    "primaryQuery": "vouchery MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Vouchery",
+      "suggestedHeading": "Vouchery podróżne MLT",
+      "suggestedParagraph": "Poznaj vouchery MLT, dostępne nominały oraz warunki zakupu. Wykorzystaj środki na podróż MLT i zarządzaj pozostałym saldem na swoim koncie.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/": {
+    "locale": "ru",
+    "key": "home",
+    "title": "Путешествия по Европе на автодоме | MLT",
+    "description": "Откройте Европу с MLT: премиальные автодома, индивидуальные маршруты и персональная поддержка. Выберите коллекцию и спланируйте путешествие.",
+    "keywords": [
+      "путешествия по Европе на автодоме",
+      "MLT",
+      "путешествия на автодоме",
+      "Европа",
+      "индивидуальные маршруты"
+    ],
+    "canonical": "/ru/",
+    "primaryQuery": "путешествия по Европе на автодоме",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Индивидуальные экспедиции на автодомах",
+      "suggestedHeading": "Путешествия по Европе на автодоме",
+      "suggestedParagraph": "Откройте Европу с MLT: премиальные автодома, индивидуальные маршруты и персональная поддержка. Выберите коллекцию и спланируйте путешествие.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/about/": {
+    "locale": "ru",
+    "key": "about",
+    "title": "О MLT | Индивидуальные путешествия по Европе",
+    "description": "Узнайте, как MLT создаёт индивидуальные путешествия по Европе: премиальные автодома, продуманные маршруты и персональный сервис.",
+    "keywords": [
+      "о MLT",
+      "индивидуальные путешествия"
+    ],
+    "canonical": "/ru/about/",
+    "primaryQuery": "о MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Путешествия с вниманием к деталям.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/ru/acquisitions/": {
+    "locale": "ru",
+    "key": "acquisitions",
+    "title": "Купить автодом | Автодома в продаже MLT",
+    "description": "Выбирайте премиальные автодома, сравнивайте характеристики и обращайтесь напрямую к команде продаж MLT.",
+    "keywords": [
+      "купить автодом",
+      "продажа автодомов"
+    ],
+    "canonical": "/ru/acquisitions/",
+    "primaryQuery": "купить автодом",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Найдите свой новый дом на колёсах.",
+      "suggestedHeading": "Купить автодом",
+      "suggestedParagraph": "Выбирайте премиальные автодома, сравнивайте характеристики и обращайтесь напрямую к команде продаж MLT.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/collections/concierge/": {
+    "locale": "ru",
+    "key": "collections/concierge",
+    "title": "Путешествия на автодоме с консьержем | MLT Concierge",
+    "description": "Путешествуйте по Европе с MLT Concierge: премиальный автодом, подготовленный маршрут, бронирования и персональная онлайн-поддержка в пути.",
+    "keywords": [
+      "путешествие на автодоме с консьержем",
+      "MLT Concierge",
+      "путешествия на автодоме",
+      "Европа",
+      "индивидуальные маршруты"
+    ],
+    "canonical": "/ru/collections/concierge/",
+    "primaryQuery": "путешествие на автодоме с консьержем",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Concierge Collection",
+      "suggestedHeading": "Путешествия на автодоме с консьержем",
+      "suggestedParagraph": "Путешествуйте по Европе с MLT Concierge: премиальный автодом, подготовленный маршрут, бронирования и персональная онлайн-поддержка в пути.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/collections/freedom/": {
+    "locale": "ru",
+    "key": "collections/freedom",
+    "title": "Самостоятельные поездки на автодоме | MLT Freedom",
+    "description": "Исследуйте Европу в своём ритме с MLT Freedom: премиальный автодом, карта отобранных мест и местные рекомендации для самостоятельной поездки.",
+    "keywords": [
+      "самостоятельное путешествие на автодоме",
+      "MLT Freedom",
+      "путешествия на автодоме",
+      "Европа",
+      "индивидуальные маршруты"
+    ],
+    "canonical": "/ru/collections/freedom/",
+    "primaryQuery": "самостоятельное путешествие на автодоме",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Freedom Collection",
+      "suggestedHeading": "Самостоятельные поездки на автодоме",
+      "suggestedParagraph": "Исследуйте Европу в своём ритме с MLT Freedom: премиальный автодом, карта отобранных мест и местные рекомендации для самостоятельной поездки.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/collections/honeymoon/": {
+    "locale": "ru",
+    "key": "collections/honeymoon",
+    "title": "Медовый месяц в Европе на автодоме | MLT Honeymoon",
+    "description": "Спланируйте медовый месяц в Европе с MLT: премиальный автодом для двоих, романтический маршрут, приватные остановки и поддержка консьержа.",
+    "keywords": [
+      "медовый месяц на автодоме",
+      "MLT Honeymoon",
+      "путешествия на автодоме",
+      "Европа",
+      "индивидуальные маршруты"
+    ],
+    "canonical": "/ru/collections/honeymoon/",
+    "primaryQuery": "медовый месяц на автодоме",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Honeymoon Collection",
+      "suggestedHeading": "Медовый месяц в Европе на автодоме",
+      "suggestedParagraph": "Спланируйте медовый месяц в Европе с MLT: премиальный автодом для двоих, романтический маршрут, приватные остановки и поддержка консьержа.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/collections/private/": {
+    "locale": "ru",
+    "key": "collections/private",
+    "title": "Путешествия на автодоме с водителем | MLT Private",
+    "description": "Откройте MLT Private: индивидуальное путешествие по Европе на автодоме с личным водителем и персональным обслуживанием на маршруте.",
+    "keywords": [
+      "автодом с водителем",
+      "MLT Private",
+      "путешествия на автодоме",
+      "Европа",
+      "индивидуальные маршруты"
+    ],
+    "canonical": "/ru/collections/private/",
+    "primaryQuery": "автодом с водителем",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Private Collection",
+      "suggestedHeading": "Путешествия на автодоме с водителем",
+      "suggestedParagraph": "Откройте MLT Private: индивидуальное путешествие по Европе на автодоме с личным водителем и персональным обслуживанием на маршруте.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/collections/signature/": {
+    "locale": "ru",
+    "key": "collections/signature",
+    "title": "Индивидуальные туры на автодоме | MLT Signature",
+    "description": "MLT Signature — индивидуальное путешествие по Европе на автодоме: персональный маршрут, забронированные стоянки и подобранные впечатления.",
+    "keywords": [
+      "индивидуальные туры на автодоме",
+      "MLT Signature",
+      "путешествия на автодоме",
+      "Европа",
+      "индивидуальные маршруты"
+    ],
+    "canonical": "/ru/collections/signature/",
+    "primaryQuery": "индивидуальные туры на автодоме",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "MLT Signature Collection",
+      "suggestedHeading": "Индивидуальные туры на автодоме",
+      "suggestedParagraph": "MLT Signature — индивидуальное путешествие по Европе на автодоме: персональный маршрут, забронированные стоянки и подобранные впечатления.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/contact/": {
+    "locale": "ru",
+    "key": "contact",
+    "title": "Контакты MLT | Путешествия, автодома и инвестиции",
+    "description": "Свяжитесь с MLT по вопросам путешествий, покупки автодомов и инвестиций. Электронная почта, телефоны и адрес офиса в Дрездене.",
+    "keywords": [
+      "контакты MLT",
+      "MLT Дрезден"
+    ],
+    "canonical": "/ru/contact/",
+    "primaryQuery": "контакты MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Начнём с личного разговора.",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Брендовая/контактная страница; избегать искусственного добавления коммерческих запросов."
+    }
+  },
+  "/ru/investments/": {
+    "locale": "ru",
+    "key": "investments",
+    "title": "Инвестиции в автодома | MLT",
+    "description": "Изучите инвестиционную программу MLT для автодомов, её условия и примерные расчёты. Обсудите детали участия с персональным менеджером.",
+    "keywords": [
+      "инвестиции в автодома",
+      "инвестиционная программа MLT"
+    ],
+    "canonical": "/ru/investments/",
+    "primaryQuery": "инвестиции в автодома",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Инвестируйте в свободу. Получайте пассивный доход.",
+      "suggestedHeading": "Инвестиции в автодома",
+      "suggestedParagraph": "Изучите инвестиционную программу MLT для автодомов, её условия и примерные расчёты. Обсудите детали участия с персональным менеджером.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/legal/imprint/": {
+    "locale": "ru",
+    "key": "legal/imprint",
+    "title": "Юридическая информация — MLT",
+    "description": "Реквизиты и контакты MLT Maschinenhandel GmbH Import-Export: юридический адрес компании и сведения о регистрации в торговом реестре.",
+    "keywords": [
+      "реквизиты MLT"
+    ],
+    "canonical": "/ru/legal/imprint/",
+    "primaryQuery": "реквизиты MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Юридическая информация",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/ru/legal/privacy/": {
+    "locale": "ru",
+    "key": "legal/privacy",
+    "title": "Политика конфиденциальности — MLT",
+    "description": "Как MLT обрабатывает персональные данные, использует cookies и работает с обращениями. Защита данных, ваши права и контактная информация.",
+    "keywords": [
+      "политика конфиденциальности MLT"
+    ],
+    "canonical": "/ru/legal/privacy/",
+    "primaryQuery": "политика конфиденциальности MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Политика конфиденциальности",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/ru/legal/terms/": {
+    "locale": "ru",
+    "key": "legal/terms",
+    "title": "Общие условия — MLT",
+    "description": "Общие условия MLT: порядок бронирования, оплаты и отмены, а также права и обязанности сторон. Ознакомьтесь с условиями перед оформлением заявки.",
+    "keywords": [
+      "общие условия MLT"
+    ],
+    "canonical": "/ru/legal/terms/",
+    "primaryQuery": "общие условия MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": false,
+      "status": "Отдельное добавление SEO-ключей не требуется",
+      "currentH1": "Общие условия",
+      "suggestedHeading": "",
+      "suggestedParagraph": "",
+      "placement": "Сохранить фактическую информацию страницы.",
+      "reason": "Юридический документ: не использовать для привлечения коммерческого поискового трафика."
+    }
+  },
+  "/ru/smart-map/": {
+    "locale": "ru",
+    "key": "smart-map",
+    "title": "MLT Smart Map | Карта путешествий по Европе",
+    "description": "Откройте подобранные MLT места в Европе и составьте собственный маршрут с помощью интерактивной карты Smart Map.",
+    "keywords": [
+      "MLT Smart Map",
+      "карта Европы",
+      "маршруты путешествий"
+    ],
+    "canonical": "/ru/smart-map/",
+    "primaryQuery": "MLT Smart Map",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Особенные места. Один умный маршрут.",
+      "suggestedHeading": "MLT Smart Map",
+      "suggestedParagraph": "Откройте подобранные MLT места в Европе и составьте собственный маршрут с помощью интерактивной карты Smart Map.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  },
+  "/ru/vouchers/": {
+    "locale": "ru",
+    "key": "vouchers",
+    "title": "Ваучеры MLT | Средства на ваше следующее путешествие",
+    "description": "Выберите ваучер MLT для оплаты путешествий. Доступные номиналы, условия покупки и использования, управление остатком средств в личном кабинете.",
+    "keywords": [
+      "ваучеры MLT",
+      "средства на путешествие"
+    ],
+    "canonical": "/ru/vouchers/",
+    "primaryQuery": "ваучеры MLT",
+    "googleAverageMonthlySearches": null,
+    "statisticsStatus": "Частотность Google не получена; запрос подобран по услуге и намерению пользователя.",
+    "contentRecommendation": {
+      "required": true,
+      "status": "Рекомендовано; не внедрено в видимый текст",
+      "currentH1": "Ваучеры",
+      "suggestedHeading": "Ваучеры MLT",
+      "suggestedParagraph": "Выберите ваучер MLT для оплаты путешествий. Доступные номиналы, условия покупки и использования, управление остатком средств в личном кабинете.",
+      "placement": "Существующий вводный блок или H2 с пояснением услуги, также в отдельной мобильной версии. Вписать естественно, без повторения списка ключей.",
+      "reason": "Уточнить услугу и намерение запроса в видимом тексте; метатеги сами по себе не заменяют содержание."
+    }
+  }
+}

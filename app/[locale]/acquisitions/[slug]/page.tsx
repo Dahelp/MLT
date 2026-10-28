@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates, publicRobots } from "../../../../content/seo";
 import { notFound } from "next/navigation";
 import type { SiteLocale } from "../../layout";
 import { acquisitionInventory } from "../../../../content/acquisition-inventory";
@@ -11,10 +12,16 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const item = (await acquisitionInventory()).find(item => item.slug === slug);
   if (!item) notFound();
   const localized = localizeListing(item, locale);
+  const title = `${item.title} | MLT ${acquisitionText("Acquisitions", locale)}`;
+  const description = `${localized.subtitle} ${acquisitionText("Price", locale)} ${acquisitionMoney(Number(item.price), locale)}.`;
   return {
-    title: `${item.title} | MLT ${acquisitionText("Acquisitions", locale)}`,
-    description: `${localized.subtitle} ${acquisitionText("Price", locale)} ${acquisitionMoney(Number(item.price), locale)}.`,
-    alternates: { canonical: `/${locale}/acquisitions/${item.slug}/` },
+    title,
+    description,
+    keywords: [item.title, acquisitionText("Motorhomes for Sale", locale), "MLT"],
+    robots: publicRobots,
+    alternates: pageAlternates(locale, `acquisitions/${item.slug}`),
+    openGraph: {type:"website",siteName:"MLT",url:`/${locale}/acquisitions/${item.slug}/`,title,description},
+    twitter: {card:"summary",title,description},
   };
 }
 export default async function Page({ params }: Params) {

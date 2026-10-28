@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { publicMetadata } from "../../../content/seo";
 import SiteFooter from "../../SiteFooter";
 import SiteHeader from "../../SiteHeader";
 import type { SiteLanguage } from "../../LanguageMenu";
@@ -12,7 +14,8 @@ export function generateStaticParams() { return Object.keys(legal.de.pages).map(
 export async function generateMetadata({ params }: { params: Promise<LegalParams> }): Promise<Metadata> {
   const { slug, locale } = await params;
   const page = legal[language(locale)].pages[slug as LegalSlug];
-  return { title: `${page?.title || "Legal"} — MLT` };
+  if (!page) notFound();
+  return publicMetadata(language(locale), `legal/${slug}`);
 }
 
 function LegalText({ text }: { text: string }) {
@@ -26,6 +29,6 @@ export default async function LegalPage({ params }: { params: Promise<LegalParam
   const locale = language(requestedLocale);
   const copy = legal[locale];
   const page = copy.pages[slug as LegalSlug];
-  if (!page) return <main className="not-found"><h1>Page not found</h1></main>;
+  if (!page) notFound();
   return <><main lang={locale} className="legal-page light-legal legal-with-site-nav"><SiteHeader locale={locale} /><article><p className="light-section-label">MLT / {copy.eyebrow}</p><h1>{page.title}</h1><p className="legal-intro">{page.intro}</p><div className="legal-sections">{page.sections.map(([title, text], index) => <section key={title}><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p><LegalText text={text}/></p></div></section>)}</div><nav className="legal-related-links"><a href={`/${locale}/legal/privacy/`}>{copy.privacy}</a><a href={`/${locale}/legal/imprint/`}>{copy.imprint}</a><a href={`/${locale}/legal/terms/`}>{copy.terms}</a><a href={`/${locale}/`}>{copy.home}</a></nav></article></main><SiteFooter locale={locale}/></>;
 }
