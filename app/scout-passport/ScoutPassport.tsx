@@ -5,7 +5,7 @@ import { emptyScoutFields, scoutEditLink, scoutRequest, type ScoutCard, type Sco
 import { changeSiteLocale, siteIdentity } from "../../content/site";
 import { scoutCopy, scoutFormat, scoutPath, scoutCategoriesFor } from "../../content/scout-i18n";
 import type { Locale } from "../../content/i18n";
-import SiteHeader from "../SiteHeader";
+import { LanguageMenu } from "../LanguageMenu";
 import PhotoCapture from "./PhotoCapture";
 import { newScoutIdentity, scoutDraft } from "./draft";
 
@@ -109,8 +109,7 @@ export default function ScoutPassport({ locale = "ru" }: { locale?: Locale }) {
   };
 
   return <main className="scout-page" lang={locale}>
-    <SiteHeader locale={locale} onLocaleChange={switchLocale} />
-    <header className="scout-banner"><div className="scout-banner-inner"><a href={`/${locale}/`} aria-label={t.home}><img src={siteIdentity.headerLogo} alt="MLT — Move. Live. Travel." width="160" height="60" /></a><div><p>{t.bannerEyebrow}</p><h1>MLT Scout Passport</h1><span>{t.tagline}</span></div><span className="scout-banner-mark" aria-hidden="true">{t.fieldNotes} / 01</span></div></header>
+    <header className="scout-banner"><div className="scout-banner-language"><LanguageMenu locale={locale} onChange={switchLocale} /></div><div className="scout-banner-inner"><a href={`/${locale}/`} aria-label={t.home}><img src={siteIdentity.headerLogo} alt="MLT — Move. Live. Travel." width="160" height="60" /></a><div><p>{t.bannerEyebrow}</p><h1>MLT Scout Passport</h1><span>{t.tagline}</span></div><span className="scout-banner-mark" aria-hidden="true">{t.fieldNotes} / 01</span></div></header>
     <div className="scout-content">
       <div ref={message} tabIndex={-1} className="scout-feedback" aria-live="polite">
         {error && <p className="scout-error" role="alert">{error}</p>}

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import ScoutPassport from "./ScoutPassport";
-import SiteFooter from "../SiteFooter";
 import "./scout.css";
 
 export const metadata: Metadata = {
@@ -11,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <><ScoutPassport /><SiteFooter locale="ru" /></>;
+  return <ScoutPassport />;
 }

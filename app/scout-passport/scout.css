@@ -3,9 +3,14 @@
 .scout-page button{cursor:pointer}
 .scout-page button:disabled{opacity:.55;cursor:wait}
 .scout-page :is(button,a,input,textarea):focus-visible{outline:2px solid var(--mlt-bronze-dark);outline-offset:3px}
-.scout-page>.mlt-site-header{position:relative}
 .scout-banner{position:relative;background:linear-gradient(90deg,rgba(17,19,18,.85),rgba(17,19,18,.42)),url('/scout-passport-road.jpg') center 58%/cover;border-bottom:3px solid var(--mlt-bronze);color:var(--mlt-nav-paper)}
-.scout-banner-inner{max-width:1440px;min-height:224px;margin:auto;padding:40px var(--mlt-page-gutter);display:flex;align-items:center;gap:40px}
+.scout-banner-language{position:absolute;z-index:30;top:16px;right:var(--mlt-page-gutter)}
+.scout-banner-language .header-language-trigger{height:44px}
+.scout-banner-language .header-language-trigger span{font-size:16px;font-weight:400}
+.scout-banner-language .header-language-dropdown{left:auto;right:0;background:var(--mlt-nav-paper);border-color:var(--mlt-bronze-dark);border-radius:var(--mlt-radius-dropdown)}
+.scout-banner-language .header-language-dropdown button{height:44px;color:var(--mlt-nav-ink);font-size:16px}
+.scout-banner-language .header-language-dropdown button:is(:hover,:focus-visible,.active){background:#a2725012;color:var(--mlt-nav-ink)!important}
+.scout-banner-inner{max-width:1440px;min-height:224px;margin:auto;padding:80px var(--mlt-page-gutter) 40px;display:flex;align-items:center;gap:40px}
 .scout-banner img{width:160px;height:auto;display:block}
 .scout-banner h1{font:400 clamp(28px,3.2vw,46px)/1.12 var(--mlt-font-display);margin:8px 0 12px;letter-spacing:-.025em}
 .scout-banner p{font-size:var(--mlt-text-body);letter-spacing:.2em;margin:0;color:var(--mlt-bronze-light)}
@@ -77,7 +82,7 @@
 .scout-camera-actions>button:not(.scout-primary){min-height:48px;border:1px solid var(--mlt-bronze-dark);border-radius:var(--mlt-radius-control);background:transparent;color:var(--mlt-nav-ink);padding:12px;font-size:var(--mlt-text-body)}
 @media(max-width:1000px){.scout-form>fieldset{grid-template-columns:1fr;column-gap:0}}
 @media(max-width:700px){
-  .scout-banner-inner{min-height:224px;padding:24px var(--mlt-page-gutter);gap:16px;flex-direction:column;text-align:center}
+  .scout-banner-inner{min-height:224px;padding:80px var(--mlt-page-gutter) 24px;gap:16px;flex-direction:column;text-align:center}
   .scout-banner img{width:120px}
   .scout-banner h1{font-size:30px;margin:8px 0}
   .scout-banner p{font-size:var(--mlt-text-body)}

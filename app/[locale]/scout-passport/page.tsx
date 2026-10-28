@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ScoutPassport from "../../scout-passport/ScoutPassport";
-import SiteFooter from "../../SiteFooter";
 import { scoutCopy, scoutPath } from "../../../content/scout-i18n";
 import { siteLocales } from "../../../content/site";
 import type { Locale } from "../../../content/i18n";
@@ -19,5 +18,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 export default async function Page({ params }: Props) {
   const locale = await pageLocale(params);
-  return <><ScoutPassport locale={locale} /><SiteFooter locale={locale} /></>;
+  return <ScoutPassport locale={locale} />;
 }
