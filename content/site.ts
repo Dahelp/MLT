@@ -10,6 +10,7 @@ export const siteIdentity = {
   facebookHref: "https://m.me/61594144491368",
   telegramHref: "https://t.me/+4917632523799",
   whatsappHref: "https://wa.me/4917632523799",
+  instagramHref: "https://www.instagram.com/mlt_lifestyle?mdxt=dDdrZGM0ejI0Zjk=",
   copyright: "© 2026 MLT Maschinenhandel GmbH Import-Export",
   logo: "/mlt-logo.svg?v=20261006-vector",
   headerLogo: "/mlt-logo-header.svg?v=20261015",

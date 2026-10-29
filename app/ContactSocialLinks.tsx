@@ -19,6 +19,13 @@ export default function ContactSocialLinks() {
           <path d="m20.7 4.2-3.1 15.1c-.2 1.1-.9 1.4-1.8.9l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.8 8.7-7.9c.4-.3-.1-.5-.6-.2L5.5 13.3.9 11.9c-1-.3-1-1 .2-1.5L19 3.5c.8-.3 1.9.2 1.7.7Z" transform="translate(1 0)"/>
         </svg>
       </a>
+      <a href={siteIdentity.instagramHref} aria-label="Instagram MLT" title="Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1.2"/>
+        </svg>
+      </a>
     </div>
   );
 }
