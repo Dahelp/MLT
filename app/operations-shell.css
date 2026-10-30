@@ -3,7 +3,7 @@
 .operations-main{min-width:0}
 .operations-menu-backdrop{display:none}
 .operations-content{min-width:0;padding:40px clamp(20px,4vw,64px) 64px}
-.operations-content>header h1{margin:0 0 12px;font:400 clamp(38px,4vw,64px)/1.08 Georgia,serif}
+.operations-content>header h1{margin:0 0 12px;font:400 clamp(38px,4vw,64px)/1.08 var(--mlt-font-display)}
 .operations-content>header p{margin:0;color:#716b63;font-size:17px;line-height:1.55}
 .operations-shell .staff-topbar{padding-inline:20px}
 .operations-shell .staff-sidebar{gap:18px;padding:28px 16px}
