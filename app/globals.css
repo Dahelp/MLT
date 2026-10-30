@@ -509,6 +509,14 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-footer strong { margin-bottom: 8px; color: var(--mlt-sand); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 .light-footer a { color: #f8f5f0; text-decoration: none; font-size: 14px; line-height: 1.45; }
 .light-footer > small { grid-column: 1 / -1; margin-top: 35px; padding-top: 24px; border-top: 1px solid #3e3e3e; color: #8f8a83; }
+.light-footer-contact { min-width: 216px; }
+
+/* Shared social buttons for Contact and both site footers. */
+.mlt-contact-socials{display:flex;flex-wrap:wrap;gap:8px}
+.mlt-contact-socials>a{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border:1px solid var(--mlt-bronze-dark);border-radius:var(--mlt-radius-control);background:var(--mlt-button-gradient);color:var(--mlt-surface-dark);transition:filter .2s}
+.mlt-contact-socials>a:hover{filter:brightness(1.08)}
+.mlt-contact-socials svg{width:24px;height:24px;fill:currentColor}
+.mlt-contact-socials>a:focus-visible{outline:2px solid var(--mlt-bronze-dark);outline-offset:3px}
 
 /* Progressive scroll reveals for the home page. The collections section is intentionally excluded. */
 .home-reveal-enabled [data-home-reveal] { opacity: 0; transition: opacity .82s cubic-bezier(.22,.72,.24,1), transform .82s cubic-bezier(.22,.72,.24,1); will-change: opacity, transform; }
