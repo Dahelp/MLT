@@ -1,3 +1,8 @@
+/* Reveal the loaded offer and its conditions together, without moving visible text. */
+.voucher-page[aria-busy=true] .voucher-page-content,.voucher-page[aria-busy=true] [data-site-footer]{visibility:hidden}
+.voucher-page[aria-busy=false] .voucher-page-content{animation:voucher-content-enter .24s ease-out}
+@keyframes voucher-content-enter{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.voucher-page[aria-busy=false] .voucher-page-content{animation:none}}
 .voucher-section{padding:var(--mlt-section-padding) var(--mlt-page-gutter);background:#f8f5ef;color:var(--mlt-surface-dark)}
 /* The artwork shares the same outer content edges as the adjacent homepage sections. */
 .voucher-feature{position:relative;width:100%;margin:auto;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:var(--mlt-content-gap);padding:clamp(32px,4vw,64px);box-sizing:border-box;border:1px solid #79614470;border-radius:var(--mlt-radius-panel);background:#302c24 url('/voucher-stationery.webp') center/cover no-repeat;color:#f8f3eb;overflow:hidden;box-shadow:0 8px 24px #30251b12}
