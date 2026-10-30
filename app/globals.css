@@ -510,6 +510,7 @@ footer small { font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
 .light-footer a { color: #f8f5f0; text-decoration: none; font-size: 14px; line-height: 1.45; }
 .light-footer > small { grid-column: 1 / -1; margin-top: 35px; padding-top: 24px; border-top: 1px solid #3e3e3e; color: #8f8a83; }
 .light-footer-contact { min-width: 216px; }
+[data-site-footer] .mlt-contact-socials { margin-top: 8px; }
 
 /* Shared social buttons for Contact and both site footers. */
 .mlt-contact-socials{display:flex;flex-wrap:wrap;gap:8px}
