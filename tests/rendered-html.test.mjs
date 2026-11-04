@@ -273,7 +273,7 @@ test("keeps safeguards and critical interactions in source", async () => {
   assert.match(cookies, /Ваша конфиденциальность/);
   assert.match(cookies, /location\.pathname\.split/);
   assert.match(map, /ResizeObserver/);
-  assert.match(map, /aria-haspopup/);
+  assert.match(map, /aria-controls/);
   assert.match(map, /map-status/);
   assert.match(map, /router\.project-osrm\.org\/route\/v1\/driving/);
   assert.match(map, /overview=full&geometries=geojson/);

@@ -1,0 +1,9 @@
+.map-explorer{isolation:isolate}
+.map-explorer-surface{position:absolute;inset:0;min-width:0;min-height:0}
+.map-place-inspector{position:absolute;z-index:6;left:50%;top:50%;width:min(200px,calc(100% - 24px));max-height:calc(100% - 118px);display:flex;flex-direction:column;transform:translate(-50%,-100%);border:1px solid #c9b9a3;border-radius:var(--mlt-radius-control);background:var(--mlt-surface-light);color:var(--mlt-surface-dark);box-shadow:0 8px 24px #342a2533;font:var(--mlt-text-body)/1.4 var(--mlt-font-ui)}
+.map-place-inspector::after{content:"";position:absolute;left:var(--map-pointer-x,50%);bottom:-7px;width:12px;height:12px;transform:translateX(-50%) rotate(45deg);border-right:1px solid #c9b9a3;border-bottom:1px solid #c9b9a3;background:var(--mlt-surface-light);pointer-events:none}
+.map-place-inspector.is-nearby{width:min(280px,calc(100% - 24px))}
+.map-place-inspector[hidden]{display:none}
+.map-place-inspector>section{position:relative;flex:1 1 auto;min-height:0;min-width:0;display:flex;flex-direction:column;overflow:hidden;border-radius:inherit}
+.map-place-inspector :is(button,input,summary,[tabindex]):focus-visible{outline:2px solid var(--mlt-bronze-dark);outline-offset:-2px}
+.smart-map-canvas:has(.map-explorer.has-place-inspector){min-height:600px}
