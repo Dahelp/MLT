@@ -3,7 +3,6 @@
 .nearby-map-points h3{margin:0;font:400 22px/1.2 var(--mlt-font-display)}
 .nearby-map-points h3>span{color:var(--mlt-nav-ink)}
 .nearby-map-points header p{margin:8px 0 0;color:#686b63;font:var(--mlt-text-body)/1.4 var(--mlt-font-ui)}
-.nearby-map-points header button{flex:0 0 36px;height:36px;margin-left:auto;padding:0;border:1px solid #c9b9a3;border-radius:50%;background:transparent;color:inherit;font:26px/1 var(--mlt-font-ui);cursor:pointer}
 .nearby-map-search{flex-shrink:0;width:calc(100% - 24px);min-height:54px;margin:8px 12px 0;padding:8px 12px;border:1px solid #ccc5ba;border-radius:var(--mlt-radius-control);background:#fbfaf7;color:inherit;font:inherit}
 .nearby-map-point-list{min-height:0;overflow:auto;overscroll-behavior:contain;padding:8px;display:grid;gap:8px}
 .nearby-map-point-list>button{display:flex;align-items:center;gap:8px;min-width:0;min-height:64px;width:100%;padding:8px;text-align:left;border:1px solid #ccc5ba;border-radius:var(--mlt-radius-control);background:#fbfaf7;color:inherit;font:16px/1.35 var(--mlt-font-ui);cursor:pointer}

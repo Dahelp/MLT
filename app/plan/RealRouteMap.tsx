@@ -70,6 +70,7 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
         }
         title.textContent=grouped?names:label;title.setAttribute("aria-hidden","true");button.append(symbol,title);
         button.onclick=()=>{
+          if(!grouped&&previewId===point.id){anchorRef.current=null;setPreviewId(null);setNearbyIds(null);return;}
           const anchor=map.unproject([group.x,group.y]);anchorRef.current=[anchor.lng,anchor.lat];
           if(grouped){setNearbyIds(group.ids);setPreviewId(null);}else{setNearbyIds(null);setPreviewId(point.id);}
         };
@@ -82,6 +83,7 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
   useEffect(()=>{
     const map=mapRef.current,node=inspectorRef.current;
     if(!map||!node||!inspectorOpen||!anchorRef.current)return;
+    const host=node.parentElement?.parentElement,previousMinimum=host?.style.minHeight||"",baseHeight=map.getContainer().clientHeight;
     const position=()=>{
       if(!anchorRef.current)return;
       const layout=mapPopupLayout(map.project(anchorRef.current),{width:map.getContainer().clientWidth,height:map.getContainer().clientHeight},{width:node.offsetWidth,height:node.offsetHeight});
@@ -89,15 +91,21 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
       node.style.setProperty("--map-pointer-x",`${layout.pointerX}px`);
     };
     map.on("move",position);map.on("resize",position);
-    const frame=requestAnimationFrame(()=>{
+    let frame=0,focused=false;
+    const fit=()=>{
+      if(!anchorRef.current)return;
+      // Expanded visitor information grows the map instead of creating an inner scrollbar.
+      if(previewId&&host)host.style.minHeight=`${Math.max(baseHeight,node.offsetHeight+118)}px`;
       map.resize();position();
       const {panBy}=mapPopupLayout(map.project(anchorRef.current!),{width:map.getContainer().clientWidth,height:map.getContainer().clientHeight},{width:node.offsetWidth,height:node.offsetHeight});
       // Pan only when opening a card; subsequent map gestures remain unrestricted.
       if(Math.abs(panBy[0])>1||Math.abs(panBy[1])>1)map.panBy(panBy,{duration:300});
-      node.querySelector<HTMLButtonElement>("button")?.focus({preventScroll:true});
-    });
+      if(!focused){node.querySelector<HTMLElement>("[data-map-preview-focus],button")?.focus({preventScroll:true});focused=true;}
+    };
+    const scheduleFit=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(fit);};
+    const resizeObserver=new ResizeObserver(scheduleFit);resizeObserver.observe(node);scheduleFit();
     position();
-    return()=>{cancelAnimationFrame(frame);map.off("move",position);map.off("resize",position);};
+    return()=>{resizeObserver.disconnect();cancelAnimationFrame(frame);map.off("move",position);map.off("resize",position);if(host)host.style.minHeight=previousMinimum;};
   },[previewId,nearbyIds,inspectorOpen,mapStatus]);
   useEffect(() => {
     const map = mapRef.current; if (!map || mapStatus !== "ready") return; const source = map.getSource("route") as maplibregl.GeoJSONSource; const controller = new AbortController();
@@ -106,7 +114,7 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
     fetch(`https://router.project-osrm.org/route/v1/driving/${waypoints}?overview=full&geometries=geojson&steps=false`, { signal: controller.signal }).then((response) => { if (!response.ok) throw new Error("Routing failed"); return response.json(); }).then(async (data: { code?: string; routes?: { geometry: RouteGeometry; distance?: number }[] }) => { if (data.code !== "Ok" || !data.routes?.[0]) throw new Error("No route"); const geometry = data.routes[0].geometry; await source.setData({ type: "Feature", properties: {}, geometry }); if (controller.signal.aborted) return; onDistanceChange?.(typeof data.routes[0].distance === "number" ? Math.round(data.routes[0].distance / 1000) : null); const bounds = geometry.coordinates.reduce((box, coordinate) => box.extend(coordinate), new maplibregl.LngLatBounds(geometry.coordinates[0], geometry.coordinates[0])); if(!anchorRef.current)map.fitBounds(bounds, { padding: 70, maxZoom: 7.5, duration: 900 }); setRouteStatus("ready"); }).catch((error) => { if (error.name !== "AbortError") { source.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [] } }); onDistanceChange?.(null); setRouteStatus("error"); } });
     return () => controller.abort();
   }, [selected, mapStatus, onDistanceChange, coordinates]);
-  return <div className={`real-route-map map-explorer ${className}${inspectorOpen?" has-place-inspector":""}`.trim()} aria-label="Interactive road route map of Italy, Austria and Germany">
+  return <div className={`real-route-map map-explorer ${className}${inspectorOpen?" has-place-inspector":""}`.trim()} aria-label="Interactive road route map of Italy, Austria and Germany" onKeyDown={event=>{if(event.key==="Escape"&&inspectorOpen){event.stopPropagation();closeInspector();}}}>
     <div ref={container} className="map-explorer-surface">{mapStatus !== "ready" && <div className={`map-status ${mapStatus}`} role="status">{mapStatus === "error" ? t.error : t.loading}</div>}{mapStatus === "ready" && routeStatus !== "idle" && <div className={`route-calculation-status ${routeStatus}`} aria-live="polite">{routeStatus === "loading" ? t.routing : routeStatus === "ready" ? t.ready : t.routeError}</div>}</div>
     <div ref={inspectorRef} id={inspectorId} className={`map-place-inspector${preview?"":" is-nearby"}`} hidden={!inspectorOpen}>
       {preview?<MapPointPreview key={preview.id} point={preview} locale={locale} selected={selected.includes(preview.id)} onSelect={selectable?onToggle:undefined} onClose={closeInspector} onBack={nearbyPoints.length?()=>setPreviewId(null):undefined}/>:nearbyPoints.length>0&&<NearbyMapPoints key={(nearbyIds||[]).join("|")} points={nearbyPoints} selected={selected} locale={locale} onClose={closeInspector} onPick={id=>{if(coordinates[id])anchorRef.current=coordinates[id];setPreviewId(id);}}/>}

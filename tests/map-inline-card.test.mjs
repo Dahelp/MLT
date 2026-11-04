@@ -23,7 +23,7 @@ test('map card is an inline region with a swipe gallery, photo and video slides 
  assert.equal((html.match(/class="map-point-media-slide"/g)||[]).length,3);
  assert.match(html,/<video[^>]+controls=""[^>]+playsInline=""/);
  assert.match(html,/A riverside walk/);assert.match(html,/Выбрать точку/);assert.match(html,/aria-pressed="false"/);
- assert.match(html,/<details class="map-point-preview-logistics"/);
+ assert.match(html,/<dl class="map-point-preview-logistics"/);assert.doesNotMatch(html,/map-point-preview-close|map-point-preview-content/);assert.match(html,/class="map-point-preview-more" aria-expanded="false"/);assert.match(html,/class="map-point-preview-details" hidden=""/);
 });
 test('selected cards allow removing the point and read-only maps omit selection',()=>{
  assert.match(render({selected:true}),/aria-pressed="true"[^>]*>Убрать из маршрута/);
@@ -36,9 +36,9 @@ test('overlapping places can be browsed inline before selecting an individual pl
  assert.match(html,/A waterfall/);assert.match(html,/Another place/);assert.match(html,/✓ Выбрано/);
 });
 const {mapPopupLayout}=load('content/map-popup.ts');
-test('popup panning leaves the portrait card and marker inside desktop, tablet and phone maps',()=>{
- for(const width of [320,342,390,700,1440])for(const height of [280,380,510,600])for(const x of [-20,width/2,width+20])for(const y of [-20,height/2,height+20]){
-  const card={width:200,height:Math.min(500,height-118)},map={width,height};
+test('popup panning leaves the guide card and marker inside desktop, tablet and phone maps',()=>{
+ for(const width of [320,342,390,700,1440])for(const closedHeight of [280,380,510,600])for(const x of [-20,width/2,width+20])for(const y of [-20,closedHeight/2,closedHeight+20]){
+  const card={width:Math.min(500,width-24),height:width<700?310:290},height=Math.max(closedHeight,card.height+118),map={width,height};
   const first=mapPopupLayout({x,y},map,card);
   const after=mapPopupLayout({x:x-first.panBy[0],y:y-first.panBy[1]},map,card);
   assert.ok(after.left-card.width/2>=12&&after.left+card.width/2<=width-12);
