@@ -1,8 +1,10 @@
 "use client";
+import { scoutSubcategoryLabels } from "../../content/scout-subcategories";
 
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { scoutEditLink, scoutRequest, type ScoutCard, type ScoutStatus } from "../../content/scout";
 import "./base-location.css";
+import LocationEditor from "./LocationEditor";
 import { scoutCopy, scoutFormat, scoutPath, scoutCategoriesFor } from "../../content/scout-i18n";
 import type { OperationsLocale } from "../../content/operations-i18n";
 
@@ -66,18 +68,20 @@ function LocationCard({ card, locale, onChanged }: { card: ScoutCard; locale: Op
     } catch (value) { setError((value as Error).message); }
     finally { setBusy(false); }
   };
+  const [editing,setEditing]=useState(false);
   const published = card.isPublished;
-  return <article className="base-location-card">
+  return <><article className="base-location-card">
     <div className="base-location-cover">{card.photos[0] && <img src={card.photos[0]} alt={card.title} loading="lazy" />}<span className={`base-location-status status-${card.status}`}>{statuses[card.status]}</span>{published && <span className="base-location-published">{t.onMap}</span>}</div>
     <div className="base-location-card-body"><small>{card.reference} · {scoutCategoriesFor(locale).find(category => category.id === card.category)?.title}</small><h2>{card.title}</h2><p className="base-location-place">{card.country} · {card.latitude}, {card.longitude}</p><p className="base-location-description">{card.description}</p><div className="base-location-scout"><span>{card.scoutName}</span><time>{new Date(card.createdAt.replace(" ", "T") + "Z").toLocaleDateString(locale)}</time></div>
-    <details><summary>{t.details}</summary><div className="base-location-gallery">{card.photos.map((photo, index) => <a key={`${photo}:${index}`} href={photo} target="_blank" rel="noreferrer"><img src={photo} alt={scoutFormat(f.frame, { number: index + 1 }) + ": " + card.title} loading="lazy" /></a>)}</div>{card.video&&<div className="base-location-video"><h3>{scoutCopy[locale].video.title}</h3><video src={card.video.path} controls playsInline preload="none" aria-label={scoutCopy[locale].video.preview}/><a href={card.video.path} target="_blank" rel="noreferrer">{scoutCopy[locale].video.open}</a></div>}<dl><dt>{f.parking}</dt><dd>{card.parking || t.notSpecified}</dd><dt>{f.booking}</dt><dd>{card.booking || t.notSpecified}</dd><dt>{f.locationWebsite}</dt><dd>{card.locationWebsite ? <a href={card.locationWebsite} target="_blank" rel="noreferrer">{card.locationWebsite}</a> : t.notSpecified}</dd><dt>{f.contactPhone}</dt><dd>{card.contactPhone || t.notSpecified}</dd></dl></details>
+    <button type="button" className="base-location-edit-button" disabled={busy} onClick={()=>setEditing(true)}>{scoutCopy[locale].editor.edit}</button>
+    <details><summary>{t.details}</summary><div className="base-location-gallery">{card.photos.map((photo, index) => <a key={`${photo}:${index}`} href={photo} target="_blank" rel="noreferrer"><img src={photo} alt={scoutFormat(f.frame, { number: index + 1 }) + ": " + card.title} loading="lazy" /></a>)}</div>{card.video&&<div className="base-location-video"><h3>{scoutCopy[locale].video.title}</h3><video src={card.video.path} controls playsInline preload="none" aria-label={scoutCopy[locale].video.preview}/><a href={card.video.path} target="_blank" rel="noreferrer">{scoutCopy[locale].video.open}</a></div>}<dl><dt>{scoutCopy[locale].subcategories.title}</dt><dd>{scoutSubcategoryLabels(card.category, card.subcategories || [], card.subcategoryOther || "", locale).join(", ") || t.notSpecified}</dd><dt>{f.parking}</dt><dd>{card.parking || t.notSpecified}</dd><dt>{f.booking}</dt><dd>{card.booking || t.notSpecified}</dd><dt>{f.locationWebsite}</dt><dd>{card.locationWebsite ? <a href={card.locationWebsite} target="_blank" rel="noreferrer">{card.locationWebsite}</a> : t.notSpecified}</dd><dt>{f.contactPhone}</dt><dd>{card.contactPhone || t.notSpecified}</dd></dl></details>
     <label>{t.comment}<textarea maxLength={2000} rows={2} placeholder={t.commentPlaceholder} value={note} disabled={busy} onChange={event => setNote(event.target.value)} /></label>
     {error && <p className="base-location-error" role="alert">{error}</p>}
     <div className="base-location-actions"><button type="button" disabled={busy || card.status === "accepted"} onClick={() => act("moderate", "accepted")}>{t.accept}</button><button type="button" disabled={busy || card.status === "rejected"} onClick={() => act("moderate", "rejected")}>{t.reject}</button><button type="button" disabled={busy} onClick={() => act("moderate", "revision")}>{t.revise}</button></div>
     {card.status === "accepted" && <button type="button" className="base-location-map-button" disabled={busy} onClick={() => act(published ? "unpublish" : "publish")}>{busy ? t.saving : published ? t.unpublish : t.publish}</button>}
     {card.status === "revision" && <><button type="button" className="base-location-link-button" disabled={busy} onClick={revisionLink}>{t.revisionLink}</button>{link && <label>{t.sendLink}<input readOnly value={link} onFocus={event => event.currentTarget.select()} /><small>{t.replacesLink}</small></label>}</>}
     </div>
-  </article>;
+  </article>{editing&&<LocationEditor card={{...card,version}} locale={locale} onClose={()=>setEditing(false)} onSaved={()=>{setEditing(false);onChanged();}}/>}</>;
 }
 
 function ToolbarIcon({ name, spinning = false }: { name: "open" | "copy" | "refresh" | "check" | "search"; spinning?: boolean }) {

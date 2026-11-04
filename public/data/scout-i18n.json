@@ -187,7 +187,9 @@
       "videoMissing": "The video upload is unavailable. Choose the video again.",
       "videoIncomplete": "The video has not finished uploading. Please retry.",
       "videoUpload": "Could not upload the video. Check your connection and retry; uploaded parts will be reused.",
-      "invalidWebsite": "Enter a valid website address starting with http:// or https://."
+      "invalidWebsite": "Enter a valid website address starting with http:// or https://.",
+      "invalidSubcategories": "Choose subcategories from the selected category.",
+      "subcategoryOtherRequired": "Describe the “Other” subcategory."
     },
     "video": {
       "title": "Video (optional)",
@@ -201,6 +203,25 @@
       "tooLarge": "Choose a video up to 50 MB.",
       "format": "Choose an MP4, MOV or WebM video.",
       "uploading": "Uploading video · {percent}%"
+    },
+    "subcategories": {
+      "title": "Choose subcategories",
+      "otherLabel": "Other subcategory",
+      "otherPlaceholder": "Describe the subcategory"
+    },
+    "editor": {
+      "edit": "Edit",
+      "title": "Edit location",
+      "save": "Save changes",
+      "cancel": "Cancel",
+      "close": "Close editor",
+      "help": "Update the location details. Saving preserves moderation and publication status.",
+      "publishedHelp": "Changes update this same map point. Its publication status stays the same.",
+      "photosHelp": "2 to 4 photos in 3:4 format. The first photo is the card cover.",
+      "cover": "Cover",
+      "makeCover": "Make cover",
+      "addPhoto": "Add photo {number}",
+      "replacePhoto": "Replace photo {number}"
     }
   },
   "de": {
@@ -391,7 +412,9 @@
       "videoMissing": "Der Video-Upload ist nicht verfügbar. Wählen Sie das Video erneut.",
       "videoIncomplete": "Das Video ist noch nicht vollständig hochgeladen. Bitte erneut versuchen.",
       "videoUpload": "Video konnte nicht hochgeladen werden. Verbindung prüfen und erneut versuchen; hochgeladene Teile bleiben erhalten.",
-      "invalidWebsite": "Bitte eine gültige Website-Adresse mit http:// oder https:// eingeben."
+      "invalidWebsite": "Bitte eine gültige Website-Adresse mit http:// oder https:// eingeben.",
+      "invalidSubcategories": "Wählen Sie Unterkategorien der ausgewählten Kategorie.",
+      "subcategoryOtherRequired": "Beschreiben Sie die Unterkategorie „Sonstiges“."
     },
     "video": {
       "title": "Video (optional)",
@@ -405,6 +428,25 @@
       "tooLarge": "Wählen Sie ein Video bis 50 MB.",
       "format": "Wählen Sie ein MP4-, MOV- oder WebM-Video.",
       "uploading": "Video wird hochgeladen · {percent}%"
+    },
+    "subcategories": {
+      "title": "Unterkategorien auswählen",
+      "otherLabel": "Andere Unterkategorie",
+      "otherPlaceholder": "Unterkategorie beschreiben"
+    },
+    "editor": {
+      "edit": "Bearbeiten",
+      "title": "Ort bearbeiten",
+      "save": "Änderungen speichern",
+      "cancel": "Abbrechen",
+      "close": "Bearbeitung schließen",
+      "help": "Ergänzen Sie die Ortsdetails. Moderations- und Veröffentlichungsstatus bleiben erhalten.",
+      "publishedHelp": "Änderungen aktualisieren denselben Kartenpunkt. Der Veröffentlichungsstatus bleibt erhalten.",
+      "photosHelp": "2 bis 4 Fotos im Format 3:4. Das erste Foto ist das Titelbild.",
+      "cover": "Titelbild",
+      "makeCover": "Als Titelbild",
+      "addPhoto": "Foto {number} hinzufügen",
+      "replacePhoto": "Foto {number} ersetzen"
     }
   },
   "ru": {
@@ -595,7 +637,9 @@
       "videoMissing": "Загрузка видео недоступна. Выберите видео заново.",
       "videoIncomplete": "Видео ещё не загружено полностью. Повторите отправку.",
       "videoUpload": "Не удалось загрузить видео. Проверьте связь и повторите отправку — загруженные части сохранятся.",
-      "invalidWebsite": "Укажите корректную ссылку на сайт с http:// или https://."
+      "invalidWebsite": "Укажите корректную ссылку на сайт с http:// или https://.",
+      "invalidSubcategories": "Выберите подкатегории из выбранной категории.",
+      "subcategoryOtherRequired": "Укажите подкатегорию в поле «Другое»."
     },
     "video": {
       "title": "Видео (необязательно)",
@@ -609,6 +653,25 @@
       "tooLarge": "Выберите видео размером до 50 МБ.",
       "format": "Выберите видео в формате MP4, MOV или WebM.",
       "uploading": "Загружаем видео · {percent}%"
+    },
+    "subcategories": {
+      "title": "Выбрать подкатегории",
+      "otherLabel": "Другая подкатегория",
+      "otherPlaceholder": "Укажите свою подкатегорию"
+    },
+    "editor": {
+      "edit": "Редактировать",
+      "title": "Редактировать локацию",
+      "save": "Сохранить изменения",
+      "cancel": "Отмена",
+      "close": "Закрыть редактирование",
+      "help": "Дополните данные места. Сохранение не меняет статус модерации и публикации.",
+      "publishedHelp": "Изменения обновят эту же точку на карте. Статус публикации сохранится.",
+      "photosHelp": "От 2 до 4 фотографий в формате 3:4. Первое фото — обложка карточки.",
+      "cover": "Обложка",
+      "makeCover": "Сделать обложкой",
+      "addPhoto": "Добавить фото {number}",
+      "replacePhoto": "Заменить фото {number}"
     }
   },
   "it": {
@@ -799,7 +862,9 @@
       "videoMissing": "Caricamento video non disponibile. Seleziona nuovamente il video.",
       "videoIncomplete": "Il caricamento del video non è completo. Riprova.",
       "videoUpload": "Impossibile caricare il video. Controlla la connessione e riprova; le parti caricate vengono conservate.",
-      "invalidWebsite": "Inserisci un indirizzo web valido che inizi con http:// o https://."
+      "invalidWebsite": "Inserisci un indirizzo web valido che inizi con http:// o https://.",
+      "invalidSubcategories": "Scegli le sottocategorie della categoria selezionata.",
+      "subcategoryOtherRequired": "Descrivi la sottocategoria «Altro»."
     },
     "video": {
       "title": "Video (facoltativo)",
@@ -813,6 +878,25 @@
       "tooLarge": "Scegli un video fino a 50 MB.",
       "format": "Scegli un video MP4, MOV o WebM.",
       "uploading": "Caricamento video · {percent}%"
+    },
+    "subcategories": {
+      "title": "Scegli le sottocategorie",
+      "otherLabel": "Altra sottocategoria",
+      "otherPlaceholder": "Descrivi la sottocategoria"
+    },
+    "editor": {
+      "edit": "Modifica",
+      "title": "Modifica il luogo",
+      "save": "Salva modifiche",
+      "cancel": "Annulla",
+      "close": "Chiudi modifica",
+      "help": "Aggiorna i dettagli del luogo. Gli stati di moderazione e pubblicazione restano invariati.",
+      "publishedHelp": "Le modifiche aggiornano lo stesso punto sulla mappa. Lo stato di pubblicazione resta invariato.",
+      "photosHelp": "Da 2 a 4 foto in formato 3:4. La prima foto è la copertina della scheda.",
+      "cover": "Copertina",
+      "makeCover": "Usa come copertina",
+      "addPhoto": "Aggiungi foto {number}",
+      "replacePhoto": "Sostituisci foto {number}"
     }
   },
   "pl": {
@@ -1003,7 +1087,9 @@
       "videoMissing": "Przesyłanie wideo jest niedostępne. Wybierz wideo ponownie.",
       "videoIncomplete": "Wideo nie zostało przesłane w całości. Spróbuj ponownie.",
       "videoUpload": "Nie udało się przesłać wideo. Sprawdź połączenie i spróbuj ponownie; przesłane części zostaną zachowane.",
-      "invalidWebsite": "Podaj poprawny adres strony zaczynający się od http:// lub https://."
+      "invalidWebsite": "Podaj poprawny adres strony zaczynający się od http:// lub https://.",
+      "invalidSubcategories": "Wybierz podkategorie z wybranej kategorii.",
+      "subcategoryOtherRequired": "Opisz podkategorię „Inne”."
     },
     "video": {
       "title": "Wideo (opcjonalnie)",
@@ -1017,6 +1103,25 @@
       "tooLarge": "Wybierz wideo do 50 MB.",
       "format": "Wybierz wideo MP4, MOV lub WebM.",
       "uploading": "Przesyłanie wideo · {percent}%"
+    },
+    "subcategories": {
+      "title": "Wybierz podkategorie",
+      "otherLabel": "Inna podkategoria",
+      "otherPlaceholder": "Opisz podkategorię"
+    },
+    "editor": {
+      "edit": "Edytuj",
+      "title": "Edytuj miejsce",
+      "save": "Zapisz zmiany",
+      "cancel": "Anuluj",
+      "close": "Zamknij edycję",
+      "help": "Uzupełnij szczegóły miejsca. Zapis zachowuje status moderacji i publikacji.",
+      "publishedHelp": "Zmiany aktualizują ten sam punkt na mapie. Status publikacji pozostaje bez zmian.",
+      "photosHelp": "Od 2 do 4 zdjęć w formacie 3:4. Pierwsze zdjęcie jest okładką karty.",
+      "cover": "Okładka",
+      "makeCover": "Ustaw jako okładkę",
+      "addPhoto": "Dodaj zdjęcie {number}",
+      "replacePhoto": "Zastąp zdjęcie {number}"
     }
   }
 }

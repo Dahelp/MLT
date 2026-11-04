@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
-import { mapPoints } from "../content/mlt";
+import { mapPoints, journeyRoutes } from "../content/mlt";
 import { mapCoordinates } from "../content/map";
+import { publishedRoutePoint, type RoutePoint, type PointResponse } from "../content/route-points";
+export type { RoutePoint } from "../content/route-points";
 
-export type RoutePoint = { id: string; country: string; name: string; type: string; className: string };
-type PointResponse = { slug: string; title: string; country_name: string; latitude: string | number; longitude: string | number; category?: string };
 type Snapshot = { points: RoutePoint[]; coordinates: Record<string, [number, number]> };
-const initial: Snapshot = { points: mapPoints, coordinates: mapCoordinates };
+const initial: Snapshot = { points: mapPoints.map(point=>{
+  const route=journeyRoutes.find(route=>route.id===point.id);
+  return {...point,photos:route?[route.image]:[],descriptions:route?.tagline};
+}), coordinates: mapCoordinates };
 let current = initial, pending: Promise<void> | null = null, loadedAt = 0;
 const listeners = new Set<() => void>();
 const subscribe = (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; };
-const categoryNames: Record<string, string> = { gourmet: "Gourmet", stay: "Stay", sight: "Sight", experience: "Experience" };
 
 async function refresh() {
   if (pending || Date.now() - loadedAt < 60000) return pending;
@@ -22,10 +24,10 @@ async function refresh() {
     const points = new Map<string, RoutePoint>(initial.points.map(point => [point.id, point]));
     const coordinates = { ...mapCoordinates };
     for (const row of data.points as PointResponse[]) {
-      const lat = Number(row.latitude), lng = Number(row.longitude);
-      if (row.latitude == null || row.longitude == null || !row.slug || typeof row.title !== "string" || !Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) continue;
-      points.set(row.slug, { id: row.slug, name: row.title, country: row.country_name || "", type: categoryNames[row.category || ""] || "MLT location", className: "pin-catalog" });
-      coordinates[row.slug] = [lng, lat];
+      const point=publishedRoutePoint(row);
+      if (!point) continue;
+      points.set(point.id,point);
+      coordinates[point.id] = [Number(row.longitude),Number(row.latitude)];
     }
     current = { points: [...points.values()], coordinates }; loadedAt = Date.now();
     listeners.forEach(listener => listener());

@@ -22,6 +22,8 @@ function mlt_scout_schema(PDO $db): void {
         edit_token_hash CHAR(64) NOT NULL,
         scout_name VARCHAR(120) NOT NULL,
         category VARCHAR(24) NOT NULL,
+        subcategories_json TEXT NULL,
+        subcategory_other VARCHAR(500) NULL,
         title VARCHAR(180) NOT NULL,
         country_name VARCHAR(100) NOT NULL,
         latitude DECIMAL(10,7) NOT NULL,
@@ -43,19 +45,21 @@ function mlt_scout_schema(PDO $db): void {
         INDEX scout_status_created (status,created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN video_json TEXT NULL'); } catch (PDOException $error) {}
-    foreach (['location_website'=>'VARCHAR(2048)', 'contact_phone'=>'VARCHAR(80)'] as $column=>$type) {
+    foreach (['location_website'=>'VARCHAR(2048)', 'contact_phone'=>'VARCHAR(80)', 'subcategories_json'=>'TEXT', 'subcategory_other'=>'VARCHAR(500)'] as $column=>$type) {
         try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN '.$column.' '.$type.' NULL'); }
         catch (PDOException $error) {
             if ((int)($error->errorInfo[1]??0)!==1060 && !str_contains($error->getMessage(),'duplicate column name')) throw $error;
         }
     }
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_route_points (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, slug VARCHAR(100) NOT NULL UNIQUE, title VARCHAR(180) NOT NULL, country_name VARCHAR(100) NULL, latitude DECIMAL(10,7) NULL, longitude DECIMAL(10,7) NULL, description TEXT NULL, image_path VARCHAR(255) NULL, is_active TINYINT(1) NOT NULL DEFAULT 1, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+    $db->exec('CREATE TABLE IF NOT EXISTS mlt_scout_edits (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, submission_id BIGINT UNSIGNED NOT NULL, operator_id BIGINT UNSIGNED NOT NULL, request_id CHAR(36) NOT NULL UNIQUE, previous_version INT NOT NULL, before_json MEDIUMTEXT NOT NULL, after_json MEDIUMTEXT NOT NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, INDEX scout_edits_submission (submission_id,created_at)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
 }
 
 function mlt_scout_card(array $row): array {
     return [
         'id'=>(int)$row['id'], 'reference'=>$row['reference_code'], 'scoutName'=>$row['scout_name'],
         'category'=>$row['category'], 'title'=>$row['title'], 'country'=>$row['country_name'],
+        'subcategories'=>json_decode($row['subcategories_json']??'[]',true) ?: [], 'subcategoryOther'=>$row['subcategory_other']??'',
         'latitude'=>(string)$row['latitude'], 'longitude'=>(string)$row['longitude'],
         'description'=>$row['description'], 'parking'=>$row['parking'], 'booking'=>$row['booking'],
         'locationWebsite'=>$row['location_website']??'', 'contactPhone'=>$row['contact_phone']??'',
@@ -75,7 +79,7 @@ function mlt_scout_text(array $body, string $key, int $maximum, bool $required =
     return $value;
 }
 
-function mlt_scout_fields(array $body): array {
+function mlt_scout_fields(array $body, bool $includeSubcategories = false): array {
     $category = mlt_scout_text($body,'category',24,true);
     if (!in_array($category,['gourmet','stay','sight','experience'],true)) mlt_scout_error(400,'category');
     $coordinates = [];
@@ -90,7 +94,24 @@ function mlt_scout_fields(array $body): array {
         $parts=parse_url($website);
         if (strlen($website)>2048 || !filter_var($website,FILTER_VALIDATE_URL) || !in_array(strtolower($parts['scheme']??''),['http','https'],true) || isset($parts['user']) || isset($parts['pass'])) mlt_scout_error(400,'invalidWebsite');
     }
-    return [mlt_scout_text($body,'scoutName',120,true), $category, mlt_scout_text($body,'title',180,true), mlt_scout_text($body,'country',100,true), ...$coordinates, mlt_scout_text($body,'description',3000,true), mlt_scout_text($body,'parking',500), mlt_scout_text($body,'booking',500), $website, mlt_scout_text($body,'contactPhone',80)];
+    // The deployed older entry point still expects these eleven values during FTP updates.
+    $fields=[mlt_scout_text($body,'scoutName',120,true), $category, mlt_scout_text($body,'title',180,true), mlt_scout_text($body,'country',100,true), ...$coordinates, mlt_scout_text($body,'description',3000,true), mlt_scout_text($body,'parking',500), mlt_scout_text($body,'booking',500), $website, mlt_scout_text($body,'contactPhone',80)];
+    if (!$includeSubcategories) return $fields;
+    [$subcategories,$other]=mlt_scout_subcategories($body,$category);
+    return [...$fields,json_encode($subcategories,JSON_THROW_ON_ERROR),$other];
+}
+
+function mlt_scout_subcategories(array $body, string $category): array {
+    static $taxonomy=null;
+    $taxonomy??=json_decode((string)file_get_contents(dirname(__DIR__).'/data/scout-subcategories.json'),true,32,JSON_THROW_ON_ERROR);
+    $allowed=array_column($taxonomy[$category]??[],'id');
+    $selected=$body['subcategories']??[];
+    if (!is_array($selected) || !array_is_list($selected) || count($selected)>count($allowed)) mlt_scout_error(400,'invalidSubcategories');
+    foreach ($selected as $id) if (!is_string($id) || !in_array($id,$allowed,true)) mlt_scout_error(400,'invalidSubcategories');
+    $selected=array_values(array_unique($selected));
+    $other=mlt_scout_text($body,'subcategoryOther',500);
+    if (in_array('other',$selected,true) && $other==='') mlt_scout_error(400,'subcategoryOtherRequired');
+    return [$selected,in_array('other',$selected,true)?$other:''];
 }
 
 /** Validate every image before writing any files. Retained paths must belong to this card. */

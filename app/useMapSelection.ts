@@ -6,7 +6,7 @@ import { useRoutePoints } from "./useRoutePoints";
 export function useMapSelection() {
   const { points: mapPoints } = useRoutePoints();
   const [country, setCountry] = useState("All");
-  const [selected, setSelected] = useState<string[]>(["dolomites", "como"]);
+  const [selected, setSelected] = useState<string[]>([]);
   const [distance, setDistance] = useState<number | null>(null);
   const toggle = useCallback((id: string) => {
     if (!mapPoints.some(point => point.id === id)) return;

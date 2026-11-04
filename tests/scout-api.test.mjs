@@ -15,6 +15,7 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
   for (const file of ['scout.php', 'scout-core.php', 'scout-video.php', 'security.php']) await cp(new URL(`../public/api/${file}`, import.meta.url), path.join(apiDirectory, file));
   await cp(new URL('./scout-test-booking.php', import.meta.url), path.join(apiDirectory, 'booking.php'));
   await cp(new URL('../public/data/scout-media.json', import.meta.url), path.join(directory, 'data/scout-media.json'));
+  await cp(new URL('../public/data/scout-subcategories.json', import.meta.url), path.join(directory, 'data/scout-subcategories.json'));
   const php = process.env.PHP_BINARY || 'php';
   const image = (width, height) => 'data:image/jpeg;base64,' + execFileSync(php, ['-r', `$im=imagecreatetruecolor(${width},${height});ob_start();imagejpeg($im);echo base64_encode(ob_get_clean());`], { encoding: 'utf8' }).trim();
   const portrait = image(300, 400), landscape = image(400, 300);
@@ -26,11 +27,11 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     const raw = await response.text();
     try { return { status: response.status, data: JSON.parse(raw) }; } catch { throw Error(raw + log); }
   };
-  const fields = { action: 'submit', requestId: randomUUID(), editToken: randomBytes(32).toString('hex'), scoutName: 'Local test scout', category: 'sight', title: '<img src=x onerror=alert(1)> Test place', country: 'Italy', latitude: '0', longitude: '-180', description: 'A real local test description', parking: 'Parking 150 m', booking: 'Two days ahead', photos: [portrait, portrait] };
+  const fields = { action: 'submit', requestId: randomUUID(), editToken: randomBytes(32).toString('hex'), scoutName: 'Local test scout', category: 'sight', subcategories:['nature','history'], title: '<img src=x onerror=alert(1)> Test place', country: 'Italy', latitude: '0', longitude: '-180', description: 'A real local test description', parking: 'Parking 150 m', booking: 'Two days ahead', photos: [portrait, portrait] };
   try {
     for (let index = 0; index < 50; index++) { try { await request({ action: 'points' }); break; } catch { await new Promise(resolve => setTimeout(resolve, 100)); } }
     for (const role of [undefined, 'manager', 'concierge', 'salesmanager', 'traveller']) {
-      for (const action of ['list', 'moderate', 'publish', 'unpublish', 'revision_link']) assert.equal((await request({ action }, role)).status, 403, `${role}: ${action}`);
+      for (const action of ['list', 'moderate', 'publish', 'unpublish', 'revision_link', 'admin_update']) assert.equal((await request({ action }, role)).status, 403, `${role}: ${action}`);
     }
     for (const invalid of [{ latitude: '' }, { longitude: 181 }, { category: 'invalid' }, { photos: [portrait] }, { photos: [portrait, landscape] }, { photos: [portrait, 'data:image/svg+xml;base64,PHN2Zy8+'] }, { website: 'bot' }]) assert.equal((await request({ ...fields, ...invalid })).status, 400);
     for (const locationWebsite of ['javascript:alert(1)','ftp://example.com','https://name:password@example.com']) assert.equal((await request({...fields,locationWebsite})).status,400);
@@ -70,6 +71,7 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.equal((await request({...fields,requestId:randomUUID(),editToken:'c'.repeat(64)})).status,404);
     let submitted = await request(fields); assert.equal(submitted.status, 200, JSON.stringify(submitted.data));
     let card = submitted.data.card;
+    assert.deepEqual(card.subcategories,fields.subcategories);assert.equal(card.subcategoryOther,'');
     assert.equal(card.locationWebsite,''); assert.equal(card.contactPhone,'','Older clients may omit both optional contacts');
     assert.equal(card.status, 'pending'); assert.equal(card.isPublished, false); assert.equal(card.photos.length, 2);
     assert.equal(card.video.mime,'video/mp4');assert.equal(card.video.size,video.length);
@@ -93,8 +95,32 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.equal((await request({ action: 'points' })).data.points.length, 0, 'Approval does not publish automatically');
     await command('publish'); const pointId = card.publishedPointId; assert.ok(pointId); assert.equal(card.isPublished, true);
     let points = (await request({ action: 'points' })).data.points; assert.equal(points.length, 1); assert.equal(points[0].title, fields.title);
-    for (const privateField of ['scout_name', 'scoutName', 'editToken', 'edit_token_hash', 'review_note', 'request_id', 'video_json', 'scout-video/']) assert.ok(!JSON.stringify(points).includes(privateField));
+    assert.equal(points[0].description,fields.description);assert.deepEqual(JSON.parse(points[0].photos_json),card.photos);
+    assert.deepEqual(points[0].video,{path:card.video.path,mime:card.video.mime});
+    assert.ok(!JSON.stringify(points).includes('Local test.mp4'),'Public preview does not expose original upload names');
+    for (const privateField of ['scout_name', 'scoutName', 'editToken', 'edit_token_hash', 'review_note', 'request_id', 'video_json']) assert.ok(!JSON.stringify(points).includes(privateField));
+    // Administrators can complete a published scout card without changing its identity or publication.
+    const adminMediaKey=randomBytes(32).toString('hex');
+    const adminStart=(await request({...uploadStart,mediaRequestId:randomUUID(),editToken:adminMediaKey})).data;
+    for(let offset=0;offset<video.length;offset+=limits.videoChunkBytes)assert.equal((await request({action:'video_chunk',uploadId:adminStart.uploadId,editToken:adminMediaKey,offset,chunk:video.subarray(offset,offset+limits.videoChunkBytes).toString('base64')})).status,200);
+    assert.equal((await request({action:'video_finish',uploadId:adminStart.uploadId,editToken:adminMediaKey})).status,200);
+    const adminEdit={...card,action:'admin_update',requestId:randomUUID(),title:'Admin updated place',description:'Visitor details completed by the administrator',category:'experience',subcategories:['museums','other'],subcategoryOther:'A guided visit',scoutName:'Cannot impersonate the scout',photos:[portrait,...card.photos],video:adminStart.uploadId,mediaEditToken:adminMediaKey};
+    assert.equal((await request({...adminEdit,mediaEditToken:'c'.repeat(64)},'admin')).status,404,'An administrator cannot attach an unowned upload');
+    assert.equal((await request({...adminEdit,photos:[card.photos[0],'/uploads/scout/someone-elses.jpg']},'admin')).status,400);
+    let edited=await request(adminEdit,'admin');assert.equal(edited.status,200,JSON.stringify(edited.data));card=edited.data.card;
+    assert.equal(card.title,adminEdit.title);assert.equal(card.description,adminEdit.description);assert.equal(card.scoutName,fields.scoutName);
+    assert.deepEqual(card.subcategories,adminEdit.subcategories);assert.equal(card.subcategoryOther,adminEdit.subcategoryOther);
+    assert.equal(card.status,'accepted');assert.equal(card.isPublished,true);assert.equal(card.publishedPointId,pointId);assert.equal(card.photos.length,3);
+    assert.notEqual(card.video.path,points[0].video.path);
+    assert.equal((await request(adminEdit,'admin')).data.card.version,card.version,'A lost-response retry does not create another edit or image');
+    assert.equal((await request({...adminEdit,requestId:randomUUID()},'admin')).status,409,'Stale editors cannot overwrite a newer version');
+    assert.equal((await request({action:'read',reference:card.reference,editToken:fields.editToken})).data.card.title,card.title,'The original scout capability remains valid');
+    points=(await request({action:'points'})).data.points;assert.equal(points.length,1);assert.equal(points[0].title,card.title);assert.equal(points[0].description,card.description);assert.equal(points[0].image_path,card.photos[0]);assert.equal(points[0].video.path,card.video.path);
+    const audit=JSON.parse(execFileSync(php,['-r',"$db=new PDO('sqlite:'.$argv[1]);echo json_encode($db->query('SELECT * FROM mlt_scout_edits')->fetchAll(PDO::FETCH_ASSOC));",path.join(apiDirectory,'scout-test.sqlite')],{encoding:'utf8'}));
+    assert.equal(audit.length,1);assert.equal(audit[0].operator_id,1);assert.equal(JSON.parse(audit[0].before_json).title,fields.title);assert.equal(JSON.parse(audit[0].after_json).title,card.title);
     await command('unpublish'); assert.equal(card.isPublished, false); assert.equal((await request({ action: 'points' })).data.points.length, 0);
+    edited=await request({...adminEdit,requestId:randomUUID(),version:card.version,title:'Edited while unpublished',photos:card.photos,video:card.video.path},'admin');assert.equal(edited.status,200);card=edited.data.card;
+    assert.equal(card.isPublished,false);assert.equal((await request({action:'points'})).data.points.length,0,'Saving does not republish an inactive point');
     await command('publish'); assert.equal(card.publishedPointId, pointId); assert.equal((await request({ action: 'points' })).data.points.length, 1);
     assert.equal((await request({ action: 'moderate', reference: card.reference, version: card.version - 1, status: 'rejected' }, 'admin')).status, 409, 'Stale reviewers cannot overwrite newer decisions');
     assert.equal((await request({ action: 'moderate', reference: card.reference, version: card.version, status: 'revision' }, 'admin')).status, 400);
@@ -102,14 +128,16 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.equal((await request({ action: 'points' })).data.points.length, 0, 'Returning a published card to revision removes it from maps');
     const { editToken } = await command('revision_link');
     assert.equal((await request({ action: 'read', reference: card.reference, editToken: fields.editToken })).status, 404, 'A regenerated capability revokes the old link');
-    const revise = { ...fields, action: 'resubmit', reference: card.reference, version: card.version, requestId: randomUUID(), editToken, title: 'Updated location', locationWebsite:'example.com/reservations', contactPhone:'+39 (123) 456-7890', photos: card.photos,video:card.video.path };
+    const revise = { ...fields, action: 'resubmit', reference: card.reference, version: card.version, requestId: randomUUID(), editToken, title: 'Updated location', subcategories:['nature','art','other'],subcategoryOther:'A sculpture viewpoint', locationWebsite:'example.com/reservations', contactPhone:'+39 (123) 456-7890', photos: card.photos,video:card.video.path };
     assert.equal((await request({ ...revise, photos: [card.photos[0], '/uploads/scout/someone-elses.jpg'] })).status, 400);
     const revised = await request(revise); assert.equal(revised.status, 200, JSON.stringify(revised.data)); card = revised.data.card;
     assert.equal(card.status, 'pending'); assert.equal(card.title, 'Updated location');
     assert.equal(card.locationWebsite,'https://example.com/reservations'); assert.equal(card.contactPhone,revise.contactPhone);
     const reread=(await request({action:'read',reference:card.reference,editToken})).data.card;
+    assert.deepEqual(reread.subcategories,revise.subcategories);assert.equal(reread.subcategoryOther,revise.subcategoryOther);
     assert.equal(reread.locationWebsite,card.locationWebsite); assert.equal(reread.contactPhone,card.contactPhone);
     const reviewed=(await request({action:'list'},'admin')).data.cards[0];
+    assert.deepEqual(reviewed.subcategories,revise.subcategories);assert.equal(reviewed.subcategoryOther,revise.subcategoryOther);
     assert.equal(reviewed.locationWebsite,card.locationWebsite); assert.equal(reviewed.contactPhone,card.contactPhone);
     assert.equal(card.video.path,revise.video,'Revision and capability rotation retain this card’s video');
     assert.equal((await request(revise)).data.card.version, card.version, 'Revision retries are idempotent');
@@ -120,7 +148,7 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.ok(!JSON.stringify(points).includes(revise.contactPhone)); assert.ok(!JSON.stringify(points).includes(card.locationWebsite));
     await command('moderate', { status: 'rejected', reviewNote: 'Not suitable' }); assert.equal((await request({ action: 'points' })).data.points.length, 0);
     assert.equal((await request({ action: 'list', search: 'Updated location', status: 'rejected' }, 'admin')).data.total, 1);
-    assert.equal((await readdir(path.join(directory, 'uploads/scout'))).length, 2, 'Validation and retries must not leak duplicate image files');
+    assert.equal((await readdir(path.join(directory, 'uploads/scout'))).length, 3, 'Validation and retries must not leak duplicate image files');
     const get = await fetch(`http://127.0.0.1:${port}/api/scout.php?action=list`); assert.equal(get.status, 405);
   } finally {
     server.kill(); await new Promise(resolve => server.once('exit', resolve));

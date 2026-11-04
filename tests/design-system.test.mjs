@@ -8,6 +8,7 @@ test('public typography and adjacent section rhythm share one responsive scale',
 });
 test('base public sections cannot reintroduce independent numeric section padding', () => {
   const contracts = {
+    'app/plan/map-point-preview.css': ['.map-point-preview-content'],
     'app/scout-passport/scout.css': ['.scout-section', '.scout-submit', '.scout-video-selection'],
     'app/vouchers.css': ['.voucher-section', '.voucher-conditions'],
     'app/commercial.css': ['.commercial-section', '.listing-information', '.commercial .listing-information', '.commercial .listing-equipment,.commercial .listing-source', '.commercial .listing-source', '.listing-detail', '.market-categories', '.market-results', '.mlt-info-body', '.mlt-contact-action'],

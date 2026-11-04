@@ -1,0 +1,7 @@
+export const mapPreviewCopy = {
+  en:{view:"View place",close:"Close place details",select:"Choose this place",selected:"Place selected",photos:"Photos",photo:"Photo",video:"Video",previous:"Previous photo",next:"Next photo",noMedia:"Photos will be added soon",parking:"Parking / access",booking:"Reservations"},
+  de:{view:"Ort ansehen",close:"Ortsdetails schließen",select:"Diesen Ort auswählen",selected:"Ort ausgewählt",photos:"Fotos",photo:"Foto",video:"Video",previous:"Vorheriges Foto",next:"Nächstes Foto",noMedia:"Fotos folgen in Kürze",parking:"Parken / Zufahrt",booking:"Reservierung"},
+  ru:{view:"Посмотреть точку",close:"Закрыть карточку места",select:"Выбрать точку",selected:"Точка выбрана",photos:"Фотографии",photo:"Фото",video:"Видео",previous:"Предыдущее фото",next:"Следующее фото",noMedia:"Фотографии скоро появятся",parking:"Парковка / заезд",booking:"Бронирование"},
+  it:{view:"Visualizza il luogo",close:"Chiudi i dettagli del luogo",select:"Scegli questo luogo",selected:"Luogo selezionato",photos:"Foto",photo:"Foto",video:"Video",previous:"Foto precedente",next:"Foto successiva",noMedia:"Le foto saranno aggiunte presto",parking:"Parcheggio / accesso",booking:"Prenotazione"},
+  pl:{view:"Zobacz miejsce",close:"Zamknij szczegóły miejsca",select:"Wybierz to miejsce",selected:"Miejsce wybrane",photos:"Zdjęcia",photo:"Zdjęcie",video:"Wideo",previous:"Poprzednie zdjęcie",next:"Następne zdjęcie",noMedia:"Zdjęcia pojawią się wkrótce",parking:"Parking / dojazd",booking:"Rezerwacja"},
+} as const;

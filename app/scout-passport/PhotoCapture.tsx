@@ -5,7 +5,7 @@ import { scoutCopy, scoutFormat } from "../../content/scout-i18n";
 import { scoutCrop } from "../../content/scout-crop";
 import type { Locale } from "../../content/i18n";
 
-export default function PhotoCapture({ locale, index, onSave, onClose }: { locale: Locale; index: number; onSave: (photo: string) => void; onClose: () => void }) {
+export default function PhotoCapture({ locale, index, onSave, onClose, galleryOnly = false }: { locale: Locale; index: number; onSave: (photo: string) => void; onClose: () => void; galleryOnly?: boolean }) {
   const t = scoutCopy[locale].camera;
   const video = useRef<HTMLVideoElement>(null), dialog = useRef<HTMLDialogElement>(null), file = useRef<HTMLInputElement>(null), nativeCamera = useRef<HTMLInputElement>(null), canvas = useRef<HTMLCanvasElement>(null);
   const stream = useRef<MediaStream | null>(null), mounted = useRef(false), cameraRequest = useRef(0), imageRequest = useRef(0);
@@ -90,15 +90,15 @@ export default function PhotoCapture({ locale, index, onSave, onClose }: { local
     <header><div><small>MLT / {scoutFormat(scoutCopy[locale].form.frame, { number: String(index + 1).padStart(2, "0") })}</small><h2 id="camera-title">{t.title}</h2></div><button type="button" onClick={onClose} aria-label={t.close}>×</button></header>
     <div className={`scout-viewfinder${image ? " scout-crop-view" : ""}`} onPointerDown={event => { if (image) { drag.current = { pointer: event.pointerId, clientX: event.clientX, clientY: event.clientY, x: crop.x, y: crop.y }; event.currentTarget.setPointerCapture(event.pointerId); } }} onPointerMove={move} onPointerUp={() => { drag.current = null; }} onPointerCancel={() => { drag.current = null; }}>
       {image ? <canvas ref={canvas} width={900} height={1200} role="img" aria-label={t.preview}/> : cameraOpen ? <video ref={video} autoPlay playsInline muted onLoadedData={() => setReady(true)}/> : null}
-      <span>3:4</span>{!ready && !image && <p>{busy ? t.preparing : cameraOpen ? t.aim : t.sourceHint}</p>}
+      <span>3:4</span>{!ready && !image && <p>{busy ? t.preparing : cameraOpen ? t.aim : galleryOnly ? t.choose : t.sourceHint}</p>}
     </div>
     {error && <p className="scout-error" role="alert">{error}</p>}
-    <p className="scout-camera-hint">{image ? t.cropHint : t.hint}</p>
+    {(!galleryOnly || image) && <p className="scout-camera-hint">{image ? t.cropHint : t.hint}</p>}
     {image && <div className="scout-crop-controls"><label>{t.zoom}<input type="range" min="1" max="3" step="0.05" value={crop.zoom} onChange={event => setCrop(current => ({ ...current, zoom: Number(event.target.value) }))}/></label><details><summary>{t.position}</summary><label>{t.horizontal}<input type="range" min="0" max="1" step="0.01" value={crop.x} onChange={event => setCrop(current => ({ ...current, x: Number(event.target.value) }))}/></label><label>{t.vertical}<input type="range" min="0" max="1" step="0.01" value={crop.y} onChange={event => setCrop(current => ({ ...current, y: Number(event.target.value) }))}/></label></details><button type="button" onClick={() => setCrop({ zoom: 1, x: .5, y: .5 })}>{t.resetCrop}</button></div>}
     <div className="scout-camera-actions">
-      {image ? <button type="button" className="scout-primary" disabled={busy} onClick={save}>{t.use}</button> : cameraOpen ? <button type="button" className="scout-primary" disabled={!ready || busy} onClick={() => void take()}>{t.take}</button> : <button type="button" className="scout-primary" disabled={busy} onClick={() => void openCamera()}>{t.openCamera}</button>}
-      <button type="button" onClick={() => file.current?.click()} disabled={busy}>{busy ? t.preparing : image ? t.chooseOther : t.choose}</button>
-      {error && !image && <button type="button" onClick={() => nativeCamera.current?.click()} disabled={busy}>{t.phoneCamera}</button>}
+      {image ? <button type="button" className="scout-primary" disabled={busy} onClick={save}>{t.use}</button> : cameraOpen ? <button type="button" className="scout-primary" disabled={!ready || busy} onClick={() => void take()}>{t.take}</button> : !galleryOnly && <button type="button" className="scout-primary" disabled={busy} onClick={() => void openCamera()}>{t.openCamera}</button>}
+      <button type="button" className={galleryOnly && !image ? "scout-primary" : undefined} onClick={() => file.current?.click()} disabled={busy}>{busy ? t.preparing : image ? t.chooseOther : t.choose}</button>
+      {error && !image && !galleryOnly && <button type="button" onClick={() => nativeCamera.current?.click()} disabled={busy}>{t.phoneCamera}</button>}
     </div>
     <input ref={file} data-scout-photo-gallery type="file" accept="image/*" hidden onChange={event => { void choose(event.target.files?.[0]); event.target.value = ""; }}/>
     <input ref={nativeCamera} data-scout-photo-camera type="file" accept="image/*" capture="environment" hidden onChange={event => { void choose(event.target.files?.[0]); event.target.value = ""; }}/>

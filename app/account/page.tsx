@@ -855,6 +855,7 @@ export default function Account({
                               ])}
                               country={o.country_name || "All"}
                               onToggle={() => {}}
+                              selectable={false}
                               locale={locale}
                               className="account-route-map"
                             />

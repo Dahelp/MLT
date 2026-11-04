@@ -1,0 +1,384 @@
+{
+  "gourmet": [
+    {
+      "id": "cafes",
+      "title": {
+        "ru": "Кафе и кофейни",
+        "en": "Cafés and coffee shops",
+        "de": "Cafés und Kaffeehäuser",
+        "it": "Caffè e caffetterie",
+        "pl": "Kawiarnie i lokale śniadaniowe"
+      },
+      "hint": {
+        "ru": "Кофейни, кондитерские, пекарни, завтраки",
+        "en": "Coffee shops, pastry shops, bakeries, breakfast",
+        "de": "Kaffeehäuser, Konditoreien, Bäckereien, Frühstück",
+        "it": "Caffetterie, pasticcerie, panifici, colazioni",
+        "pl": "Kawiarnie, cukiernie, piekarnie, śniadania"
+      }
+    },
+    {
+      "id": "restaurants",
+      "title": {
+        "ru": "Рестораны",
+        "en": "Restaurants",
+        "de": "Restaurants",
+        "it": "Ristoranti",
+        "pl": "Restauracje"
+      },
+      "hint": {
+        "ru": "Авторская кухня, семейные рестораны, премиальные места",
+        "en": "Creative cuisine, family restaurants, premium dining",
+        "de": "Kreative Küche, Familienrestaurants, gehobene Gastronomie",
+        "it": "Cucina d’autore, ristoranti per famiglie, locali esclusivi",
+        "pl": "Kuchnia autorska, restauracje rodzinne, lokale premium"
+      }
+    },
+    {
+      "id": "bars",
+      "title": {
+        "ru": "Бары и пабы",
+        "en": "Bars and pubs",
+        "de": "Bars und Pubs",
+        "it": "Bar e pub",
+        "pl": "Bary i puby"
+      },
+      "hint": {
+        "ru": "Коктейльные бары, пивные заведения, винные бары",
+        "en": "Cocktail bars, beer pubs, wine bars",
+        "de": "Cocktailbars, Bierlokale, Weinbars",
+        "it": "Cocktail bar, birrerie, enoteche",
+        "pl": "Bary koktajlowe, piwiarnie, winiarnie"
+      }
+    },
+    {
+      "id": "farm-shops",
+      "title": {
+        "ru": "Фермерские продукты и лавки",
+        "en": "Farm produce and local shops",
+        "de": "Hofläden und regionale Produkte",
+        "it": "Prodotti agricoli e botteghe",
+        "pl": "Produkty rolne i lokalne sklepy"
+      },
+      "hint": {
+        "ru": "Локальные деликатесы, сыроварни, эко-продукты",
+        "en": "Local delicacies, cheese makers, organic produce",
+        "de": "Regionale Spezialitäten, Käsereien, Bio-Produkte",
+        "it": "Specialità locali, caseifici, prodotti biologici",
+        "pl": "Lokalne przysmaki, serowarnie, produkty ekologiczne"
+      }
+    },
+    {
+      "id": "wineries",
+      "title": {
+        "ru": "Винодельни и дегустации",
+        "en": "Wineries and tastings",
+        "de": "Weingüter und Verkostungen",
+        "it": "Cantine e degustazioni",
+        "pl": "Winnice i degustacje"
+      },
+      "hint": {
+        "ru": "Винные туры, дегустации напитков, посещение виноградников и погребов",
+        "en": "Wine tours, drink tastings, vineyard and cellar visits",
+        "de": "Weintouren, Getränkeverkostungen, Besuche von Weinbergen und Kellern",
+        "it": "Tour enologici, degustazioni, visite a vigneti e cantine",
+        "pl": "Wycieczki winiarskie, degustacje napojów, zwiedzanie winnic i piwnic"
+      }
+    },
+    {
+      "id": "other",
+      "title": {
+        "ru": "Другое",
+        "en": "Other",
+        "de": "Sonstiges",
+        "it": "Altro",
+        "pl": "Inne"
+      },
+      "hint": {
+        "ru": "",
+        "en": "",
+        "de": "",
+        "it": "",
+        "pl": ""
+      }
+    }
+  ],
+  "stay": [
+    {
+      "id": "hotels",
+      "title": {
+        "ru": "Отели и бутик-отели",
+        "en": "Hotels and boutique hotels",
+        "de": "Hotels und Boutiquehotels",
+        "it": "Hotel e boutique hotel",
+        "pl": "Hotele i hotele butikowe"
+      },
+      "hint": {
+        "ru": "Городские гостиницы, дизайнерские отели, эко-отели",
+        "en": "City hotels, design hotels, eco-hotels",
+        "de": "Stadthotels, Designhotels, Öko-Hotels",
+        "it": "Hotel in città, hotel di design, eco-hotel",
+        "pl": "Hotele miejskie, designerskie i ekologiczne"
+      }
+    },
+    {
+      "id": "glamping",
+      "title": {
+        "ru": "Глэмпинги и купола",
+        "en": "Glamping and domes",
+        "de": "Glamping und Kuppelunterkünfte",
+        "it": "Glamping e cupole",
+        "pl": "Glamping i domy kopułowe"
+      },
+      "hint": {
+        "ru": "Шатровые лагеря, афреймы, панорамные домики на природе",
+        "en": "Tent camps, A-frame cabins, panoramic nature lodges",
+        "de": "Zeltcamps, A-Frame-Häuser, Panoramahütten in der Natur",
+        "it": "Campi tendati, chalet A-frame, alloggi panoramici nella natura",
+        "pl": "Obozowiska namiotowe, domki typu A-frame, domki panoramiczne w naturze"
+      }
+    },
+    {
+      "id": "guesthouses",
+      "title": {
+        "ru": "Гостевые дома и агротуризм",
+        "en": "Guesthouses and farm stays",
+        "de": "Gästehäuser und Bauernhofurlaub",
+        "it": "Pensioni e agriturismi",
+        "pl": "Pensjonaty i agroturystyka"
+      },
+      "hint": {
+        "ru": "Усадьбы, фермерские домики, аутентичный частный сектор",
+        "en": "Country estates, farm cottages, authentic private accommodation",
+        "de": "Landgüter, Bauernhäuser, authentische Privatunterkünfte",
+        "it": "Tenute, case di campagna, alloggi privati autentici",
+        "pl": "Dwory, domki na farmach, autentyczne kwatery prywatne"
+      }
+    },
+    {
+      "id": "camping",
+      "title": {
+        "ru": "Кемпинги и стоянки",
+        "en": "Campsites and motorhome stops",
+        "de": "Camping- und Wohnmobilstellplätze",
+        "it": "Campeggi e aree di sosta",
+        "pl": "Kempingi i miejsca postojowe"
+      },
+      "hint": {
+        "ru": "Места для автодомов/кемперов, палаточные зоны",
+        "en": "Motorhome and camper pitches, tent areas",
+        "de": "Stellplätze für Wohnmobile und Camper, Zeltbereiche",
+        "it": "Piazzole per camper, aree per tende",
+        "pl": "Miejsca dla kamperów, pola namiotowe"
+      }
+    },
+    {
+      "id": "villas",
+      "title": {
+        "ru": "Виллы",
+        "en": "Villas",
+        "de": "Villen",
+        "it": "Ville",
+        "pl": "Wille"
+      },
+      "hint": {
+        "ru": "Сдающиеся в аренду дома, шале",
+        "en": "Rental houses and chalets",
+        "de": "Ferienhäuser und Chalets zur Miete",
+        "it": "Case e chalet in affitto",
+        "pl": "Domy i domki górskie na wynajem"
+      }
+    },
+    {
+      "id": "other",
+      "title": {
+        "ru": "Другое",
+        "en": "Other",
+        "de": "Sonstiges",
+        "it": "Altro",
+        "pl": "Inne"
+      },
+      "hint": {
+        "ru": "",
+        "en": "",
+        "de": "",
+        "it": "",
+        "pl": ""
+      }
+    }
+  ],
+  "sight": [
+    {
+      "id": "nature",
+      "title": {
+        "ru": "Природные объекты",
+        "en": "Natural sights",
+        "de": "Natursehenswürdigkeiten",
+        "it": "Luoghi naturali",
+        "pl": "Atrakcje przyrodnicze"
+      },
+      "hint": {
+        "ru": "Водопады, смотровые площадки, каньоны, заповедники, озера",
+        "en": "Waterfalls, viewpoints, canyons, nature reserves, lakes",
+        "de": "Wasserfälle, Aussichtspunkte, Schluchten, Naturschutzgebiete, Seen",
+        "it": "Cascate, punti panoramici, canyon, riserve naturali, laghi",
+        "pl": "Wodospady, punkty widokowe, kaniony, rezerwaty, jeziora"
+      }
+    },
+    {
+      "id": "history",
+      "title": {
+        "ru": "Архитектура и история",
+        "en": "Architecture and history",
+        "de": "Architektur und Geschichte",
+        "it": "Architettura e storia",
+        "pl": "Architektura i historia"
+      },
+      "hint": {
+        "ru": "Замки, руины, усадьбы, исторические здания, памятники",
+        "en": "Castles, ruins, estates, historic buildings, monuments",
+        "de": "Burgen, Ruinen, Landgüter, historische Gebäude, Denkmäler",
+        "it": "Castelli, rovine, tenute, edifici storici, monumenti",
+        "pl": "Zamki, ruiny, dwory, budynki historyczne, pomniki"
+      }
+    },
+    {
+      "id": "art",
+      "title": {
+        "ru": "Арт-объекты",
+        "en": "Art installations",
+        "de": "Kunstobjekte",
+        "it": "Opere e installazioni d’arte",
+        "pl": "Obiekty artystyczne"
+      },
+      "hint": {
+        "ru": "Современное искусство, инсталляции",
+        "en": "Contemporary art, installations",
+        "de": "Zeitgenössische Kunst, Installationen",
+        "it": "Arte contemporanea, installazioni",
+        "pl": "Sztuka współczesna, instalacje"
+      }
+    },
+    {
+      "id": "industrial",
+      "title": {
+        "ru": "Индустриальные локации",
+        "en": "Industrial locations",
+        "de": "Industrielle Orte",
+        "it": "Luoghi industriali",
+        "pl": "Miejsca industrialne"
+      },
+      "hint": {
+        "ru": "Заброшенные объекты, маяки, необычные мосты, фабрики",
+        "en": "Abandoned sites, lighthouses, unusual bridges, factories",
+        "de": "Verlassene Anlagen, Leuchttürme, ungewöhnliche Brücken, Fabriken",
+        "it": "Luoghi abbandonati, fari, ponti insoliti, fabbriche",
+        "pl": "Opuszczone obiekty, latarnie morskie, nietypowe mosty, fabryki"
+      }
+    },
+    {
+      "id": "other",
+      "title": {
+        "ru": "Другое",
+        "en": "Other",
+        "de": "Sonstiges",
+        "it": "Altro",
+        "pl": "Inne"
+      },
+      "hint": {
+        "ru": "",
+        "en": "",
+        "de": "",
+        "it": "",
+        "pl": ""
+      }
+    }
+  ],
+  "experience": [
+    {
+      "id": "water-parks",
+      "title": {
+        "ru": "Аквапарки и бассейны",
+        "en": "Water parks and pools",
+        "de": "Wasserparks und Schwimmbäder",
+        "it": "Parchi acquatici e piscine",
+        "pl": "Parki wodne i baseny"
+      },
+      "hint": {
+        "ru": "Городские и курортные аквапарки, открытые бассейны, термы",
+        "en": "City and resort water parks, outdoor pools, thermal baths",
+        "de": "Städtische und Ferien-Wasserparks, Freibäder, Thermen",
+        "it": "Parchi acquatici urbani e turistici, piscine all’aperto, terme",
+        "pl": "Miejskie i kurortowe parki wodne, baseny odkryte, termy"
+      }
+    },
+    {
+      "id": "amusement-parks",
+      "title": {
+        "ru": "Парки развлечений и аттракционы",
+        "en": "Amusement parks and attractions",
+        "de": "Freizeitparks und Attraktionen",
+        "it": "Parchi divertimento e attrazioni",
+        "pl": "Parki rozrywki i atrakcje"
+      },
+      "hint": {
+        "ru": "Парки культуры, колеса обозрения, семейные центры",
+        "en": "Leisure parks, Ferris wheels, family entertainment centres",
+        "de": "Freizeitparks, Riesenräder, Familienzentren",
+        "it": "Parchi ricreativi, ruote panoramiche, centri per famiglie",
+        "pl": "Parki rekreacyjne, diabelskie młyny, rodzinne centra rozrywki"
+      }
+    },
+    {
+      "id": "museums",
+      "title": {
+        "ru": "Музеи",
+        "en": "Museums",
+        "de": "Museen",
+        "it": "Musei",
+        "pl": "Muzea"
+      },
+      "hint": {
+        "ru": "Классические музеи, интерактивные пространства, планетарии",
+        "en": "Traditional museums, interactive spaces, planetariums",
+        "de": "Klassische Museen, interaktive Erlebnisräume, Planetarien",
+        "it": "Musei classici, spazi interattivi, planetari",
+        "pl": "Muzea klasyczne, przestrzenie interaktywne, planetaria"
+      }
+    },
+    {
+      "id": "cinemas-theatres",
+      "title": {
+        "ru": "Кинотеатры и театры",
+        "en": "Cinemas and theatres",
+        "de": "Kinos und Theater",
+        "it": "Cinema e teatri",
+        "pl": "Kina i teatry"
+      },
+      "hint": {
+        "ru": "",
+        "en": "",
+        "de": "",
+        "it": "",
+        "pl": ""
+      }
+    },
+    {
+      "id": "other",
+      "title": {
+        "ru": "Другое",
+        "en": "Other",
+        "de": "Sonstiges",
+        "it": "Altro",
+        "pl": "Inne"
+      },
+      "hint": {
+        "ru": "",
+        "en": "",
+        "de": "",
+        "it": "",
+        "pl": ""
+      }
+    }
+  ]
+}
