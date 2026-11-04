@@ -66,11 +66,11 @@ if ($action==='submit' || $action==='resubmit') {
         }
         $json=json_encode($paths,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
         if($action==='resubmit'){
-            $q=$db->prepare('UPDATE mlt_scout_submissions SET scout_name=?,category=?,title=?,country_name=?,latitude=?,longitude=?,description=?,parking=?,booking=?,photos_json=?,video_json=?,last_request_id=?,status="pending",version=version+1,updated_at=NOW() WHERE id=?');
+            $q=$db->prepare('UPDATE mlt_scout_submissions SET scout_name=?,category=?,title=?,country_name=?,latitude=?,longitude=?,description=?,parking=?,booking=?,location_website=?,contact_phone=?,photos_json=?,video_json=?,last_request_id=?,status="pending",version=version+1,updated_at=NOW() WHERE id=?');
             $q->execute([...$fields,$json,$videoJson,$requestId,$existing['id']]);
         }else{
             $reference='MLT-S-'.strtoupper(bin2hex(random_bytes(6)));
-            $q=$db->prepare('INSERT INTO mlt_scout_submissions (scout_name,category,title,country_name,latitude,longitude,description,parking,booking,photos_json,video_json,reference_code,request_id,last_request_id,edit_token_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+            $q=$db->prepare('INSERT INTO mlt_scout_submissions (scout_name,category,title,country_name,latitude,longitude,description,parking,booking,location_website,contact_phone,photos_json,video_json,reference_code,request_id,last_request_id,edit_token_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
             $q->execute([...$fields,$json,$videoJson,$reference,$requestId,$requestId,hash('sha256',$key)]);
         }
         mlt_scout_attach_video($db,$videoValue,$reference);

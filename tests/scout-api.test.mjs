@@ -33,6 +33,8 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
       for (const action of ['list', 'moderate', 'publish', 'unpublish', 'revision_link']) assert.equal((await request({ action }, role)).status, 403, `${role}: ${action}`);
     }
     for (const invalid of [{ latitude: '' }, { longitude: 181 }, { category: 'invalid' }, { photos: [portrait] }, { photos: [portrait, landscape] }, { photos: [portrait, 'data:image/svg+xml;base64,PHN2Zy8+'] }, { website: 'bot' }]) assert.equal((await request({ ...fields, ...invalid })).status, 400);
+    for (const locationWebsite of ['javascript:alert(1)','ftp://example.com','https://name:password@example.com']) assert.equal((await request({...fields,locationWebsite})).status,400);
+    assert.equal((await request({...fields,contactPhone:'1'.repeat(81)})).status,400);
     const messages = JSON.parse(await (await import('node:fs/promises')).readFile(new URL('../public/data/scout-i18n.json', import.meta.url), 'utf8'));
     for (const locale of ['en','de','ru','it','pl']) {
       const forbidden = await request({action:'list'}, undefined, locale);
@@ -68,6 +70,7 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.equal((await request({...fields,requestId:randomUUID(),editToken:'c'.repeat(64)})).status,404);
     let submitted = await request(fields); assert.equal(submitted.status, 200, JSON.stringify(submitted.data));
     let card = submitted.data.card;
+    assert.equal(card.locationWebsite,''); assert.equal(card.contactPhone,'','Older clients may omit both optional contacts');
     assert.equal(card.status, 'pending'); assert.equal(card.isPublished, false); assert.equal(card.photos.length, 2);
     assert.equal(card.video.mime,'video/mp4');assert.equal(card.video.size,video.length);
     assert.match(card.video.path,/^\/uploads\/scout-video\/[a-f0-9]{48}\.mp4$/);
@@ -99,16 +102,22 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.equal((await request({ action: 'points' })).data.points.length, 0, 'Returning a published card to revision removes it from maps');
     const { editToken } = await command('revision_link');
     assert.equal((await request({ action: 'read', reference: card.reference, editToken: fields.editToken })).status, 404, 'A regenerated capability revokes the old link');
-    const revise = { ...fields, action: 'resubmit', reference: card.reference, version: card.version, requestId: randomUUID(), editToken, title: 'Updated location', photos: card.photos,video:card.video.path };
+    const revise = { ...fields, action: 'resubmit', reference: card.reference, version: card.version, requestId: randomUUID(), editToken, title: 'Updated location', locationWebsite:'example.com/reservations', contactPhone:'+39 (123) 456-7890', photos: card.photos,video:card.video.path };
     assert.equal((await request({ ...revise, photos: [card.photos[0], '/uploads/scout/someone-elses.jpg'] })).status, 400);
     const revised = await request(revise); assert.equal(revised.status, 200, JSON.stringify(revised.data)); card = revised.data.card;
     assert.equal(card.status, 'pending'); assert.equal(card.title, 'Updated location');
+    assert.equal(card.locationWebsite,'https://example.com/reservations'); assert.equal(card.contactPhone,revise.contactPhone);
+    const reread=(await request({action:'read',reference:card.reference,editToken})).data.card;
+    assert.equal(reread.locationWebsite,card.locationWebsite); assert.equal(reread.contactPhone,card.contactPhone);
+    const reviewed=(await request({action:'list'},'admin')).data.cards[0];
+    assert.equal(reviewed.locationWebsite,card.locationWebsite); assert.equal(reviewed.contactPhone,card.contactPhone);
     assert.equal(card.video.path,revise.video,'Revision and capability rotation retain this card’s video');
     assert.equal((await request(revise)).data.card.version, card.version, 'Revision retries are idempotent');
     assert.equal((await request({ ...revise, requestId: randomUUID() })).status, 409, 'A scout cannot edit while awaiting moderation');
     await command('moderate', { status: 'accepted' }); await command('publish');
     points = (await request({ action: 'points' })).data.points;
     assert.equal(points.length, 1); assert.equal(points[0].title, 'Updated location'); assert.equal(card.publishedPointId, pointId);
+    assert.ok(!JSON.stringify(points).includes(revise.contactPhone)); assert.ok(!JSON.stringify(points).includes(card.locationWebsite));
     await command('moderate', { status: 'rejected', reviewNote: 'Not suitable' }); assert.equal((await request({ action: 'points' })).data.points.length, 0);
     assert.equal((await request({ action: 'list', search: 'Updated location', status: 'rejected' }, 'admin')).data.total, 1);
     assert.equal((await readdir(path.join(directory, 'uploads/scout'))).length, 2, 'Validation and retries must not leak duplicate image files');

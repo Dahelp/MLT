@@ -30,7 +30,7 @@ test("Scout Passport exports its mobile form, brand strip and private admin dest
   const html = await response.text();
   assert.match(html, /MLT Scout Passport/);
   assert.match(html, /Находите\. Снимайте\. Дополняйте маршруты MLT/);
-  for (const field of ['scoutName','title','country','latitude','longitude','description','parking','booking']) assert.ok(html.includes(`name="${field}"`), field);
+  for (const field of ['scoutName','title','country','latitude','longitude','description','parking','booking','locationWebsite','contactPhone']) assert.ok(html.includes(`name="${field}"`), field);
   assert.doesNotMatch(html, /mlt-site-header|data-site-footer=|<footer\b/);
   assert.match(html, /<header class="scout-banner"><div class="scout-banner-language"><div class="header-language-menu"/);
   assert.doesNotMatch(html, /class="mlt-chat-widget/);
@@ -62,6 +62,8 @@ test("all scout languages render the hero language menu and translated form with
     assert.match(html,/<header class="scout-banner"><div class="scout-banner-language"><div class="header-language-menu"/);
     assert.ok(html.includes(`<span>${locale.toUpperCase()}</span>`));
     assert.ok(html.includes(translations[locale].form.scoutName));
+    assert.ok(html.includes(translations[locale].form.locationWebsite));
+    assert.ok(html.includes(translations[locale].form.contactPhone));
     assert.ok(html.includes(translations[locale].form.sectionPhotos));
     assert.ok(html.includes(translations[locale].form.submit));
     assert.doesNotMatch(html,/class="scout-intro"|class="scout-meta"|class="mlt-chat-widget/);

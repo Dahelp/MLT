@@ -29,6 +29,8 @@ function mlt_scout_schema(PDO $db): void {
         description TEXT NOT NULL,
         parking VARCHAR(500) NOT NULL,
         booking VARCHAR(500) NOT NULL,
+        location_website VARCHAR(2048) NULL,
+        contact_phone VARCHAR(80) NULL,
         photos_json TEXT NOT NULL,
         video_json TEXT NULL,
         status VARCHAR(24) NOT NULL DEFAULT "pending",
@@ -41,6 +43,12 @@ function mlt_scout_schema(PDO $db): void {
         INDEX scout_status_created (status,created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN video_json TEXT NULL'); } catch (PDOException $error) {}
+    foreach (['location_website'=>'VARCHAR(2048)', 'contact_phone'=>'VARCHAR(80)'] as $column=>$type) {
+        try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN '.$column.' '.$type.' NULL'); }
+        catch (PDOException $error) {
+            if ((int)($error->errorInfo[1]??0)!==1060 && !str_contains($error->getMessage(),'duplicate column name')) throw $error;
+        }
+    }
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_route_points (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, slug VARCHAR(100) NOT NULL UNIQUE, title VARCHAR(180) NOT NULL, country_name VARCHAR(100) NULL, latitude DECIMAL(10,7) NULL, longitude DECIMAL(10,7) NULL, description TEXT NULL, image_path VARCHAR(255) NULL, is_active TINYINT(1) NOT NULL DEFAULT 1, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
 }
 
@@ -50,6 +58,7 @@ function mlt_scout_card(array $row): array {
         'category'=>$row['category'], 'title'=>$row['title'], 'country'=>$row['country_name'],
         'latitude'=>(string)$row['latitude'], 'longitude'=>(string)$row['longitude'],
         'description'=>$row['description'], 'parking'=>$row['parking'], 'booking'=>$row['booking'],
+        'locationWebsite'=>$row['location_website']??'', 'contactPhone'=>$row['contact_phone']??'',
         'photos'=>json_decode($row['photos_json'],true) ?: [], 'video'=>json_decode($row['video_json']??'null',true), 'status'=>$row['status'],
         'reviewNote'=>$row['review_note'] ?? '', 'version'=>(int)$row['version'],
         'publishedPointId'=>isset($row['published_point_id']) ? (int)$row['published_point_id'] : null,
@@ -75,7 +84,13 @@ function mlt_scout_fields(array $body): array {
         if ((!is_string($value) && !is_int($value) && !is_float($value)) || !is_numeric($value) || !is_finite((float)$value) || abs((float)$value) > $limit) mlt_scout_error(400,'coordinates');
         $coordinates[] = round((float)$value,7);
     }
-    return [mlt_scout_text($body,'scoutName',120,true), $category, mlt_scout_text($body,'title',180,true), mlt_scout_text($body,'country',100,true), ...$coordinates, mlt_scout_text($body,'description',3000,true), mlt_scout_text($body,'parking',500), mlt_scout_text($body,'booking',500)];
+    $website=mlt_scout_text($body,'locationWebsite',2048);
+    if ($website!=='') {
+        if (!preg_match('#^[a-z][a-z0-9+.-]*:#i',$website)) $website='https://'.$website;
+        $parts=parse_url($website);
+        if (strlen($website)>2048 || !filter_var($website,FILTER_VALIDATE_URL) || !in_array(strtolower($parts['scheme']??''),['http','https'],true) || isset($parts['user']) || isset($parts['pass'])) mlt_scout_error(400,'invalidWebsite');
+    }
+    return [mlt_scout_text($body,'scoutName',120,true), $category, mlt_scout_text($body,'title',180,true), mlt_scout_text($body,'country',100,true), ...$coordinates, mlt_scout_text($body,'description',3000,true), mlt_scout_text($body,'parking',500), mlt_scout_text($body,'booking',500), $website, mlt_scout_text($body,'contactPhone',80)];
 }
 
 /** Validate every image before writing any files. Retained paths must belong to this card. */
