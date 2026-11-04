@@ -45,6 +45,10 @@
 .base-location-card summary{cursor:pointer;font-size:var(--mlt-text-body);min-height:44px;padding:12px 0;color:var(--mlt-nav-ink)}
 .base-location-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:8px 0 16px}
 .base-location-gallery img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px}
+.base-location-video{display:grid;gap:16px;margin-bottom:16px}
+.base-location-video h3{margin:0;font:400 var(--mlt-text-subtitle)/1.2 var(--mlt-font-display)}
+.base-location-video video{width:100%;max-height:360px;background:var(--mlt-surface-dark);border-radius:var(--mlt-radius-control)}
+.base-location-video a{color:var(--mlt-nav-ink);font-size:var(--mlt-text-body)}
 .base-location-card dl{display:grid;gap:8px;font-size:var(--mlt-text-body);margin:0 0 8px}
 .base-location-card dt{color:#71776a}.base-location-card dd{margin:0;white-space:pre-wrap}
 .base-location-card label{display:grid;gap:8px;font-size:var(--mlt-text-body);color:#71776a}

@@ -30,6 +30,7 @@ function mlt_scout_schema(PDO $db): void {
         parking VARCHAR(500) NOT NULL,
         booking VARCHAR(500) NOT NULL,
         photos_json TEXT NOT NULL,
+        video_json TEXT NULL,
         status VARCHAR(24) NOT NULL DEFAULT "pending",
         review_note TEXT NULL,
         reviewed_by BIGINT UNSIGNED NULL,
@@ -39,6 +40,7 @@ function mlt_scout_schema(PDO $db): void {
         updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         INDEX scout_status_created (status,created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
+    try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN video_json TEXT NULL'); } catch (PDOException $error) {}
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_route_points (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, slug VARCHAR(100) NOT NULL UNIQUE, title VARCHAR(180) NOT NULL, country_name VARCHAR(100) NULL, latitude DECIMAL(10,7) NULL, longitude DECIMAL(10,7) NULL, description TEXT NULL, image_path VARCHAR(255) NULL, is_active TINYINT(1) NOT NULL DEFAULT 1, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
 }
 
@@ -48,7 +50,7 @@ function mlt_scout_card(array $row): array {
         'category'=>$row['category'], 'title'=>$row['title'], 'country'=>$row['country_name'],
         'latitude'=>(string)$row['latitude'], 'longitude'=>(string)$row['longitude'],
         'description'=>$row['description'], 'parking'=>$row['parking'], 'booking'=>$row['booking'],
-        'photos'=>json_decode($row['photos_json'],true) ?: [], 'status'=>$row['status'],
+        'photos'=>json_decode($row['photos_json'],true) ?: [], 'video'=>json_decode($row['video_json']??'null',true), 'status'=>$row['status'],
         'reviewNote'=>$row['review_note'] ?? '', 'version'=>(int)$row['version'],
         'publishedPointId'=>isset($row['published_point_id']) ? (int)$row['published_point_id'] : null,
         'isPublished'=>!empty($row['map_active']) && $row['status']==='accepted',

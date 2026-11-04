@@ -37,6 +37,20 @@ test("Scout Passport exports its mobile form, brand strip and private admin dest
   assert.equal((await render('/admin/base-location/')).status, 200);
 });
 
+test('Scout video has distinct gallery and camera inputs in every language',async()=>{
+ const copy=JSON.parse(await readFile(new URL('public/data/scout-i18n.json',root),'utf8'));
+ for(const locale of ['en','de','ru','it','pl']){
+  const html=await(await render(`/${locale}/scout-passport/`)).text();
+  const gallery=html.match(/<input[^>]*data-scout-video-gallery[^>]*>/)?.[0];
+  const camera=html.match(/<input[^>]*data-scout-video-camera[^>]*>/)?.[0];
+  assert.ok(gallery&&camera,locale);
+  assert.doesNotMatch(gallery,/\bcapture=/);
+  assert.match(camera,/capture="environment"/);
+  assert.ok(html.includes(copy[locale].video.gallery));
+  assert.ok(html.includes(copy[locale].video.record));
+ }
+});
+
 test("all scout languages render the hero language menu and translated form without site navigation or footer", async () => {
   const translations = JSON.parse(await readFile(new URL('public/data/scout-i18n.json', root), 'utf8'));
   for (const locale of ['en','de','ru','it','pl']) {

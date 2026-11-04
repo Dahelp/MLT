@@ -73,6 +73,6 @@ LimitRequestBody 12582912
   Require all denied
 </Files>
 
-<FilesMatch "(?i)(\.(?:sql|sqlite3?|db|bak|old|orig|save|swp|dist|map|ts|tsx|mjs|jsonl|pem|key)$|^(?:composer\.(?:json|lock)|package\.json|pnpm-lock\.yaml|.*config\.php|security\.php|voucher-core\.php|voucher-payments\.php|chat-access\.php|journey-pricing\.php|scout-core\.php)$)">
+<FilesMatch "(?i)(\.(?:sql|sqlite3?|db|bak|old|orig|save|swp|dist|map|ts|tsx|mjs|jsonl|pem|key)$|^(?:composer\.(?:json|lock)|package\.json|pnpm-lock\.yaml|.*config\.php|security\.php|voucher-core\.php|voucher-payments\.php|chat-access\.php|journey-pricing\.php|scout-core\.php|scout-video\.php)$)">
   Require all denied
 </FilesMatch>

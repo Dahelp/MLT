@@ -17,6 +17,8 @@ test('Apache applies security headers and blocks private files and executable up
   await writeFile(path.join(web, 'scout-passport/index.html'), 'Scout passport fixture');
   for (const locale of ['en','de','ru','it','pl']) { await mkdir(path.join(web, locale, 'scout-passport'), { recursive: true }); await writeFile(path.join(web, locale, 'scout-passport/index.html'), 'Localized scout fixture'); }
   await writeFile(path.join(web, 'scout-core.php'), 'private helper fixture');
+  await writeFile(path.join(web, 'scout-video.php'), 'private media helper fixture');
+  await writeFile(path.join(web, 'uploads/unfinished.part'), 'unfinished private upload');
   await writeFile(path.join(web, 'assets/maplibre-gl-worker-test.js'), 'self.onmessage = () => {};');
   await cp(new URL('../public/.htaccess', import.meta.url), path.join(web, '.htaccess'));
   await cp(new URL('../public/uploads/.htaccess', import.meta.url), path.join(web, 'uploads/.htaccess'));
@@ -51,6 +53,8 @@ DocumentRoot "${unix(web)}"
     assert.equal(scoutPage.status, 200);
     assert.equal(scoutPage.headers.get('Permissions-Policy'), 'camera=(self), microphone=(), geolocation=(self)', 'Only the scout page can ask for camera and GPS');
     assert.equal((await get('/scout-core.php')).status, 403);
+    assert.equal((await get('/scout-video.php')).status, 403);
+    assert.equal((await get('/uploads/unfinished.part')).status, 403);
     for (const locale of ['en','de','ru','it','pl']) assert.equal((await get(`/${locale}/scout-passport/index.html`)).headers.get('Permissions-Policy'), 'camera=(self), microphone=(), geolocation=(self)');
     assert.equal(page.headers.get('Referrer-Policy'), 'strict-origin', 'Map tiles receive the origin without leaking page paths or parameters');
     assert.equal((await get('/endpoint.php')).headers.get('Referrer-Policy'), 'no-referrer', 'API and payment callbacks retain stricter privacy');

@@ -11,6 +11,8 @@ if ($_SERVER['REQUEST_METHOD']==='GET' && $action!=='points') mlt_scout_error(40
 $db=mlt_db(mlt_settings());
 if (!$db) mlt_scout_error(503,'unavailable');
 mlt_scout_schema($db);
+require __DIR__.'/scout-video.php';
+mlt_scout_video_schema($db);
 
 if ($action==='points') {
     // No scout identity, capability, review note or unpublished card is public.
@@ -48,6 +50,9 @@ if ($action==='submit' || $action==='resubmit') {
             if($locked['last_request_id']===$requestId){$db->rollBack();echo json_encode(['ok'=>true,'card'=>mlt_scout_card($locked)]);exit;}
             if ($locked['status']!=='revision' || (int)$locked['version']!==(int)($body['version']??0)) { $db->rollBack(); mlt_scout_error(409,'statusChanged'); }
         }
+        $videoValue=array_key_exists('video',$body)?$body['video']:(json_decode($existing['video_json']??'null',true)['path']??null);
+        $video=mlt_scout_submission_video($db,$videoValue,$key,$existing);
+        $videoJson=$video?json_encode($video,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR):null;
         $directory=dirname(__DIR__).'/uploads/scout';
         if(!is_dir($directory) && !mkdir($directory,0755,true) && !is_dir($directory)) throw new RuntimeException('Scout upload directory');
         $paths=[];
@@ -61,13 +66,14 @@ if ($action==='submit' || $action==='resubmit') {
         }
         $json=json_encode($paths,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
         if($action==='resubmit'){
-            $q=$db->prepare('UPDATE mlt_scout_submissions SET scout_name=?,category=?,title=?,country_name=?,latitude=?,longitude=?,description=?,parking=?,booking=?,photos_json=?,last_request_id=?,status="pending",version=version+1,updated_at=NOW() WHERE id=?');
-            $q->execute([...$fields,$json,$requestId,$existing['id']]);
+            $q=$db->prepare('UPDATE mlt_scout_submissions SET scout_name=?,category=?,title=?,country_name=?,latitude=?,longitude=?,description=?,parking=?,booking=?,photos_json=?,video_json=?,last_request_id=?,status="pending",version=version+1,updated_at=NOW() WHERE id=?');
+            $q->execute([...$fields,$json,$videoJson,$requestId,$existing['id']]);
         }else{
             $reference='MLT-S-'.strtoupper(bin2hex(random_bytes(6)));
-            $q=$db->prepare('INSERT INTO mlt_scout_submissions (scout_name,category,title,country_name,latitude,longitude,description,parking,booking,photos_json,reference_code,request_id,last_request_id,edit_token_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
-            $q->execute([...$fields,$json,$reference,$requestId,$requestId,hash('sha256',$key)]);
+            $q=$db->prepare('INSERT INTO mlt_scout_submissions (scout_name,category,title,country_name,latitude,longitude,description,parking,booking,photos_json,video_json,reference_code,request_id,last_request_id,edit_token_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+            $q->execute([...$fields,$json,$videoJson,$reference,$requestId,$requestId,hash('sha256',$key)]);
         }
+        mlt_scout_attach_video($db,$videoValue,$reference);
         $db->commit();
     }catch(Throwable $error){
         if($db->inTransaction())$db->rollBack();

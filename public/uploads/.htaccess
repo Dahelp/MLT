@@ -1,6 +1,6 @@
 Options -Indexes -ExecCGI
 RemoveHandler .php .php3 .php4 .php5 .php7 .php8 .phtml .phar
-<FilesMatch "(?i)\.(?:php[0-9]?|phtml|phar|cgi|pl|py|sh)(?:\.|$)">
+<FilesMatch "(?i)\.(?:php[0-9]?|phtml|phar|cgi|pl|py|sh|part)(?:\.|$)">
   Require all denied
 </FilesMatch>
 <IfModule mod_headers.c>

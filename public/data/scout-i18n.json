@@ -31,7 +31,7 @@
       "parkingPlaceholder": "Parking available, 150 m from the entrance",
       "booking": "Reservations",
       "bookingPlaceholder": "By phone, two days in advance",
-      "photosHelp": "2 to 4 portrait photos. Tap “+” to open the camera with a 3:4 frame.",
+      "photosHelp": "2 to 4 portrait photos. Tap “+” to take a photo or choose one from your gallery, then adjust the 3:4 crop.",
       "frame": "Photo {number}",
       "addFrame": "Add photo {number}: {title}",
       "retakeFrame": "Retake photo {number}: {title}",
@@ -97,12 +97,21 @@
       "preview": "3:4 photo preview",
       "aim": "Point the camera at the location",
       "orChoose": "or choose a photo below",
-      "hint": "Everything inside the frame will appear in the location card. Photos from your phone are cropped from the centre.",
+      "hint": "Choose the source. Your photo will be saved in 3:4 format.",
       "use": "Use photo",
       "take": "Take photo",
       "preparing": "Preparing…",
-      "chooseOther": "Choose another photo",
-      "choose": "Phone camera / choose photo"
+      "chooseOther": "Choose another photo from gallery",
+      "choose": "Choose photo from gallery",
+      "openCamera": "Open camera",
+      "phoneCamera": "Use phone camera",
+      "sourceHint": "Choose a photo from your gallery or open the camera.",
+      "cropHint": "Drag the photo and adjust the zoom. Only the area inside the 3:4 frame will be saved.",
+      "zoom": "Zoom",
+      "position": "Adjust position",
+      "horizontal": "Horizontal position",
+      "vertical": "Vertical position",
+      "resetCrop": "Reset crop"
     },
     "admin": {
       "title": "Base location",
@@ -168,7 +177,25 @@
       "reviewConflict": "Another reviewer has changed this location. Refresh the list.",
       "revisionOnly": "An edit link is available after the location is returned for revision.",
       "acceptFirst": "Accept the location first.",
-      "unknownAction": "Unknown action."
+      "unknownAction": "Unknown action.",
+      "videoSize": "Choose a video up to 50 MB.",
+      "videoFormat": "Choose an MP4, MOV or WebM video.",
+      "videoMissing": "The video upload is unavailable. Choose the video again.",
+      "videoIncomplete": "The video has not finished uploading. Please retry.",
+      "videoUpload": "Could not upload the video. Check your connection and retry; uploaded parts will be reused."
+    },
+    "video": {
+      "title": "Video (optional)",
+      "hint": "Add one video up to 50 MB in MP4, MOV or WebM format. Choose it from your gallery or record a new video.",
+      "gallery": "Choose video from gallery",
+      "replace": "Choose another video from gallery",
+      "record": "Record video",
+      "remove": "Remove video",
+      "preview": "Video preview",
+      "open": "Open video",
+      "tooLarge": "Choose a video up to 50 MB.",
+      "format": "Choose an MP4, MOV or WebM video.",
+      "uploading": "Uploading video · {percent}%"
     }
   },
   "de": {
@@ -203,7 +230,7 @@
       "parkingPlaceholder": "Parkplatz vorhanden, 150 m vom Eingang",
       "booking": "Reservierung",
       "bookingPlaceholder": "Telefonisch, zwei Tage im Voraus",
-      "photosHelp": "2 bis 4 Hochformatfotos. Tippen Sie auf „+“, um die Kamera mit einem 3:4-Rahmen zu öffnen.",
+      "photosHelp": "2 bis 4 Hochformatfotos. Tippen Sie auf „+“, um ein Foto aufzunehmen oder aus der Galerie auszuwählen und den 3:4-Ausschnitt anzupassen.",
       "frame": "Foto {number}",
       "addFrame": "Foto {number} hinzufügen: {title}",
       "retakeFrame": "Foto {number} neu aufnehmen: {title}",
@@ -269,12 +296,21 @@
       "preview": "Vorschau des 3:4-Fotos",
       "aim": "Richten Sie die Kamera auf den Ort",
       "orChoose": "oder wählen Sie unten ein Foto",
-      "hint": "Alles im Rahmen erscheint in der Karteikarte. Handyfotos werden mittig zugeschnitten.",
+      "hint": "Wählen Sie die Fotoquelle. Das Foto wird im Format 3:4 gespeichert.",
       "use": "Foto verwenden",
       "take": "Foto aufnehmen",
       "preparing": "Wird vorbereitet…",
-      "chooseOther": "Anderes Foto wählen",
-      "choose": "Handykamera / Foto wählen"
+      "chooseOther": "Anderes Galeriefoto wählen",
+      "choose": "Foto aus der Galerie wählen",
+      "openCamera": "Kamera öffnen",
+      "phoneCamera": "Handykamera verwenden",
+      "sourceHint": "Wählen Sie ein Galeriefoto oder öffnen Sie die Kamera.",
+      "cropHint": "Verschieben Sie das Foto und passen Sie den Zoom an. Nur der Bereich im 3:4-Rahmen wird gespeichert.",
+      "zoom": "Zoom",
+      "position": "Position anpassen",
+      "horizontal": "Horizontale Position",
+      "vertical": "Vertikale Position",
+      "resetCrop": "Ausschnitt zurücksetzen"
     },
     "admin": {
       "title": "Standortdatenbank",
@@ -340,7 +376,25 @@
       "reviewConflict": "Ein anderer Prüfer hat diesen Ort geändert. Aktualisieren Sie die Liste.",
       "revisionOnly": "Ein Bearbeitungslink ist nach der Rückgabe zur Überarbeitung verfügbar.",
       "acceptFirst": "Nehmen Sie den Ort zuerst an.",
-      "unknownAction": "Unbekannte Aktion."
+      "unknownAction": "Unbekannte Aktion.",
+      "videoSize": "Wählen Sie ein Video bis 50 MB.",
+      "videoFormat": "Wählen Sie ein MP4-, MOV- oder WebM-Video.",
+      "videoMissing": "Der Video-Upload ist nicht verfügbar. Wählen Sie das Video erneut.",
+      "videoIncomplete": "Das Video ist noch nicht vollständig hochgeladen. Bitte erneut versuchen.",
+      "videoUpload": "Video konnte nicht hochgeladen werden. Verbindung prüfen und erneut versuchen; hochgeladene Teile bleiben erhalten."
+    },
+    "video": {
+      "title": "Video (optional)",
+      "hint": "Ein Video bis 50 MB im Format MP4, MOV oder WebM. Aus der Galerie auswählen oder neu aufnehmen.",
+      "gallery": "Video aus der Galerie wählen",
+      "replace": "Anderes Galerievideo wählen",
+      "record": "Video aufnehmen",
+      "remove": "Video entfernen",
+      "preview": "Videovorschau",
+      "open": "Video öffnen",
+      "tooLarge": "Wählen Sie ein Video bis 50 MB.",
+      "format": "Wählen Sie ein MP4-, MOV- oder WebM-Video.",
+      "uploading": "Video wird hochgeladen · {percent}%"
     }
   },
   "ru": {
@@ -375,7 +429,7 @@
       "parkingPlaceholder": "Есть, 150 м от входа",
       "booking": "Бронирование",
       "bookingPlaceholder": "За 2 дня, по телефону",
-      "photosHelp": "От 2 до 4 вертикальных снимков. Нажмите «+», чтобы открыть камеру с рамкой 3:4.",
+      "photosHelp": "От 2 до 4 вертикальных фото. Нажмите «+», чтобы сделать снимок или выбрать фото из галереи, затем настройте обрезку 3:4.",
       "frame": "Кадр {number}",
       "addFrame": "Добавить кадр {number}: {title}",
       "retakeFrame": "Переснять кадр {number}: {title}",
@@ -441,12 +495,21 @@
       "preview": "Предпросмотр снимка 3:4",
       "aim": "Наведите камеру на локацию",
       "orChoose": "или выберите фото ниже",
-      "hint": "Всё, что видно в рамке, попадёт в карточку. Фото с телефона обрезается по центру.",
+      "hint": "Выберите источник фото. Снимок сохранится в формате 3:4.",
       "use": "Использовать фото",
       "take": "Сделать снимок",
       "preparing": "Подготовка…",
-      "chooseOther": "Выбрать другой снимок",
-      "choose": "Камера телефона / выбрать фото"
+      "chooseOther": "Выбрать другое фото из галереи",
+      "choose": "Выбрать фото из галереи",
+      "openCamera": "Открыть камеру",
+      "phoneCamera": "Снять камерой телефона",
+      "sourceHint": "Выберите фото из галереи или откройте камеру.",
+      "cropHint": "Перетаскивайте фото и меняйте масштаб. Сохранится только область внутри рамки 3:4.",
+      "zoom": "Масштаб",
+      "position": "Настроить положение",
+      "horizontal": "По горизонтали",
+      "vertical": "По вертикали",
+      "resetCrop": "Сбросить обрезку"
     },
     "admin": {
       "title": "База локаций",
@@ -512,7 +575,25 @@
       "reviewConflict": "Карточку уже изменили. Обновите список.",
       "revisionOnly": "Ссылка для редактирования доступна после возврата на доработку.",
       "acceptFirst": "Сначала примите карточку.",
-      "unknownAction": "Неизвестное действие."
+      "unknownAction": "Неизвестное действие.",
+      "videoSize": "Выберите видео размером до 50 МБ.",
+      "videoFormat": "Выберите видео в формате MP4, MOV или WebM.",
+      "videoMissing": "Загрузка видео недоступна. Выберите видео заново.",
+      "videoIncomplete": "Видео ещё не загружено полностью. Повторите отправку.",
+      "videoUpload": "Не удалось загрузить видео. Проверьте связь и повторите отправку — загруженные части сохранятся."
+    },
+    "video": {
+      "title": "Видео (необязательно)",
+      "hint": "Одно видео до 50 МБ в формате MP4, MOV или WebM. Выберите его из галереи или снимите новое.",
+      "gallery": "Выбрать видео из галереи",
+      "replace": "Выбрать другое видео из галереи",
+      "record": "Снять видео",
+      "remove": "Удалить видео",
+      "preview": "Предпросмотр видео",
+      "open": "Открыть видео",
+      "tooLarge": "Выберите видео размером до 50 МБ.",
+      "format": "Выберите видео в формате MP4, MOV или WebM.",
+      "uploading": "Загружаем видео · {percent}%"
     }
   },
   "it": {
@@ -547,7 +628,7 @@
       "parkingPlaceholder": "Parcheggio disponibile, a 150 m dall’ingresso",
       "booking": "Prenotazione",
       "bookingPlaceholder": "Per telefono, con due giorni di anticipo",
-      "photosHelp": "Da 2 a 4 foto verticali. Premi “+” per aprire la fotocamera con una cornice 3:4.",
+      "photosHelp": "Da 2 a 4 foto verticali. Tocca “+” per scattare o scegliere una foto dalla galleria, poi regola il ritaglio 3:4.",
       "frame": "Foto {number}",
       "addFrame": "Aggiungi foto {number}: {title}",
       "retakeFrame": "Scatta di nuovo la foto {number}: {title}",
@@ -613,12 +694,21 @@
       "preview": "Anteprima della foto 3:4",
       "aim": "Inquadra il luogo con la fotocamera",
       "orChoose": "oppure scegli una foto qui sotto",
-      "hint": "Tutto ciò che vedi nella cornice apparirà nella scheda. Le foto del telefono vengono ritagliate al centro.",
+      "hint": "Scegli la fonte. La foto sarà salvata in formato 3:4.",
       "use": "Usa la foto",
       "take": "Scatta una foto",
       "preparing": "Preparazione…",
-      "chooseOther": "Scegli un’altra foto",
-      "choose": "Fotocamera del telefono / scegli foto"
+      "chooseOther": "Scegli un’altra foto dalla galleria",
+      "choose": "Scegli foto dalla galleria",
+      "openCamera": "Apri fotocamera",
+      "phoneCamera": "Usa la fotocamera del telefono",
+      "sourceHint": "Scegli una foto dalla galleria o apri la fotocamera.",
+      "cropHint": "Trascina la foto e regola lo zoom. Verrà salvata solo l’area nella cornice 3:4.",
+      "zoom": "Zoom",
+      "position": "Regola posizione",
+      "horizontal": "Posizione orizzontale",
+      "vertical": "Posizione verticale",
+      "resetCrop": "Reimposta ritaglio"
     },
     "admin": {
       "title": "Banca dati dei luoghi",
@@ -684,7 +774,25 @@
       "reviewConflict": "Un altro revisore ha modificato il luogo. Aggiorna l’elenco.",
       "revisionOnly": "Il link di modifica è disponibile dopo la richiesta di revisione.",
       "acceptFirst": "Approva prima il luogo.",
-      "unknownAction": "Azione sconosciuta."
+      "unknownAction": "Azione sconosciuta.",
+      "videoSize": "Scegli un video fino a 50 MB.",
+      "videoFormat": "Scegli un video MP4, MOV o WebM.",
+      "videoMissing": "Caricamento video non disponibile. Seleziona nuovamente il video.",
+      "videoIncomplete": "Il caricamento del video non è completo. Riprova.",
+      "videoUpload": "Impossibile caricare il video. Controlla la connessione e riprova; le parti caricate vengono conservate."
+    },
+    "video": {
+      "title": "Video (facoltativo)",
+      "hint": "Un video fino a 50 MB in formato MP4, MOV o WebM. Sceglilo dalla galleria o registra un nuovo video.",
+      "gallery": "Scegli video dalla galleria",
+      "replace": "Scegli un altro video dalla galleria",
+      "record": "Registra video",
+      "remove": "Rimuovi video",
+      "preview": "Anteprima video",
+      "open": "Apri video",
+      "tooLarge": "Scegli un video fino a 50 MB.",
+      "format": "Scegli un video MP4, MOV o WebM.",
+      "uploading": "Caricamento video · {percent}%"
     }
   },
   "pl": {
@@ -719,7 +827,7 @@
       "parkingPlaceholder": "Parking dostępny, 150 m od wejścia",
       "booking": "Rezerwacja",
       "bookingPlaceholder": "Telefonicznie, dwa dni wcześniej",
-      "photosHelp": "Od 2 do 4 zdjęć pionowych. Naciśnij „+”, aby otworzyć aparat z kadrem 3:4.",
+      "photosHelp": "Od 2 do 4 pionowych zdjęć. Dotknij „+”, aby zrobić zdjęcie lub wybrać je z galerii, a następnie dostosuj kadr 3:4.",
       "frame": "Zdjęcie {number}",
       "addFrame": "Dodaj zdjęcie {number}: {title}",
       "retakeFrame": "Zrób ponownie zdjęcie {number}: {title}",
@@ -785,12 +893,21 @@
       "preview": "Podgląd zdjęcia 3:4",
       "aim": "Skieruj aparat na miejsce",
       "orChoose": "lub wybierz zdjęcie poniżej",
-      "hint": "Wszystko w kadrze trafi do zgłoszenia. Zdjęcia z telefonu są kadrowane centralnie.",
+      "hint": "Wybierz źródło. Zdjęcie zostanie zapisane w formacie 3:4.",
       "use": "Użyj zdjęcia",
       "take": "Zrób zdjęcie",
       "preparing": "Przygotowywanie…",
-      "chooseOther": "Wybierz inne zdjęcie",
-      "choose": "Aparat telefonu / wybierz zdjęcie"
+      "chooseOther": "Wybierz inne zdjęcie z galerii",
+      "choose": "Wybierz zdjęcie z galerii",
+      "openCamera": "Otwórz aparat",
+      "phoneCamera": "Użyj aparatu telefonu",
+      "sourceHint": "Wybierz zdjęcie z galerii lub otwórz aparat.",
+      "cropHint": "Przeciągnij zdjęcie i dostosuj powiększenie. Zapisany zostanie tylko obszar w ramce 3:4.",
+      "zoom": "Powiększenie",
+      "position": "Dostosuj pozycję",
+      "horizontal": "Pozycja pozioma",
+      "vertical": "Pozycja pionowa",
+      "resetCrop": "Resetuj kadr"
     },
     "admin": {
       "title": "Baza lokalizacji",
@@ -856,7 +973,25 @@
       "reviewConflict": "Inny moderator zmienił zgłoszenie. Odśwież listę.",
       "revisionOnly": "Link do edycji jest dostępny po zwróceniu zgłoszenia do poprawy.",
       "acceptFirst": "Najpierw zaakceptuj zgłoszenie.",
-      "unknownAction": "Nieznane działanie."
+      "unknownAction": "Nieznane działanie.",
+      "videoSize": "Wybierz wideo do 50 MB.",
+      "videoFormat": "Wybierz wideo MP4, MOV lub WebM.",
+      "videoMissing": "Przesyłanie wideo jest niedostępne. Wybierz wideo ponownie.",
+      "videoIncomplete": "Wideo nie zostało przesłane w całości. Spróbuj ponownie.",
+      "videoUpload": "Nie udało się przesłać wideo. Sprawdź połączenie i spróbuj ponownie; przesłane części zostaną zachowane."
+    },
+    "video": {
+      "title": "Wideo (opcjonalnie)",
+      "hint": "Jedno wideo do 50 MB w formacie MP4, MOV lub WebM. Wybierz je z galerii lub nagraj nowe.",
+      "gallery": "Wybierz wideo z galerii",
+      "replace": "Wybierz inne wideo z galerii",
+      "record": "Nagraj wideo",
+      "remove": "Usuń wideo",
+      "preview": "Podgląd wideo",
+      "open": "Otwórz wideo",
+      "tooLarge": "Wybierz wideo do 50 MB.",
+      "format": "Wybierz wideo MP4, MOV lub WebM.",
+      "uploading": "Przesyłanie wideo · {percent}%"
     }
   }
 }

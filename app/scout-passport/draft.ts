@@ -1,6 +1,7 @@
+import type { ScoutVideoDraft } from "../../content/scout-video";
 import type { ScoutFields } from "../../content/scout";
 
-export type ScoutDraft = { fields: ScoutFields; photos: string[]; requestId: string; editToken: string };
+export type ScoutDraft = { fields: ScoutFields; photos: string[]; video?: ScoutVideoDraft | null; requestId: string; editToken: string };
 // IndexedDB keeps photos with the draft without exhausting localStorage on phones.
 async function database(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
