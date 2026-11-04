@@ -12,7 +12,7 @@ $db=mlt_db($settings);if(!$db)throw new RuntimeException('Test database unavaila
 mlt_voucher_schema($db);
 $mode=$argv[1]??'setup';
 if($mode==='setup'){
-    foreach(['agency','admin','traveller'] as $i=>$role){$db->prepare('INSERT INTO mlt_users (email,first_name,last_name,role,session_hash,session_expires_at,password_hash) VALUES (?,?,?,?,?,DATE_ADD(NOW(),INTERVAL 1 DAY),?) ON DUPLICATE KEY UPDATE session_hash=VALUES(session_hash),session_expires_at=VALUES(session_expires_at)')->execute([$role.'@pricing.example.test','Pricing','Test',$role,hash('sha256','pricing-test-'.$role),password_hash('PricingTestOnly123!',PASSWORD_DEFAULT)]);}
+    foreach(['agency','admin','traveller','concierge'] as $i=>$role){$db->prepare('INSERT INTO mlt_users (email,first_name,last_name,role,session_hash,session_expires_at,password_hash) VALUES (?,?,?,?,?,DATE_ADD(NOW(),INTERVAL 1 DAY),?) ON DUPLICATE KEY UPDATE session_hash=VALUES(session_hash),session_expires_at=VALUES(session_expires_at)')->execute([$role.'@pricing.example.test','Pricing','Test',$role,hash('sha256','pricing-test-'.$role),password_hash('PricingTestOnly123!',PASSWORD_DEFAULT)]);}
     echo json_encode($settings);exit;
 }
 $reference=(string)($argv[2]??'');

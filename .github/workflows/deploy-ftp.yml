@@ -81,8 +81,8 @@ jobs:
       - name: Prepare voucher backend dependencies before updating existing payment handlers
         run: |
           mkdir -p voucher-preflight/api voucher-preflight/data
-          cp public/api/journey-pricing.php public/api/journey-terms.php public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
-          cp public/data/journey-pricing.json voucher-preflight/data/
+          cp public/api/exclusive-requests.php public/api/exclusive-requests-actions.php public/api/journey-pricing.php public/api/journey-terms.php public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
+          cp public/data/journey-pricing.json public/data/private-exclusive-requests.json voucher-preflight/data/
           cp public/api/telegram-routing.php public/api/telegram-sales-message.php static-export/api/telegram-sales-destination.php voucher-preflight/api/
 
       - name: Publish voucher backend dependencies

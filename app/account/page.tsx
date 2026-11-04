@@ -7,6 +7,7 @@ import ChevronIcon from "../ChevronIcon";
 import { useRoutePoints, type RoutePoint } from "../useRoutePoints";
 import "./account.css";
 import VoucherWallet,{VoucherRedeem,JourneyCheckoutNotice} from "./VoucherWallet";
+import {ExclusiveRequestsSummary} from "../ExclusiveRequests";
 import JourneyTerms from '../JourneyTerms';
 import JourneyProtection from './JourneyProtection';
 import {orderTerms,nextJourneyPayment} from '../../content/journey-terms';
@@ -34,6 +35,7 @@ type D = {
   signatureTailored?: boolean;
   freedomPlus?: boolean;
   tailoredInterests?: string[];
+  exclusiveRequests?: string[];
   vehicle: string;
 };
 type O = {
@@ -57,6 +59,7 @@ type O = {
   route_points_json?: string;
   extras_json?: string;
   service_items_json?: string;
+  exclusive_requests_json?: string;
   client_note?: string | null;
   vehicle_name?: string;
 };
@@ -360,12 +363,12 @@ export default function Account({
           const created = await api("create_application", next);
           j = await api("orders");
           setOrders(j.orders || []);
+          localStorage.removeItem("mlt-account-draft");
+          setDraft(null);
           if (!created.created && j.user?.role !== "agency") setMessage(locale === "ru" ? "У вас уже есть текущая заявка. Новую можно оформить после завершения поездки." : "You can book a new journey after your current trip ends.");
         } catch (error) {
           setMessage(error instanceof Error ? error.message : "Could not save your journey selection.");
         }
-        localStorage.removeItem("mlt-account-draft");
-        setDraft(null);
       } else if (next) {
         localStorage.removeItem("mlt-account-draft");
         setDraft(null);
@@ -740,6 +743,7 @@ export default function Account({
                             {jsonList(o.route_json).join(" · ") ||
                               "MLT journey"}
                           </strong>
+                          <ExclusiveRequestsSummary raw={o.exclusive_requests_json} locale={locale}/>
                           <JourneyTerms terms={orderTerms(o.journey_terms_json)} locale={locale} arrival={o.arrival_date} paid={orderPaid} legacy legacyCosts={{total:orderTotal,paid:orderPaid,advance:Number(o.deposit_amount||orderTotal*0.2)}}/>
                           <dl>
                             <div>
@@ -1194,6 +1198,7 @@ export default function Account({
                 </dd>
               </div>
             </dl>
+            <ExclusiveRequestsSummary raw={selectedOrder.exclusive_requests_json} locale={locale}/>
             <JourneyTerms terms={orderTerms(selectedOrder.journey_terms_json)} locale={locale} arrival={selectedOrder.arrival_date} paid={Number(selectedOrder.paid_amount||0)} expanded legacy legacyCosts={{total:Number(selectedOrder.total_amount||selectedOrder.amount||0),paid:Number(selectedOrder.paid_amount||0),advance:Number(selectedOrder.deposit_amount||Number(selectedOrder.total_amount||selectedOrder.amount||0)*0.2)}}/>
             <section className="journey-client-updates">
               <p className="account-eyebrow">ВАША ПОЕЗДКА</p>

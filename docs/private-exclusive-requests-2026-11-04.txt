@@ -1,0 +1,53 @@
+Private — Exclusive Requests, local review 04.11.2026
+
+Baseline: origin/main bef99de (git fetch verified on 04.11.2026).
+The previous uncommitted concierge login redirect was backed up to
+outputs/private-requests/previous-concierge-change.patch before restoring
+the tracked source to origin/main. That unrelated change is not part of this work.
+
+Public review URLs:
+http://127.0.0.1:3000/en/collections/private/
+http://127.0.0.1:3000/en/collections/private/mobile-site/
+
+Four optional selections appear immediately below the travel/date fields.
+They have no prices and do not affect the public Base package or Total.
+The confirmation dialog lists the requests; the account draft carries the
+catalog IDs through sign-in/registration into the authenticated booking.
+The existing one-active-journey policy for ordinary travellers is retained.
+
+The selected requests are stored separately in mlt_orders.exclusive_requests_json.
+Null price means awaiting a quote; zero is an explicitly quoted free service.
+Selections cannot be added or removed by the pricing endpoint. Only the existing
+concierge and admin booking workspaces may assign prices, in the application card.
+The existing manager chat role and its access boundaries are preserved.
+
+Saving a complete individual quote updates the saved journey total and the
+client account, with an audit record and quote revision. Base package, refundable
+security and the first two Private payment stages remain unchanged. The quoted
+supplement is included in the final payment. Repeated saves do not compound it.
+Quote edits are refused during an active checkout and for paid/closed journeys;
+the total cannot fall below money already received. Route/note edits preserve
+the selection and cannot overwrite its quote.
+
+Verification:
+- pnpm test: production build and 164 tests pass.
+- Real local MySQL journey API integration: passes, including persistence,
+  price validation, role access, checkout locks and Private payment milestones.
+- Account/security/chat regression tests: 3 pass.
+- Browser: main layout at 1440 and 390 px, separate mobile layout at 390 px;
+  multiple selection, deselection, unchanged public total, review, sign-in,
+  back-office pricing and client-visible final quote verified.
+- Full standalone tsc reports existing generated .next fleet route references
+  and missing Cloudflare ambient worker types. It reports no new feature errors.
+
+The ignored local preview helper is outputs/private-requests/preview.mjs.
+Run it from site with: node outputs/private-requests/preview.mjs
+It serves the latest pnpm build output on 127.0.0.1:3000, with PHP on port 8301
+and the isolated local mlt_pricing_test database. No production settings or
+database are used by this helper. Screenshots and test logs are in the same
+ignored outputs directory.
+
+No push or production deployment is authorized yet. The existing main push
+workflow deploys automatically; wait for the owner's explicit release command.
+The workflow dependency preflight now includes the new PHP helpers and catalog
+JSON so they will be available before dependent handlers on the future release.

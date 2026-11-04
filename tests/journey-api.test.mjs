@@ -16,6 +16,7 @@ test('client booking, persisted terms, ownership, CMS protection, Tailored appro
  await cp(new URL('../public/api/',import.meta.url),path.join(dir,'api'),{recursive:true,filter:src=>!src.endsWith("paypal-config.php")});
  await mkdir(path.join(dir,'data'));
  await cp(new URL('../public/data/journey-pricing.json',import.meta.url),path.join(dir,'data/journey-pricing.json'));
+ await cp(new URL('../public/data/private-exclusive-requests.json',import.meta.url),path.join(dir,'data/private-exclusive-requests.json'));
  await writeFile(path.join(dir,'paypal-config.php'),`<?php return ${JSON.stringify(settings).replace(/"([^"\\]+)":/g,"'$1'=>").replaceAll('{','[').replaceAll('}',']')};`);
  const port=await new Promise(resolve=>{const s=createServer();s.listen(0,'127.0.0.1',()=>{const p=s.address().port;s.close(()=>resolve(p))});});
  const server=spawn(php,['-S',`127.0.0.1:${port}`,'-t',dir],{stdio:['ignore','ignore','pipe']});let log='';server.stderr.on('data',d=>log+=d);
@@ -55,6 +56,41 @@ test('client booking, persisted terms, ownership, CMS protection, Tailored appro
   assert.equal((await admin('journey_terms_update',{reference:privateRef,contractSigned:true})).status,200);
   for(const amount of [3980,5970,9950]){assert.equal(run('quote',privateRef).amount,amount);run('pay',privateRef);}
   assert.equal(run('quote',privateRef),null);assert.equal((await order(privateRef)).status,'paid');
+  // Private requests are preferences until an authenticated operator saves a complete quote.
+  const requested=['helicopter-flight','michelin-chef-dinner','como-yacht-experience'];
+  const exclusive=await create('private',{exclusiveRequests:requested,price:1,extrasAmount:999});
+  let saved=await order(exclusive);
+  assert.equal(Number(saved.total_amount),19900);
+  assert.deepEqual(JSON.parse(saved.exclusive_requests_json).map(item=>item.price),[null,null,null]);
+  const prices=requested.map((id,i)=>({id,price:[1200.50,0,799.50][i]}));
+  assert.equal((await api('exclusive_requests_quote',{reference:exclusive,items:prices})).status,403);
+  assert.equal((await admin('exclusive_requests_quote',{reference:exclusive,items:prices.slice(1)})).status,409);
+  for(const price of [-1,'',null,'1.001','NaN','1e3',100001]){
+   assert.equal((await admin('exclusive_requests_quote',{reference:exclusive,items:prices.map((item,i)=>i?item:{...item,price})})).status,409);
+  }
+  assert.equal((await admin('exclusive_requests_quote',{reference:exclusive,items:prices.map(item=>({...item,id:'ferrari-rental'}))})).status,409);
+  run('hold',exclusive);
+  assert.equal((await admin('exclusive_requests_quote',{reference:exclusive,items:prices})).status,409);
+  run('release',exclusive);
+  const quoted=await api('exclusive_requests_quote',{reference:exclusive,items:prices},'concierge','concierge-account.php');
+  assert.equal(quoted.status,200,JSON.stringify(quoted));assert.equal(quoted.total,21900);
+  const requoted=await admin('exclusive_requests_quote',{reference:exclusive,items:prices});
+  assert.equal(requoted.status,200);assert.equal(requoted.total,21900,'Saving the same prices again must not add them twice');
+  saved=await order(exclusive);assert.deepEqual(JSON.parse(saved.exclusive_requests_json).map(item=>item.price),[1200.5,0,799.5]);
+  assert.equal(JSON.parse(saved.journey_terms_json).total,21900);
+  assert.equal(JSON.parse(saved.journey_terms_json).base,19900);
+  assert.equal(Number(saved.extras_amount),2000);
+  assert.equal((await admin('journey_update',{reference:exclusive,route:['Test route'],points:[],services:[],conciergeNote:'Test only'})).status,200);
+  assert.deepEqual(JSON.parse((await order(exclusive)).exclusive_requests_json),JSON.parse(saved.exclusive_requests_json));
+  assert.equal(Number((await order(exclusive)).total_amount),21900);
+  assert.equal((await admin('journey_terms_update',{reference:exclusive,contractSigned:true})).status,200);
+  for(const amount of [3980,5970,11950]){assert.equal(run('quote',exclusive).amount,amount);run('pay',exclusive);}
+  assert.equal((await admin('exclusive_requests_quote',{reference:exclusive,items:prices})).status,409);
+  const invalidExclusive=await api('create_application',{collection:'private',days:7,guests:2,exclusiveRequests:['invented-option'],confirmationId:randomUUID()});
+  assert.equal(invalidExclusive.status,400);
+  const noExclusive=await order(await create('private',{exclusiveRequests:[]}));assert.equal(Number(noExclusive.total_amount),19900);
+  assert.equal(noExclusive.exclusive_requests_json,null);
+  const ordinary=await order(await create('freedom',{exclusiveRequests:requested}));assert.equal(ordinary.exclusive_requests_json,null);
   const invalid=await api('create_application',{collection:'private',days:30,guests:2,confirmationId:randomUUID()});assert.equal(invalid.status,400);
   const preview=await admin('journey_cancellation_preview',{reference:tailored,cancellationDate:'2027-04-01',costs:100});assert.equal(preview.status,200);assert.equal(preview.result.refund,647);
  }finally{server.kill();}

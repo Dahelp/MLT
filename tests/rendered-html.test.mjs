@@ -406,3 +406,20 @@ test('customers see calculated payment amounts before confirmation in every supp
   if(slug==='private')assert.match(html,/3[\s\u00a0\u202f,.]?980/,route+' advance');
  }
 });
+
+test('only Private offers four unpriced optional Exclusive Requests in both public layouts',async()=>{
+ const options=JSON.parse(await readFile(new URL('public/data/private-exclusive-requests.json',root),'utf8'));
+ for(const locale of ['en','de','ru','it','pl'])for(const suffix of ['','mobile-site/']){
+  const html=await(await render(`/${locale}/collections/private/${suffix}`)).text();
+  const fieldset=html.match(/<fieldset[^>]*><legend>Exclusive Requests<\/legend>(.*?)<\/fieldset>/s)?.[1];
+  assert.ok(fieldset,`${locale}/${suffix}`);
+  assert.equal((fieldset.match(/<button /g)||[]).length,4);
+  for(const {title} of options)assert.ok(fieldset.includes(title));
+  assert.equal((fieldset.match(/aria-pressed="false"/g)||[]).length,4);
+  assert.doesNotMatch(fieldset,/€|EUR|<input[^>]*required/);
+ }
+ for(const slug of ['freedom','signature','concierge','honeymoon'])for(const suffix of ['','mobile-site/']){
+  const html=await(await render(`/en/collections/${slug}/${suffix}`)).text();
+  assert.doesNotMatch(html,/<legend>Exclusive Requests<\/legend>/);
+ }
+});

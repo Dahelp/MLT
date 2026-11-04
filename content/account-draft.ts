@@ -14,6 +14,7 @@ export type AccountJourneyDraft = {
   signatureTailored?: boolean;
   freedomPlus?: boolean;
   tailoredInterests?: string[];
+  exclusiveRequests?: string[];
   vehicle: string;
 };
 
