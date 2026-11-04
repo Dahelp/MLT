@@ -9,6 +9,9 @@ import { mapViews as views, mapCountryFiles as countryFiles, mapStatusLabels as 
 import { useRoutePoints } from "../useRoutePoints";
 import { mapPreviewCopy } from "../../content/map-preview";
 import MapPointPreview from "./MapPointPreview";
+import NearbyMapPoints from "./NearbyMapPoints";
+import { groupMapPoints, matchesMapCountry } from "../../content/map-markers";
+import { mapMarkerCopy } from "../../content/map-marker-copy";
 
 type Locale = "en" | "de" | "ru" | "it" | "pl";
 type RouteGeometry = { type: "LineString"; coordinates: [number, number][] };
@@ -17,6 +20,8 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
   const container = useRef<HTMLDivElement>(null); const mapRef = useRef<MapLibreMap | null>(null); const markersRef = useRef<Marker[]>([]);
   const [mapStatus, setMapStatus] = useState<"loading" | "ready" | "error">("loading"); const [routeStatus, setRouteStatus] = useState<"idle" | "loading" | "ready" | "error">("idle"); const t = labels[locale];
   const [previewId,setPreviewId]=useState<string|null>(null);
+  const [nearbyIds,setNearbyIds]=useState<string[]|null>(null);
+  const nearbySet=new Set(nearbyIds||[]),nearbyPoints=mapPoints.filter(point=>nearbySet.has(point.id));
   const preview=mapPoints.find(point=>point.id===previewId);
   useEffect(() => {
     if (!container.current || mapRef.current) return;
@@ -34,8 +39,34 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
   }, []);
   useEffect(() => { const map = mapRef.current; if (!map || mapStatus !== "ready") return; const view = views[country] || views.All; map.flyTo({ center: view.center, zoom: view.zoom, duration: 850 }); }, [country, mapStatus]);
   useEffect(() => {
-    const map = mapRef.current; if (!map || mapStatus !== "ready") return; markersRef.current.forEach((marker) => marker.remove());
-    markersRef.current = mapPoints.map((point, index) => { const active = selected.includes(point.id); const button = document.createElement("button"); button.className = `real-map-marker${active ? " selected" : ""}${country !== "All" && country !== point.country ? " muted" : ""}`; button.type = "button"; button.setAttribute("aria-label", `${mapPreviewCopy[locale].view} ${point.name}`); button.setAttribute("aria-haspopup", "dialog"); const number = document.createElement("span"); number.textContent = active ? "✓" : String(index + 1); const title = document.createElement("b"); title.textContent = point.name; button.append(number, title); button.onclick = () => setPreviewId(point.id); return new maplibregl.Marker({ element: button, anchor: "center" }).setLngLat(coordinates[point.id]).addTo(map); });
+    const map = mapRef.current; if (!map || mapStatus !== "ready") return;
+    const byId=new Map(mapPoints.map(point=>[point.id,point])),selectedIds=new Set(selected);
+    const renderMarkers=()=>{
+      markersRef.current.forEach(marker=>marker.remove());
+      const width=map.getContainer().clientWidth,height=map.getContainer().clientHeight;
+      const visible=mapPoints.filter(point=>coordinates[point.id]&&matchesMapCountry(point.country,country)).flatMap(point=>{
+        const projected=map.project(coordinates[point.id]);
+        return projected.x>=-52&&projected.y>=-52&&projected.x<=width+52&&projected.y<=height+52?[{id:point.id,x:projected.x,y:projected.y}]:[];
+      });
+      markersRef.current=groupMapPoints(visible).map(group=>{
+        const grouped=group.ids.length>1,active=group.ids.some(id=>selectedIds.has(id)),point=byId.get(group.ids[0])!;
+        const button=document.createElement("button"),symbol=document.createElement("span"),title=document.createElement("b");
+        const label=grouped?mapMarkerCopy[locale].group.replace("{count}",String(group.ids.length)):point.name;
+        const names=group.ids.slice(0,3).map(id=>byId.get(id)!.name).join(", ")+(group.ids.length>3?"…":"");
+        button.type="button";button.className=`real-map-marker${active?" selected":""}${grouped?" is-group":""}`;
+        button.setAttribute("aria-label",grouped?`${label}: ${names}`:`${mapPreviewCopy[locale].view} ${point.name}`);button.setAttribute("aria-haspopup","dialog");
+        if(grouped||active)symbol.textContent=grouped?String(group.ids.length):"✓";
+        else{
+          const svg=document.createElementNS("http://www.w3.org/2000/svg","svg"),path=document.createElementNS("http://www.w3.org/2000/svg","path"),circle=document.createElementNS("http://www.w3.org/2000/svg","circle");
+          svg.setAttribute("viewBox","0 0 24 24");svg.setAttribute("aria-hidden","true");path.setAttribute("d","M12 21s7-6.3 7-12A7 7 0 0 0 5 9c0 5.7 7 12 7 12Z");circle.setAttribute("cx","12");circle.setAttribute("cy","9");circle.setAttribute("r","2");svg.append(path,circle);symbol.append(svg);
+        }
+        title.textContent=grouped?names:label;title.setAttribute("aria-hidden","true");button.append(symbol,title);
+        button.onclick=()=>{if(grouped)setNearbyIds(group.ids);else setPreviewId(point.id);};
+        return new maplibregl.Marker({element:button,anchor:"center"}).setLngLat(map.unproject([group.x,group.y])).addTo(map);
+      });
+    };
+    renderMarkers();map.on("moveend",renderMarkers);map.on("resize",renderMarkers);
+    return()=>{map.off("moveend",renderMarkers);map.off("resize",renderMarkers);markersRef.current.forEach(marker=>marker.remove());markersRef.current=[];};
   }, [selected, country, mapStatus, locale, mapPoints, coordinates]);
   useEffect(() => {
     const map = mapRef.current; if (!map || mapStatus !== "ready") return; const source = map.getSource("route") as maplibregl.GeoJSONSource; const controller = new AbortController();
@@ -44,5 +75,5 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
     fetch(`https://router.project-osrm.org/route/v1/driving/${waypoints}?overview=full&geometries=geojson&steps=false`, { signal: controller.signal }).then((response) => { if (!response.ok) throw new Error("Routing failed"); return response.json(); }).then(async (data: { code?: string; routes?: { geometry: RouteGeometry; distance?: number }[] }) => { if (data.code !== "Ok" || !data.routes?.[0]) throw new Error("No route"); const geometry = data.routes[0].geometry; await source.setData({ type: "Feature", properties: {}, geometry }); if (controller.signal.aborted) return; onDistanceChange?.(typeof data.routes[0].distance === "number" ? Math.round(data.routes[0].distance / 1000) : null); const bounds = geometry.coordinates.reduce((box, coordinate) => box.extend(coordinate), new maplibregl.LngLatBounds(geometry.coordinates[0], geometry.coordinates[0])); map.fitBounds(bounds, { padding: 70, maxZoom: 7.5, duration: 900 }); setRouteStatus("ready"); }).catch((error) => { if (error.name !== "AbortError") { source.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [] } }); onDistanceChange?.(null); setRouteStatus("error"); } });
     return () => controller.abort();
   }, [selected, mapStatus, onDistanceChange, coordinates]);
-  return <><div ref={container} className={`real-route-map ${className}`.trim()} aria-label="Interactive road route map of Italy, Austria and Germany">{mapStatus !== "ready" && <div className={`map-status ${mapStatus}`} role="status">{mapStatus === "error" ? t.error : t.loading}</div>}{mapStatus === "ready" && routeStatus !== "idle" && <div className={`route-calculation-status ${routeStatus}`} aria-live="polite">{routeStatus === "loading" ? t.routing : routeStatus === "ready" ? t.ready : t.routeError}</div>}</div>{preview&&<MapPointPreview key={preview.id} point={preview} locale={locale} selected={selected.includes(preview.id)} onSelect={selectable?onToggle:undefined} onClose={()=>setPreviewId(null)}/>}</>;
+  return <><div ref={container} className={`real-route-map ${className}`.trim()} aria-label="Interactive road route map of Italy, Austria and Germany">{mapStatus !== "ready" && <div className={`map-status ${mapStatus}`} role="status">{mapStatus === "error" ? t.error : t.loading}</div>}{mapStatus === "ready" && routeStatus !== "idle" && <div className={`route-calculation-status ${routeStatus}`} aria-live="polite">{routeStatus === "loading" ? t.routing : routeStatus === "ready" ? t.ready : t.routeError}</div>}</div>{nearbyPoints.length>0&&<NearbyMapPoints points={nearbyPoints} selected={selected} locale={locale} onClose={()=>setNearbyIds(null)} onPick={id=>{setNearbyIds(null);setPreviewId(id);}}/>}{preview&&<MapPointPreview key={preview.id} point={preview} locale={locale} selected={selected.includes(preview.id)} onSelect={selectable?onToggle:undefined} onClose={()=>setPreviewId(null)}/>}</>;
 }
