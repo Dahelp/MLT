@@ -1,4 +1,5 @@
 "use client";
+import {encodeScoutPhoto} from '../../content/scout-photos';
 
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { scoutCopy, scoutFormat } from "../../content/scout-i18n";
@@ -71,10 +72,7 @@ export default function PhotoCapture({ locale, index, onSave, onClose, galleryOn
   const save = () => {
     try {
       if (!image || !canvas.current) return;
-      let result = canvas.current.toDataURL("image/jpeg", .86);
-      if (result.length > 1900000) result = canvas.current.toDataURL("image/jpeg", .7);
-      if (result.length > 2000000) throw new Error(t.tooLarge);
-      onSave(result);
+      onSave(encodeScoutPhoto(canvas.current,t.tooLarge));
     } catch (value) { setError((value as Error).message); }
   };
   const move = (event: PointerEvent<HTMLDivElement>) => {

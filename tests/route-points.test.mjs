@@ -23,3 +23,10 @@ test('invalid media schemes and malformed gallery data never become preview sour
  assert.deepEqual(point.photos,['/a.jpg']);assert.equal(point.video,null);
  assert.deepEqual(publishedRoutePoint({...row,photos_json:'{}',video:undefined}).photos,[]);
 });
+
+test('public map keeps all ten photos and exposes amenities only for accommodation',()=>{
+ const photos=Array.from({length:10},(_,i)=>'/uploads/scout/photo-'+i+'.webp');
+ const stay=publishedRoutePoint({...row,category:'stay',amenities:'Pool & sauna',photos_json:JSON.stringify(photos)});
+ assert.deepEqual(stay.photos,photos);assert.equal(stay.amenities,'Pool & sauna');
+ assert.equal(publishedRoutePoint({...row,category:'sight',amenities:'stale'}).amenities,'');
+});

@@ -31,6 +31,7 @@ function mlt_scout_schema(PDO $db): void {
         description TEXT NOT NULL,
         parking VARCHAR(500) NOT NULL,
         booking VARCHAR(500) NOT NULL,
+        amenities VARCHAR(1500) NULL,
         location_website VARCHAR(2048) NULL,
         contact_phone VARCHAR(80) NULL,
         photos_json TEXT NOT NULL,
@@ -45,7 +46,7 @@ function mlt_scout_schema(PDO $db): void {
         INDEX scout_status_created (status,created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN video_json TEXT NULL'); } catch (PDOException $error) {}
-    foreach (['location_website'=>'VARCHAR(2048)', 'contact_phone'=>'VARCHAR(80)', 'subcategories_json'=>'TEXT', 'subcategory_other'=>'VARCHAR(500)'] as $column=>$type) {
+    foreach (['location_website'=>'VARCHAR(2048)', 'contact_phone'=>'VARCHAR(80)', 'subcategories_json'=>'TEXT', 'subcategory_other'=>'VARCHAR(500)', 'amenities'=>'VARCHAR(1500)'] as $column=>$type) {
         try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN '.$column.' '.$type.' NULL'); }
         catch (PDOException $error) {
             if ((int)($error->errorInfo[1]??0)!==1060 && !str_contains($error->getMessage(),'duplicate column name')) throw $error;
@@ -62,6 +63,7 @@ function mlt_scout_card(array $row): array {
         'subcategories'=>json_decode($row['subcategories_json']??'[]',true) ?: [], 'subcategoryOther'=>$row['subcategory_other']??'',
         'latitude'=>(string)$row['latitude'], 'longitude'=>(string)$row['longitude'],
         'description'=>$row['description'], 'parking'=>$row['parking'], 'booking'=>$row['booking'],
+        'amenities'=>$row['category']==='stay'?($row['amenities']??''):'',
         'locationWebsite'=>$row['location_website']??'', 'contactPhone'=>$row['contact_phone']??'',
         'photos'=>json_decode($row['photos_json'],true) ?: [], 'video'=>json_decode($row['video_json']??'null',true), 'status'=>$row['status'],
         'reviewNote'=>$row['review_note'] ?? '', 'version'=>(int)$row['version'],
@@ -79,7 +81,7 @@ function mlt_scout_text(array $body, string $key, int $maximum, bool $required =
     return $value;
 }
 
-function mlt_scout_fields(array $body, bool $includeSubcategories = false): array {
+function mlt_scout_fields(array $body, bool $includeSubcategories = false, bool $includeAmenities = false): array {
     $category = mlt_scout_text($body,'category',24,true);
     if (!in_array($category,['gourmet','stay','sight','experience'],true)) mlt_scout_error(400,'category');
     $coordinates = [];
@@ -98,7 +100,8 @@ function mlt_scout_fields(array $body, bool $includeSubcategories = false): arra
     $fields=[mlt_scout_text($body,'scoutName',120,true), $category, mlt_scout_text($body,'title',180,true), mlt_scout_text($body,'country',100,true), ...$coordinates, mlt_scout_text($body,'description',3000,true), mlt_scout_text($body,'parking',500), mlt_scout_text($body,'booking',500), $website, mlt_scout_text($body,'contactPhone',80)];
     if (!$includeSubcategories) return $fields;
     [$subcategories,$other]=mlt_scout_subcategories($body,$category);
-    return [...$fields,json_encode($subcategories,JSON_THROW_ON_ERROR),$other];
+    $fields=[...$fields,json_encode($subcategories,JSON_THROW_ON_ERROR),$other];
+    return $includeAmenities ? [...$fields,$category==='stay'?mlt_scout_text($body,'amenities',1500):''] : $fields;
 }
 
 function mlt_scout_subcategories(array $body, string $category): array {
@@ -116,7 +119,8 @@ function mlt_scout_subcategories(array $body, string $category): array {
 
 /** Validate every image before writing any files. Retained paths must belong to this card. */
 function mlt_scout_photos(mixed $input, array $retained): array {
-    if (!is_array($input) || count($input)<2 || count($input)>4) mlt_scout_error(400,'photoCount');
+    $limits=json_decode((string)file_get_contents(dirname(__DIR__).'/data/scout-media.json'),true,32,JSON_THROW_ON_ERROR);
+    if (!is_array($input) || count($input)<($limits['photoMin']??2) || count($input)>($limits['photoMax']??10)) mlt_scout_error(400,'photoCount');
     $photos = [];
     foreach ($input as $value) {
         if (!is_string($value)) mlt_scout_error(400,'invalidPhoto');

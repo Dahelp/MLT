@@ -1,4 +1,6 @@
 "use client";
+import {mapCountryLabel} from "../content/map-place-labels";
+import {mapCopy as mapUi} from "../content/map";
 import ChatLink from "./ChatLink";
 
 import { useEffect } from "react";
@@ -102,7 +104,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
 
     <section className="light-map" id="smart-map">
       <div className="smart-map-canvas" data-home-reveal="scale">
-        <div className="smart-map-country-tabs" aria-label={locale === "ru" ? "Выбор страны" : "Choose country"}>{["All", "Italy", "Austria", "Germany"].map((item) => <button key={item} className={mapCountry === item ? "active" : ""} onClick={() => setMapCountry(item)}>{locale === "ru" ? ({ All: "Все", Italy: "Италия", Austria: "Австрия", Germany: "Германия" } as Record<string, string>)[item] : locale === "de" && item === "All" ? "Alle" : item}</button>)}</div>
+        <div className="smart-map-country-tabs" aria-label={mapUi[locale].country}>{["All", "Italy", "Austria", "Germany"].map((item) => <button key={item} className={mapCountry === item ? "active" : ""} onClick={() => setMapCountry(item)}>{mapCountryLabel(item,locale)}</button>)}</div>
         <a className="smart-map-open" href={localPath("/smart-map/")}>{locale === "ru" ? "Смотреть карту" : locale === "de" ? "Karte ansehen" : locale === "it" ? "Apri la mappa" : locale === "pl" ? "Otwórz mapę" : "View map"}</a>
         <RealRouteMap selected={mapSelection} country={mapCountry} onToggle={toggleMapPoint} locale={locale} className="home-route-map" onDistanceChange={onDistanceChange} />
       </div>

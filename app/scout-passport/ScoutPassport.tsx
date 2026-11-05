@@ -6,18 +6,20 @@ import { changeSiteLocale, siteIdentity } from "../../content/site";
 import { scoutCopy, scoutFormat, scoutPath, scoutCategoriesFor } from "../../content/scout-i18n";
 import type { Locale } from "../../content/i18n";
 import { LanguageMenu } from "../LanguageMenu";
+import ScoutAmenities from "./ScoutAmenities";
 import ScoutSubcategories from "./ScoutSubcategories";
 import VideoSelection from "./VideoSelection";
 import {uploadScoutVideo,type ScoutVideoDraft} from "../../content/scout-video";
 import PhotoCapture from "./PhotoCapture";
 import { newScoutIdentity, scoutDraft } from "./draft";
 
-const photoSlots = () => ["", "", "", ""];
+import {scoutPhotoSlots as photoSlots,scoutPhotoLimits,prepareScoutPhotos} from "../../content/scout-photos";
 
 export default function ScoutPassport({ locale = "ru" }: { locale?: Locale }) {
   const t = scoutCopy[locale].form, statuses = scoutCopy[locale].statuses;
-  const frames = Object.values(scoutCopy[locale].frames), categories = scoutCategoriesFor(locale);
+  const categories = scoutCategoriesFor(locale);
   const [fields, setFields] = useState<ScoutFields>({ ...emptyScoutFields }), [photos, setPhotos] = useState<string[]>(photoSlots);
+  const frames=photos.map((_,index)=>Object.values(scoutCopy[locale].frames)[index]||scoutCopy[locale].frames.extra);
   const [video,setVideo]=useState<ScoutVideoDraft|null>(null),[videoProgress,setVideoProgress]=useState<number|null>(null);
   const [identity, setIdentity] = useState({ requestId: "", editToken: "" }), [card, setCard] = useState<ScoutCard | null>(null);
   const [loaded, setLoaded] = useState(false), [loadFailed, setLoadFailed] = useState(false), [busy, setBusy] = useState(false), [camera, setCamera] = useState<number | null>(null);
@@ -48,12 +50,12 @@ export default function ScoutPassport({ locale = "ru" }: { locale?: Locale }) {
           if (!active) return;
           const restored = await scoutDraft("get", `${reference}:${result.card.version}`).catch(() => undefined);
           setVideo(restored && "video" in restored ? restored.video || null : result.card.video || null);
-          setCard(result.card); setFields({ ...emptyScoutFields, ...(restored?.fields || result.card) }); setPhotos(restored?.photos || [...result.card.photos, ...photoSlots()].slice(0, 4));
+          setCard(result.card); setFields({ ...emptyScoutFields, ...(restored?.fields || result.card) }); setPhotos(photoSlots(restored?.photos || result.card.photos));
           setIdentity({ requestId: restored?.requestId || crypto.randomUUID(), editToken });
         } else {
           const restored = await scoutDraft("get", "new").catch(() => undefined);
           if (!active) return;
-          if (restored) { setVideo(restored.video || null); setFields({ ...emptyScoutFields, ...restored.fields }); setPhotos(restored.photos); setIdentity({ requestId: restored.requestId, editToken: restored.editToken }); setSaved(t.draftRestored); }
+          if (restored) { setVideo(restored.video || null); setFields({ ...emptyScoutFields, ...restored.fields }); setPhotos(photoSlots(restored.photos)); setIdentity({ requestId: restored.requestId, editToken: restored.editToken }); setSaved(t.draftRestored); }
           else setIdentity(newScoutIdentity());
         }
       } catch (value) { if (active) { setError(value instanceof Error ? value.message : scoutCopy[locale].errors.requestFailed); setLoadFailed(true); } }
@@ -71,7 +73,8 @@ export default function ScoutPassport({ locale = "ru" }: { locale?: Locale }) {
     return () => clearTimeout(timer);
   }, [fields, photos, video, identity, loaded, editable, loadFailed, draftKey]);
 
-  const change = (name: Exclude<keyof ScoutFields, "subcategories">, value: string) => setFields(current => name === "category" ? ({ ...current, category: value, subcategories: [], subcategoryOther: "" }) : ({ ...current, [name]: value }));
+  const change = (name: Exclude<keyof ScoutFields, "subcategories">, value: string) => setFields(current => name === "category" ? ({ ...current, category: value, subcategories: [], subcategoryOther: "", amenities: "" }) : ({ ...current, [name]: value }));
+  const addPhoto=()=>{if(photos.length>=scoutPhotoLimits.max)return;setCamera(photos.length);};
   const locate = () => {
     if (!navigator.geolocation) { setGpsMessage(t.gpsUnavailable); return; }
     const request = ++gpsRequest.current;
@@ -89,13 +92,14 @@ export default function ScoutPassport({ locale = "ru" }: { locale?: Locale }) {
     event.preventDefault();
     if (formLocked) return;
     const attached = photos.filter(Boolean);
-    if (attached.length < 2) { setError(scoutCopy[locale].errors.photoCount); message.current?.focus(); return; }
+    if (attached.length < scoutPhotoLimits.min || attached.length > scoutPhotoLimits.max) { setError(scoutCopy[locale].errors.photoCount); message.current?.focus(); return; }
     const website = new FormData(event.currentTarget).get("website") || "";
     setBusy(true); setError("");
     try {
+      const submittedPhotos=await prepareScoutPhotos(attached,locale);
       const selectedVideo=await uploadScoutVideo(video,identity.editToken,locale,setVideoProgress);
       setVideoProgress(null);
-      const result = await scoutRequest(card ? "resubmit" : "submit", { ...fields, ...identity, photos: attached, video:selectedVideo, ...(card ? { reference: card.reference, version: card.version } : {}), website }, false, locale);
+      const result = await scoutRequest(card ? "resubmit" : "submit", { ...fields, ...identity, photos: submittedPhotos, video:selectedVideo, ...(card ? { reference: card.reference, version: card.version } : {}), website }, false, locale);
       // Keep the capability in the shareable URL before clearing the local draft.
       history.replaceState(null, "", scoutEditLink(result.card.reference, identity.editToken, locale));
       setCard(result.card); setSaved("");
@@ -127,11 +131,11 @@ export default function ScoutPassport({ locale = "ru" }: { locale?: Locale }) {
         <fieldset disabled={formLocked}><section className="scout-section"><div className="scout-section-title"><span>01</span><h2>{t.sectionScout}</h2></div><label>{t.scoutName} <em>*</em><input required name="scoutName" autoComplete="name" maxLength={120} value={fields.scoutName} placeholder={t.scoutPlaceholder} onChange={event => change("scoutName", event.target.value)} /></label></section>
         <section className="scout-section"><div className="scout-section-title"><span>02</span><h2>{t.sectionCategory}</h2></div><div className="scout-categories" role="radiogroup" aria-label={t.sectionCategory}>{categories.map(category => <label key={category.id} className={fields.category === category.id ? "selected" : ""}><input type="radio" name="category" value={category.id} checked={fields.category === category.id} onChange={() => change("category", category.id)} /><strong>{category.title}</strong><span>{category.hint}</span></label>)}</div><ScoutSubcategories category={fields.category} selected={fields.subcategories} other={fields.subcategoryOther} locale={locale} onChange={(subcategories, subcategoryOther) => setFields(current => ({ ...current, subcategories, subcategoryOther }))}/></section>
         <section className="scout-section"><div className="scout-section-title"><span>03</span><h2>{t.sectionLocation}</h2></div><label>{t.title} <em>*</em><input name="title" required maxLength={180} value={fields.title} placeholder={t.titlePlaceholder} onChange={event => change("title", event.target.value)} /></label><label>{t.country} <em>*</em><input required name="country" maxLength={100} value={fields.country} placeholder={t.countryPlaceholder} onChange={event => change("country", event.target.value)} /></label><button type="button" className="scout-gps" disabled={gps} onClick={locate}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" /><circle cx="12" cy="12" r="2" /><path d="M12 2v3m0 14v3M2 12h3m14 0h3" /></svg>{gps ? t.gpsBusy : t.gps}</button><div className="scout-pair"><label>{t.latitude} <em>*</em><input required name="latitude" type="number" step="any" min="-90" max="90" inputMode="decimal" value={fields.latitude} placeholder="45.983261" onChange={event => { gpsRequest.current++; setGps(false); change("latitude", event.target.value); }} /></label><label>{t.longitude} <em>*</em><input required name="longitude" type="number" step="any" min="-180" max="180" inputMode="decimal" value={fields.longitude} placeholder="9.259831" onChange={event => { gpsRequest.current++; setGps(false); change("longitude", event.target.value); }} /></label></div><p className="scout-hint" role="status">{gpsMessage || t.gpsHint}</p></section>
-        <section className="scout-section"><div className="scout-section-title"><span>04</span><h2>{t.sectionDetails}</h2></div><label>{t.description} <em>*</em><textarea required name="description" maxLength={3000} rows={4} value={fields.description} placeholder={t.descriptionPlaceholder} onChange={event => change("description", event.target.value)} /></label><div className="scout-pair"><label>{t.parking}<input name="parking" maxLength={500} value={fields.parking} placeholder={t.parkingPlaceholder} onChange={event => change("parking", event.target.value)} /></label><label>{t.booking}<input name="booking" maxLength={500} value={fields.booking} placeholder={t.bookingPlaceholder} onChange={event => change("booking", event.target.value)} /></label></div><div className="scout-pair"><label>{t.locationWebsite}<input name="locationWebsite" type="text" inputMode="url" autoCapitalize="none" autoCorrect="off" maxLength={2048} value={fields.locationWebsite} placeholder={t.locationWebsitePlaceholder} onChange={event => change("locationWebsite", event.target.value)} /></label><label>{t.contactPhone}<input name="contactPhone" type="tel" maxLength={80} value={fields.contactPhone} placeholder={t.contactPhonePlaceholder} onChange={event => change("contactPhone", event.target.value)} /></label></div></section>
-        <section className="scout-section"><div className="scout-section-title"><span>05</span><h2>{t.sectionPhotos}</h2></div><p className="scout-photo-description">{t.photosHelp}</p><div className="scout-photos">{frames.map((title, index) => <div className="scout-photo" key={index}><button type="button" onClick={() => setCamera(index)} aria-label={scoutFormat(photos[index] ? t.retakeFrame : t.addFrame, { number: index + 1, title })}>{photos[index] ? <img src={photos[index]} alt={scoutFormat(t.frame, { number: index + 1 }) + ": " + title} /> : <><span className="scout-plus">+</span><strong>{scoutFormat(t.frame, { number: index + 1 })}</strong><span>{title}</span></>}<i>3:4</i></button>{photos[index] && <button type="button" className="scout-photo-remove" onClick={() => setPhotos(current => current.map((photo, slot) => slot === index ? "" : photo))} aria-label={scoutFormat(t.removeFrame, { number: index + 1 })}>×</button>}</div>)}</div><p className="scout-hint">{scoutFormat(t.photoCount, { count: photos.filter(Boolean).length })}</p></section>
+        <section className="scout-section"><div className="scout-section-title"><span>04</span><h2>{t.sectionDetails}</h2></div><label>{t.description} <em>*</em><textarea required name="description" maxLength={3000} rows={4} value={fields.description} placeholder={t.descriptionPlaceholder} onChange={event => change("description", event.target.value)} /></label><ScoutAmenities category={fields.category} value={fields.amenities} locale={locale} onChange={value=>change("amenities",value)}/><div className="scout-pair"><label>{t.parking}<input name="parking" maxLength={500} value={fields.parking} placeholder={t.parkingPlaceholder} onChange={event => change("parking", event.target.value)} /></label><label>{t.booking}<input name="booking" maxLength={500} value={fields.booking} placeholder={t.bookingPlaceholder} onChange={event => change("booking", event.target.value)} /></label></div><div className="scout-pair"><label>{t.locationWebsite}<input name="locationWebsite" type="text" inputMode="url" autoCapitalize="none" autoCorrect="off" maxLength={2048} value={fields.locationWebsite} placeholder={t.locationWebsitePlaceholder} onChange={event => change("locationWebsite", event.target.value)} /></label><label>{t.contactPhone}<input name="contactPhone" type="tel" maxLength={80} value={fields.contactPhone} placeholder={t.contactPhonePlaceholder} onChange={event => change("contactPhone", event.target.value)} /></label></div></section>
+        <section className="scout-section"><div className="scout-section-title"><span>05</span><h2>{t.sectionPhotos}</h2></div><p className="scout-photo-description">{t.photosHelp}</p><div className="scout-photos">{frames.map((title, index) => <div className="scout-photo" key={index}><button type="button" onClick={() => setCamera(index)} aria-label={scoutFormat(photos[index] ? t.retakeFrame : t.addFrame, { number: index + 1, title })}>{photos[index] ? <img src={photos[index]} alt={scoutFormat(t.frame, { number: index + 1 }) + ": " + title} /> : <><span className="scout-plus">+</span><strong>{scoutFormat(t.frame, { number: index + 1 })}</strong><span>{title}</span></>}<i>3:4</i></button>{photos[index] && <button type="button" className="scout-photo-remove" onClick={() => setPhotos(current => current.map((photo, slot) => slot === index ? "" : photo))} aria-label={scoutFormat(t.removeFrame, { number: index + 1 })}>×</button>}</div>)}</div>{photos.length<scoutPhotoLimits.max&&<button type="button" className="scout-add-photo" onClick={addPhoto}>{t.addPhoto}</button>}<p className="scout-hint">{scoutFormat(t.photoCount, { count: photos.filter(Boolean).length, max:scoutPhotoLimits.max })}</p></section>
         <VideoSelection value={video} onChange={setVideo} locale={locale} disabled={formLocked}/><div className="scout-submit"><label className="scout-trap" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label><p>{t.checkDetails} <span>{t.required}</span></p><button className="scout-primary" disabled={formLocked || gps} type="submit">{busy ? videoProgress!==null ? scoutFormat(scoutCopy[locale].video.uploading,{percent:videoProgress}) : t.sending : card ? t.resubmit : t.submit}</button><span className="scout-save-state" role="status">{loaded ? saved : t.loading}</span></div></fieldset>
       </form>}
     </div>
-    {camera !== null && <PhotoCapture locale={locale} index={camera} onClose={() => setCamera(null)} onSave={photo => { setPhotos(current => current.map((value, index) => index === camera ? photo : value)); setCamera(null); }} />}
+    {camera !== null && <PhotoCapture locale={locale} index={camera} onClose={() => setCamera(null)} onSave={photo => { setPhotos(current => camera===current.length?[...current,photo]:current.map((value, index) => index === camera ? photo : value)); setCamera(null); }} />}
   </main>;
 }

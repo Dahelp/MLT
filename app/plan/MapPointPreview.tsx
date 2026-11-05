@@ -1,6 +1,7 @@
 "use client";
 
 import {useEffect,useId,useRef,useState} from "react";
+import {mapCountryLabel,mapTypeLabel} from "../../content/map-place-labels";
 import type {Locale} from "../../content/i18n";
 import type {RoutePoint} from "../../content/route-points";
 import {mapPreviewCopy} from "../../content/map-preview";
@@ -31,15 +32,15 @@ export default function MapPointPreview({point,locale,selected,onSelect,onClose,
     </div>
     <div className="map-point-preview-story">
       {onBack&&<button className="map-point-preview-back" type="button" onClick={onBack}>{t.back}</button>}
-      <header className="map-point-preview-header"><p>{point.country} · {point.type}</p><h3 id={heading}>{point.name}</h3></header>
+      <header className="map-point-preview-header"><p>{mapCountryLabel(point.country,locale)} · {mapTypeLabel(point.type,locale)}</p><h3 id={heading}>{point.name}</h3></header>
       {description&&<p className="map-point-preview-excerpt">{description}</p>}
-      {(description||point.parking||point.booking)&&<button type="button" className="map-point-preview-more" aria-expanded={expanded} aria-controls={detailsId} onClick={()=>setExpanded(value=>!value)}>{expanded?t.less:t.more}</button>}
-      <span className="map-point-preview-signature" aria-live="polite">{selected?`✓ ${t.selected}`:"MLT · Curated places"}</span>
+      {(description||point.parking||point.booking||point.amenities)&&<button type="button" className="map-point-preview-more" aria-expanded={expanded} aria-controls={detailsId} onClick={()=>setExpanded(value=>!value)}>{expanded?t.less:t.more}</button>}
+      <span className="map-point-preview-signature" aria-live="polite">{selected?`✓ ${t.selected}`:t.curated}</span>
     </div>
     {onSelect&&<div className="map-point-preview-footer"><button type="button" aria-pressed={selected} onClick={()=>onSelect(point.id)}>{selected?t.remove:t.select}</button></div>}
     <div id={detailsId} className="map-point-preview-details" hidden={!expanded}>
       {description&&<p>{description}</p>}
-      {(point.parking||point.booking)&&<dl className="map-point-preview-logistics">{point.parking&&<div><dt>{t.parking}</dt><dd>{point.parking}</dd></div>}{point.booking&&<div><dt>{t.booking}</dt><dd>{point.booking}</dd></div>}</dl>}
+      {(point.parking||point.booking||point.amenities)&&<dl className="map-point-preview-logistics">{point.amenities&&<div><dt>{t.amenities}</dt><dd>{point.amenities}</dd></div>}{point.parking&&<div><dt>{t.parking}</dt><dd>{point.parking}</dd></div>}{point.booking&&<div><dt>{t.booking}</dt><dd>{point.booking}</dd></div>}</dl>}
     </div>
   </section>;
 }

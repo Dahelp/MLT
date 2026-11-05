@@ -1,4 +1,5 @@
 "use client";
+import {mapCountryLabel} from "../content/map-place-labels";
 import ChatLink from "./ChatLink";
 
 import { useMapSelection } from "./useMapSelection";
@@ -18,7 +19,7 @@ export default function SmartMapPage({ locale }: { locale: SiteLanguage }) {
     <section className="smart-map-page-intro photo-hero"><HeroBannerImage name="smart-map"/><p className="light-section-label">{t.eyebrow}</p><h1>{t.title}</h1><p>{t.intro}</p></section>
     <section className="light-map smart-map-page-panel" aria-label={t.eyebrow}>
       <div className="smart-map-canvas">
-        <div className="smart-map-country-tabs" aria-label={t.country}>{countries.map(item => <button key={item} type="button" className={country === item ? "active" : ""} onClick={() => setCountry(item)}>{item === "All" ? t.all : item}</button>)}</div>
+        <div className="smart-map-country-tabs" aria-label={t.country}>{countries.map(item => <button key={item} type="button" className={country === item ? "active" : ""} onClick={() => setCountry(item)}>{mapCountryLabel(item,locale)}</button>)}</div>
         <RealRouteMap selected={selection} country={country} onToggle={toggle} locale={locale} className="home-route-map" onDistanceChange={onDistanceChange} />
       </div>
       <div className="map-copy"><p className="light-section-label">{t.selected}</p><h2>{t.title}</h2><MapSelectionList locale={locale} selected={selection} distance={distance} onToggle={toggle}/><a className="bronze-button smart-map-collection-button" href={`/${locale}/#collections`}>{t.choose}</a></div>

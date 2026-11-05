@@ -42,3 +42,11 @@ test('the preflight core remains compatible with the deployed older Scout entry 
  assert.equal(result[0].length,11);assert.deepEqual(result[1].slice(0,11),result[0]);
  assert.deepEqual(JSON.parse(result[1][11]),['nature']);assert.equal(result[1][12],'');
 });
+
+test('amenities validation supports stays while preserving old preflight field signatures',()=>{
+ const fields={scoutName:'Test',category:'stay',title:'Stay',country:'Italy',latitude:42,longitude:12,description:'Test description',amenities:'Wi-Fi, pool'};
+ const validate=body=>JSON.parse(execFileSync(process.env.PHP_BINARY||'php',['-r',"require 'public/api/scout-core.php'; $body=json_decode(stream_get_contents(STDIN),true); echo json_encode([mlt_scout_fields($body),mlt_scout_fields($body,true),mlt_scout_fields($body,true,true)]);"],{cwd:new URL('../',import.meta.url),encoding:'utf8',input:JSON.stringify(body)}));
+ const result=validate(fields);assert.equal(result[0].length,11);assert.equal(result[1].length,13);assert.equal(result[2].length,14);assert.equal(result[2][13],fields.amenities);
+ assert.equal(validate({...fields,category:'sight'})[2][13],'');
+ assert.equal(validate({...fields,amenities:'x'.repeat(1501)}).code,'requiredFields');
+});

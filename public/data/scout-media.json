@@ -1,1 +1,1 @@
-{ "videoMaxBytes": 52428800, "videoChunkBytes": 786432 }
+{ "videoMaxBytes": 52428800, "videoChunkBytes": 786432, "photoMin": 2, "photoMax": 10, "photoMaxDataChars": 700000 }

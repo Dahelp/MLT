@@ -5,9 +5,9 @@ import type { Locale } from "./i18n";
 export const scoutCategories = scoutCategoriesFor("ru");
 export const scoutStatuses = scoutCopy.ru.statuses;
 export type ScoutStatus = keyof typeof scoutStatuses;
-export type ScoutFields = { scoutName: string; category: string; subcategories: string[]; subcategoryOther: string; title: string; country: string; latitude: string; longitude: string; description: string; parking: string; booking: string; locationWebsite: string; contactPhone: string };
+export type ScoutFields = { scoutName: string; category: string; subcategories: string[]; subcategoryOther: string; title: string; country: string; latitude: string; longitude: string; description: string; parking: string; booking: string; amenities: string; locationWebsite: string; contactPhone: string };
 export type ScoutCard = ScoutFields & { id: number; reference: string; photos: string[]; video?: ScoutVideoInfo | null; status: ScoutStatus; reviewNote: string; version: number; publishedPointId: number | null; isPublished: boolean; createdAt: string; updatedAt: string };
-export const emptyScoutFields: ScoutFields = { scoutName: "", category: "gourmet", subcategories: [], subcategoryOther: "", title: "", country: "", latitude: "", longitude: "", description: "", parking: "", booking: "", locationWebsite: "", contactPhone: "" };
+export const emptyScoutFields: ScoutFields = { scoutName: "", category: "gourmet", subcategories: [], subcategoryOther: "", title: "", country: "", latitude: "", longitude: "", description: "", parking: "", booking: "", amenities: "", locationWebsite: "", contactPhone: "" };
 
 export async function scoutRequest(action: string, payload: object = {}, admin = false, locale: Locale = "ru") {
   const t = scoutCopy[locale].errors;

@@ -9,7 +9,7 @@ export default function ExclusiveRequestsEditor({ raw, reference, locale, disabl
   request: (action: string, payload: object) => Promise<unknown>; onSaved: () => Promise<void>;
 }) {
   const [busy, setBusy] = useState(false), [message, setMessage] = useState('');
-  const items = parseExclusiveRequests(raw), copy = exclusiveCopy(locale);
+  const items = parseExclusiveRequests(raw,locale), copy = exclusiveCopy(locale);
   if (!items.length) return null;
   return <form className={`journey-editor ${styles.editor}`} onSubmit={async event => {
     event.preventDefault();
@@ -20,7 +20,7 @@ export default function ExclusiveRequestsEditor({ raw, reference, locale, disabl
       await onSaved(); setMessage(copy.saved);
     } catch (error) { setMessage((error as Error).message); } finally { setBusy(false); }
   }}>
-    <h3>Exclusive Requests</h3>
+    <h3>{copy.title}</h3>
     {items.map(item => <label key={item.id}>{item.title}<small>{copy.price}</small><input name={item.id} type="number" min="0" max="100000" step="0.01" required disabled={disabled || busy} defaultValue={item.price ?? ''}/></label>)}
     <small>{copy.included}</small>
     <button disabled={disabled || busy}>{copy.save}</button>

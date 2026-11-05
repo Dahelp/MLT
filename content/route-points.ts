@@ -4,12 +4,12 @@ export type RoutePoint = {
   id: string; country: string; name: string; type: string; className: string;
   description?: string; descriptions?: Partial<Record<Locale,string>>;
   photos?: string[]; video?: {path: string; mime: string} | null;
-  parking?: string; booking?: string;
+  parking?: string; booking?: string; amenities?: string;
 };
 export type PointResponse = {
   slug: string; title: string; country_name: string; latitude: string | number;
   longitude: string | number; category?: string; description?: string;
-  image_path?: string; photos_json?: string | null; parking?: string; booking?: string;
+  image_path?: string; photos_json?: string | null; parking?: string; booking?: string; amenities?: string;
   video?: {path?: unknown; mime?: unknown} | null;
 };
 const categoryNames: Record<string,string> = {gourmet:"Gourmet",stay:"Stay",sight:"Sight",experience:"Experience"};
@@ -25,5 +25,5 @@ export function publishedRoutePoint(row: PointResponse): RoutePoint | null {
   if (!images.length && imagePath(row.image_path)) images.push(row.image_path);
   const video=row.video && typeof row.video.path==="string" && /^\/uploads\/scout-video\/[a-f0-9]{48}\.(?:mp4|mov|webm)$/.test(row.video.path)
     ? {path:row.video.path,mime:typeof row.video.mime==="string"?row.video.mime:""} : null;
-  return {id:row.slug,name:row.title,country:row.country_name||"",type:categoryNames[row.category||""]||"MLT location",className:"pin-catalog",description:typeof row.description==="string"?row.description:"",photos:[...new Set(images)].slice(0,8),video,parking:typeof row.parking==="string"?row.parking:"",booking:typeof row.booking==="string"?row.booking:""};
+  return {id:row.slug,name:row.title,country:row.country_name||"",type:categoryNames[row.category||""]||"MLT location",className:"pin-catalog",description:typeof row.description==="string"?row.description:"",photos:[...new Set(images)].slice(0,10),video,parking:typeof row.parking==="string"?row.parking:"",amenities:row.category==="stay"&&typeof row.amenities==="string"?row.amenities:"",booking:typeof row.booking==="string"?row.booking:""};
 }

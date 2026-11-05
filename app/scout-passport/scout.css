@@ -130,3 +130,4 @@
   .scout-receipt{padding:24px 16px}
   .scout-camera{padding:16px}
 }
+.scout-add-photo{display:flex;align-items:center;justify-content:center;min-height:54px;padding:12px 24px;border:1px solid var(--mlt-bronze-dark);border-radius:var(--mlt-radius-control);background:transparent;color:var(--mlt-nav-ink);font:var(--mlt-text-body)/1.4 var(--mlt-font-ui);cursor:pointer}

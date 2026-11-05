@@ -150,6 +150,16 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.equal((await request({ action: 'list', search: 'Updated location', status: 'rejected' }, 'admin')).data.total, 1);
     assert.equal((await readdir(path.join(directory, 'uploads/scout'))).length, 3, 'Validation and retries must not leak duplicate image files');
     const get = await fetch(`http://127.0.0.1:${port}/api/scout.php?action=list`); assert.equal(get.status, 405);
+    const stayEdit={...card,action:'admin_update',requestId:randomUUID(),category:'stay',subcategories:[],subcategoryOther:'',amenities:'Wi-Fi, pool & sauna',photos:Array(10).fill(portrait),video:card.video.path};
+    assert.equal((await request({...stayEdit,photos:Array(11).fill(portrait)},'admin')).data.code,'photoCount');
+    assert.equal((await request({...stayEdit,amenities:'x'.repeat(1501)},'admin')).status,400);
+    const ten=await request(stayEdit,'admin');assert.equal(ten.status,200,JSON.stringify(ten.data));card=ten.data.card;
+    assert.equal(card.photos.length,10);assert.equal(new Set(card.photos).size,10);assert.equal(card.amenities,stayEdit.amenities);
+    assert.equal((await request({action:'read',reference:card.reference,editToken})).data.card.amenities,stayEdit.amenities);
+    await command('moderate',{status:'accepted'});await command('publish');
+    points=(await request({action:'points'})).data.points;assert.equal(points.length,1);assert.equal(points[0].amenities,stayEdit.amenities);assert.equal(JSON.parse(points[0].photos_json).length,10);
+    const changed=await request({...stayEdit,requestId:randomUUID(),version:card.version,category:'experience',photos:card.photos},'admin');assert.equal(changed.status,200);assert.equal(changed.data.card.amenities,'');assert.equal((await request({action:'points'})).data.points[0].amenities,'');
+
   } finally {
     server.kill(); await new Promise(resolve => server.once('exit', resolve));
     assert.equal(path.dirname(path.resolve(directory)), path.resolve(tmpdir())); assert.ok(path.basename(directory).startsWith('mlt-scout-'));

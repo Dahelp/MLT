@@ -9,6 +9,7 @@ import { type Collection } from "../../../content/mlt";
 import { collectionDe, collectionRu, type Locale } from "../../../content/i18n";
 import { collectionDetails } from "../../../content/collection-details";
 import { parseDepartureRule, useCatalogItems } from "../../../content/catalog-client";
+import {collectionBookingText} from "../../../content/collection-booking-copy";
 import { bookingLabels, tailoredInterestOptions } from "../../../content/booking-ui";
 import SiteHeader from "../../SiteHeader";
 import SiteFooter from "../../SiteFooter";
@@ -46,7 +47,7 @@ export function CollectionDetail({ collection, initialLocale = "en" }: { collect
   const item = dbCollection ? { ...localizedItem, name: dbCollection.title.replace(/^MLT\s+/i, "").replace(/\s+Collection$/i, ""), eyebrow: dbCollection.subtitle || localizedItem.eyebrow } : localizedItem;
   const copy = collectionDetails[collection.id][locale]; const selected = options.find((option) => option.d === days) || options[0];
   const end = useMemo(() => { if (!start) return ""; const next = new Date(`${start}T12:00:00`); next.setDate(next.getDate() + days); return dateIso(next); }, [start, days]);
-  const tailored = collection.id === "signature" && plus; const selectedPrice = journeyPrice(collection.id, days, selected.p, plus); const total = journeyTotal(selectedPrice, guests); const de = locale === "de"; const ru = locale === "ru"; const tr = (en: string, deText: string, ruText: string) => de ? deText : ru ? ruText : en;
+  const tailored = collection.id === "signature" && plus; const selectedPrice = journeyPrice(collection.id, days, selected.p, plus); const total = journeyTotal(selectedPrice, guests); const de = locale === "de"; const ru = locale === "ru"; const tr = (en: string, deText: string, ruText: string) => collectionBookingText(locale,en,deText,ruText);
   const t = bookingLabels(locale);
   const dateLocale = { en: "en-GB", de: "de-DE", ru: "ru-RU", it: "it-IT", pl: "pl-PL" }[locale];
   const money = (value: number) => new Intl.NumberFormat(dateLocale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(value);
