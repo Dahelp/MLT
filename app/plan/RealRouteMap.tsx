@@ -5,7 +5,7 @@ import * as maplibregl from "maplibre-gl";
 import { type Map as MapLibreMap, type Marker } from "maplibre-gl";
 import mapWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { mapViews as views, mapCountryFiles as countryFiles, mapStatusLabels as labels } from "../../content/map";
+import { mapViews as views, mapCountryFiles as countryFiles, mapStatusLabels as labels, mapZoomLimits } from "../../content/map";
 import { useRoutePoints } from "../useRoutePoints";
 import { mapPreviewCopy } from "../../content/map-preview";
 import MapPointPreview from "./MapPointPreview";
@@ -33,7 +33,7 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
     if (!container.current || mapRef.current) return;
     // MapLibre v6 requires an explicit worker URL when bundled with Vite.
     maplibregl.setWorkerUrl(mapWorkerUrl);
-    const map = new maplibregl.Map({ container: container.current, center: views.All.center, zoom: views.All.zoom, minZoom: 4, maxZoom: 12, attributionControl: false, style: { version: 8, sources: { osm: { type: "raster", tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"], tileSize: 256, attribution: "© OpenStreetMap contributors" } }, layers: [{ id: "osm", type: "raster", source: "osm", paint: { "raster-saturation": -0.2, "raster-contrast": 0.12, "raster-brightness-min": 0.58, "raster-brightness-max": 1 } }] } });
+    const map = new maplibregl.Map({ container: container.current, center: views.All.center, zoom: views.All.zoom, ...mapZoomLimits, attributionControl: false, style: { version: 8, sources: { osm: { type: "raster", tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"], tileSize: 256, attribution: "© OpenStreetMap contributors" } }, layers: [{ id: "osm", type: "raster", source: "osm", paint: { "raster-saturation": -0.2, "raster-contrast": 0.12, "raster-brightness-min": 0.58, "raster-brightness-max": 1 } }] } });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-left"); map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right"); mapRef.current = map;
     map.on("click",event=>{if(event.originalEvent.target===map.getCanvas()){anchorRef.current=null;setPreviewId(null);setNearbyIds(null);}});
     map.on("load", () => {
@@ -53,26 +53,29 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
       const width=map.getContainer().clientWidth,height=map.getContainer().clientHeight;
       const visible=mapPoints.filter(point=>coordinates[point.id]&&matchesMapCountry(point.country,country)).flatMap(point=>{
         const projected=map.project(coordinates[point.id]);
-        return projected.x>=-52&&projected.y>=-52&&projected.x<=width+52&&projected.y<=height+52?[{id:point.id,x:projected.x,y:projected.y}]:[];
+        return projected.x>=-52&&projected.y>=-52&&projected.x<=width+52&&projected.y<=height+52?[{id:point.id,x:projected.x,y:projected.y,priority:point.id===previewId?0:point.className==="pin-catalog"?1:undefined}]:[];
       });
       markersRef.current=groupMapPoints(visible).map(group=>{
-        const grouped=group.ids.length>1,active=group.ids.some(id=>selectedIds.has(id)),point=byId.get(group.ids[0])!;
+        const grouped=group.ids.length>1,anchored=Boolean(group.anchorId),point=byId.get(group.anchorId||group.ids[0])!;
+        const active=anchored?selectedIds.has(point.id):group.ids.some(id=>selectedIds.has(id));
         const button=document.createElement("button"),symbol=document.createElement("span"),title=document.createElement("b");
-        const label=grouped?mapMarkerCopy[locale].group.replace("{count}",String(group.ids.length)):point.name;
+        const groupLabel=mapMarkerCopy[locale].group.replace("{count}",String(group.ids.length)),label=grouped&&!anchored?groupLabel:point.name;
         const names=group.ids.slice(0,3).map(id=>byId.get(id)!.name).join(", ")+(group.ids.length>3?"…":"");
-        button.type="button";button.className=`real-map-marker${active?" selected":""}${grouped?" is-group":""}`;
-        button.setAttribute("aria-label",grouped?`${label}: ${names}`:`${mapPreviewCopy[locale].view} ${point.name}`);
+        button.type="button";button.className=`real-map-marker${active?" selected":""}${grouped&&!anchored?" is-group":""}`;
+        button.setAttribute("aria-label",grouped&&!anchored?`${label}: ${names}`:`${mapPreviewCopy[locale].view} ${point.name}${grouped?` · ${groupLabel}`:""}`);
         button.setAttribute("aria-controls",inspectorId);button.setAttribute("aria-expanded",String(previewId?group.ids.includes(previewId):group.ids.some(id=>nearbyIds?.includes(id))));
-        if(grouped||active)symbol.textContent=grouped?String(group.ids.length):"✓";
+        if(grouped&&!anchored||active)symbol.textContent=grouped&&!anchored?String(group.ids.length):"✓";
         else{
           const svg=document.createElementNS("http://www.w3.org/2000/svg","svg"),path=document.createElementNS("http://www.w3.org/2000/svg","path"),circle=document.createElementNS("http://www.w3.org/2000/svg","circle");
           svg.setAttribute("viewBox","0 0 24 24");svg.setAttribute("aria-hidden","true");path.setAttribute("d","M12 21s7-6.3 7-12A7 7 0 0 0 5 9c0 5.7 7 12 7 12Z");circle.setAttribute("cx","12");circle.setAttribute("cy","9");circle.setAttribute("r","2");svg.append(path,circle);symbol.append(svg);
         }
-        title.textContent=grouped?names:label;title.setAttribute("aria-hidden","true");button.append(symbol,title);
+        title.textContent=grouped&&!anchored?names:`${label}${grouped?` · ${groupLabel}`:""}`;title.setAttribute("aria-hidden","true");button.append(symbol,title);
+        if(grouped&&anchored){const badge=document.createElement("small");badge.className="real-map-marker-count";badge.textContent=String(group.ids.length);badge.setAttribute("aria-hidden","true");button.append(badge);}
         button.onclick=()=>{
+          if(grouped&&anchored&&previewId===point.id){setNearbyIds(group.ids);setPreviewId(null);return;}
           if(!grouped&&previewId===point.id){anchorRef.current=null;setPreviewId(null);setNearbyIds(null);return;}
           const anchor=map.unproject([group.x,group.y]);anchorRef.current=[anchor.lng,anchor.lat];
-          if(grouped){setNearbyIds(group.ids);setPreviewId(null);}else{setNearbyIds(null);setPreviewId(point.id);}
+          if(grouped&&!anchored){setNearbyIds(group.ids);setPreviewId(null);}else{setNearbyIds(grouped?group.ids:null);setPreviewId(point.id);}
         };
         return new maplibregl.Marker({element:button,anchor:"center"}).setLngLat(map.unproject([group.x,group.y])).addTo(map);
       });

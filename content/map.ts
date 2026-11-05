@@ -15,6 +15,7 @@ export const mapCopy = {
 
 
 export const mapCountries = ["All", "Italy", "Austria", "Germany"] as const;
+export const mapZoomLimits = {minZoom: 2, maxZoom: 12} as const;
 
 export const mapViews: Record<string, { center: [number, number]; zoom: number }> = {
   All: { center: [10.8, 46.2], zoom: 4.4 }, Italy: { center: [11.7, 43.7], zoom: 5.2 }, Austria: { center: [13.25, 47.55], zoom: 6.2 }, Germany: { center: [9.7, 49.6], zoom: 5.4 },
