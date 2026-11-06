@@ -7,5 +7,4 @@
 .map-place-inspector>section{position:relative;min-height:0;min-width:0;border-radius:inherit}
 .map-place-inspector>.nearby-map-points{flex:1 1 auto;display:flex;flex-direction:column;overflow:hidden}
 .map-place-inspector :is(button,input,[tabindex]):focus-visible{outline:2px solid var(--mlt-bronze-dark);outline-offset:2px}
-.real-map-marker-count{position:absolute;top:0;right:0;display:grid;place-items:center;min-width:17px;height:17px;padding:0 3px;border:1px solid #f8f3eb;border-radius:9px;background:#754529;color:#fff;font:11px/1 var(--mlt-font-ui);pointer-events:none}
 .map-explorer-surface .maplibregl-ctrl-bottom-left{z-index:8}

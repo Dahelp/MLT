@@ -88,11 +88,15 @@ test('map renderer keeps the Scout pin clickable after zoom-out and exposes neig
  const pin=()=>markersRef.current.find(marker=>marker.element.attributes['aria-label'].includes('Cascata delle Marmore'));
  for(const level of [6,5.2,4.4,4,3,2]){
   zoom=level;handlers.get('moveend')();const marker=pin();assert.ok(marker,`zoom ${level}`);
-  assert.equal(marker.element.children[0].children[0]?.tagName,'svg','The Scout marker stays a place pin instead of becoming a generic number');
+  const symbol=marker.element.children[0];
+  if(marker.element.className.includes(' is-group')){
+   assert.match(symbol.textContent,/^[2-9]$|^[1-9]\d+$/,'The group count stays inside the main circle');
+   assert.equal(marker.element.children.length,2,'No detached count badge');
+  }else assert.equal(symbol.children[0]?.tagName,'svg','An individual Scout place keeps its pin');
   assert.ok(Math.abs(marker.coordinate.lng-coordinates[scout][0])<1e-8);assert.ok(Math.abs(marker.coordinate.lat-coordinates[scout][1])<1e-8);
   assert.ok(!marker.element.className.includes(' selected'),'Selecting Tuscany must not mark the Scout place as selected');
   marker.element.onclick();assert.equal(state.previewId,scout);
  }
- zoom=4.4;handlers.get('moveend')();assert.ok(pin().element.children.some(child=>child.className==='real-map-marker-count'));
+ zoom=4.4;handlers.get('moveend')();assert.ok(pin().element.className.includes(' is-group'));assert.equal(pin().element.children[0].textContent,'3');
  cleanup();env.previewId=scout;cleanup=install();pin().element.onclick();assert.equal(state.previewId,null);assert.ok(state.nearbyIds.includes(scout)&&state.nearbyIds.includes('tuscany'));cleanup();
 });

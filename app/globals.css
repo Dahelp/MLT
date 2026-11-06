@@ -1204,7 +1204,7 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
 .smart-map-page-intro h1 { max-width: 1000px; font-size: clamp(54px, 6.5vw, 100px); line-height: 1.02; }
 .smart-map-page-intro > p:last-child { max-width: 740px; margin: 18px 0 0; color: #e2d9cd; font-size: clamp(19px, 1.6vw, 24px); line-height: 1.55; }
 .smart-map-page-panel { margin-top: 20px; margin-bottom: 0; }
-.smart-map-page-panel .smart-map-canvas { min-height: 510px; }
+.smart-map-page-panel .smart-map-canvas { min-height: 680px; }
 .smart-map-page-panel .map-copy { justify-content: flex-start; padding: 12px 28px 20px; }
 .smart-map-page-panel .map-copy > p { margin: 7px 0 12px; }
 .smart-map-page-panel .map-copy h2 { margin-bottom: 16px; }
@@ -1219,7 +1219,7 @@ img[src="/mlt-logo.svg?v=20261006-vector"]{filter:none!important;opacity:1!impor
 @media (max-width: 800px) {
   .smart-map-page-intro { padding: 112px 24px 30px; }
   .smart-map-page-panel { margin: 16px 16px 0; grid-template-columns: 1fr; }
-  .smart-map-page-panel .smart-map-canvas { min-height: 380px; }
+  .smart-map-page-panel .smart-map-canvas { min-height: 480px; }
   .smart-map-page-panel .map-copy { padding: 24px; }
   .smart-map-page .light-contact { margin-top: 14px; padding-block: 28px; }
 }
