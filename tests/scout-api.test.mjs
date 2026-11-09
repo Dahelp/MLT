@@ -100,6 +100,7 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     let points = (await request({ action: 'points' })).data.points; assert.equal(points.length, 1); assert.equal(points[0].title, fields.title);
     assert.equal(points[0].description,fields.description);assert.deepEqual(JSON.parse(points[0].photos_json),card.photos);
     assert.deepEqual(points[0].video,{path:card.video.path,mime:card.video.mime});
+    assert.equal(points[0].location_website,'');assert.equal(points[0].contact_phone,'');
     assert.ok(!JSON.stringify(points).includes('Local test.mp4'),'Public preview does not expose original upload names');
     for (const privateField of ['scout_name', 'scoutName', 'editToken', 'edit_token_hash', 'review_note', 'request_id', 'video_json']) assert.ok(!JSON.stringify(points).includes(privateField));
     // Administrators can complete a published scout card without changing its identity or publication.
@@ -166,7 +167,8 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     await command('moderate', { status: 'accepted' }); await command('publish');
     points = (await request({ action: 'points' })).data.points;
     assert.equal(points.length, 1); assert.equal(points[0].title, 'Updated location'); assert.equal(card.publishedPointId, pointId);
-    assert.ok(!JSON.stringify(points).includes(revise.contactPhone)); assert.ok(!JSON.stringify(points).includes(card.locationWebsite));
+    assert.equal(points[0].contact_phone,revise.contactPhone);assert.equal(points[0].location_website,card.locationWebsite);
+    for(const privateField of ['scout_name','scoutName','editToken','edit_token_hash','review_note','request_id','video_json'])assert.ok(!JSON.stringify(points).includes(privateField));
     await command('moderate', { status: 'rejected', reviewNote: 'Not suitable' }); assert.equal((await request({ action: 'points' })).data.points.length, 0);
     assert.equal((await request({ action: 'list', search: 'Updated location', status: 'rejected' }, 'admin')).data.total, 1);
     assert.equal((await readdir(path.join(directory, 'uploads/scout'))).length, 3, 'Validation and retries must not leak duplicate image files');

@@ -6,6 +6,7 @@ const source=fs.readFileSync(new URL('../content/route-points.ts',import.meta.ur
 const module={exports:{}};
 new Function('module','exports',ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText)(module,module.exports);
 const {publishedRoutePoint}=module.exports;
+const {placeWebsiteHref,placePhoneHref}=module.exports;
 test('map recommendations require the explicit public boolean flag',()=>{
  for(const value of [undefined,false,'false',0,null])assert.equal(publishedRoutePoint({...row,recommended:value}).recommended,false);
  assert.equal(publishedRoutePoint({...row,recommended:true}).recommended,true);
@@ -33,6 +34,17 @@ test('public map keeps all ten photos and exposes amenities only for accommodati
  const stay=publishedRoutePoint({...row,category:'stay',amenities:'Pool & sauna',photos_json:JSON.stringify(photos)});
  assert.deepEqual(stay.photos,photos);assert.equal(stay.amenities,'Pool & sauna');
  assert.equal(publishedRoutePoint({...row,category:'sight',amenities:'stale'}).amenities,'');
+});
+
+test('place contacts retain the supplied phone and permit only normal website links',()=>{
+ const point=publishedRoutePoint({...row,location_website:' https://example.com/visit ',contact_phone:' +39 (045) 123-4567 '});
+ assert.equal(point.locationWebsite,'https://example.com/visit');assert.equal(point.contactPhone,'+39 (045) 123-4567');
+ assert.equal(placePhoneHref(point.contactPhone),'tel:+390451234567');assert.equal(placePhoneHref('045 123 4567'),'tel:0451234567');
+ assert.equal(placePhoneHref(''), '');assert.equal(placePhoneHref('Reception'), '');
+ for(const value of [undefined,null,'','javascript:alert(1)','data:text/html,x','ftp://example.com','https://user:password@example.com']){
+  assert.equal(placeWebsiteHref(value),'');assert.equal(publishedRoutePoint({...row,location_website:value}).locationWebsite,'');
+ }
+ assert.equal(publishedRoutePoint({...row,contact_phone:null}).contactPhone,'');
 });
 
 test('shared maps start empty, load only published places and never restore demo points on refresh or failure',async()=>{

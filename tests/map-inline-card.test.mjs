@@ -36,6 +36,24 @@ test('only recommended places show the branded ribbon over their map gallery',()
  assert.match(html,/class="map-point-preview-gallery"[^>]*><span class="map-point-recommendation">MLT recommends<\/span>/);
  assert.match(render({point:{...point,photos:[],video:null,recommended:true}}),/MLT recommends/);
 });
+test('filled place contacts appear in visitor details as website and call links in every language',()=>{
+ const contactPoint={...point,locationWebsite:'https://example.com/visit',contactPhone:'+39 (045) 123-4567'};
+ for(const [locale,website,phone] of [['en','Website','Phone'],['de','Website','Telefon'],['ru','Сайт','Телефон'],['it','Sito web','Telefono'],['pl','Strona internetowa','Telefon']]){
+  const html=render({point:contactPoint,locale});
+  assert.ok(html.includes(`<dt>${website}</dt>`));assert.ok(html.includes(`<dt>${phone}</dt>`));
+  assert.match(html,/<a href="https:\/\/example.com\/visit" target="_blank" rel="noopener noreferrer">example.com\/visit<\/a>/);
+  assert.match(html,/<a href="tel:\+390451234567">\+39 \(045\) 123-4567<\/a>/);
+ }
+});
+test('empty contacts have no labels or links, and contact-only places can expand their details',()=>{
+ assert.doesNotMatch(render(),/<dt>Сайт<\/dt>|<dt>Телефон<\/dt>|href="tel:/);
+ const empty={...point,description:'',parking:'',booking:'',amenities:''};
+ const phoneOnly=render({point:{...empty,contactPhone:'+39 123 4567'}});
+ assert.match(phoneOnly,/map-point-preview-more/);assert.match(phoneOnly,/href="tel:\+391234567"/);assert.doesNotMatch(phoneOnly,/<dt>Сайт<\/dt>/);
+ const websiteOnly=render({point:{...empty,locationWebsite:'https://example.com'}});
+ assert.match(websiteOnly,/map-point-preview-more/);assert.match(websiteOnly,/<dt>Сайт<\/dt>/);assert.doesNotMatch(websiteOnly,/<dt>Телефон<\/dt>/);
+ assert.doesNotMatch(render({point:{...empty,locationWebsite:'javascript:alert(1)',contactPhone:' '}}),/<a href=|map-point-preview-more|map-point-preview-logistics/);
+});
 test('overlapping places can be browsed inline before selecting an individual place',()=>{
  const html=renderToStaticMarkup(React.createElement(Nearby,{points:[point,{...point,id:'second',name:'Another place'}],selected:['test'],locale:'ru',onPick(){},onClose(){}}));
  assert.match(html,/<section class="nearby-map-points" aria-labelledby=/);assert.doesNotMatch(html,/<dialog|aria-modal/);

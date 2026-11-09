@@ -28,5 +28,6 @@
 .map-point-preview-logistics{display:grid;gap:16px;margin:16px 0 0;font:inherit}
 .map-point-preview-logistics dt{color:var(--mlt-nav-ink)}
 .map-point-preview-logistics dd{margin:4px 0 0;white-space:pre-wrap}
+.map-point-preview-logistics a{display:block;max-width:100%;min-height:44px;padding:8px 0;color:var(--mlt-nav-ink);font-family:var(--mlt-font-ui);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
 @media(max-width:700px){.map-point-preview{grid-template-columns:minmax(0,.8fr) minmax(0,1fr);column-gap:12px;padding:10px}.map-point-preview-gallery{grid-row:1}.map-point-preview-footer{grid-column:1/-1}.map-point-preview-header h3{font-size:26px}.map-point-preview-story{padding-right:0}.map-point-preview-signature{display:none}}
 @media(pointer:coarse){.map-point-preview-back,.map-point-preview-more{min-height:44px}}

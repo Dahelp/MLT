@@ -3,7 +3,7 @@
 import {useEffect,useId,useRef,useState} from "react";
 import {mapCountryLabel,mapTypeLabel} from "../../content/map-place-labels";
 import type {Locale} from "../../content/i18n";
-import type {RoutePoint} from "../../content/route-points";
+import {placeWebsiteHref,placePhoneHref,type RoutePoint} from "../../content/route-points";
 import {mapPreviewCopy} from "../../content/map-preview";
 import {recommendationRibbon} from "../../content/place-recommendation";
 import "./map-point-preview.css";
@@ -16,6 +16,8 @@ export default function MapPointPreview({point,locale,selected,onSelect,onClose,
   const photoIndex=Math.min(photo,Math.max(0,media.length-1));
   useEffect(()=>{track.current?.querySelectorAll("video").forEach(video=>{if(Number(video.dataset.mediaIndex)!==photoIndex)video.pause();});},[photoIndex]);
   const description=point.description||point.descriptions?.[locale]||"";
+  const website=placeWebsiteHref(point.locationWebsite),phone=point.contactPhone?.trim()||"",phoneHref=placePhoneHref(phone);
+  const hasVisitorDetails=Boolean(point.parking||point.booking||point.amenities||website||phone);
   return <section className="map-point-preview" aria-labelledby={heading} onKeyDown={event=>{if(event.key==="Escape"){event.stopPropagation();onClose();}}}>
     <div className="map-point-preview-gallery" role="group" aria-label={t.media}>
         {point.recommended&&<span className="map-point-recommendation">{recommendationRibbon}</span>}
@@ -36,13 +38,13 @@ export default function MapPointPreview({point,locale,selected,onSelect,onClose,
       {onBack&&<button className="map-point-preview-back" type="button" onClick={onBack}>{t.back}</button>}
       <header className="map-point-preview-header"><p>{mapCountryLabel(point.country,locale)} · {mapTypeLabel(point.type,locale)}</p><h3 id={heading}>{point.name}</h3></header>
       {description&&<p className="map-point-preview-excerpt">{description}</p>}
-      {(description||point.parking||point.booking||point.amenities)&&<button type="button" className="map-point-preview-more" aria-expanded={expanded} aria-controls={detailsId} onClick={()=>setExpanded(value=>!value)}>{expanded?t.less:t.more}</button>}
+      {(description||hasVisitorDetails)&&<button type="button" className="map-point-preview-more" aria-expanded={expanded} aria-controls={detailsId} onClick={()=>setExpanded(value=>!value)}>{expanded?t.less:t.more}</button>}
       <span className="map-point-preview-signature" aria-live="polite">{selected?`✓ ${t.selected}`:t.curated}</span>
     </div>
     {onSelect&&<div className="map-point-preview-footer"><button type="button" aria-pressed={selected} onClick={()=>onSelect(point.id)}>{selected?t.remove:t.select}</button></div>}
     <div id={detailsId} className="map-point-preview-details" hidden={!expanded}>
       {description&&<p>{description}</p>}
-      {(point.parking||point.booking||point.amenities)&&<dl className="map-point-preview-logistics">{point.amenities&&<div><dt>{t.amenities}</dt><dd>{point.amenities}</dd></div>}{point.parking&&<div><dt>{t.parking}</dt><dd>{point.parking}</dd></div>}{point.booking&&<div><dt>{t.booking}</dt><dd>{point.booking}</dd></div>}</dl>}
+      {hasVisitorDetails&&<dl className="map-point-preview-logistics">{point.amenities&&<div><dt>{t.amenities}</dt><dd>{point.amenities}</dd></div>}{point.parking&&<div><dt>{t.parking}</dt><dd>{point.parking}</dd></div>}{point.booking&&<div><dt>{t.booking}</dt><dd>{point.booking}</dd></div>}{website&&<div><dt>{t.website}</dt><dd><a href={website} target="_blank" rel="noopener noreferrer">{website.replace(/^https?:\/\//,"").replace(/\/$/,"")}</a></dd></div>}{phone&&<div><dt>{t.phone}</dt><dd>{phoneHref?<a href={phoneHref}>{phone}</a>:phone}</dd></div>}</dl>}
     </div>
   </section>;
 }
