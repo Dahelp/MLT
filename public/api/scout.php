@@ -21,6 +21,7 @@ if ($action==='points') {
     foreach ($rows as &$point) {
         $point['amenities']=($point['category']??'')==='stay'?($point['amenities']??''):'';
         $point['recommended']=(bool)($point['recommended']??false);
+        $point['translations']=mlt_scout_place_translations($point);
         $video=json_decode($point['video_json']??'null',true);
         $point['video']=is_array($video) && preg_match('#^/uploads/scout-video/[a-f0-9]{48}\.(?:mp4|mov|webm)$#D',(string)($video['path']??'')) ? ['path'=>$video['path'],'mime'=>$video['mime']??''] : null;
         unset($point['video_json']);

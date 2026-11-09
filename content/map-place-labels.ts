@@ -179,11 +179,24 @@ export const mapTypeLabels = {
     "pl": "Miejsce MLT"
   }
 };
+export const mapRegionLabels = {
+  umbria:{en:"Umbria",de:"Umbrien",ru:"Умбрия",it:"Umbria",pl:"Umbria"},
+  trentino:{en:"Trentino-Alto Adige",de:"Trentino-Südtirol",ru:"Трентино — Альто-Адидже",it:"Trentino-Alto Adige",pl:"Trydent-Górna Adyga"},
+  bormio:{en:"Bormio",de:"Bormio",ru:"Бормио",it:"Bormio",pl:"Bormio"},
+  veneto:{en:"Veneto",de:"Venetien",ru:"Венето",it:"Veneto",pl:"Wenecja Euganejska"},
+  abruzzo:{en:"Abruzzo",de:"Abruzzen",ru:"Абруццо",it:"Abruzzo",pl:"Abruzja"},
+  apulia:{en:"Apulia",de:"Apulien",ru:"Апулия",it:"Puglia",pl:"Apulia"},
+  sicily:{en:"Sicily",de:"Sizilien",ru:"Сицилия",it:"Sicilia",pl:"Sycylia"},
+  lazio:{en:"Lazio",de:"Latium",ru:"Лацио",it:"Lazio",pl:"Lacjum"},
+  sardinia:{en:"Sardinia",de:"Sardinien",ru:"Сардиния",it:"Sardegna",pl:"Sardynia"},
+} as const;
 export function mapCountryLabel(value:string,locale:Locale):string{
   if(value==="All")return mapCountryLabels.All[locale];
   const key=(["Italy","Austria","Germany"] as const).find(country=>matchesMapCountry(value,country));
   if(!key)return value;
-  const region=value.split(/\s*[,/;·—–-]\s*/u).slice(1).join(" / ");
-  return mapCountryLabels[key][locale]+(region?` / ${region}`:"");
+  const region=value.match(/^[^,/;·—–-]+[,/;·—–-]\s*(.*)$/u)?.[1].trim()||"";
+  const normalize=(text:string)=>text.normalize("NFKC").toLowerCase().replace(/[\s/—–-]/gu,"");
+  const translated=Object.values(mapRegionLabels).find(labels=>Object.values(labels).some(label=>normalize(label)===normalize(region)))?.[locale]||region;
+  return mapCountryLabels[key][locale]+(translated?` / ${translated}`:"");
 }
 export function mapTypeLabel(value:string,locale:Locale):string{return mapTypeLabels[value as keyof typeof mapTypeLabels]?.[locale]||value;}

@@ -1,16 +1,22 @@
 import type { Locale } from "./i18n";
+type PlaceTextField = "description" | "parking" | "booking" | "amenities";
+export type PlaceTranslations = Partial<Record<Locale,Partial<Record<PlaceTextField,string>>>>;
+const placeLocales = ["en","de","ru","it","pl"] as const;
+const placeTextFields = ["description","parking","booking","amenities"] as const;
 
 export type RoutePoint = {
   id: string; country: string; name: string; type: string; className: string;
   description?: string; descriptions?: Partial<Record<Locale,string>>;
   photos?: string[]; video?: {path: string; mime: string} | null;
   parking?: string; booking?: string; amenities?: string; recommended?: boolean; locationWebsite?: string; contactPhone?: string;
+  translations?: PlaceTranslations;
 };
 export type PointResponse = {
   slug: string; title: string; country_name: string; latitude: string | number;
   longitude: string | number; category?: string; description?: string;
   image_path?: string; photos_json?: string | null; parking?: string; booking?: string; amenities?: string; recommended?: boolean; location_website?: string | null; contact_phone?: string | null;
   video?: {path?: unknown; mime?: unknown} | null;
+  translations?: unknown;
 };
 const categoryNames: Record<string,string> = {gourmet:"Gourmet",stay:"Stay",sight:"Sight",experience:"Experience"};
 const imagePath = (value: unknown): value is string => typeof value === "string" && /^(?:\/(?!\/)|https?:\/\/)/i.test(value);
@@ -28,6 +34,16 @@ export function placePhoneHref(value: string): string {
   return digits?`tel:${value.trim().startsWith("+")?"+":""}${digits}`:"";
 }
 
+export function localizedRoutePoint(point: RoutePoint, locale: Locale): RoutePoint {
+  const texts=point.translations?.[locale];
+  if(!texts)return point;
+  const translated={...point};
+  for(const field of placeTextFields){
+    if(typeof texts[field]==="string"&&texts[field]!.trim())translated[field]=texts[field];
+  }
+  return translated;
+}
+
 /** Keep all published visitor content when adapting the map API response. */
 export function publishedRoutePoint(row: PointResponse): RoutePoint | null {
   const lat=Number(row.latitude),lng=Number(row.longitude);
@@ -38,5 +54,16 @@ export function publishedRoutePoint(row: PointResponse): RoutePoint | null {
   if (!images.length && imagePath(row.image_path)) images.push(row.image_path);
   const video=row.video && typeof row.video.path==="string" && /^\/uploads\/scout-video\/[a-f0-9]{48}\.(?:mp4|mov|webm)$/.test(row.video.path)
     ? {path:row.video.path,mime:typeof row.video.mime==="string"?row.video.mime:""} : null;
-  return {id:row.slug,name:row.title,country:row.country_name||"",type:categoryNames[row.category||""]||"MLT location",className:"pin-catalog",description:typeof row.description==="string"?row.description:"",photos:[...new Set(images)].slice(0,10),video,parking:typeof row.parking==="string"?row.parking:"",amenities:row.category==="stay"&&typeof row.amenities==="string"?row.amenities:"",booking:typeof row.booking==="string"?row.booking:"",recommended:row.recommended===true,locationWebsite:placeWebsiteHref(row.location_website),contactPhone:typeof row.contact_phone==="string"?row.contact_phone.trim():""};
+  const translations:PlaceTranslations={};
+  if(row.translations&&typeof row.translations==="object"){
+    for(const locale of placeLocales){
+      const texts=(row.translations as PlaceTranslations)[locale];
+      if(!texts||typeof texts!=="object")continue;
+      for(const field of placeTextFields){
+        if(field==="amenities"&&row.category!=="stay")continue;
+        if(typeof texts[field]==="string"&&texts[field]!.trim())(translations[locale]??={})[field]=texts[field];
+      }
+    }
+  }
+  return {id:row.slug,name:row.title,country:row.country_name||"",type:categoryNames[row.category||""]||"MLT location",className:"pin-catalog",description:typeof row.description==="string"?row.description:"",photos:[...new Set(images)].slice(0,10),video,parking:typeof row.parking==="string"?row.parking:"",amenities:row.category==="stay"&&typeof row.amenities==="string"?row.amenities:"",booking:typeof row.booking==="string"?row.booking:"",recommended:row.recommended===true,locationWebsite:placeWebsiteHref(row.location_website),contactPhone:typeof row.contact_phone==="string"?row.contact_phone.trim():"",translations};
 }

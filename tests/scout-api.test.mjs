@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { mkdtemp, cp, mkdir, rm, readdir, readFile } from 'node:fs/promises';
+import { mkdtemp, cp, mkdir, rm, readdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawn, execFileSync } from 'node:child_process';
@@ -16,6 +16,7 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
   await cp(new URL('./scout-test-booking.php', import.meta.url), path.join(apiDirectory, 'booking.php'));
   await cp(new URL('../public/data/scout-media.json', import.meta.url), path.join(directory, 'data/scout-media.json'));
   await cp(new URL('../public/data/scout-subcategories.json', import.meta.url), path.join(directory, 'data/scout-subcategories.json'));
+  await cp(new URL('../public/data/map-place-translations.json', import.meta.url), path.join(directory, 'data/map-place-translations.json'));
   const php = process.env.PHP_BINARY || 'php';
   const image = (width, height) => 'data:image/jpeg;base64,' + execFileSync(php, ['-r', `$im=imagecreatetruecolor(${width},${height});ob_start();imagejpeg($im);echo base64_encode(ob_get_clean());`], { encoding: 'utf8' }).trim();
   const portrait = image(300, 400), landscape = image(400, 300);
@@ -101,6 +102,11 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.equal(points[0].description,fields.description);assert.deepEqual(JSON.parse(points[0].photos_json),card.photos);
     assert.deepEqual(points[0].video,{path:card.video.path,mime:card.video.mime});
     assert.equal(points[0].location_website,'');assert.equal(points[0].contact_phone,'');
+    await writeFile(path.join(directory,'data/map-place-translations.json'),JSON.stringify({places:{[points[0].slug]:{source:{description:fields.description,parking:fields.parking,booking:fields.booking},translations:{de:{description:'Ein örtlicher Wasserfall',parking:'Parkplatz 150 m entfernt',booking:'Zwei Tage im Voraus'}}}}}));
+    points=(await request({action:'points'})).data.points;
+    assert.equal(points[0].description,fields.description,'The original location text is preserved');
+    assert.equal(points[0].translations.de.description,'Ein örtlicher Wasserfall');
+    assert.equal(points[0].translations.de.parking,'Parkplatz 150 m entfernt');
     assert.ok(!JSON.stringify(points).includes('Local test.mp4'),'Public preview does not expose original upload names');
     for (const privateField of ['scout_name', 'scoutName', 'editToken', 'edit_token_hash', 'review_note', 'request_id', 'video_json']) assert.ok(!JSON.stringify(points).includes(privateField));
     // Administrators can complete a published scout card without changing its identity or publication.
@@ -120,6 +126,8 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
     assert.equal((await request({...adminEdit,requestId:randomUUID()},'admin')).status,409,'Stale editors cannot overwrite a newer version');
     assert.equal((await request({action:'read',reference:card.reference,editToken:fields.editToken})).data.card.title,card.title,'The original scout capability remains valid');
     points=(await request({action:'points'})).data.points;assert.equal(points.length,1);assert.equal(points[0].title,card.title);assert.equal(points[0].description,card.description);assert.equal(points[0].image_path,card.photos[0]);assert.equal(points[0].video.path,card.video.path);
+    assert.equal(points[0].translations.de.description,undefined,'An administrator edit cannot retain a stale description translation');
+    assert.equal(points[0].translations.de.parking,'Parkplatz 150 m entfernt','Unchanged field translations remain available');
     const audit=JSON.parse(execFileSync(php,['-r',"$db=new PDO('sqlite:'.$argv[1]);echo json_encode($db->query('SELECT * FROM mlt_scout_edits')->fetchAll(PDO::FETCH_ASSOC));",path.join(apiDirectory,'scout-test.sqlite')],{encoding:'utf8'}));
     assert.equal(audit.length,1);assert.equal(audit[0].operator_id,1);assert.equal(JSON.parse(audit[0].before_json).title,fields.title);assert.equal(JSON.parse(audit[0].after_json).title,card.title);
     assert.equal(card.recommended,false);assert.equal(points[0].recommended,false,'Existing places default to no recommendation');

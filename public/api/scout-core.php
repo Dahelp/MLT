@@ -79,6 +79,29 @@ function mlt_scout_card(array $row): array {
     ];
 }
 
+/** Apply the one-time editorial translations only while each original field still matches. */
+function mlt_scout_place_translations(array $point): array {
+    static $catalog=null;
+    if($catalog===null){
+        $path=dirname(__DIR__).'/data/map-place-translations.json';
+        $catalog=is_file($path)?(json_decode((string)file_get_contents($path),true)['places']??[]):[];
+    }
+    $entry=$catalog[$point['slug']??'']??null;
+    if(!is_array($entry))return [];
+    $normalize=static fn(mixed $value): string=>trim(str_replace(["\r\n","\r"],"\n",(string)($value??'')));
+    $result=[];
+    foreach(['description','parking','booking','amenities'] as $field){
+        if($field==='amenities'&&($point['category']??'')!=='stay')continue;
+        $source=$normalize($entry['source'][$field]??'');
+        if($source===''||$source!==$normalize($point[$field]??''))continue;
+        foreach(['en','de','ru','it','pl'] as $locale){
+            $text=$entry['translations'][$locale][$field]??null;
+            if(is_string($text)&&trim($text)!=='')$result[$locale][$field]=$text;
+        }
+    }
+    return $result;
+}
+
 function mlt_scout_text(array $body, string $key, int $maximum, bool $required = false): string {
     $value = $body[$key] ?? '';
     if (!is_string($value)) mlt_scout_error(400,'invalidText');

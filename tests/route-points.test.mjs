@@ -7,6 +7,7 @@ const module={exports:{}};
 new Function('module','exports',ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText)(module,module.exports);
 const {publishedRoutePoint}=module.exports;
 const {placeWebsiteHref,placePhoneHref}=module.exports;
+const {localizedRoutePoint}=module.exports;
 test('map recommendations require the explicit public boolean flag',()=>{
  for(const value of [undefined,false,'false',0,null])assert.equal(publishedRoutePoint({...row,recommended:value}).recommended,false);
  assert.equal(publishedRoutePoint({...row,recommended:true}).recommended,true);
@@ -45,6 +46,38 @@ test('place contacts retain the supplied phone and permit only normal website li
   assert.equal(placeWebsiteHref(value),'');assert.equal(publishedRoutePoint({...row,location_website:value}).locationWebsite,'');
  }
  assert.equal(publishedRoutePoint({...row,contact_phone:null}).contactPhone,'');
+});
+
+test('place translations change only visitor text and leave missing translations on the original',()=>{
+ const point=publishedRoutePoint({...row,category:'stay',amenities:'Pool',location_website:'https://example.com',contact_phone:'+39 123',recommended:true,translations:{de:{description:'Ein Wasserfall',parking:'Parkplatz',amenities:'Pool und Sauna',name:'Wrong name',contactPhone:'Wrong phone'},ru:{description:42},xx:{description:'Unknown language'}}});
+ const translated=localizedRoutePoint(point,'de');
+ assert.equal(translated.description,'Ein Wasserfall');assert.equal(translated.parking,'Parkplatz');assert.equal(translated.amenities,'Pool und Sauna');assert.equal(translated.booking,row.booking);
+ for(const field of ['id','name','country','type','photos','video','recommended','locationWebsite','contactPhone'])assert.deepEqual(translated[field],point[field],field);
+ assert.equal(point.description,row.description);assert.equal(localizedRoutePoint(point,'ru').description,row.description);assert.equal(localizedRoutePoint(point,'it').description,row.description);
+ assert.equal(point.translations.xx,undefined);assert.equal(point.translations.de.name,undefined);
+ assert.equal(publishedRoutePoint({...row,translations:{de:{amenities:'stale'}}}).translations.de,undefined);
+});
+
+test('every existing translated place has complete text in all five site languages and an unchanged original',()=>{
+ const catalog=JSON.parse(fs.readFileSync(new URL('../public/data/map-place-translations.json',import.meta.url),'utf8'));
+ assert.equal(catalog.version,1);assert.deepEqual(catalog.locales,['en','de','ru','it','pl']);assert.ok(Object.keys(catalog.places).length>=23);
+ const htaccess=fs.readFileSync(new URL('../public/.htaccess',import.meta.url),'utf8');
+ assert.match(htaccess,/<Files "map-place-translations\.json">\s*Require all denied\s*<\/Files>/,'Translations follow publication checks through the API');
+ for(const [slug,entry] of Object.entries(catalog.places)){
+  assert.match(slug,/^scout-/);assert.ok(entry.name);assert.ok(catalog.locales.includes(entry.sourceLanguage));
+  assert.deepEqual(Object.keys(entry.translations).sort(),[...catalog.locales].sort());
+  for(const locale of catalog.locales){
+   const texts=entry.translations[locale];
+   for(const field of ['description','parking','booking','amenities']){
+    if(entry.source[field]){
+     assert.equal(typeof texts[field],'string',`${slug} ${locale}.${field}`);assert.ok(texts[field].trim(),`${slug} ${locale}.${field}`);
+     if(locale===entry.sourceLanguage)assert.equal(texts[field],entry.source[field]);
+    }else assert.equal(texts[field],undefined,`${slug} must not invent ${field}`);
+   }
+   if(locale!==entry.sourceLanguage)assert.notEqual(texts.description,entry.source.description,`${slug} ${locale} description must be translated`);
+   assert.ok(Object.keys(texts).every(field=>['description','parking','booking','amenities'].includes(field)));
+  }
+ }
 });
 
 test('shared maps start empty, load only published places and never restore demo points on refresh or failure',async()=>{

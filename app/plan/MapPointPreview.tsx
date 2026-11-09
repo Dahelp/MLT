@@ -3,12 +3,13 @@
 import {useEffect,useId,useRef,useState} from "react";
 import {mapCountryLabel,mapTypeLabel} from "../../content/map-place-labels";
 import type {Locale} from "../../content/i18n";
-import {placeWebsiteHref,placePhoneHref,type RoutePoint} from "../../content/route-points";
+import {placeWebsiteHref,placePhoneHref,localizedRoutePoint,type RoutePoint} from "../../content/route-points";
 import {mapPreviewCopy} from "../../content/map-preview";
 import {recommendationRibbon} from "../../content/place-recommendation";
 import "./map-point-preview.css";
 
-export default function MapPointPreview({point,locale,selected,onSelect,onClose,onBack}:{point:RoutePoint;locale:Locale;selected:boolean;onSelect?:(id:string)=>void;onClose:()=>void;onBack?:()=>void}) {
+export default function MapPointPreview({point:sourcePoint,locale,selected,onSelect,onClose,onBack}:{point:RoutePoint;locale:Locale;selected:boolean;onSelect?:(id:string)=>void;onClose:()=>void;onBack?:()=>void}) {
+  const point=localizedRoutePoint(sourcePoint,locale);
   const heading=useId(),detailsId=useId(),t=mapPreviewCopy[locale];
   const [photo,setPhoto]=useState(0),[dragging,setDragging]=useState(false),[expanded,setExpanded]=useState(false),photos=point.photos||[];
   const track=useRef<HTMLDivElement>(null),drag=useRef<{x:number;scroll:number}|null>(null);
@@ -17,6 +18,7 @@ export default function MapPointPreview({point,locale,selected,onSelect,onClose,
   useEffect(()=>{track.current?.querySelectorAll("video").forEach(video=>{if(Number(video.dataset.mediaIndex)!==photoIndex)video.pause();});},[photoIndex]);
   const description=point.description||point.descriptions?.[locale]||"";
   const website=placeWebsiteHref(point.locationWebsite),phone=point.contactPhone?.trim()||"",phoneHref=placePhoneHref(phone);
+  const websiteLabel=website?new URL(website).hostname.replace(/^www\./,""):"";
   const hasVisitorDetails=Boolean(point.parking||point.booking||point.amenities||website||phone);
   return <section className="map-point-preview" aria-labelledby={heading} onKeyDown={event=>{if(event.key==="Escape"){event.stopPropagation();onClose();}}}>
     <div className="map-point-preview-gallery" role="group" aria-label={t.media}>
@@ -44,7 +46,7 @@ export default function MapPointPreview({point,locale,selected,onSelect,onClose,
     {onSelect&&<div className="map-point-preview-footer"><button type="button" aria-pressed={selected} onClick={()=>onSelect(point.id)}>{selected?t.remove:t.select}</button></div>}
     <div id={detailsId} className="map-point-preview-details" hidden={!expanded}>
       {description&&<p>{description}</p>}
-      {hasVisitorDetails&&<dl className="map-point-preview-logistics">{point.amenities&&<div><dt>{t.amenities}</dt><dd>{point.amenities}</dd></div>}{point.parking&&<div><dt>{t.parking}</dt><dd>{point.parking}</dd></div>}{point.booking&&<div><dt>{t.booking}</dt><dd>{point.booking}</dd></div>}{website&&<div><dt>{t.website}</dt><dd><a href={website} target="_blank" rel="noopener noreferrer">{website.replace(/^https?:\/\//,"").replace(/\/$/,"")}</a></dd></div>}{phone&&<div><dt>{t.phone}</dt><dd>{phoneHref?<a href={phoneHref}>{phone}</a>:phone}</dd></div>}</dl>}
+      {hasVisitorDetails&&<dl className="map-point-preview-logistics">{point.amenities&&<div><dt>{t.amenities}</dt><dd>{point.amenities}</dd></div>}{point.parking&&<div><dt>{t.parking}</dt><dd>{point.parking}</dd></div>}{point.booking&&<div><dt>{t.booking}</dt><dd>{point.booking}</dd></div>}{website&&<div><dt>{t.website}</dt><dd><a href={website} target="_blank" rel="noopener noreferrer">{websiteLabel}</a></dd></div>}{phone&&<div><dt>{t.phone}</dt><dd>{phoneHref?<a href={phoneHref}>{phone}</a>:phone}</dd></div>}</dl>}
     </div>
   </section>;
 }

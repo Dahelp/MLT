@@ -1,0 +1,808 @@
+{
+  "version": 1,
+  "locales": [
+    "en",
+    "de",
+    "ru",
+    "it",
+    "pl"
+  ],
+  "places": {
+    "scout-mlt-s-72ffe92c82c3": {
+      "name": "Cascata delle Marmore",
+      "sourceLanguage": "ru",
+      "source": {
+        "description": "Один из самых высоких и впечатляющих водопадов Европы (165 метров). Идеальное место, чтобы прочувствовать всю мощь и красоту Итальянской Умбрии.",
+        "parking": "1.Parcheggio ex Viscosa (P1)-главный вход; 2.Parcheggio Pasquale (Р2)-50м.",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "One of Europe’s highest and most impressive waterfalls (165 metres). An ideal place to experience the full power and beauty of Italy’s Umbria region.",
+          "parking": "1. Parcheggio ex Viscosa (P1) — main entrance; 2. Parcheggio Pasquale (P2) — 50 m."
+        },
+        "de": {
+          "description": "Einer der höchsten und beeindruckendsten Wasserfälle Europas (165 Meter). Ein idealer Ort, um die ganze Kraft und Schönheit der italienischen Region Umbrien zu erleben.",
+          "parking": "1. Parcheggio ex Viscosa (P1) — Haupteingang; 2. Parcheggio Pasquale (P2) — 50 m."
+        },
+        "ru": {
+          "description": "Один из самых высоких и впечатляющих водопадов Европы (165 метров). Идеальное место, чтобы прочувствовать всю мощь и красоту Итальянской Умбрии.",
+          "parking": "1.Parcheggio ex Viscosa (P1)-главный вход; 2.Parcheggio Pasquale (Р2)-50м."
+        },
+        "it": {
+          "description": "Una delle cascate più alte e suggestive d’Europa (165 metri). Il luogo ideale per vivere tutta la forza e la bellezza dell’Umbria.",
+          "parking": "1. Parcheggio ex Viscosa (P1) — ingresso principale; 2. Parcheggio Pasquale (P2) — 50 m."
+        },
+        "pl": {
+          "description": "Jeden z najwyższych i najbardziej imponujących wodospadów Europy (165 metrów). Idealne miejsce, by poczuć całą potęgę i piękno włoskiej Umbrii.",
+          "parking": "1. Parcheggio ex Viscosa (P1) — wejście główne; 2. Parcheggio Pasquale (P2) — 50 m."
+        }
+      }
+    },
+    "scout-mlt-s-4418867833a0": {
+      "name": "Ristorante Tenuta Lamborghini",
+      "sourceLanguage": "ru",
+      "source": {
+        "description": "Элегантный ресторан высокой кухни в загородном поместье, основанном Ферруччо Ламборгини. Здесь традиционная кухня Умбрии встречается с авторской подачей, а панорамная летняя терраса открывает виды на зеленые поля гольф-клуба и холмы. Дополняет гастрономический опыт богатая винотека с эксклюзивными винами линии Lamborghini",
+        "parking": "Да",
+        "booking": "Требуется бронирование заранее",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "An elegant fine-dining restaurant on a country estate founded by Ferruccio Lamborghini. Traditional Umbrian cuisine meets creative presentation here, while the panoramic summer terrace overlooks green golf-course fairways and rolling hills. An extensive wine collection featuring exclusive Lamborghini wines completes the gastronomic experience.",
+          "parking": "Yes",
+          "booking": "Advance reservation required"
+        },
+        "de": {
+          "description": "Ein elegantes Gourmetrestaurant auf einem von Ferruccio Lamborghini gegründeten Landgut. Hier trifft die traditionelle Küche Umbriens auf kreative Präsentation, während die sommerliche Panoramaterrasse den Blick auf grüne Golfbahnen und Hügel freigibt. Eine umfangreiche Vinothek mit exklusiven Weinen der Linie Lamborghini rundet das gastronomische Erlebnis ab.",
+          "parking": "Ja",
+          "booking": "Eine Reservierung im Voraus ist erforderlich"
+        },
+        "ru": {
+          "description": "Элегантный ресторан высокой кухни в загородном поместье, основанном Ферруччо Ламборгини. Здесь традиционная кухня Умбрии встречается с авторской подачей, а панорамная летняя терраса открывает виды на зеленые поля гольф-клуба и холмы. Дополняет гастрономический опыт богатая винотека с эксклюзивными винами линии Lamborghini",
+          "parking": "Да",
+          "booking": "Требуется бронирование заранее"
+        },
+        "it": {
+          "description": "Un elegante ristorante di alta cucina in una tenuta di campagna fondata da Ferruccio Lamborghini. Qui la cucina tradizionale umbra incontra una presentazione creativa, mentre la terrazza estiva panoramica si affaccia sui verdi campi da golf e sulle colline. Una ricca enoteca con vini esclusivi della linea Lamborghini completa l’esperienza gastronomica.",
+          "parking": "Sì",
+          "booking": "È richiesta la prenotazione anticipata"
+        },
+        "pl": {
+          "description": "Elegancka restauracja z wykwintną kuchnią w wiejskiej posiadłości założonej przez Ferruccia Lamborghiniego. Tradycyjna kuchnia Umbrii spotyka się tu z autorską prezentacją dań, a panoramiczny letni taras oferuje widoki na zielone pola golfowe i wzgórza. Doznania kulinarne dopełnia bogata kolekcja win, w tym ekskluzywne wina z linii Lamborghini.",
+          "parking": "Tak",
+          "booking": "Wymagana jest wcześniejsza rezerwacja"
+        }
+      }
+    },
+    "scout-mlt-s-2b18e8792705": {
+      "name": "Lago di Carezza",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "A fairy-tale emerald alpine lake nestled beneath the jagged peaks of the Latemar mountain range, famous for its crystal-clear water and rainbow legends.",
+        "parking": "Yes, P1 Parking Lake Carezza. It is a paid parking lot and is open 24 hours a day",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "A fairy-tale emerald alpine lake nestled beneath the jagged peaks of the Latemar mountain range, famous for its crystal-clear water and rainbow legends.",
+          "parking": "Yes, P1 Parking Lake Carezza. It is a paid parking lot and is open 24 hours a day"
+        },
+        "de": {
+          "description": "Ein märchenhafter, smaragdgrüner Alpensee unter den schroffen Gipfeln des Latemargebirges, bekannt für sein kristallklares Wasser und seine Regenbogenlegenden.",
+          "parking": "Ja, P1 Parking Lake Carezza. Der Parkplatz ist kostenpflichtig und rund um die Uhr geöffnet."
+        },
+        "ru": {
+          "description": "Сказочное изумрудное альпийское озеро у подножия зубчатых вершин горного массива Латемар, знаменитое кристально чистой водой и легендами о радуге.",
+          "parking": "Да, P1 Parking Lake Carezza. Парковка платная и открыта круглосуточно."
+        },
+        "it": {
+          "description": "Un fiabesco lago alpino color smeraldo ai piedi delle cime frastagliate del Latemar, famoso per le acque cristalline e le leggende sull’arcobaleno.",
+          "parking": "Sì, P1 Parking Lake Carezza. Il parcheggio è a pagamento ed è aperto 24 ore su 24."
+        },
+        "pl": {
+          "description": "Bajkowe, szmaragdowe jezioro alpejskie u podnóża poszarpanych szczytów masywu Latemar, słynące z krystalicznie czystej wody i legend o tęczy.",
+          "parking": "Tak, P1 Parking Lake Carezza. Parking jest płatny i czynny przez całą dobę."
+        }
+      }
+    },
+    "scout-mlt-s-4108923a8bd3": {
+      "name": "Cascate di Riva",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "A majestic series of three powerful waterfalls cascading through pine forests in the Aurina Valley, connected by a scenic well-maintained trail.",
+        "parking": "Yes, the paid parking area at the entrance is located right at the start of the trail to the waterfalls (next to the Wasserfallbar).",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "A majestic series of three powerful waterfalls cascading through pine forests in the Aurina Valley, connected by a scenic well-maintained trail.",
+          "parking": "Yes, the paid parking area at the entrance is located right at the start of the trail to the waterfalls (next to the Wasserfallbar)."
+        },
+        "de": {
+          "description": "Eine majestätische Folge von drei mächtigen Wasserfällen, die im Ahrntal durch Kiefernwälder stürzen und durch einen malerischen, gut gepflegten Wanderweg miteinander verbunden sind.",
+          "parking": "Ja, der kostenpflichtige Parkplatz am Eingang liegt direkt am Beginn des Wanderwegs zu den Wasserfällen, neben der Wasserfallbar."
+        },
+        "ru": {
+          "description": "Величественная череда из трёх мощных водопадов, ниспадающих среди сосновых лесов долины Аурина и соединённых живописной, хорошо обустроенной тропой.",
+          "parking": "Да, платная парковка у входа находится прямо в начале тропы к водопадам, рядом с Wasserfallbar."
+        },
+        "it": {
+          "description": "Una maestosa serie di tre imponenti cascate che scendono tra i boschi di pini della Valle Aurina, collegate da un sentiero panoramico ben curato.",
+          "parking": "Sì, il parcheggio a pagamento all’ingresso si trova proprio all’inizio del sentiero per le cascate, accanto alla Wasserfallbar."
+        },
+        "pl": {
+          "description": "Majestatyczny zespół trzech potężnych wodospadów spływających przez sosnowe lasy doliny Aurina, połączonych malowniczym, dobrze utrzymanym szlakiem.",
+          "parking": "Tak, płatny parking przy wejściu znajduje się tuż na początku szlaku do wodospadów, obok Wasserfallbar."
+        }
+      }
+    },
+    "scout-mlt-s-723bb96f48a5": {
+      "name": "QC Terme Bagni Vecchi",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "Historic thermal baths featuring a panoramic outdoor pool carved directly into the cliff edge, overlooking the breathtaking Bormio alpine valley",
+        "parking": "Free outdoor parking",
+        "booking": "Yes, advance booking is highly recommended (especially for weekends, holidays and peak season)",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "Historic thermal baths featuring a panoramic outdoor pool carved directly into the cliff edge, overlooking the breathtaking Bormio alpine valley",
+          "parking": "Free outdoor parking",
+          "booking": "Yes, advance booking is highly recommended (especially for weekends, holidays and peak season)"
+        },
+        "de": {
+          "description": "Historische Thermalbäder mit einem direkt in den Felsrand eingelassenen Panorama-Außenbecken und einem atemberaubenden Blick auf das alpine Tal von Bormio.",
+          "parking": "Kostenlose Außenparkplätze",
+          "booking": "Ja, eine frühzeitige Reservierung wird dringend empfohlen, insbesondere für Wochenenden, Feiertage und die Hochsaison."
+        },
+        "ru": {
+          "description": "Исторические термы с панорамным открытым бассейном, вырубленным прямо у края скалы, откуда открывается захватывающий вид на альпийскую долину Бормио.",
+          "parking": "Бесплатная открытая парковка",
+          "booking": "Да, настоятельно рекомендуется бронировать заранее, особенно на выходные, праздники и в высокий сезон."
+        },
+        "it": {
+          "description": "Storiche terme con una piscina panoramica all’aperto scavata direttamente sul bordo della roccia, affacciata sulla spettacolare valle alpina di Bormio.",
+          "parking": "Parcheggio esterno gratuito",
+          "booking": "Sì, la prenotazione anticipata è vivamente consigliata, soprattutto nei fine settimana, nei giorni festivi e in alta stagione."
+        },
+        "pl": {
+          "description": "Historyczne termy z panoramicznym basenem na świeżym powietrzu, wykutym bezpośrednio przy krawędzi skały, z zapierającym dech widokiem na alpejską dolinę Bormio.",
+          "parking": "Bezpłatny parking na zewnątrz",
+          "booking": "Tak, zdecydowanie zaleca się wcześniejszą rezerwację, szczególnie na weekendy, święta i w szczycie sezonu."
+        }
+      }
+    },
+    "scout-mlt-s-654a1ffb4fe8": {
+      "name": "Lago di Sorapis",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "A remote, surreal milky-turquoise high-altitude basin framed by imposing pale dolomite rock walls, reached via a stunning mountain trail.",
+        "parking": "Yes, it’s free-located near the start of the route (trail no. 215), not far from the Passo Tre Croci hotel (if you’re arriving from the direction of Cortina d’Ampezzo).",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "A remote, surreal milky-turquoise high-altitude basin framed by imposing pale dolomite rock walls, reached via a stunning mountain trail.",
+          "parking": "Yes, it’s free-located near the start of the route (trail no. 215), not far from the Passo Tre Croci hotel (if you’re arriving from the direction of Cortina d’Ampezzo)."
+        },
+        "de": {
+          "description": "Ein abgelegenes, unwirklich milchig-türkisfarbenes Hochgebirgsgewässer, eingerahmt von mächtigen hellen Dolomitwänden und erreichbar über einen beeindruckenden Bergwanderweg.",
+          "parking": "Ja, kostenlos. Die Parkmöglichkeiten liegen nahe dem Beginn der Route (Wanderweg Nr. 215), unweit des Hotels Passo Tre Croci, wenn Sie aus Richtung Cortina d’Ampezzo kommen."
+        },
+        "ru": {
+          "description": "Уединённое высокогорное озеро с необычной молочно-бирюзовой водой, обрамлённое величественными светлыми доломитовыми скалами. К нему ведёт впечатляющая горная тропа.",
+          "parking": "Да, бесплатно. Парковка находится рядом с началом маршрута — тропы № 215, недалеко от отеля Passo Tre Croci, если ехать со стороны Кортины-д’Ампеццо."
+        },
+        "it": {
+          "description": "Un remoto specchio d’acqua d’alta quota dalle surreali sfumature turchesi lattiginose, incorniciato da imponenti pareti di chiara roccia dolomitica e raggiungibile attraverso uno spettacolare sentiero di montagna.",
+          "parking": "Sì, gratuito. Si trova vicino all’inizio del percorso, il sentiero n. 215, non lontano dall’hotel Passo Tre Croci arrivando dalla direzione di Cortina d’Ampezzo."
+        },
+        "pl": {
+          "description": "Odległe, wysokogórskie jezioro o niezwykłej mlecznoturkusowej wodzie, otoczone potężnymi, jasnymi ścianami dolomitowymi. Prowadzi do niego zachwycający górski szlak.",
+          "parking": "Tak, bezpłatnie. Parking znajduje się w pobliżu początku trasy, czyli szlaku nr 215, niedaleko hotelu Passo Tre Croci, przy dojeździe od strony Cortiny d’Ampezzo."
+        }
+      }
+    },
+    "scout-mlt-s-ba0a233fc586": {
+      "name": "Pragser Wildsee",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "The legendary \"Pearl of the Dolomites\" featuring crystal emerald waters, historic wooden boathouses, and towering mountain reflections",
+        "parking": "P4 (at the lake): Located approximately 100 meters from the water, managed by Hotel Pragser Wildsee.  P3 (Eggerhof): Located approximately 300–400 meters from the lake.  P2: Located approximately 800 meters from the lake, a 10-minute walk. Charging stations for electric cars are available.  P1: Remote parking (5.5 km from the lake), accessible by public transport or shuttle.",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "The legendary \"Pearl of the Dolomites\" featuring crystal emerald waters, historic wooden boathouses, and towering mountain reflections",
+          "parking": "P4 (at the lake): Located approximately 100 meters from the water, managed by Hotel Pragser Wildsee.  P3 (Eggerhof): Located approximately 300–400 meters from the lake.  P2: Located approximately 800 meters from the lake, a 10-minute walk. Charging stations for electric cars are available.  P1: Remote parking (5.5 km from the lake), accessible by public transport or shuttle."
+        },
+        "de": {
+          "description": "Die legendäre „Perle der Dolomiten“ mit kristallklarem, smaragdgrünem Wasser, historischen Bootshäusern aus Holz und den Spiegelungen mächtiger Berggipfel.",
+          "parking": "P4 (am See): etwa 100 Meter vom Wasser entfernt, betrieben vom Hotel Pragser Wildsee. P3 (Eggerhof): etwa 300–400 Meter vom See entfernt. P2: etwa 800 Meter vom See entfernt, rund 10 Gehminuten. Ladestationen für Elektroautos sind vorhanden. P1: entfernter Parkplatz, 5,5 km vom See, mit öffentlichen Verkehrsmitteln oder dem Shuttle erreichbar."
+        },
+        "ru": {
+          "description": "Легендарная «жемчужина Доломитов» с кристально чистой изумрудной водой, историческими деревянными лодочными домиками и отражениями величественных горных вершин.",
+          "parking": "P4 (у озера): примерно в 100 метрах от воды, под управлением Hotel Pragser Wildsee. P3 (Eggerhof): примерно в 300–400 метрах от озера. P2: примерно в 800 метрах от озера, в 10 минутах ходьбы. Есть зарядные станции для электромобилей. P1: удалённая парковка в 5,5 км от озера, откуда можно добраться общественным транспортом или шаттлом."
+        },
+        "it": {
+          "description": "La leggendaria “Perla delle Dolomiti”, con acque cristalline color smeraldo, storiche rimesse per barche in legno e il riflesso di maestose vette montuose.",
+          "parking": "P4 (al lago): a circa 100 metri dall’acqua, gestito dall’Hotel Pragser Wildsee. P3 (Eggerhof): a circa 300–400 metri dal lago. P2: a circa 800 metri dal lago, 10 minuti a piedi. Sono disponibili colonnine di ricarica per auto elettriche. P1: parcheggio distante 5,5 km dal lago, raggiungibile con i mezzi pubblici o la navetta."
+        },
+        "pl": {
+          "description": "Legendarna „Perła Dolomitów” z krystalicznie czystą, szmaragdową wodą, zabytkowymi drewnianymi hangarami na łodzie i odbiciami majestatycznych górskich szczytów.",
+          "parking": "P4 (przy jeziorze): około 100 metrów od wody, zarządzany przez Hotel Pragser Wildsee. P3 (Eggerhof): około 300–400 metrów od jeziora. P2: około 800 metrów od jeziora, 10 minut pieszo. Dostępne są stacje ładowania samochodów elektrycznych. P1: oddalony parking, 5,5 km od jeziora, z dojazdem komunikacją publiczną lub busem wahadłowym."
+        }
+      }
+    },
+    "scout-mlt-s-caaa051ed5f6": {
+      "name": "Rocca Calascio",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "Italy's highest ancient fortress (1,460 meters) perched dramatically on a rugged ridge within the wild Gran Sasso National Park",
+        "parking": "Rocca Calascio Parking: Located at V. della Torre, 211, 67020 Calascio AQ (open 24 hours)",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "Italy's highest ancient fortress (1,460 meters) perched dramatically on a rugged ridge within the wild Gran Sasso National Park",
+          "parking": "Rocca Calascio Parking: Located at V. della Torre, 211, 67020 Calascio AQ (open 24 hours)"
+        },
+        "de": {
+          "description": "Italiens höchstgelegene historische Festung auf 1.460 Metern thront eindrucksvoll auf einem zerklüfteten Bergrücken in der wilden Landschaft des Nationalparks Gran Sasso.",
+          "parking": "Rocca Calascio Parking: V. della Torre, 211, 67020 Calascio AQ, rund um die Uhr geöffnet."
+        },
+        "ru": {
+          "description": "Самая высокорасположенная старинная крепость Италии, находящаяся на высоте 1 460 метров на суровом скалистом хребте среди дикой природы национального парка Гран-Сассо.",
+          "parking": "Rocca Calascio Parking: V. della Torre, 211, 67020 Calascio AQ. Парковка открыта круглосуточно."
+        },
+        "it": {
+          "description": "La fortezza antica più alta d’Italia, a 1.460 metri, arroccata in modo spettacolare su un aspro crinale nel selvaggio Parco Nazionale del Gran Sasso.",
+          "parking": "Rocca Calascio Parking: V. della Torre, 211, 67020 Calascio AQ, aperto 24 ore su 24."
+        },
+        "pl": {
+          "description": "Najwyżej położona zabytkowa twierdza Włoch, na wysokości 1460 metrów, spektakularnie wznosząca się na skalistym grzbiecie pośród dzikiej przyrody Parku Narodowego Gran Sasso.",
+          "parking": "Rocca Calascio Parking: V. della Torre, 211, 67020 Calascio AQ. Parking czynny przez całą dobę."
+        }
+      }
+    },
+    "scout-mlt-s-69a9044ec6d0": {
+      "name": "Grotta Palazzese",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "World-famous fine dining restaurant built inside a natural vaulted limestone sea cliff cave, with Adriatic waves breaking directly below",
+        "parking": "Complimentary reserved parking for guests is located at via Madonna d'Altomare",
+        "booking": "Yes, by prior reservation only",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "World-famous fine dining restaurant built inside a natural vaulted limestone sea cliff cave, with Adriatic waves breaking directly below",
+          "parking": "Complimentary reserved parking for guests is located at via Madonna d'Altomare",
+          "booking": "Yes, by prior reservation only"
+        },
+        "de": {
+          "description": "Ein weltberühmtes Gourmetrestaurant in einer natürlichen Kalksteinhöhle mit gewölbter Decke in einer Meeresklippe, direkt unter der die Wellen der Adria brechen.",
+          "parking": "Kostenlose, für Gäste reservierte Parkplätze befinden sich in der via Madonna d’Altomare.",
+          "booking": "Ja, ausschließlich nach vorheriger Reservierung"
+        },
+        "ru": {
+          "description": "Всемирно известный ресторан высокой кухни, расположенный в естественной сводчатой пещере известнякового морского утёса, прямо под которым разбиваются волны Адриатического моря.",
+          "parking": "Бесплатная парковка, зарезервированная для гостей, находится на via Madonna d’Altomare.",
+          "booking": "Да, только по предварительной брони"
+        },
+        "it": {
+          "description": "Un ristorante di alta cucina di fama mondiale, ricavato in una grotta naturale con volta nella scogliera calcarea, con le onde dell’Adriatico che si infrangono proprio al di sotto.",
+          "parking": "Il parcheggio gratuito riservato agli ospiti si trova in via Madonna d’Altomare.",
+          "booking": "Sì, solo su prenotazione anticipata"
+        },
+        "pl": {
+          "description": "Światowej sławy restauracja z wykwintną kuchnią, urządzona w naturalnej jaskini ze sklepieniem w wapiennym klifie, tuż nad rozbijającymi się falami Adriatyku.",
+          "parking": "Bezpłatny parking zarezerwowany dla gości znajduje się przy via Madonna d’Altomare.",
+          "booking": "Tak, wyłącznie po wcześniejszej rezerwacji"
+        }
+      }
+    },
+    "scout-mlt-s-3af24c67eed3": {
+      "name": "Scala dei Turchi",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "A dazzling white stair-like cliff of sedimentary marl rock sloping dramatically into the brilliant blue Mediterranean Sea",
+        "parking": "Yes, paid parking on the SP 68",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "A dazzling white stair-like cliff of sedimentary marl rock sloping dramatically into the brilliant blue Mediterranean Sea",
+          "parking": "Yes, paid parking on the SP 68"
+        },
+        "de": {
+          "description": "Eine strahlend weiße, treppenförmige Klippe aus sedimentärem Mergel, die spektakulär zum leuchtend blauen Mittelmeer hin abfällt.",
+          "parking": "Ja, kostenpflichtige Parkplätze an der SP 68"
+        },
+        "ru": {
+          "description": "Ослепительно белый ступенчатый утёс из осадочной мергелевой породы, эффектно спускающийся к ярко-синему Средиземному морю.",
+          "parking": "Да, платная парковка на SP 68"
+        },
+        "it": {
+          "description": "Una scogliera abbagliante di marna sedimentaria bianca, simile a una scalinata, che scende in modo spettacolare verso il blu intenso del Mar Mediterraneo.",
+          "parking": "Sì, parcheggio a pagamento sulla SP 68"
+        },
+        "pl": {
+          "description": "Olśniewająco biały, schodkowy klif z osadowego margla, spektakularnie opadający ku intensywnie błękitnemu Morzu Śródziemnemu.",
+          "parking": "Tak, płatny parking przy SP 68"
+        }
+      }
+    },
+    "scout-mlt-s-5181cb8286c9": {
+      "name": "Aquardens Terme Verona",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "Aquardens is Italy’s largest thermal park, nestled in the scenic Valpolicella hills near Verona and Lake Garda. It is a stunning oasis of warm, mineral-rich salt-bromine-iodine waters featuring indoor and outdoor lagoons, caves, waterfalls, hydromassage paths, and a world-class sauna village.",
+        "parking": "Parking, free",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "Aquardens is Italy’s largest thermal park, nestled in the scenic Valpolicella hills near Verona and Lake Garda. It is a stunning oasis of warm, mineral-rich salt-bromine-iodine waters featuring indoor and outdoor lagoons, caves, waterfalls, hydromassage paths, and a world-class sauna village.",
+          "parking": "Parking, free"
+        },
+        "de": {
+          "description": "Aquardens ist Italiens größter Thermalpark und liegt in den malerischen Hügeln des Valpolicella nahe Verona und dem Gardasee. Diese eindrucksvolle Oase mit warmem, mineralreichem Salz-Brom-Jod-Wasser bietet Lagunen im Innen- und Außenbereich, Grotten, Wasserfälle, Hydromassage-Parcours und ein Saunadorf der Spitzenklasse.",
+          "parking": "Kostenlose Parkplätze"
+        },
+        "ru": {
+          "description": "Aquardens — крупнейший термальный парк Италии, расположенный среди живописных холмов Вальполичеллы недалеко от Вероны и озера Гарда. Это впечатляющий оазис тёплых, богатых минералами соляно-бромно-йодных вод с крытыми и открытыми лагунами, гротами, водопадами, гидромассажными дорожками и саунным комплексом мирового класса.",
+          "parking": "Бесплатная парковка"
+        },
+        "it": {
+          "description": "Aquardens è il più grande parco termale d’Italia, immerso nelle suggestive colline della Valpolicella, vicino a Verona e al Lago di Garda. È una splendida oasi di calde acque salsobromoiodiche ricche di minerali, con lagune interne ed esterne, grotte, cascate, percorsi idromassaggio e un villaggio saune di livello internazionale.",
+          "parking": "Parcheggio gratuito"
+        },
+        "pl": {
+          "description": "Aquardens to największy park termalny we Włoszech, położony wśród malowniczych wzgórz Valpolicelli, niedaleko Werony i jeziora Garda. To zachwycająca oaza ciepłych, bogatych w minerały wód solankowo-bromowo-jodowych, z lagunami wewnętrznymi i zewnętrznymi, grotami, wodospadami, ścieżkami hydromasażu oraz kompleksem saun światowej klasy.",
+          "parking": "Bezpłatny parking"
+        }
+      }
+    },
+    "scout-mlt-s-8121c831fc1f": {
+      "name": "Riserva Naturale Orientata dello Zingaro",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "Sicily’s first protected coastal park (established in 1981), famous for its 7 km of car-free rugged limestone cliffs, hidden pebble coves, crystal-clear turquoise water, and scenic hiking trails.Bring comfortable footwear, a snack, and swimwear. Cash is not accepted - only electronic payments. Adults: 5 euros; those eligible for concessions: 3 euros; children under 8: free.",
+        "parking": "Yes, • Southern entrance (on the Scopello side): there are spacious parking areas right next to the ticket office and the entrance to the nature reserve.  • Northern entrance (on the San Vito lo Capo side): there is also a designated area for vehicles",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "Sicily’s first protected coastal park (established in 1981), famous for its 7 km of car-free rugged limestone cliffs, hidden pebble coves, crystal-clear turquoise water, and scenic hiking trails.Bring comfortable footwear, a snack, and swimwear. Cash is not accepted - only electronic payments. Adults: 5 euros; those eligible for concessions: 3 euros; children under 8: free.",
+          "parking": "Yes, • Southern entrance (on the Scopello side): there are spacious parking areas right next to the ticket office and the entrance to the nature reserve.  • Northern entrance (on the San Vito lo Capo side): there is also a designated area for vehicles"
+        },
+        "de": {
+          "description": "Siziliens erster geschützter Küstenpark, gegründet 1981, ist bekannt für seine 7 km autofreie, zerklüftete Kalksteinküste, versteckte Kiesbuchten, kristallklares türkisfarbenes Wasser und malerische Wanderwege. Bringen Sie bequemes Schuhwerk, einen Snack und Badesachen mit. Bargeld wird nicht akzeptiert, nur elektronische Zahlungen. Erwachsene: 5 Euro; Ermäßigungsberechtigte: 3 Euro; Kinder unter 8 Jahren: kostenlos.",
+          "parking": "Ja. Südeingang (auf der Seite von Scopello): großzügige Parkflächen direkt an der Kasse und am Eingang zum Naturschutzgebiet. Nordeingang (auf der Seite von San Vito lo Capo): auch hier gibt es einen ausgewiesenen Bereich für Fahrzeuge."
+        },
+        "ru": {
+          "description": "Первый охраняемый прибрежный парк Сицилии, основанный в 1981 году, знаменит 7 км скалистого известнякового побережья без автомобилей, укромными галечными бухтами, кристально чистой бирюзовой водой и живописными пешеходными тропами. Возьмите удобную обувь, перекус и купальные принадлежности. Наличные не принимаются — только электронная оплата. Взрослые: 5 евро; льготные категории: 3 евро; дети младше 8 лет: бесплатно.",
+          "parking": "Да. Южный вход (со стороны Scopello): просторные парковки прямо у кассы и входа в заповедник. Северный вход (со стороны San Vito lo Capo): также есть специально отведённая площадка для автомобилей."
+        },
+        "it": {
+          "description": "Il primo parco costiero protetto della Sicilia, istituito nel 1981, è famoso per i suoi 7 km di scogliere calcaree selvagge senza automobili, calette di ciottoli nascoste, acque turchesi cristalline e sentieri panoramici. Portate scarpe comode, uno spuntino e il costume da bagno. Non si accettano contanti, ma solo pagamenti elettronici. Adulti: 5 euro; aventi diritto a riduzioni: 3 euro; bambini sotto gli 8 anni: ingresso gratuito.",
+          "parking": "Sì. Ingresso sud (lato Scopello): ampie aree di parcheggio proprio accanto alla biglietteria e all’ingresso della riserva naturale. Ingresso nord (lato San Vito lo Capo): anche qui è presente un’area dedicata ai veicoli."
+        },
+        "pl": {
+          "description": "Pierwszy chroniony park nadmorski Sycylii, utworzony w 1981 roku, słynie z 7 km skalistego, wapiennego wybrzeża bez ruchu samochodowego, ukrytych zatoczek z kamienistymi plażami, krystalicznie czystej turkusowej wody i malowniczych szlaków pieszych. Warto zabrać wygodne obuwie, przekąskę i strój kąpielowy. Gotówka nie jest przyjmowana — obowiązują wyłącznie płatności elektroniczne. Dorośli: 5 euro; osoby uprawnione do ulg: 3 euro; dzieci poniżej 8 lat: bezpłatnie.",
+          "parking": "Tak. Wejście południowe (od strony Scopello): przestronne parkingi tuż przy kasie i wejściu do rezerwatu. Wejście północne (od strony San Vito lo Capo): również znajduje się tam wyznaczony teren dla pojazdów."
+        }
+      }
+    },
+    "scout-mlt-s-dfdeac95966c": {
+      "name": "California Camping Village",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "A laid-back coastal holiday village set in a pine forest, featuring comfortable bungalows, two outdoor pools, a spa, and direct access to a private sandy beach. Perfect for a relaxing family getaway by the sea",
+        "parking": "On-site parking available for guests",
+        "booking": "",
+        "amenities": "Wi-Fi, 2 outdoor swimming pools, spa, restaurant, bar, private beach area, sports facilities, playground, air conditioning, pet-friendly"
+      },
+      "translations": {
+        "en": {
+          "description": "A laid-back coastal holiday village set in a pine forest, featuring comfortable bungalows, two outdoor pools, a spa, and direct access to a private sandy beach. Perfect for a relaxing family getaway by the sea",
+          "parking": "On-site parking available for guests",
+          "amenities": "Wi-Fi, 2 outdoor swimming pools, spa, restaurant, bar, private beach area, sports facilities, playground, air conditioning, pet-friendly"
+        },
+        "de": {
+          "description": "Ein entspanntes Feriendorf an der Küste inmitten eines Pinienwaldes mit komfortablen Bungalows, zwei Außenpools, einem Spa und direktem Zugang zu einem privaten Sandstrand. Ideal für einen erholsamen Familienurlaub am Meer.",
+          "parking": "Parkplätze auf dem Gelände für Gäste vorhanden",
+          "amenities": "WLAN, 2 Außenpools, Spa, Restaurant, Bar, privater Strandbereich, Sportanlagen, Spielplatz, Klimaanlage, Haustiere willkommen"
+        },
+        "ru": {
+          "description": "Спокойный прибрежный курортный комплекс в сосновом лесу с комфортабельными бунгало, двумя открытыми бассейнами, спа и прямым выходом на частный песчаный пляж. Отлично подходит для расслабленного семейного отдыха у моря.",
+          "parking": "Для гостей доступна парковка на территории",
+          "amenities": "Wi-Fi, 2 открытых бассейна, спа, ресторан, бар, частная пляжная зона, спортивные площадки, детская площадка, кондиционер, допускается размещение с домашними животными"
+        },
+        "it": {
+          "description": "Un tranquillo villaggio turistico costiero immerso in una pineta, con confortevoli bungalow, due piscine all’aperto, una spa e accesso diretto a una spiaggia sabbiosa privata. Ideale per una rilassante vacanza in famiglia al mare.",
+          "parking": "Parcheggio in loco disponibile per gli ospiti",
+          "amenities": "Wi-Fi, 2 piscine all’aperto, spa, ristorante, bar, area spiaggia privata, impianti sportivi, parco giochi, aria condizionata, animali domestici ammessi"
+        },
+        "pl": {
+          "description": "Spokojny nadmorski ośrodek wypoczynkowy położony w sosnowym lesie, oferujący komfortowe bungalowy, dwa odkryte baseny, spa i bezpośredni dostęp do prywatnej piaszczystej plaży. Idealny na relaksujący rodzinny wypoczynek nad morzem.",
+          "parking": "Parking na terenie obiektu dostępny dla gości",
+          "amenities": "Wi-Fi, 2 odkryte baseny, spa, restauracja, bar, prywatna strefa plażowa, obiekty sportowe, plac zabaw, klimatyzacja, zwierzęta mile widziane"
+        }
+      }
+    },
+    "scout-mlt-s-53ee9295d6a7": {
+      "name": "Camping Capfun - Europing",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "An action-packed coastal leisure and entertainment destination set in a pine forest. Offers swimming pools, sports facilities, daily animation, and direct access to a natural beach, making it ideal for active recreation and unforgettable holidays",
+        "parking": "On-site parking available",
+        "booking": "Available via official website or phone",
+        "amenities": "Swimming pools, sports courts, entertainment and animation programs, beach access, playground, restaurant, bar"
+      },
+      "translations": {
+        "en": {
+          "description": "An action-packed coastal leisure and entertainment destination set in a pine forest. Offers swimming pools, sports facilities, daily animation, and direct access to a natural beach, making it ideal for active recreation and unforgettable holidays",
+          "parking": "On-site parking available",
+          "booking": "Available via official website or phone",
+          "amenities": "Swimming pools, sports courts, entertainment and animation programs, beach access, playground, restaurant, bar"
+        },
+        "de": {
+          "description": "Ein abwechslungsreiches Freizeit- und Unterhaltungsziel an der Küste inmitten eines Pinienwaldes. Es bietet Swimmingpools, Sportanlagen, tägliche Animation und direkten Zugang zu einem Naturstrand — ideal für aktive Erholung und einen unvergesslichen Urlaub.",
+          "parking": "Parkplätze auf dem Gelände vorhanden",
+          "booking": "Über die offizielle Website oder telefonisch möglich",
+          "amenities": "Swimmingpools, Sportplätze, Unterhaltungs- und Animationsprogramme, Strandzugang, Spielplatz, Restaurant, Bar"
+        },
+        "ru": {
+          "description": "Насыщенный возможностями для отдыха и развлечений прибрежный комплекс в сосновом лесу. Здесь есть бассейны, спортивные площадки, ежедневная анимация и прямой выход на природный пляж — всё для активного отдыха и незабываемого отпуска.",
+          "parking": "Доступна парковка на территории",
+          "booking": "Можно забронировать на официальном сайте или по телефону",
+          "amenities": "Бассейны, спортивные площадки, развлекательные и анимационные программы, выход на пляж, детская площадка, ресторан, бар"
+        },
+        "it": {
+          "description": "Una vivace destinazione costiera per lo svago e il divertimento, immersa in una pineta. Offre piscine, impianti sportivi, animazione quotidiana e accesso diretto a una spiaggia naturale, ideale per una vacanza attiva e indimenticabile.",
+          "parking": "Parcheggio disponibile in loco",
+          "booking": "Prenotazione disponibile tramite il sito ufficiale o per telefono",
+          "amenities": "Piscine, campi sportivi, programmi di intrattenimento e animazione, accesso alla spiaggia, parco giochi, ristorante, bar"
+        },
+        "pl": {
+          "description": "Tętniący atrakcjami nadmorski kompleks wypoczynkowo-rozrywkowy w sosnowym lesie. Oferuje baseny, obiekty sportowe, codzienne animacje i bezpośredni dostęp do naturalnej plaży, sprzyjając aktywnemu wypoczynkowi i niezapomnianym wakacjom.",
+          "parking": "Parking dostępny na terenie obiektu",
+          "booking": "Rezerwacja przez oficjalną stronę internetową lub telefonicznie",
+          "amenities": "Baseny, boiska sportowe, programy rozrywkowe i animacyjne, dostęp do plaży, plac zabaw, restauracja, bar"
+        }
+      }
+    },
+    "scout-mlt-s-6b240ac83563": {
+      "name": "Porto Cervo",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "The heart of the Emerald Coast, created in the 1960s by Prince Karim Aga Khan, it's home to the world's elite's gigantic yachts, high-fashion boutiques, and premium restaurants.",
+        "parking": "Yes, free",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "The heart of the Emerald Coast, created in the 1960s by Prince Karim Aga Khan, it's home to the world's elite's gigantic yachts, high-fashion boutiques, and premium restaurants.",
+          "parking": "Yes, free"
+        },
+        "de": {
+          "description": "Das Herz der Costa Smeralda, in den 1960er-Jahren von Prinz Karim Aga Khan geschaffen, beherbergt riesige Jachten der internationalen Elite, exklusive Modeboutiquen und erstklassige Restaurants.",
+          "parking": "Ja, kostenlos"
+        },
+        "ru": {
+          "description": "Сердце Изумрудного побережья, созданное в 1960-х годах принцем Каримом Ага-ханом. Здесь находятся гигантские яхты мировой элиты, бутики высокой моды и рестораны премиум-класса.",
+          "parking": "Да, бесплатно"
+        },
+        "it": {
+          "description": "Il cuore della Costa Smeralda, creato negli anni Sessanta dal principe Karim Aga Khan, ospita i giganteschi yacht dell’élite mondiale, boutique di alta moda e ristoranti di prestigio.",
+          "parking": "Sì, gratuito"
+        },
+        "pl": {
+          "description": "Serce Szmaragdowego Wybrzeża, stworzone w latach 60. XX wieku przez księcia Karima Agę Chana, przyciąga gigantyczne jachty światowej elity, butiki luksusowej mody i ekskluzywne restauracje.",
+          "parking": "Tak, bezpłatnie"
+        }
+      }
+    },
+    "scout-mlt-s-646f75497c18": {
+      "name": "Hotel Cala di Volpe",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "An iconic 5-star getaway designed like a charming Mediterranean fishing village—and yes, it’s literally where they shot The Spy Who Loved Me. It comes with its own private beach (complete with boat transfers), an Olympic-sized saltwater pool, and exclusive brand collabs like Dolce & Gabbana",
+        "parking": "Free private parking is available on site.  Additional amenities: An electric vehicle charging station is also available on site.",
+        "booking": "book 4–6 months in advance",
+        "amenities": "2 swimming pools (including a huge one with sea water), free Wi-Fi, free parking, private sandy beach (accessible on foot or by free shuttle boat), 4 tennis courts of the Mouratoglou Tennis Center, 2 paddle courts, 24-hour gym, wellness center/spa, restaurants and bars (Le Grand, Matsuhisa, Beefbar, Cala di Volpe Barbecue), family rooms, children's pool and playground, air conditioning in rooms, access to the golf club"
+      },
+      "translations": {
+        "en": {
+          "description": "An iconic 5-star getaway designed like a charming Mediterranean fishing village—and yes, it’s literally where they shot The Spy Who Loved Me. It comes with its own private beach (complete with boat transfers), an Olympic-sized saltwater pool, and exclusive brand collabs like Dolce & Gabbana",
+          "parking": "Free private parking is available on site.  Additional amenities: An electric vehicle charging station is also available on site.",
+          "booking": "book 4–6 months in advance",
+          "amenities": "2 swimming pools (including a huge one with sea water), free Wi-Fi, free parking, private sandy beach (accessible on foot or by free shuttle boat), 4 tennis courts of the Mouratoglou Tennis Center, 2 paddle courts, 24-hour gym, wellness center/spa, restaurants and bars (Le Grand, Matsuhisa, Beefbar, Cala di Volpe Barbecue), family rooms, children's pool and playground, air conditioning in rooms, access to the golf club"
+        },
+        "de": {
+          "description": "Ein legendäres 5-Sterne-Refugium, gestaltet wie ein charmantes mediterranes Fischerdorf — und tatsächlich ein Drehort von „The Spy Who Loved Me“. Es bietet einen eigenen Privatstrand mit Bootstransfers, einen olympiagroßen Salzwasserpool und exklusive Kooperationen mit Marken wie Dolce & Gabbana.",
+          "parking": "Kostenlose Privatparkplätze auf dem Gelände. Zusätzlich steht vor Ort eine Ladestation für Elektrofahrzeuge zur Verfügung.",
+          "booking": "4–6 Monate im Voraus buchen",
+          "amenities": "2 Swimmingpools, darunter ein sehr großer Meerwasserpool; kostenloses WLAN; kostenlose Parkplätze; privater Sandstrand, zu Fuß oder mit einem kostenlosen Shuttleboot erreichbar; 4 Tennisplätze des Mouratoglou Tennis Center; 2 Padelplätze; rund um die Uhr geöffnetes Fitnessstudio; Wellnesscenter/Spa; Restaurants und Bars (Le Grand, Matsuhisa, Beefbar, Cala di Volpe Barbecue); Familienzimmer; Kinderpool und Spielplatz; Klimaanlage in den Zimmern; Zugang zum Golfclub"
+        },
+        "ru": {
+          "description": "Знаковый пятизвёздочный курорт, оформленный как очаровательная средиземноморская рыбацкая деревушка. Именно здесь снимали фильм «The Spy Who Loved Me». Здесь есть собственный частный пляж с трансферами на лодке, бассейн олимпийского размера с солёной водой и эксклюзивные коллаборации с такими брендами, как Dolce & Gabbana.",
+          "parking": "На территории есть бесплатная частная парковка. Дополнительно доступна зарядная станция для электромобилей.",
+          "booking": "Бронировать за 4–6 месяцев",
+          "amenities": "2 бассейна, включая огромный бассейн с морской водой; бесплатный Wi-Fi; бесплатная парковка; частный песчаный пляж, до которого можно дойти пешком или добраться на бесплатном катере-шаттле; 4 теннисных корта Mouratoglou Tennis Center; 2 корта для падела; круглосуточный тренажёрный зал; велнес-центр/спа; рестораны и бары (Le Grand, Matsuhisa, Beefbar, Cala di Volpe Barbecue); семейные номера; детский бассейн и игровая площадка; кондиционер в номерах; доступ в гольф-клуб"
+        },
+        "it": {
+          "description": "Un iconico rifugio a 5 stelle progettato come un incantevole borgo di pescatori mediterraneo, nonché autentica location del film “The Spy Who Loved Me”. Offre una spiaggia privata con trasferimenti in barca, una piscina di acqua salata di dimensioni olimpioniche ed esclusive collaborazioni con marchi come Dolce & Gabbana.",
+          "parking": "Parcheggio privato gratuito disponibile in loco. È inoltre presente una stazione di ricarica per veicoli elettrici.",
+          "booking": "Prenotare con 4–6 mesi di anticipo",
+          "amenities": "2 piscine, di cui una molto grande con acqua di mare; Wi-Fi gratuito; parcheggio gratuito; spiaggia sabbiosa privata raggiungibile a piedi o con una barca navetta gratuita; 4 campi da tennis del Mouratoglou Tennis Center; 2 campi da padel; palestra aperta 24 ore su 24; centro benessere/spa; ristoranti e bar (Le Grand, Matsuhisa, Beefbar, Cala di Volpe Barbecue); camere familiari; piscina e parco giochi per bambini; aria condizionata nelle camere; accesso al golf club"
+        },
+        "pl": {
+          "description": "Kultowy pięciogwiazdkowy kurort zaprojektowany na wzór urokliwej śródziemnomorskiej wioski rybackiej — to właśnie tutaj kręcono film „The Spy Who Loved Me”. Oferuje własną prywatną plażę z transferami łodzią, basen ze słoną wodą o wymiarach olimpijskich oraz ekskluzywne współprace z markami takimi jak Dolce & Gabbana.",
+          "parking": "Na terenie obiektu dostępny jest bezpłatny prywatny parking oraz stacja ładowania pojazdów elektrycznych.",
+          "booking": "Rezerwować z wyprzedzeniem 4–6 miesięcy",
+          "amenities": "2 baseny, w tym bardzo duży basen z wodą morską; bezpłatne Wi-Fi; bezpłatny parking; prywatna piaszczysta plaża dostępna pieszo lub bezpłatną łodzią wahadłową; 4 korty tenisowe Mouratoglou Tennis Center; 2 korty do padla; całodobowa siłownia; centrum wellness/spa; restauracje i bary (Le Grand, Matsuhisa, Beefbar, Cala di Volpe Barbecue); pokoje rodzinne; basen i plac zabaw dla dzieci; klimatyzacja w pokojach; dostęp do klubu golfowego"
+        }
+      }
+    },
+    "scout-mlt-s-a9c1e8519997": {
+      "name": "Beach Cala Goloritzé",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "One of the most stunning beaches in the world, famous for its pinkish-white pebbles, crystal-clear turquoise water, and a massive 140-meter limestone needle (Aguglia) jutting right out of the sea. It's actually a designated Italian National Monument. To get there, you can either take a 1.5-hour hike down or rent a boat/yacht",
+        "parking": "Yes, next to the start of the walking route to Cala Goloritzé beach",
+        "booking": "To enter the trail and descend to Cala Goloritzè beach, advance booking and payment of an environmental fee (approximately €6–7 per person) through the Heart of Sardinia app or website are required.",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "One of the most stunning beaches in the world, famous for its pinkish-white pebbles, crystal-clear turquoise water, and a massive 140-meter limestone needle (Aguglia) jutting right out of the sea. It's actually a designated Italian National Monument. To get there, you can either take a 1.5-hour hike down or rent a boat/yacht",
+          "parking": "Yes, next to the start of the walking route to Cala Goloritzé beach",
+          "booking": "To enter the trail and descend to Cala Goloritzè beach, advance booking and payment of an environmental fee (approximately €6–7 per person) through the Heart of Sardinia app or website are required."
+        },
+        "de": {
+          "description": "Einer der schönsten Strände der Welt, bekannt für seine rosaweißen Kiesel, kristallklares türkisfarbenes Wasser und eine gewaltige, 140 Meter hohe Kalksteinnadel (Aguglia), die direkt aus dem Meer ragt. Der Strand ist als italienisches Nationaldenkmal ausgewiesen. Sie erreichen ihn über eine etwa 1,5-stündige Wanderung bergab oder mit einem gemieteten Boot beziehungsweise einer Jacht.",
+          "parking": "Ja, neben dem Beginn des Wanderwegs zum Strand Cala Goloritzé",
+          "booking": "Für den Zugang zum Wanderweg und den Abstieg zum Strand Cala Goloritzè sind eine vorherige Buchung und die Zahlung einer Umweltgebühr von etwa 6–7 € pro Person über die App oder Website Heart of Sardinia erforderlich."
+        },
+        "ru": {
+          "description": "Один из самых красивых пляжей мира, знаменитый розовато-белой галькой, кристально чистой бирюзовой водой и огромной 140-метровой известняковой иглой Aguglia, возвышающейся прямо из моря. Пляж имеет статус национального памятника Италии. Добраться можно, спустившись по пешеходному маршруту примерно за 1,5 часа, либо арендовав лодку или яхту.",
+          "parking": "Да, рядом с началом пешеходного маршрута к пляжу Cala Goloritzé",
+          "booking": "Для прохода по тропе и спуска к пляжу Cala Goloritzè необходимы предварительная бронь и оплата экологического сбора — примерно 6–7 € с человека — через приложение или сайт Heart of Sardinia."
+        },
+        "it": {
+          "description": "Una delle spiagge più spettacolari al mondo, famosa per i ciottoli bianco-rosati, l’acqua turchese cristallina e l’imponente guglia calcarea Aguglia, alta 140 metri, che si erge direttamente dal mare. È riconosciuta come Monumento Nazionale italiano. Per raggiungerla si può percorrere un sentiero in discesa di circa 1,5 ore oppure noleggiare una barca o uno yacht.",
+          "parking": "Sì, accanto all’inizio del percorso a piedi per la spiaggia di Cala Goloritzé",
+          "booking": "Per accedere al sentiero e scendere alla spiaggia di Cala Goloritzè sono richieste la prenotazione anticipata e il pagamento di un contributo ambientale di circa 6–7 € a persona tramite l’app o il sito Heart of Sardinia."
+        },
+        "pl": {
+          "description": "Jedna z najpiękniejszych plaż świata, słynąca z różowobiałych otoczaków, krystalicznie czystej turkusowej wody i ogromnej, 140-metrowej wapiennej iglicy Aguglia wyrastającej wprost z morza. Plaża ma status włoskiego pomnika narodowego. Można do niej dotrzeć, schodząc szlakiem przez około 1,5 godziny, albo wynajmując łódź lub jacht.",
+          "parking": "Tak, obok początku szlaku pieszego na plażę Cala Goloritzé",
+          "booking": "Wejście na szlak i zejście na plażę Cala Goloritzè wymagają wcześniejszej rezerwacji oraz opłaty środowiskowej w wysokości około 6–7 € od osoby przez aplikację lub stronę Heart of Sardinia."
+        }
+      }
+    },
+    "scout-mlt-s-ef95e322dfd7": {
+      "name": "Beach Cala Coticcio",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "Informally known as \"Sardinia's Tahiti,\" this spot features crystal-clear water in every shade of blue, framed by striking pink granite rocks",
+        "parking": "Cars can only be parked on the side of the road or in small, improvised spaces at the start of the walking trail leading to the bay. These spaces are very limited, and during peak season, finding a free space is difficult, as there's a risk of damaging your car on rocks.",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "Informally known as \"Sardinia's Tahiti,\" this spot features crystal-clear water in every shade of blue, framed by striking pink granite rocks",
+          "parking": "Cars can only be parked on the side of the road or in small, improvised spaces at the start of the walking trail leading to the bay. These spaces are very limited, and during peak season, finding a free space is difficult, as there's a risk of damaging your car on rocks."
+        },
+        "de": {
+          "description": "Dieser inoffiziell als „Tahiti Sardiniens“ bekannte Ort begeistert mit kristallklarem Wasser in allen Blautönen, eingerahmt von markanten rosa Granitfelsen.",
+          "parking": "Autos können nur am Straßenrand oder auf kleinen, provisorischen Flächen am Beginn des Wanderwegs zur Bucht abgestellt werden. Die Plätze sind sehr begrenzt. In der Hochsaison ist es schwierig, einen freien Platz zu finden, und es besteht die Gefahr, das Auto an Felsen zu beschädigen."
+        },
+        "ru": {
+          "description": "Это место, неофициально известное как «сардинское Таити», славится кристально чистой водой всех оттенков синего, обрамлённой выразительными розовыми гранитными скалами.",
+          "parking": "Автомобили можно оставлять только на обочине или на небольших необустроенных площадках в начале пешеходной тропы к бухте. Мест очень мало, а в высокий сезон найти свободное место трудно; есть риск повредить автомобиль о камни."
+        },
+        "it": {
+          "description": "Informalmente conosciuto come la “Tahiti della Sardegna”, questo luogo offre acque cristalline in ogni sfumatura di blu, incorniciate da suggestive rocce di granito rosa.",
+          "parking": "Le auto possono essere parcheggiate solo lungo la strada o in piccoli spazi improvvisati all’inizio del sentiero che porta alla baia. I posti sono molto limitati e in alta stagione è difficile trovarne uno libero, con il rischio di danneggiare l’auto contro le rocce."
+        },
+        "pl": {
+          "description": "Miejsce nieformalnie nazywane „Tahiti Sardynii” zachwyca krystalicznie czystą wodą we wszystkich odcieniach błękitu, otoczoną wyrazistymi skałami z różowego granitu.",
+          "parking": "Samochody można parkować wyłącznie na poboczu lub na niewielkich, prowizorycznych miejscach przy początku szlaku prowadzącego do zatoki. Miejsc jest bardzo mało, a w szczycie sezonu trudno znaleźć wolne; istnieje ryzyko uszkodzenia samochodu o skały."
+        }
+      }
+    },
+    "scout-mlt-s-ae2663c3168c": {
+      "name": "Castello di Serravalle / Castello Malaspina",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "Perched high above the colorful town of Bosa, the Malaspina Castle is a breathtaking medieval fortress. It is famous for its panoramic views, imposing stone towers, and a hidden chapel adorned with rare, beautiful 14th-century frescoes",
+        "parking": "Yes, Parcheggio per il Castello di Serravalle (Via del Castello, 09089 Bosa OR)",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "Perched high above the colorful town of Bosa, the Malaspina Castle is a breathtaking medieval fortress. It is famous for its panoramic views, imposing stone towers, and a hidden chapel adorned with rare, beautiful 14th-century frescoes",
+          "parking": "Yes, Parcheggio per il Castello di Serravalle (Via del Castello, 09089 Bosa OR)"
+        },
+        "de": {
+          "description": "Hoch über der farbenfrohen Stadt Bosa thront das Castello Malaspina, eine beeindruckende mittelalterliche Festung. Es ist bekannt für seine Panoramablicke, mächtigen Steintürme und eine verborgene Kapelle mit seltenen, wunderschönen Fresken aus dem 14. Jahrhundert.",
+          "parking": "Ja, Parcheggio per il Castello di Serravalle, Via del Castello, 09089 Bosa OR."
+        },
+        "ru": {
+          "description": "Высоко над красочным городом Боза возвышается замок Маласпина — впечатляющая средневековая крепость. Он знаменит панорамными видами, величественными каменными башнями и скрытой часовней с редкими, прекрасными фресками XIV века.",
+          "parking": "Да, Parcheggio per il Castello di Serravalle, Via del Castello, 09089 Bosa OR."
+        },
+        "it": {
+          "description": "Arroccato sopra la colorata cittadina di Bosa, il Castello Malaspina è una spettacolare fortezza medievale. È famoso per i panorami, le imponenti torri in pietra e una cappella nascosta impreziosita da rare e splendide opere ad affresco del XIV secolo.",
+          "parking": "Sì, Parcheggio per il Castello di Serravalle, Via del Castello, 09089 Bosa OR."
+        },
+        "pl": {
+          "description": "Wznoszący się wysoko nad barwnym miasteczkiem Bosa zamek Malaspina to zachwycająca średniowieczna twierdza. Słynie z panoramicznych widoków, potężnych kamiennych wież i ukrytej kaplicy ozdobionej rzadkimi, pięknymi freskami z XIV wieku.",
+          "parking": "Tak, Parcheggio per il Castello di Serravalle, Via del Castello, 09089 Bosa OR."
+        }
+      }
+    },
+    "scout-mlt-s-bd6ddae89028": {
+      "name": "Tempio di Segesta",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "The Temple of Segesta is a breathtaking masterpiece frozen in time. Standing majestically alone on a sun-drenched hill in western Sicily, this 5th-century BC unfinished Doric temple blends harmoniously with the wild nature around it. Its 36 towering golden columns rise against the Mediterranean sky, creating a powerful sense of timeless beauty, history, and profound silence",
+        "parking": "Parking is free. There is a spacious, official parking area located right at the entrance to the archaeological park (next to the ticket offices and ticket area) at the following address: Contrada Barbaro, 91013 Calatafimi-Segesta TP, Italy.",
+        "booking": "Can buy a ticket on the website",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "The Temple of Segesta is a breathtaking masterpiece frozen in time. Standing majestically alone on a sun-drenched hill in western Sicily, this 5th-century BC unfinished Doric temple blends harmoniously with the wild nature around it. Its 36 towering golden columns rise against the Mediterranean sky, creating a powerful sense of timeless beauty, history, and profound silence",
+          "parking": "Parking is free. There is a spacious, official parking area located right at the entrance to the archaeological park (next to the ticket offices and ticket area) at the following address: Contrada Barbaro, 91013 Calatafimi-Segesta TP, Italy.",
+          "booking": "Can buy a ticket on the website"
+        },
+        "de": {
+          "description": "Der Tempel von Segesta ist ein beeindruckendes Meisterwerk, in dem die Zeit stillzustehen scheint. Der unvollendete dorische Tempel aus dem 5. Jahrhundert v. Chr. steht majestätisch und einsam auf einem sonnenverwöhnten Hügel im Westen Siziliens und fügt sich harmonisch in die wilde Natur ein. Seine 36 hoch aufragenden goldfarbenen Säulen heben sich vom Himmel des Mittelmeers ab und vermitteln zeitlose Schönheit, Geschichte und tiefe Stille.",
+          "parking": "Das Parken ist kostenlos. Ein großzügiger offizieller Parkplatz befindet sich direkt am Eingang des archäologischen Parks, neben den Kassen und dem Ticketbereich. Adresse: Contrada Barbaro, 91013 Calatafimi-Segesta TP, Italy.",
+          "booking": "Ein Ticket kann auf der Website gekauft werden"
+        },
+        "ru": {
+          "description": "Храм Сегесты — впечатляющий шедевр, в котором словно застыло время. Этот незавершённый дорический храм V века до н. э. величественно стоит в одиночестве на залитом солнцем холме западной Сицилии, гармонично сливаясь с окружающей дикой природой. Его 36 высоких золотистых колонн возвышаются на фоне средиземноморского неба, создавая мощное ощущение вневременной красоты, истории и глубокой тишины.",
+          "parking": "Парковка бесплатная. Просторная официальная парковка находится прямо у входа в археологический парк, рядом с кассами и билетной зоной. Адрес: Contrada Barbaro, 91013 Calatafimi-Segesta TP, Italy.",
+          "booking": "Билет можно купить на сайте"
+        },
+        "it": {
+          "description": "Il Tempio di Segesta è un magnifico capolavoro sospeso nel tempo. Maestoso e solitario su una collina assolata della Sicilia occidentale, questo tempio dorico incompiuto del V secolo a.C. si integra armoniosamente nella natura selvaggia circostante. Le sue 36 alte colonne dorate si stagliano contro il cielo mediterraneo, trasmettendo un profondo senso di bellezza senza tempo, storia e silenzio.",
+          "parking": "Il parcheggio è gratuito. Un’ampia area di sosta ufficiale si trova proprio all’ingresso del parco archeologico, accanto alle biglietterie e all’area dei biglietti. Indirizzo: Contrada Barbaro, 91013 Calatafimi-Segesta TP, Italy.",
+          "booking": "È possibile acquistare il biglietto sul sito"
+        },
+        "pl": {
+          "description": "Świątynia w Segeście to zachwycające arcydzieło zatrzymane w czasie. Ten niedokończony dorycki zabytek z V wieku p.n.e. stoi majestatycznie i samotnie na skąpanym w słońcu wzgórzu zachodniej Sycylii, harmonijnie wpisując się w otaczającą dziką przyrodę. Jego 36 wysokich, złocistych kolumn wznosi się na tle śródziemnomorskiego nieba, tworząc niezwykłe poczucie ponadczasowego piękna, historii i głębokiej ciszy.",
+          "parking": "Parking jest bezpłatny. Przestronny oficjalny parking znajduje się tuż przy wejściu do parku archeologicznego, obok kas i strefy biletowej. Adres: Contrada Barbaro, 91013 Calatafimi-Segesta TP, Italy.",
+          "booking": "Bilet można kupić na stronie internetowej"
+        }
+      }
+    },
+    "scout-mlt-s-c6dba35999a7": {
+      "name": "Palermo Cathedral",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "Perched majestically in the heart of Sicily, the Palermo Cathedral isn’t just a church—it is a stunning architectural collision of Norman might, Arab elegance, Gothic flair, and Baroque grandeur. Originally built in 1185 over the site of a former mosque, this iconic landmark invites you to gaze upon centuries of history in a single glance.",
+        "parking": "No",
+        "booking": "",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "Perched majestically in the heart of Sicily, the Palermo Cathedral isn’t just a church—it is a stunning architectural collision of Norman might, Arab elegance, Gothic flair, and Baroque grandeur. Originally built in 1185 over the site of a former mosque, this iconic landmark invites you to gaze upon centuries of history in a single glance.",
+          "parking": "No"
+        },
+        "de": {
+          "description": "Mitten im Herzen Siziliens erhebt sich die Kathedrale von Palermo — weit mehr als eine Kirche: ein beeindruckendes architektonisches Zusammenspiel aus normannischer Kraft, arabischer Eleganz, gotischer Raffinesse und barocker Pracht. 1185 an der Stelle einer früheren Moschee erbaut, lädt dieses Wahrzeichen dazu ein, Jahrhunderte der Geschichte mit einem einzigen Blick zu erfassen.",
+          "parking": "Nein"
+        },
+        "ru": {
+          "description": "Величественно возвышающийся в самом сердце Сицилии Палермский собор — это удивительное архитектурное сочетание норманнского могущества, арабского изящества, готической выразительности и барочного величия. Построенный в 1185 году на месте бывшей мечети, этот знаковый памятник позволяет одним взглядом охватить столетия истории.",
+          "parking": "Нет"
+        },
+        "it": {
+          "description": "Maestosa nel cuore della Sicilia, la Cattedrale di Palermo è molto più di una chiesa: è uno straordinario incontro architettonico tra la forza normanna, l’eleganza araba, il fascino gotico e lo splendore barocco. Costruito nel 1185 sul sito di una precedente moschea, questo monumento iconico invita ad abbracciare secoli di storia con un solo sguardo.",
+          "parking": "No"
+        },
+        "pl": {
+          "description": "Majestatycznie wznosząca się w sercu Sycylii katedra w Palermo jest czymś więcej niż kościołem — to niezwykłe architektoniczne połączenie normańskiej potęgi, arabskiej elegancji, gotyckiego kunsztu i barokowego przepychu. Wzniesiona w 1185 roku na miejscu dawnego meczetu, ta ikoniczna budowla pozwala objąć jednym spojrzeniem całe stulecia historii.",
+          "parking": "Nie"
+        }
+      }
+    },
+    "scout-mlt-s-25d428c356f9": {
+      "name": "Restaurant Etnea Roof Bar",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "Sitting on the seventh floor of the Palace Catania | UNA Esperienze hotel, it boasts a spacious terrace with sweeping views over the old town rooftops and the smoking peak of Mount Etna.",
+        "parking": "No",
+        "booking": "Booking by phone or on the website",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "Sitting on the seventh floor of the Palace Catania | UNA Esperienze hotel, it boasts a spacious terrace with sweeping views over the old town rooftops and the smoking peak of Mount Etna.",
+          "parking": "No",
+          "booking": "Booking by phone or on the website"
+        },
+        "de": {
+          "description": "Im siebten Stock des Hotels Palace Catania | UNA Esperienze gelegen, bietet die Location eine großzügige Terrasse mit weitem Blick über die Dächer der Altstadt bis zum rauchenden Gipfel des Ätna.",
+          "parking": "Nein",
+          "booking": "Reservierung telefonisch oder über die Website"
+        },
+        "ru": {
+          "description": "Заведение расположено на седьмом этаже отеля Palace Catania | UNA Esperienze и располагает просторной террасой с широкими видами на крыши старого города и дымящуюся вершину Этны.",
+          "parking": "Нет",
+          "booking": "Бронирование по телефону или на сайте"
+        },
+        "it": {
+          "description": "Situato al settimo piano dell’hotel Palace Catania | UNA Esperienze, offre un’ampia terrazza con una vista che spazia sui tetti del centro storico fino alla cima fumante dell’Etna.",
+          "parking": "No",
+          "booking": "Prenotazione per telefono o sul sito"
+        },
+        "pl": {
+          "description": "Lokal mieści się na siódmym piętrze hotelu Palace Catania | UNA Esperienze i oferuje przestronny taras z rozległym widokiem na dachy starego miasta oraz dymiący szczyt Etny.",
+          "parking": "Nie",
+          "booking": "Rezerwacja telefonicznie lub na stronie internetowej"
+        }
+      }
+    },
+    "scout-mlt-s-b1935012c38f": {
+      "name": "Locanda Don Serafino restaurant",
+      "sourceLanguage": "en",
+      "source": {
+        "description": "One of the island's most unique restaurants, carved right into a natural rock cave with arched ceilings. The interior blends historic stonework with sleek, modern design. It’s Michelin-starred, serving refined takes on traditional Sicilian dishes made with locally sourced ingredients.",
+        "parking": "Yes, city parking spaces",
+        "booking": "Booking by phone or on the website",
+        "amenities": ""
+      },
+      "translations": {
+        "en": {
+          "description": "One of the island's most unique restaurants, carved right into a natural rock cave with arched ceilings. The interior blends historic stonework with sleek, modern design. It’s Michelin-starred, serving refined takes on traditional Sicilian dishes made with locally sourced ingredients.",
+          "parking": "Yes, city parking spaces",
+          "booking": "Booking by phone or on the website"
+        },
+        "de": {
+          "description": "Eines der außergewöhnlichsten Restaurants der Insel, direkt in eine natürliche Felsenhöhle mit gewölbten Decken eingebaut. Im Inneren verbinden sich historisches Mauerwerk und elegantes modernes Design. Das Michelin-Sternerestaurant serviert raffinierte Interpretationen traditioneller sizilianischer Gerichte aus regionalen Zutaten.",
+          "parking": "Ja, öffentliche Parkplätze in der Stadt",
+          "booking": "Reservierung telefonisch oder über die Website"
+        },
+        "ru": {
+          "description": "Один из самых необычных ресторанов острова, расположенный прямо в естественной скальной пещере со сводчатыми потолками. В интерьере историческая каменная кладка сочетается с элегантным современным дизайном. Ресторан отмечен звездой Michelin и предлагает изысканные интерпретации традиционных сицилийских блюд из местных продуктов.",
+          "parking": "Да, городские парковочные места",
+          "booking": "Бронирование по телефону или на сайте"
+        },
+        "it": {
+          "description": "Uno dei ristoranti più particolari dell’isola, ricavato direttamente in una grotta naturale nella roccia con soffitti a volta. Gli interni uniscono antiche murature in pietra e un elegante design contemporaneo. Stellato Michelin, propone raffinate interpretazioni dei piatti tradizionali siciliani preparati con ingredienti locali.",
+          "parking": "Sì, parcheggi cittadini",
+          "booking": "Prenotazione per telefono o sul sito"
+        },
+        "pl": {
+          "description": "Jedna z najbardziej niezwykłych restauracji na wyspie, urządzona bezpośrednio w naturalnej skalnej grocie ze sklepionymi sufitami. Wnętrze łączy zabytkowe kamienne mury z eleganckim, nowoczesnym wystrojem. Restauracja wyróżniona gwiazdką Michelin serwuje wyrafinowane interpretacje tradycyjnych sycylijskich dań z lokalnych składników.",
+          "parking": "Tak, miejskie miejsca parkingowe",
+          "booking": "Rezerwacja telefonicznie lub na stronie internetowej"
+        }
+      }
+    }
+  }
+}

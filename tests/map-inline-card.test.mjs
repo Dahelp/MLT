@@ -41,7 +41,7 @@ test('filled place contacts appear in visitor details as website and call links 
  for(const [locale,website,phone] of [['en','Website','Phone'],['de','Website','Telefon'],['ru','Сайт','Телефон'],['it','Sito web','Telefono'],['pl','Strona internetowa','Telefon']]){
   const html=render({point:contactPoint,locale});
   assert.ok(html.includes(`<dt>${website}</dt>`));assert.ok(html.includes(`<dt>${phone}</dt>`));
-  assert.match(html,/<a href="https:\/\/example.com\/visit" target="_blank" rel="noopener noreferrer">example.com\/visit<\/a>/);
+  assert.match(html,/<a href="https:\/\/example.com\/visit" target="_blank" rel="noopener noreferrer">example.com<\/a>/);
   assert.match(html,/<a href="tel:\+390451234567">\+39 \(045\) 123-4567<\/a>/);
  }
 });
@@ -53,6 +53,16 @@ test('empty contacts have no labels or links, and contact-only places can expand
  const websiteOnly=render({point:{...empty,locationWebsite:'https://example.com'}});
  assert.match(websiteOnly,/map-point-preview-more/);assert.match(websiteOnly,/<dt>Сайт<\/dt>/);assert.doesNotMatch(websiteOnly,/<dt>Телефон<\/dt>/);
  assert.doesNotMatch(render({point:{...empty,locationWebsite:'javascript:alert(1)',contactPhone:' '}}),/<a href=|map-point-preview-more|map-point-preview-logistics/);
+});
+test('the map card uses the chosen language for all visitor fields while keeping official names and contacts',()=>{
+ const source={...point,description:'Original description',parking:'Original parking',booking:'Original booking',amenities:'Original amenities',locationWebsite:'https://example.com',contactPhone:'+39 123',translations:{de:{description:'Deutsche Beschreibung',parking:'Deutscher Parkplatz',booking:'Deutsche Reservierung',amenities:'Deutsche Ausstattung'},ru:{description:'Русское описание',parking:'Русская парковка',booking:'Русское бронирование',amenities:'Русские удобства'}}};
+ for(const locale of ['de','ru']){
+  const html=render({point:source,locale});
+  for(const text of Object.values(source.translations[locale]))assert.ok(html.includes(text),text);
+  assert.doesNotMatch(html,/Original description|Original parking|Original booking|Original amenities/);
+  assert.match(html,/A waterfall/);assert.match(html,/href="https:\/\/example.com\/"/);assert.match(html,/href="tel:\+39123"/);
+ }
+ assert.match(render({point:source,locale:'pl'}),/Original description/);
 });
 test('overlapping places can be browsed inline before selecting an individual place',()=>{
  const html=renderToStaticMarkup(React.createElement(Nearby,{points:[point,{...point,id:'second',name:'Another place'}],selected:['test'],locale:'ru',onPick(){},onClose(){}}));
