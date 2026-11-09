@@ -1,16 +1,11 @@
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
-import { mapPoints, journeyRoutes } from "../content/mlt";
-import { mapCoordinates } from "../content/map";
 import { publishedRoutePoint, type RoutePoint, type PointResponse } from "../content/route-points";
 export type { RoutePoint } from "../content/route-points";
 
 type Snapshot = { points: RoutePoint[]; coordinates: Record<string, [number, number]> };
-const initial: Snapshot = { points: mapPoints.map(point=>{
-  const route=journeyRoutes.find(route=>route.id===point.id);
-  return {...point,photos:route?[route.image]:[],descriptions:route?.tagline};
-}), coordinates: mapCoordinates };
+const initial: Snapshot = { points: [], coordinates: {} };
 let current = initial, pending: Promise<void> | null = null, loadedAt = 0;
 const listeners = new Set<() => void>();
 const subscribe = (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; };
@@ -21,8 +16,8 @@ async function refresh() {
     if (!response.ok) throw new Error("Route points unavailable");
     const data = await response.json();
     if (!Array.isArray(data.points)) return;
-    const points = new Map<string, RoutePoint>(initial.points.map(point => [point.id, point]));
-    const coordinates = { ...mapCoordinates };
+    const points = new Map<string, RoutePoint>();
+    const coordinates: Snapshot["coordinates"] = {};
     for (const row of data.points as PointResponse[]) {
       const point=publishedRoutePoint(row);
       if (!point) continue;

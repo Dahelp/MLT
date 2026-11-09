@@ -17,7 +17,7 @@ mlt_scout_video_schema($db);
 if ($action==='points') {
     // Publish location media only after explicit approval and map publication.
     // Scout identity, capabilities, contact details and review notes stay private.
-    $rows=$db->query('SELECT p.slug,p.title,p.country_name,p.latitude,p.longitude,p.description,p.image_path,s.category,s.photos_json,s.parking,s.booking,s.amenities,s.recommended,s.video_json FROM mlt_route_points p LEFT JOIN mlt_scout_submissions s ON s.published_point_id=p.id WHERE p.is_active=1 AND (s.id IS NULL OR s.status="accepted") ORDER BY p.id')->fetchAll();
+    $rows=$db->query('SELECT p.slug,p.title,p.country_name,p.latitude,p.longitude,p.description,p.image_path,s.category,s.photos_json,s.parking,s.booking,s.amenities,s.recommended,s.video_json FROM mlt_route_points p INNER JOIN mlt_scout_submissions s ON s.published_point_id=p.id WHERE p.is_active=1 AND s.status="accepted" ORDER BY p.id')->fetchAll();
     foreach ($rows as &$point) {
         $point['amenities']=($point['category']??'')==='stay'?($point['amenities']??''):'';
         $point['recommended']=(bool)($point['recommended']??false);

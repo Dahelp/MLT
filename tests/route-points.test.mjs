@@ -34,3 +34,25 @@ test('public map keeps all ten photos and exposes amenities only for accommodati
  assert.deepEqual(stay.photos,photos);assert.equal(stay.amenities,'Pool & sauna');
  assert.equal(publishedRoutePoint({...row,category:'sight',amenities:'stale'}).amenities,'');
 });
+
+test('shared maps start empty, load only published places and never restore demo points on refresh or failure',async()=>{
+ const hooks=[],responses=[],notifications=[];let timer,clock=100000,snapshot,serverSnapshot;
+ const react={useEffect:effect=>hooks.push(effect),useSyncExternalStore:(subscribe,getSnapshot,getServerSnapshot)=>{subscribe(()=>notifications.push(true));snapshot=getSnapshot;serverSnapshot=getServerSnapshot;return getSnapshot();}};
+ const m={exports:{}};
+ const code=ts.transpileModule(fs.readFileSync(new URL('../app/useRoutePoints.ts',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+ new Function('module','exports','require','fetch','window','document','Date',code)(m,m.exports,name=>{
+  if(name==='react')return react;
+  if(name==='../content/route-points')return module.exports;
+  throw new Error('Unexpected map data dependency: '+name);
+ },()=>new Promise(resolve=>responses.push(resolve)),{setInterval:callback=>{timer=callback;return 1},clearInterval(){}},{hidden:false,addEventListener(){},removeEventListener(){}},{now:()=>clock});
+ assert.deepEqual(m.exports.useRoutePoints(),{points:[],coordinates:{}});
+ assert.deepEqual(serverSnapshot(),{points:[],coordinates:{}});
+ const cleanup=hooks[0](),settle=()=>new Promise(resolve=>setImmediate(resolve));
+ responses.shift()({ok:true,json:async()=>({points:[row]})});await settle();
+ assert.deepEqual(snapshot().points.map(p=>p.id),[row.slug]);assert.deepEqual(snapshot().coordinates,{[row.slug]:[12.7,42.5]});
+ const loaded=snapshot();clock+=60001;timer();responses.shift()({ok:false});await settle();
+ assert.equal(snapshot(),loaded,'Network failures retain only the last confirmed Scout snapshot');
+ clock+=60001;timer();responses.shift()({ok:true,json:async()=>({points:[]})});await settle();
+ assert.deepEqual(snapshot(),{points:[],coordinates:{}},'Unpublished places and their coordinates disappear on refresh');
+ assert.ok(notifications.length>=2);cleanup();
+});

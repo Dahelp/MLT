@@ -30,6 +30,8 @@ test('Scout Passport: private moderation, valid portraits, retry safety, revisio
   const fields = { action: 'submit', requestId: randomUUID(), editToken: randomBytes(32).toString('hex'), scoutName: 'Local test scout', category: 'sight', subcategories:['nature','history'], title: '<img src=x onerror=alert(1)> Test place', country: 'Italy', latitude: '0', longitude: '-180', description: 'A real local test description', parking: 'Parking 150 m', booking: 'Two days ahead', photos: [portrait, portrait] };
   try {
     for (let index = 0; index < 50; index++) { try { await request({ action: 'points' }); break; } catch { await new Promise(resolve => setTimeout(resolve, 100)); } }
+    execFileSync(php,['-r',`$db=new PDO('sqlite:'.$argv[1]);$db->exec("INSERT INTO mlt_route_points (slug,title,country_name,latitude,longitude,is_active) VALUES ('demo-legacy','Legacy demo place','Italy',43,11,1)");`,path.join(apiDirectory,'scout-test.sqlite')]);
+    assert.deepEqual((await request({action:'points'})).data.points,[],'Legacy catalog and demonstration points never appear without a Scout submission');
     for (const role of [undefined, 'manager', 'concierge', 'salesmanager', 'traveller']) {
       for (const action of ['list', 'moderate', 'publish', 'unpublish', 'revision_link', 'admin_update','recommend']) assert.equal((await request({ action }, role)).status, 403, `${role}: ${action}`);
     }
