@@ -6,6 +6,10 @@ const source=fs.readFileSync(new URL('../content/route-points.ts',import.meta.ur
 const module={exports:{}};
 new Function('module','exports',ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText)(module,module.exports);
 const {publishedRoutePoint}=module.exports;
+test('map recommendations require the explicit public boolean flag',()=>{
+ for(const value of [undefined,false,'false',0,null])assert.equal(publishedRoutePoint({...row,recommended:value}).recommended,false);
+ assert.equal(publishedRoutePoint({...row,recommended:true}).recommended,true);
+});
 const row={slug:'scout-test',title:'A published place',country_name:'Italy',latitude:'42.5',longitude:'12.7',category:'sight',description:'A waterfall\nA walking path',photos_json:'["/uploads/scout/a.jpg","/uploads/scout/b.jpg"]',parking:'At the entrance',booking:'Reserve ahead',video:{path:'/uploads/scout-video/'+'a'.repeat(48)+'.mp4',mime:'video/mp4'}};
 test('published places retain their real description, gallery, video and visitor details',()=>{
  const point=publishedRoutePoint(row);

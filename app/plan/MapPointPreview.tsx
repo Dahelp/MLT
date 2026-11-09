@@ -5,6 +5,7 @@ import {mapCountryLabel,mapTypeLabel} from "../../content/map-place-labels";
 import type {Locale} from "../../content/i18n";
 import type {RoutePoint} from "../../content/route-points";
 import {mapPreviewCopy} from "../../content/map-preview";
+import {recommendationRibbon} from "../../content/place-recommendation";
 import "./map-point-preview.css";
 
 export default function MapPointPreview({point,locale,selected,onSelect,onClose,onBack}:{point:RoutePoint;locale:Locale;selected:boolean;onSelect?:(id:string)=>void;onClose:()=>void;onBack?:()=>void}) {
@@ -17,6 +18,7 @@ export default function MapPointPreview({point,locale,selected,onSelect,onClose,
   const description=point.description||point.descriptions?.[locale]||"";
   return <section className="map-point-preview" aria-labelledby={heading} onKeyDown={event=>{if(event.key==="Escape"){event.stopPropagation();onClose();}}}>
     <div className="map-point-preview-gallery" role="group" aria-label={t.media}>
+        {point.recommended&&<span className="map-point-recommendation">{recommendationRibbon}</span>}
         {media.length>0?<>
           <div ref={track} className={`map-point-media-track${dragging?" is-dragging":""}`} tabIndex={0} data-map-preview-focus aria-label={t.swipe}
             onScroll={event=>{const node=event.currentTarget;if(node.clientWidth)setPhoto(Math.round(node.scrollLeft/node.clientWidth));}}

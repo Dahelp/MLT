@@ -12,7 +12,7 @@
 .base-location-editor-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}
 .base-location-editor-fields{min-width:0;border:0;margin:0;padding:24px;display:grid;gap:24px}
 .base-location-editor-help{margin:0;color:#686b63}
-.base-location-editor label:not(.scout-subcategory-option){display:grid;gap:8px;min-width:0;color:#595d56}
+.base-location-editor label:not(.scout-subcategory-option,.place-recommendation){display:grid;gap:8px;min-width:0;color:#595d56}
 .base-location-editor :is(input:not([type=checkbox]),textarea,select){width:100%;min-width:0;min-height:54px;padding:12px 16px;border:1px solid #ccc5ba;border-radius:var(--mlt-radius-control);background:#fbfaf7;color:var(--mlt-surface-dark);font:inherit}
 .base-location-editor textarea{resize:vertical}
 .base-location-editor select{appearance:none;background:#fbfaf7 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='%23765336' stroke-width='1.5'/%3E%3C/svg%3E") right 16px center/16px no-repeat;padding-right:40px}

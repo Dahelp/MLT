@@ -17,9 +17,10 @@ mlt_scout_video_schema($db);
 if ($action==='points') {
     // Publish location media only after explicit approval and map publication.
     // Scout identity, capabilities, contact details and review notes stay private.
-    $rows=$db->query('SELECT p.slug,p.title,p.country_name,p.latitude,p.longitude,p.description,p.image_path,s.category,s.photos_json,s.parking,s.booking,s.amenities,s.video_json FROM mlt_route_points p LEFT JOIN mlt_scout_submissions s ON s.published_point_id=p.id WHERE p.is_active=1 AND (s.id IS NULL OR s.status="accepted") ORDER BY p.id')->fetchAll();
+    $rows=$db->query('SELECT p.slug,p.title,p.country_name,p.latitude,p.longitude,p.description,p.image_path,s.category,s.photos_json,s.parking,s.booking,s.amenities,s.recommended,s.video_json FROM mlt_route_points p LEFT JOIN mlt_scout_submissions s ON s.published_point_id=p.id WHERE p.is_active=1 AND (s.id IS NULL OR s.status="accepted") ORDER BY p.id')->fetchAll();
     foreach ($rows as &$point) {
         $point['amenities']=($point['category']??'')==='stay'?($point['amenities']??''):'';
+        $point['recommended']=(bool)($point['recommended']??false);
         $video=json_decode($point['video_json']??'null',true);
         $point['video']=is_array($video) && preg_match('#^/uploads/scout-video/[a-f0-9]{48}\.(?:mp4|mov|webm)$#D',(string)($video['path']??'')) ? ['path'=>$video['path'],'mime'=>$video['mime']??''] : null;
         unset($point['video_json']);
@@ -114,7 +115,7 @@ if($action==='list'){
     echo json_encode(['ok'=>true,'cards'=>array_map('mlt_scout_card',$q->fetchAll()),'counts'=>$counts,'total'=>$total,'page'=>$page],JSON_UNESCAPED_UNICODE);exit;
 }
 
-if($action==='admin_update'){
+if($action==='admin_update' || $action==='recommend'){
     $reference=mlt_scout_text($body,'reference',32,true);
     $requestId=mlt_scout_text($body,'requestId',36,true);
     if(!preg_match('/^[a-f0-9-]{36}$/D',$requestId))mlt_scout_error(400,'refresh');
@@ -129,28 +130,34 @@ if($action==='admin_update'){
             $db->commit();echo json_encode(['ok'=>true,'card'=>mlt_scout_card($row)],JSON_UNESCAPED_UNICODE);exit;
         }
         if((int)$row['version']!==(int)($body['version']??0)){$db->rollBack();mlt_scout_error(409,'reviewConflict');}
-        // Keep the original scout identity and capability; only the administrator edits location content.
-        $fields=mlt_scout_fields(array_merge($body,['scoutName'=>$row['scout_name']]),true,true);
-        $retained=json_decode($row['photos_json'],true)?:[];
-        $photos=mlt_scout_photos($body['photos']??$retained,$retained);
-        $videoValue=array_key_exists('video',$body)?$body['video']:(json_decode($row['video_json']??'null',true)['path']??null);
-        $video=mlt_scout_submission_video($db,$videoValue,mlt_scout_text($body,'mediaEditToken',64),$row);
-        $paths=[];
-        foreach($photos as $photo){
-            if(isset($photo['path'])){$paths[]=$photo['path'];continue;}
-            $directory=dirname(__DIR__).'/uploads/scout';
-            if(!is_dir($directory)&&!mkdir($directory,0755,true)&&!is_dir($directory))throw new RuntimeException('Scout upload directory');
-            $path='/uploads/scout/'.bin2hex(random_bytes(18)).'.'.$photo['extension'];$file=dirname(__DIR__).$path;$written[]=$file;
-            if(file_put_contents($file,$photo['bytes'],LOCK_EX)===false)throw new RuntimeException('Scout image write');
-            $paths[]=$path;
+        $recommended=array_key_exists('recommended',$body)?$body['recommended']:(bool)($row['recommended']??false);
+        if(!is_bool($recommended) || ($action==='recommend'&&!array_key_exists('recommended',$body))){$db->rollBack();mlt_scout_error(400,'invalidText');}
+        if($action==='admin_update'){
+            // Keep the original scout identity and capability; only the administrator edits location content.
+            $fields=mlt_scout_fields(array_merge($body,['scoutName'=>$row['scout_name']]),true,true);
+            $retained=json_decode($row['photos_json'],true)?:[];
+            $photos=mlt_scout_photos($body['photos']??$retained,$retained);
+            $videoValue=array_key_exists('video',$body)?$body['video']:(json_decode($row['video_json']??'null',true)['path']??null);
+            $video=mlt_scout_submission_video($db,$videoValue,mlt_scout_text($body,'mediaEditToken',64),$row);
+            $paths=[];
+            foreach($photos as $photo){
+                if(isset($photo['path'])){$paths[]=$photo['path'];continue;}
+                $directory=dirname(__DIR__).'/uploads/scout';
+                if(!is_dir($directory)&&!mkdir($directory,0755,true)&&!is_dir($directory))throw new RuntimeException('Scout upload directory');
+                $path='/uploads/scout/'.bin2hex(random_bytes(18)).'.'.$photo['extension'];$file=dirname(__DIR__).$path;$written[]=$file;
+                if(file_put_contents($file,$photo['bytes'],LOCK_EX)===false)throw new RuntimeException('Scout image write');
+                $paths[]=$path;
+            }
+            $q=$db->prepare('UPDATE mlt_scout_submissions SET scout_name=?,category=?,title=?,country_name=?,latitude=?,longitude=?,description=?,parking=?,booking=?,location_website=?,contact_phone=?,subcategories_json=?,subcategory_other=?,amenities=?,photos_json=?,video_json=?,version=version+1,updated_at=NOW() WHERE id=?');
+            $q->execute([...$fields,json_encode($paths,JSON_THROW_ON_ERROR),$video?json_encode($video,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR):null,$row['id']]);
+            mlt_scout_attach_video($db,$videoValue,$reference);
+            if($row['published_point_id']){
+                $updated=mlt_scout_find($db,$reference);
+                $db->prepare('UPDATE mlt_route_points SET title=?,country_name=?,latitude=?,longitude=?,description=?,image_path=? WHERE id=?')->execute([$updated['title'],$updated['country_name'],$updated['latitude'],$updated['longitude'],$updated['description'],$paths[0],$row['published_point_id']]);
+            }
         }
-        $q=$db->prepare('UPDATE mlt_scout_submissions SET scout_name=?,category=?,title=?,country_name=?,latitude=?,longitude=?,description=?,parking=?,booking=?,location_website=?,contact_phone=?,subcategories_json=?,subcategory_other=?,amenities=?,photos_json=?,video_json=?,version=version+1,updated_at=NOW() WHERE id=?');
-        $q->execute([...$fields,json_encode($paths,JSON_THROW_ON_ERROR),$video?json_encode($video,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR):null,$row['id']]);
-        mlt_scout_attach_video($db,$videoValue,$reference);
-        if($row['published_point_id']){
-            $updated=mlt_scout_find($db,$reference);
-            $db->prepare('UPDATE mlt_route_points SET title=?,country_name=?,latitude=?,longitude=?,description=?,image_path=? WHERE id=?')->execute([$updated['title'],$updated['country_name'],$updated['latitude'],$updated['longitude'],$updated['description'],$paths[0],$row['published_point_id']]);
-        }
+        // Recommendations are an administrator decision, independent of scout edits and publication.
+        $db->prepare('UPDATE mlt_scout_submissions SET recommended=?,version=version+?,updated_at=NOW() WHERE id=?')->execute([(int)$recommended,$action==='recommend'?1:0,$row['id']]);
         $card=mlt_scout_card(mlt_scout_find($db,$reference));
         $db->prepare('INSERT INTO mlt_scout_edits (submission_id,operator_id,request_id,previous_version,before_json,after_json) VALUES (?,?,?,?,?,?)')->execute([$row['id'],$operator['id'],$requestId,$row['version'],json_encode(mlt_scout_card($row),JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),json_encode($card,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR)]);
         $db->commit();

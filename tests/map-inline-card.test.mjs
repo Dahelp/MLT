@@ -30,6 +30,12 @@ test('selected cards allow removing the point and read-only maps omit selection'
  assert.doesNotMatch(render({onSelect:undefined}),/map-point-preview-footer/);
  assert.match(render({point:{...point,photos:[],video:null}}),/Фотографии скоро появятся/);
 });
+test('only recommended places show the branded ribbon over their map gallery',()=>{
+ assert.doesNotMatch(render(),/map-point-recommendation|MLT recommends/);
+ const html=render({point:{...point,recommended:true}});
+ assert.match(html,/class="map-point-preview-gallery"[^>]*><span class="map-point-recommendation">MLT recommends<\/span>/);
+ assert.match(render({point:{...point,photos:[],video:null,recommended:true}}),/MLT recommends/);
+});
 test('overlapping places can be browsed inline before selecting an individual place',()=>{
  const html=renderToStaticMarkup(React.createElement(Nearby,{points:[point,{...point,id:'second',name:'Another place'}],selected:['test'],locale:'ru',onPick(){},onClose(){}}));
  assert.match(html,/<section class="nearby-map-points" aria-labelledby=/);assert.doesNotMatch(html,/<dialog|aria-modal/);

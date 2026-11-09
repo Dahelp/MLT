@@ -5,6 +5,7 @@ import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { scoutEditLink, scoutRequest, type ScoutCard, type ScoutStatus } from "../../content/scout";
 import "./base-location.css";
 import LocationEditor from "./LocationEditor";
+import PlaceRecommendation from "./PlaceRecommendation";
 import { scoutCopy, scoutFormat, scoutPath, scoutCategoriesFor } from "../../content/scout-i18n";
 import type { OperationsLocale } from "../../content/operations-i18n";
 
@@ -48,6 +49,7 @@ export default function BaseLocationPanel({ locale }: { locale: OperationsLocale
 function LocationCard({ card, locale, onChanged }: { card: ScoutCard; locale: OperationsLocale; onChanged: () => void }) {
   const t = scoutCopy[locale].admin, f = scoutCopy[locale].form, statuses = scoutCopy[locale].statuses;
   const [note, setNote] = useState(card.reviewNote), [busy, setBusy] = useState(false), [error, setError] = useState(""), [link, setLink] = useState(""), [version, setVersion] = useState(card.version);
+  const [recommended,setRecommended]=useState(Boolean(card.recommended));
   const act = async (action: string, status?: ScoutStatus) => {
     if (busy) return;
     if (status === "revision" && !note.trim()) { setError(t.revisionComment); return; }
@@ -68,6 +70,12 @@ function LocationCard({ card, locale, onChanged }: { card: ScoutCard; locale: Op
     } catch (value) { setError((value as Error).message); }
     finally { setBusy(false); }
   };
+  const recommend = async (recommended: boolean) => {
+    if(busy)return;
+    setBusy(true);setError("");setRecommended(recommended);
+    try{await scoutRequest("recommend",{reference:card.reference,version,requestId:crypto.randomUUID(),recommended},true,locale);onChanged();}
+    catch(value){setError((value as Error).message);setRecommended(Boolean(card.recommended));setBusy(false);}
+  };
   const [editing,setEditing]=useState(false);
   const published = card.isPublished;
   return <><article className="base-location-card">
@@ -75,6 +83,7 @@ function LocationCard({ card, locale, onChanged }: { card: ScoutCard; locale: Op
     <div className="base-location-card-body"><small>{card.reference} · {scoutCategoriesFor(locale).find(category => category.id === card.category)?.title}</small><h2>{card.title}</h2><p className="base-location-place">{card.country} · {card.latitude}, {card.longitude}</p><p className="base-location-description">{card.description}</p><div className="base-location-scout"><span>{card.scoutName}</span><time>{new Date(card.createdAt.replace(" ", "T") + "Z").toLocaleDateString(locale)}</time></div>
     <button type="button" className="base-location-edit-button" disabled={busy} onClick={()=>setEditing(true)}>{scoutCopy[locale].editor.edit}</button>
     <details><summary>{t.details}</summary><div className="base-location-gallery">{card.photos.map((photo, index) => <a key={`${photo}:${index}`} href={photo} target="_blank" rel="noreferrer"><img src={photo} alt={scoutFormat(f.frame, { number: index + 1 }) + ": " + card.title} loading="lazy" /></a>)}</div>{card.video&&<div className="base-location-video"><h3>{scoutCopy[locale].video.title}</h3><video src={card.video.path} controls playsInline preload="none" aria-label={scoutCopy[locale].video.preview}/><a href={card.video.path} target="_blank" rel="noreferrer">{scoutCopy[locale].video.open}</a></div>}<dl><dt>{scoutCopy[locale].subcategories.title}</dt><dd>{scoutSubcategoryLabels(card.category, card.subcategories || [], card.subcategoryOther || "", locale).join(", ") || t.notSpecified}</dd>{card.category==="stay"&&<><dt>{f.amenities}</dt><dd>{card.amenities||t.notSpecified}</dd></>}<dt>{f.parking}</dt><dd>{card.parking || t.notSpecified}</dd><dt>{f.booking}</dt><dd>{card.booking || t.notSpecified}</dd><dt>{f.locationWebsite}</dt><dd>{card.locationWebsite ? <a href={card.locationWebsite} target="_blank" rel="noreferrer">{card.locationWebsite}</a> : t.notSpecified}</dd><dt>{f.contactPhone}</dt><dd>{card.contactPhone || t.notSpecified}</dd></dl></details>
+    <PlaceRecommendation checked={recommended} disabled={busy} locale={locale} onChange={recommend}/>
     <label>{t.comment}<textarea maxLength={2000} rows={2} placeholder={t.commentPlaceholder} value={note} disabled={busy} onChange={event => setNote(event.target.value)} /></label>
     {error && <p className="base-location-error" role="alert">{error}</p>}
     <div className="base-location-actions"><button type="button" disabled={busy || card.status === "accepted"} onClick={() => act("moderate", "accepted")}>{t.accept}</button><button type="button" disabled={busy || card.status === "rejected"} onClick={() => act("moderate", "rejected")}>{t.reject}</button><button type="button" disabled={busy} onClick={() => act("moderate", "revision")}>{t.revise}</button></div>

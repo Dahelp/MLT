@@ -11,6 +11,7 @@ import ScoutSubcategories from "../scout-passport/ScoutSubcategories";
 import {scoutPhotoSlots,scoutPhotoLimits,prepareScoutPhotos} from "../../content/scout-photos";
 import PhotoCapture from "../scout-passport/PhotoCapture";
 import VideoSelection from "../scout-passport/VideoSelection";
+import PlaceRecommendation from "./PlaceRecommendation";
 import "../scout-passport/scout.css";
 import "./location-editor.css";
 
@@ -18,6 +19,7 @@ export default function LocationEditor({card,locale,onClose,onSaved}:{card:Scout
   const t=scoutCopy[locale].editor,f=scoutCopy[locale].form;
   const dialog=useRef<HTMLDialogElement>(null),heading=useId();
   const [fields,setFields]=useState<ScoutFields>({...emptyScoutFields,...card});
+  const [recommended,setRecommended]=useState(Boolean(card.recommended));
   const [photos,setPhotos]=useState(()=>scoutPhotoSlots(card.photos));
   const [video,setVideo]=useState<ScoutVideoDraft|null>(card.video||null),[camera,setCamera]=useState<number|null>(null);
   const [identity]=useState(newScoutIdentity),[busy,setBusy]=useState(false),[error,setError]=useState(""),[progress,setProgress]=useState<number|null>(null);
@@ -37,10 +39,10 @@ export default function LocationEditor({card,locale,onClose,onSaved}:{card:Scout
     try{
       const submittedPhotos=await prepareScoutPhotos(attached,locale);
       const selectedVideo=await uploadScoutVideo(video,identity.editToken,locale,setProgress);setProgress(null);
-      const signature=JSON.stringify({fields,photos:submittedPhotos,video:selectedVideo});
+      const signature=JSON.stringify({fields,recommended,photos:submittedPhotos,video:selectedVideo});
       if(editRequest.current.signature&&editRequest.current.signature!==signature)editRequest.current.id=crypto.randomUUID();
       editRequest.current.signature=signature;
-      await scoutRequest("admin_update",{...fields,reference:card.reference,version:card.version,requestId:editRequest.current.id,mediaEditToken:identity.editToken,photos:submittedPhotos,video:selectedVideo},true,locale);
+      await scoutRequest("admin_update",{...fields,recommended,reference:card.reference,version:card.version,requestId:editRequest.current.id,mediaEditToken:identity.editToken,photos:submittedPhotos,video:selectedVideo},true,locale);
       onSaved();
     }catch(value){setError((value as Error).message);setBusy(false);setProgress(null);}
   };
@@ -48,6 +50,7 @@ export default function LocationEditor({card,locale,onClose,onSaved}:{card:Scout
     <header className="base-location-editor-header"><div><p>{card.reference} · {card.scoutName}</p><h2 id={heading}>{t.title}</h2></div><button type="button" disabled={busy} onClick={onClose} aria-label={t.close}>×</button></header>
     <form onSubmit={save} className="base-location-editor-form"><div className="base-location-editor-body"><fieldset disabled={busy} className="base-location-editor-fields">
       <p className="base-location-editor-help">{card.isPublished?t.publishedHelp:t.help}</p>
+      <PlaceRecommendation checked={recommended} locale={locale} onChange={setRecommended}/>
       <label>{f.title} *<input required maxLength={180} name="title" value={fields.title} onChange={event=>change("title",event.target.value)}/></label>
       <div className="base-location-editor-pair"><label>{f.sectionCategory}<select name="category" value={fields.category} onChange={event=>change("category",event.target.value)}>{scoutCategoriesFor(locale).map(category=><option value={category.id} key={category.id}>{category.title}</option>)}</select></label><label>{f.country} *<input name="country" required maxLength={100} value={fields.country} onChange={event=>change("country",event.target.value)}/></label></div>
       <ScoutSubcategories category={fields.category} selected={fields.subcategories} other={fields.subcategoryOther} locale={locale} onChange={(subcategories,subcategoryOther)=>setFields(current=>({...current,subcategories,subcategoryOther}))}/>

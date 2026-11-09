@@ -32,6 +32,7 @@ function mlt_scout_schema(PDO $db): void {
         parking VARCHAR(500) NOT NULL,
         booking VARCHAR(500) NOT NULL,
         amenities VARCHAR(1500) NULL,
+        recommended TINYINT(1) NOT NULL DEFAULT 0,
         location_website VARCHAR(2048) NULL,
         contact_phone VARCHAR(80) NULL,
         photos_json TEXT NOT NULL,
@@ -46,6 +47,10 @@ function mlt_scout_schema(PDO $db): void {
         INDEX scout_status_created (status,created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN video_json TEXT NULL'); } catch (PDOException $error) {}
+    try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN recommended TINYINT(1) NOT NULL DEFAULT 0'); }
+    catch (PDOException $error) {
+        if ((int)($error->errorInfo[1]??0)!==1060 && !str_contains($error->getMessage(),'duplicate column name')) throw $error;
+    }
     foreach (['location_website'=>'VARCHAR(2048)', 'contact_phone'=>'VARCHAR(80)', 'subcategories_json'=>'TEXT', 'subcategory_other'=>'VARCHAR(500)', 'amenities'=>'VARCHAR(1500)'] as $column=>$type) {
         try { $db->exec('ALTER TABLE mlt_scout_submissions ADD COLUMN '.$column.' '.$type.' NULL'); }
         catch (PDOException $error) {
@@ -64,6 +69,7 @@ function mlt_scout_card(array $row): array {
         'latitude'=>(string)$row['latitude'], 'longitude'=>(string)$row['longitude'],
         'description'=>$row['description'], 'parking'=>$row['parking'], 'booking'=>$row['booking'],
         'amenities'=>$row['category']==='stay'?($row['amenities']??''):'',
+        'recommended'=>(bool)($row['recommended']??false),
         'locationWebsite'=>$row['location_website']??'', 'contactPhone'=>$row['contact_phone']??'',
         'photos'=>json_decode($row['photos_json'],true) ?: [], 'video'=>json_decode($row['video_json']??'null',true), 'status'=>$row['status'],
         'reviewNote'=>$row['review_note'] ?? '', 'version'=>(int)$row['version'],
