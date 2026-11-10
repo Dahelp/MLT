@@ -158,10 +158,14 @@ if (!$check->fetch()) {
 }
 $body = json_decode(file_get_contents('php://input'), true); if (!is_array($body)) $body = [];
 $action = (string)($body['action'] ?? 'list');
-if ($action === 'list') { $rows = $db->query('SELECT * FROM mlt_acquisitions ORDER BY status,updated_at DESC')->fetchAll(PDO::FETCH_ASSOC); echo json_encode(['items' => $rows], JSON_UNESCAPED_UNICODE); exit; }
 $token = preg_replace('/^Bearer\s+/i', '', (string)($_SERVER['HTTP_AUTHORIZATION'] ?? ''));
 $query = $db->prepare('SELECT role,first_name,last_name FROM mlt_users WHERE session_hash=? AND session_expires_at>NOW() LIMIT 1');
 $query->execute([hash('sha256', $token)]); $operator = $query->fetch(PDO::FETCH_ASSOC);
+if ($action === 'list') {
+  $canEdit = in_array($operator['role'] ?? '', ['admin','salesmanager'], true);
+  $rows = $db->query('SELECT * FROM mlt_acquisitions' . ($canEdit ? '' : ' WHERE status IN ("available","sold")') . ' ORDER BY status,updated_at DESC')->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode(['items' => $rows], JSON_UNESCAPED_UNICODE); exit;
+}
 if ($action === 'session' && in_array($operator['role'] ?? '', ['admin','salesmanager'], true)) { echo json_encode(['ok'=>true,'role'=>$operator['role'],'name'=>trim($operator['first_name'].' '.$operator['last_name']),'canEdit'=>in_array($operator['role'],['admin','salesmanager'],true)]); exit; }
 if (!in_array($operator['role'] ?? '', ['admin','salesmanager'], true)) { http_response_code(403); echo json_encode(['error' => 'Sales manager access required']); exit; }
 if ($action === 'session') { echo json_encode(['ok'=>true,'role'=>$operator['role']]); exit; }
@@ -188,7 +192,7 @@ if ($action === 'save') {
   }
   $sourceUrl = mb_substr(trim((string)($body['source_url'] ?? '')),0,2048);
   if ($sourceUrl !== '' && (!filter_var($sourceUrl,FILTER_VALIDATE_URL) || parse_url($sourceUrl,PHP_URL_SCHEME) !== 'https')) { http_response_code(400); echo json_encode(['error'=>'Source must be an HTTPS URL']); exit; }
-  $status = ($body['status'] ?? '') === 'sold' ? 'sold' : 'available';
+  $status = in_array($body['status'] ?? '', ['available','sold','inactive'], true) ? $body['status'] : 'available';
   $values = [$slug,$type,$title,mb_substr(trim((string)($body['subtitle'] ?? '')),0,255),$price,($body['year'] ?? '') !== '' ? (int)$body['year'] : null,($body['mileage'] ?? '') !== '' ? (int)$body['mileage'] : null,($body['berths'] ?? '') !== '' ? (int)$body['berths'] : null,($body['length_m'] ?? '') !== '' ? (float)$body['length_m'] : null,($body['area_m2'] ?? '') !== '' ? (float)$body['area_m2'] : null,mb_substr(trim((string)($body['description'] ?? '')),0,6000),mb_substr(trim((string)($body['included'] ?? '')),0,3000),json_encode($images),$status,!empty($body['certified']) ? 1 : 0];
   $values = [...$values,json_encode($specifications,JSON_UNESCAPED_UNICODE),json_encode($equipment,JSON_UNESCAPED_UNICODE),$sourceUrl,mb_substr(trim((string)($body['seller_description'] ?? '')),0,12000)];
   try { if ($id) { $statement = $db->prepare('UPDATE mlt_acquisitions SET slug=?,type=?,title=?,subtitle=?,price=?,year=?,mileage=?,berths=?,length_m=?,area_m2=?,description=?,included=?,images_json=?,status=?,certified=?,specifications_json=?,equipment_json=?,source_url=?,seller_description=? WHERE id=?'); $statement->execute([...$values,$id]); } else { $statement = $db->prepare('INSERT INTO mlt_acquisitions(slug,type,title,subtitle,price,year,mileage,berths,length_m,area_m2,description,included,images_json,status,certified,specifications_json,equipment_json,source_url,seller_description) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'); $statement->execute($values); } echo json_encode(['ok'=>true]); } catch (Throwable $error) { http_response_code(409); echo json_encode(['error'=>'Could not save listing. Check that the slug is unique.']); } exit;

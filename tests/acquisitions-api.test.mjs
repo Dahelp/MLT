@@ -13,6 +13,20 @@ test('admin creates and edits acquisitions while tourism-manager access is denie
   assert.equal((await request(item,'admin')).status,200);let list=(await request({action:'list'})).data.items;assert.equal(list.length,1);assert.equal(list[0].title,'Original vehicle title','Equipment titles must not overwrite the vehicle title');assert.equal(JSON.parse(list[0].equipment_json)[0].title,'Safety equipment');
   assert.equal((await request({...item,id:list[0].id,title:'Updated vehicle',price:47000,status:'sold'},'admin')).status,200);list=(await request({action:'list'})).data.items;assert.equal(list[0].title,'Updated vehicle');assert.equal(Number(list[0].price),47000);assert.equal(list[0].status,'sold');
   assert.equal((await request({...item,slug:'test-capsule',type:'capsule',title:'Capsule home'},'admin')).status,200);assert.equal((await request({action:'list'})).data.items.length,2);
+  for (const type of ['motorhome','capsule']) {
+   const current=(await request({action:'list'},'admin')).data.items.find(row=>row.type===type);
+   assert.equal((await request({...item,id:current.id,slug:current.slug,type,status:'inactive'},'salesmanager')).status,200);
+   for (const role of [undefined,'manager','concierge','traveller','invalid']) {
+    const visible=(await request({action:'list'},role)).data.items;
+    assert.ok(!visible.some(row=>row.id===current.id),'Inactive products must not be exposed publicly');
+   }
+   for (const role of ['admin','salesmanager']) {
+    const hidden=(await request({action:'list'},role)).data.items.find(row=>row.id===current.id);
+    assert.equal(hidden.status,'inactive','Staff must retain access to hidden products');
+   }
+   assert.equal((await request({...item,id:current.id,slug:current.slug,type,status:'available'},'admin')).status,200);
+   assert.ok((await request({action:'list'})).data.items.some(row=>row.id===current.id),'Reactivation restores the public product');
+  }
   assert.equal((await request({...item,source_url:'http://example.test'},'admin')).status,400);assert.equal((await request({...item,price:-1},'admin')).status,400);
   // Reproduce the pre-launch listing, then let the one-time facts migration run.
   const oldFacts={...item,slug:'mercedes-benz-v-300-marco-polo',price:44900,description:'Price: €44,900.\n\nAccident history, engine output, emission class and climate-control configuration require confirmation due to differing technical records.',specifications:[{label:'Accident history',value:'Requires confirmation'},{label:'Steering position',value:'Requires confirmation'},{label:'VAT deductible',value:'Requires confirmation'},{label:'Passenger seats',value:'5'}],equipment:[{title:'Extras',items:['Right-hand drive','Towbar']}]};

@@ -197,6 +197,12 @@
     "it": "Esempio illustrativo",
     "pl": "Przykład poglądowy"
   },
+  "Inactive": {
+    "de": "Inaktiv",
+    "ru": "Не активен",
+    "it": "Non attivo",
+    "pl": "Nieaktywny"
+  },
   "Sold": {
     "de": "Verkauft",
     "ru": "Продан",

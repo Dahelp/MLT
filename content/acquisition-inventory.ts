@@ -9,7 +9,7 @@ export async function acquisitionInventory(): Promise<Listing[]> {
     if (!response.ok) throw new Error("Inventory unavailable");
     const result = await response.json();
     if (!Array.isArray(result.items)) throw new Error("Invalid inventory");
-    return result.items;
+    return result.items.filter((item: Listing) => item.status !== "inactive");
   } catch {
     // Offline local previews can still render the verified imported vehicle.
     return [{ ...seed, id: 0, type: "motorhome", status: "available" }];

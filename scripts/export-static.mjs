@@ -34,7 +34,7 @@ const inventoryResponse = await fetch("https://mlt-lifestyle.com/api/acquisition
 if (!inventoryResponse.ok) throw new Error(`Cannot export listing URLs: ${inventoryResponse.status}`);
 const inventory = await inventoryResponse.json();
 if (!Array.isArray(inventory.items)) throw new Error("Invalid acquisition inventory");
-const listingSlugs = [...new Set(inventory.items.map(item => item.slug))];
+const listingSlugs = [...new Set(inventory.items.filter(item => item.status !== "inactive").map(item => item.slug))];
 if (listingSlugs.some(slug => typeof slug !== "string" || !/^[a-z0-9-]+$/.test(slug))) throw new Error("Invalid acquisition slug");
 const mobilePreviewCollections = ["freedom", "signature", "concierge", "private", "honeymoon"];
 const isMobileRoute = (route) => route === "/mobile-preview"

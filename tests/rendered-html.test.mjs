@@ -439,3 +439,19 @@ test('only Private offers four unpriced optional Exclusive Requests in both publ
   assert.doesNotMatch(html,/<legend>Exclusive Requests<\/legend>/);
  }
 });
+
+
+test("inactive sales products are absent from public HTML and direct detail routes", async () => {
+ const seed = JSON.parse(await readFile(new URL("public/data/acquisitions/mercedes-benz-v-300-marco-polo.json", root), "utf8"));
+ const originalFetch = globalThis.fetch;
+ const hidden = ["motorhome","capsule"].map((type,index)=>({...seed,id:index+1,slug:`hidden-${type}`,type,status:"inactive",title:`Hidden ${type}`}));
+ globalThis.fetch = async (input,...options) => String(input) === "https://mlt-lifestyle.com/api/acquisitions.php" ? Response.json({items:[{...seed,id:3},...hidden]}) : originalFetch(input,...options);
+ try {
+  for (const locale of ["en","de","ru","it","pl"]) {
+   const html = await (await render(`/${locale}/acquisitions/`)).text();
+   assert.doesNotMatch(html,/Hidden motorhome|Hidden capsule|hidden-motorhome|hidden-capsule/);
+   assert.match(html,/Mercedes-Benz V 300 Marco Polo/);
+   for (const item of hidden) assert.equal((await render(`/${locale}/acquisitions/${item.slug}/`)).status,404);
+  }
+ } finally { globalThis.fetch = originalFetch; }
+});

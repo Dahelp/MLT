@@ -83,6 +83,10 @@
     "de": "Verfügbar",
     "ru": "В продаже"
   },
+  "Inactive": {
+    "de": "Inaktiv",
+    "ru": "Не активен"
+  },
   "Sold": {
     "de": "Verkauft",
     "ru": "Продан"
