@@ -1,0 +1,92 @@
+{
+  "id": "knaus-van-i-650-meg",
+  "name": "KNAUS VAN I 650 MEG",
+  "seats": 4,
+  "berths": 4,
+  "lengthMetres": 6.96,
+  "transmission": "Automatic",
+  "fuel": "Diesel",
+  "licence": "Category B / Class B (max 3.5t)",
+  "images": [
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/01.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Exterior",
+      "label": "Exterior"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/02.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Layout",
+      "label": "Layout"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/03.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Interior",
+      "label": "Interior"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/04.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Dining area",
+      "label": "Dining area"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/05.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Front drop-down bed",
+      "label": "Front drop-down bed"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/06.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Rear twin beds",
+      "label": "Rear twin beds"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/07.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Refrigerator",
+      "label": "Refrigerator"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/08.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Kitchen",
+      "label": "Kitchen"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/09.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Shower",
+      "label": "Shower"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/10.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Bathroom",
+      "label": "Bathroom"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/11.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Water service compartment",
+      "label": "Water service compartment"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/12.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Toilet service compartment",
+      "label": "Toilet service compartment"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/13.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Rear garage",
+      "label": "Rear garage"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/14.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Gas storage",
+      "label": "Gas storage"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/15.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Rear exterior",
+      "label": "Rear exterior"
+    },
+    {
+      "src": "/motorhomes/knaus-van-i-650-meg/16.jpg",
+      "alt": "KNAUS VAN I 650 MEG — Fuel filler",
+      "label": "Fuel filler"
+    }
+  ]
+}

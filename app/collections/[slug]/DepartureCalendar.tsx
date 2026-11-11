@@ -9,14 +9,14 @@ export type DepartureRule = { mode: "any" | "weekdays"; weekdays: number[]; bloc
 const iso = (date: Date) => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 const sameMonth = (a: Date,b: Date) => a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth();
 
-export function DepartureCalendar({value,onChange,rule,locale,calendarLocale,label}:{value:string;onChange:(value:string)=>void;rule:DepartureRule;locale:Locale;calendarLocale?:Locale;label:string}){
+export function DepartureCalendar({value,onChange,rule,locale,calendarLocale,label,isDateUnavailable}:{value:string;onChange:(value:string)=>void;rule:DepartureRule;locale:Locale;calendarLocale?:Locale;label:string;isDateUnavailable?:(date:string)=>boolean}){
  const root=useRef<HTMLDivElement>(null), today=useMemo(()=>{const date=new Date();date.setHours(0,0,0,0);return date},[]);
  const [open,setOpen]=useState(false),[month,setMonth]=useState(()=>value?new Date(`${value}T12:00:00`):today);
  useEffect(()=>{const close=(event:PointerEvent)=>{if(!root.current?.contains(event.target as Node))setOpen(false)};document.addEventListener("pointerdown",close);return()=>document.removeEventListener("pointerdown",close)},[]);
  const language=locale==="ru"?"ru-RU":locale==="de"?"de-DE":"en-GB", calendarLanguage=calendarLocale==="ru"?"ru-RU":calendarLocale==="de"?"de-DE":"en-GB";
  const first=new Date(month.getFullYear(),month.getMonth(),1), offset=(first.getDay()+6)%7, count=new Date(month.getFullYear(),month.getMonth()+1,0).getDate();
  const days=Array.from({length:offset+count},(_,index)=>index<offset?null:new Date(month.getFullYear(),month.getMonth(),index-offset+1));
- const allowed=(date:Date)=>{const key=iso(date);if(date<today||rule.blockedDates.includes(key))return false;if(rule.allowedDates.includes(key))return true;return rule.mode==="any"||rule.weekdays.includes(date.getDay())};
+ const allowed=(date:Date)=>{const key=iso(date);if(date<today||rule.blockedDates.includes(key)||isDateUnavailable?.(key))return false;if(rule.allowedDates.includes(key))return true;return rule.mode==="any"||rule.weekdays.includes(date.getDay())};
  const weekdays=Array.from({length:7},(_,index)=>new Intl.DateTimeFormat(calendarLanguage,{weekday:"short"}).format(new Date(2026,5,1+index)));
  const allowedNames=rule.weekdays.map(day=>new Intl.DateTimeFormat(calendarLanguage,{weekday:"long"}).format(new Date(2026,5,7+day))).join(", ");
  const selected=value?new Date(`${value}T12:00:00`):null;

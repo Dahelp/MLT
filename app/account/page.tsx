@@ -1,4 +1,5 @@
 "use client";
+import {BookedMotorhome} from "../MotorhomeSelection";
 import { operationsDestination as authorizedOperationsDestination } from "../../content/operations-access";
 import { FormEvent, useEffect, useState } from "react";
 import SiteHeader from "../SiteHeader";
@@ -62,6 +63,10 @@ type O = {
   exclusive_requests_json?: string;
   client_note?: string | null;
   vehicle_name?: string;
+  motorhome_json?: string;
+  motorhome_unit_id?: number;
+  pickup_location?: string;
+  return_location?: string;
 };
 const baseTx = {
   ru: {
@@ -743,7 +748,7 @@ export default function Account({
                             {jsonList(o.route_json).join(" · ") ||
                               "MLT journey"}
                           </strong>
-                          <ExclusiveRequestsSummary raw={o.exclusive_requests_json} locale={locale}/>
+                          <BookedMotorhome raw={o.motorhome_json} unit={o.motorhome_unit_id} locale={locale} pickup={o.pickup_location} returning={o.return_location}/><ExclusiveRequestsSummary raw={o.exclusive_requests_json} locale={locale}/>
                           <JourneyTerms terms={orderTerms(o.journey_terms_json)} locale={locale} arrival={o.arrival_date} paid={orderPaid} legacy legacyCosts={{total:orderTotal,paid:orderPaid,advance:Number(o.deposit_amount||orderTotal*0.2)}}/>
                           <dl>
                             <div>
@@ -1145,6 +1150,7 @@ export default function Account({
             </button>
             <p className="account-eyebrow">{selectedOrder.reference_code}</p>
             <h2>{collectionTitle(selectedOrder.collection_name)}</h2>
+            <BookedMotorhome raw={selectedOrder.motorhome_json} unit={selectedOrder.motorhome_unit_id} locale={locale} pickup={selectedOrder.pickup_location} returning={selectedOrder.return_location}/>
             <dl>
               <div>
                 <dt>{t.dates}</dt>

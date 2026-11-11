@@ -10,7 +10,7 @@ test('admin links work on the deployed static Apache site without an RSC server'
 });
 
 test('admin navigation has one fixed order with overview first and vouchers after payments', () => {
-  const expected = ['overview','applications','payments','vouchers','catalog','sales','investments','users','base-location','team','chat'];
+  const expected = ['overview','applications','payments','vouchers','catalog','fleet','sales','investments','users','base-location','team','chat'];
   for (const locale of ['ru','en','de']) {
     const links = operationsNavigation('admin', locale);
     assert.deepEqual(links.map(link => link.key), expected);

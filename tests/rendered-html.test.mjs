@@ -5,7 +5,7 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 
 test("every admin route renders exactly one shared workspace with the same navigation", async () => {
-  const sections = ['overview','applications','payments','vouchers','catalog','acquisitions','investments','users','base-location','team','chat'];
+  const sections = ['overview','applications','payments','vouchers','catalog','fleet','acquisitions','investments','users','base-location','team','chat'];
   for (const section of ['', ...sections]) {
     const response = await render(`/admin/${section ? section + '/' : ''}`);
     assert.equal(response.status, 200, section);

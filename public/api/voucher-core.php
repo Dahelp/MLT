@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__.'/journey-terms.php';
+require_once __DIR__.'/fleet-core.php';
 
 // All voucher money is stored in integer cents. No client supplied prices or balances.
 function mlt_voucher_schema(PDO $db): void {
+    mlt_fleet_schema($db);
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_voucher_campaigns (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, title VARCHAR(120) NOT NULL, face_cents BIGINT NOT NULL, price_cents BIGINT NOT NULL, quantity INT NOT NULL, validity_months INT NULL, is_active TINYINT NOT NULL DEFAULT 1, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_voucher_purchases (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, reference_code VARCHAR(80) NOT NULL UNIQUE, campaign_id BIGINT UNSIGNED NOT NULL, user_id BIGINT UNSIGNED NOT NULL, face_cents BIGINT NOT NULL, price_cents BIGINT NOT NULL, validity_months INT NULL, quantity INT NOT NULL DEFAULT 1, status VARCHAR(24) NOT NULL DEFAULT "pending", provider VARCHAR(16) NOT NULL, checkout_id VARCHAR(160) NULL UNIQUE, checkout_url TEXT NULL, payment_id VARCHAR(160) NULL UNIQUE, reserved_until DATETIME NOT NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, paid_at DATETIME NULL, INDEX voucher_stock (campaign_id,status,reserved_until), INDEX voucher_buyer (user_id), FOREIGN KEY (campaign_id) REFERENCES mlt_voucher_campaigns(id), FOREIGN KEY (user_id) REFERENCES mlt_users(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
     $db->exec('CREATE TABLE IF NOT EXISTS mlt_vouchers (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY, purchase_id BIGINT UNSIGNED NOT NULL, sequence_no INT NOT NULL DEFAULT 1, user_id BIGINT UNSIGNED NOT NULL, code VARCHAR(60) NOT NULL UNIQUE, face_cents BIGINT NOT NULL, balance_cents BIGINT NOT NULL, status VARCHAR(20) NOT NULL DEFAULT "active", expires_at DATETIME NULL, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, UNIQUE KEY voucher_purchase_serial (purchase_id,sequence_no), INDEX voucher_owner (user_id), FOREIGN KEY (purchase_id) REFERENCES mlt_voucher_purchases(id), FOREIGN KEY (user_id) REFERENCES mlt_users(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
@@ -125,7 +127,8 @@ function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $refere
     if(!preg_match('/^[a-zA-Z0-9-]{16,80}$/',$key))throw new DomainException('Invalid request identifier.');
     $db->beginTransaction();
     try {
-        // Same lock order as cash payment recording: journey first, then voucher.
+        // Shared fleet, then journey, then voucher: one lock order for every payment path.
+        mlt_fleet_lock($db);
         $q=$db->prepare('SELECT * FROM mlt_orders WHERE reference_code=? FOR UPDATE');$q->execute([$reference]);$order=$q->fetch();
         if(!$order||((int)$order['user_id']!==(int)$user['id']))throw new DomainException('Journey not found.');
         $q=$db->prepare('SELECT * FROM mlt_vouchers WHERE id=? AND user_id=? FOR UPDATE');$q->execute([$voucherId,$user['id']]);$v=$q->fetch();if(!$v)throw new DomainException('Voucher not found.');
@@ -140,6 +143,7 @@ function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $refere
         $terms=mlt_order_terms($order);
         if($terms && ($paymentKind!=='full' || empty($terms['routeApproved']) || empty($terms['contractSigned'])))$due=min($due,(int)round(mlt_journey_next_payment($terms,(float)$order['paid_amount'])*100));
         $amount=min((int)$v['balance_cents'],$due);if($amount<=0)throw new DomainException('No payable balance or available voucher credit.');
+        mlt_fleet_reserve($db,(int)$order['id']);
         $balance=(int)$v['balance_cents']-$amount;
         $db->prepare('UPDATE mlt_vouchers SET balance_cents=?,status=? WHERE id=?')->execute([$balance,$balance===0?'used':'active',$voucherId]);
         $db->prepare('INSERT INTO mlt_voucher_ledger (voucher_id,order_id,actor_id,operation_key,delta_cents,balance_cents,kind) VALUES (?,?,?,?,?,?,"redeemed")')->execute([$voucherId,$order['id'],$user['id'],$operation,-$amount,$balance]);
@@ -154,9 +158,11 @@ function mlt_voucher_redeem(PDO $db, array $user, int $voucherId, string $refere
 function mlt_voucher_hold_checkout(PDO $db, string $reference, string $provider, float $expectedPaid, ?float $expectedTotal=null): ?string {
     mlt_voucher_schema($db);$db->beginTransaction();
     try {
+        mlt_fleet_lock($db);
         $q=$db->prepare('SELECT id,paid_amount,total_amount,status,archived_at FROM mlt_orders WHERE reference_code=? FOR UPDATE');$q->execute([$reference]);$order=$q->fetch();
         if(!$order||in_array($order['status'],['cancelled','completed'],true)||!empty($order['archived_at'])||($expectedTotal!==null&&abs((float)$order['total_amount']-$expectedTotal)>.001)||abs((float)$order['paid_amount']-$expectedPaid)>.001)throw new DomainException('Journey balance changed. Please refresh before paying.');
         $q=$db->prepare('SELECT provider,checkout_url FROM mlt_journey_checkout_holds WHERE order_id=?');$q->execute([$order['id']]);$hold=$q->fetch();if($hold){if($hold['provider']===$provider&&$hold['checkout_url']){$db->commit();return $hold['checkout_url'];}throw new DomainException('A payment checkout is already active. Please complete it or wait for it to expire.');}
+        mlt_fleet_reserve($db,(int)$order['id']);
         $minutes=$provider==='stripe'?31:180;
         $db->prepare('INSERT INTO mlt_journey_checkout_holds (order_id,provider,expires_at) VALUES (?,?,DATE_ADD(NOW(),INTERVAL '.$minutes.' MINUTE)) ON DUPLICATE KEY UPDATE provider=VALUES(provider),checkout_url=NULL,checkout_id=NULL,expires_at=VALUES(expires_at)')->execute([$order['id'],$provider]);$db->commit();return null;
     }catch(Throwable $e){if($db->inTransaction())$db->rollBack();throw $e;}

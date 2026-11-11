@@ -16,6 +16,7 @@ export type AccountJourneyDraft = {
   tailoredInterests?: string[];
   exclusiveRequests?: string[];
   vehicle: string;
+  motorhomeModelId?: string;
 };
 
 export function continueJourneyInAccount(draft: AccountJourneyDraft, locale: Locale) {

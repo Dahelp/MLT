@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__.'/journey-terms.php';
 require_once __DIR__.'/exclusive-requests.php';
+require_once __DIR__.'/fleet-core.php';
 
 function mlt_settings(): array {
     $path = dirname(__DIR__) . '/paypal-config.php';
@@ -36,12 +37,16 @@ function mlt_db(array $settings): ?PDO {
         $pdo->exec('CREATE TABLE IF NOT EXISTS mlt_journey_settings (id INT PRIMARY KEY, settings_json TEXT NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
         // Permanently disable the three legacy source-code bootstrap credentials.
         $pdo->exec("UPDATE mlt_users SET password_hash='!disabled-legacy-bootstrap', session_hash=NULL, session_expires_at=NULL WHERE SHA2(password_hash,256) IN ('baa17903527536a5362f8db6bbe366438f932d2202227220a35a52767b7544bd','64e578ca667d57e5d1dff7a0cbb7b8f24192e20a518fee1f328878473479fa04','eb939897abf856f6668118529a62d7dac56613b60eb03dbc710d10c340f2dee6')");
+        mlt_fleet_schema($pdo);
         return $pdo;
     } catch (Throwable $error) { error_log('MLT database unavailable: ' . $error->getMessage()); return null; }
 }
 
 function mlt_create_order(PDO $db, string $reference, array $body, array $customer): void {
+    $ownsTransaction = !$db->inTransaction();
+    if ($ownsTransaction) $db->beginTransaction();
     try {
+        if (mlt_fleet_collection((string)($body['collection']??''))) mlt_fleet_lock($db);
         $terms = isset(mlt_journey_pricing()['policies'][mlt_journey_variant($body)]) ? mlt_journey_terms($body,mlt_protection_settings($db)) : null;
         $exclusive = mlt_exclusive_requests($body);
         $route = array_values(array_filter(is_array($body['route'] ?? null) ? $body['route'] : [], 'is_string'));
@@ -49,11 +54,21 @@ function mlt_create_order(PDO $db, string $reference, array $body, array $custom
         $user = $db->prepare('SELECT id FROM mlt_users WHERE email = ? LIMIT 1'); $user->execute([$customer['email']]); $userId = $user->fetchColumn() ?: null;
         $statement = $db->prepare('INSERT INTO mlt_orders (user_id, reference_code, confirmation_id, first_name, last_name, customer_email, phone, collection_name, vehicle_name, country_name, guests, travel_days, arrival_date, departure_date, route_json, extras_json, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $statement->execute([$userId, $reference, $body['confirmationId'] ?? null, $customer['firstName'], $customer['lastName'], $customer['email'], $customer['phone'], $body['collection'] ?? null, $body['vehicle'] ?? null, $body['country'] ?? null, $body['guests'] ?? null, (int)($body['days'] ?? 0) ?: null, $body['arrival'] ?? null, $body['departure'] ?? null, json_encode($route, JSON_UNESCAPED_UNICODE), json_encode($extras, JSON_UNESCAPED_UNICODE), $body['notes'] ?? null]);
+        $orderId=(int)$db->lastInsertId();
+        if (mlt_fleet_collection((string)($body['collection']??''))) {
+            $model=mlt_fleet_model();
+            if (($body['motorhomeModelId']??$model['id'])!==$model['id']) throw new DomainException('Select a valid motorhome.');
+            mlt_fleet_dates((string)($body['arrival']??''),(string)($body['departure']??''));
+            $expected=(new DateTimeImmutable($body['arrival']))->modify('+'.(int)$body['days'].' days')->format('Y-m-d');
+            if ($expected!==$body['departure'] || $body['arrival']<date('Y-m-d') || (int)($body['guests']??1)>$model['seats']) throw new DomainException('Check the rental dates and number of travellers (maximum 4).');
+            mlt_fleet_reserve($db,$orderId);
+        }
         if ($exclusive) $db->prepare('UPDATE mlt_orders SET exclusive_requests_json=? WHERE reference_code=?')->execute([json_encode($exclusive,JSON_THROW_ON_ERROR),$reference]);
         if ($terms) $db->prepare('UPDATE mlt_orders SET total_amount=?,journey_terms_json=? WHERE reference_code=?')->execute([$terms['total'],json_encode($terms,JSON_THROW_ON_ERROR),$reference]);
+        if ($ownsTransaction) $db->commit();
     } catch (Throwable $error) {
-        if ($error instanceof DomainException) throw $error;
-        error_log('MLT order could not be saved: ' . $error->getMessage());
+        if ($ownsTransaction && $db->inTransaction()) $db->rollBack();
+        throw $error;
     }
 }
 
@@ -91,9 +106,12 @@ function mlt_payment_quote(PDO $db, string $reference, float $total, string $kin
 function mlt_record_payment(PDO $db,string $reference,string $provider,string $paymentId,float $amount,string $currency,string $kind): ?array {
     $db->beginTransaction();
     try {
-        $q=$db->prepare('SELECT id,total_amount,paid_amount,currency FROM mlt_orders WHERE reference_code=? FOR UPDATE');$q->execute([$reference]);$order=$q->fetch();
+        mlt_fleet_lock($db);
+        $q=$db->prepare('SELECT id,total_amount,paid_amount,currency,status FROM mlt_orders WHERE reference_code=? FOR UPDATE');$q->execute([$reference]);$order=$q->fetch();
         if(!$order||$amount<=0||strtoupper($currency)!==strtoupper($order['currency'])){$db->rollBack();return null;}
         $q=$db->prepare('SELECT id FROM mlt_payments WHERE provider_payment_id=?');$q->execute([$paymentId]);if($q->fetchColumn()){$db->rollBack();return null;}
+        if($order['status']==='cancelled') throw new DomainException('This journey has been cancelled.');
+        mlt_fleet_reserve($db,(int)$order['id']);
         $db->prepare('INSERT INTO mlt_payments (order_id,provider,provider_payment_id,payment_kind,amount,currency) VALUES (?,?,?,?,?,?)')->execute([$order['id'],$provider,$paymentId,$kind,$amount,strtoupper($currency)]);
         $paid=round((float)$order['paid_amount']+$amount,2);$total=(float)($order['total_amount']??0);$status=$total>0&&$paid+0.009<$total?'partially_paid':'paid';
         $db->prepare('UPDATE mlt_orders SET status=?,payment_provider=?,payment_id=?,amount=?,paid_amount=?,currency=?,paid_at=NOW() WHERE id=?')->execute([$status,$provider,$paymentId,$total?:$amount,$paid,strtoupper($currency),$order['id']]);

@@ -15,6 +15,7 @@ test('client booking, persisted terms, ownership, CMS protection, Tailored appro
  const dir=await mkdtemp(path.join(tmpdir(),'mlt-pricing-'));
  await cp(new URL('../public/api/',import.meta.url),path.join(dir,'api'),{recursive:true,filter:src=>!src.endsWith("paypal-config.php")});
  await mkdir(path.join(dir,'data'));
+ await cp(new URL('../public/data/motorhomes.json',import.meta.url),path.join(dir,'data/motorhomes.json'));
  await cp(new URL('../public/data/journey-pricing.json',import.meta.url),path.join(dir,'data/journey-pricing.json'));
  await cp(new URL('../public/data/private-exclusive-requests.json',import.meta.url),path.join(dir,'data/private-exclusive-requests.json'));
  await writeFile(path.join(dir,'paypal-config.php'),`<?php return ${JSON.stringify(settings).replace(/"([^"\\]+)":/g,"'$1'=>").replaceAll('{','[').replaceAll('}',']')};`);
@@ -24,7 +25,8 @@ test('client booking, persisted terms, ownership, CMS protection, Tailored appro
   const r=await fetch(`http://127.0.0.1:${port}/api/${endpoint}`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer pricing-test-${role}`},body:JSON.stringify({action,...body})});const raw=await r.text();try{return {status:r.status,...JSON.parse(raw)}}catch{throw Error(raw+log)}
  };
  const admin=(action,body={})=>api(action,body,'admin','concierge-account.php');
- const create=async(collection,extra={})=>{const r=await api('create_application',{collection,days:7,guests:2,arrival:'2027-08-15',departure:'2027-08-22',confirmationId:randomUUID(),...extra});assert.equal(r.status,200,JSON.stringify(r)+log);return r.reference;};
+ let rentalIndex=0;
+ const create=async(collection,extra={})=>{const start=new Date(Date.UTC(2027,7,15+31*rentalIndex++));const end=new Date(start);end.setUTCDate(end.getUTCDate()+7);const r=await api('create_application',{collection,days:7,guests:2,arrival:start.toISOString().slice(0,10),departure:end.toISOString().slice(0,10),confirmationId:randomUUID(),...extra});assert.equal(r.status,200,JSON.stringify(r)+log);return r.reference;};
  const order=async ref=>(await api('orders')).orders.find(o=>o.reference_code===ref);
  try{
   for(let i=0;i<40;i++){try{await api('orders');break;}catch{await new Promise(r=>setTimeout(r,100));}}

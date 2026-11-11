@@ -70,6 +70,12 @@ jobs:
           MLT_PRICING_TEST_PASSWORD: voucher-test-only
         run: node --test tests/journey-api.test.mjs
 
+      - name: Verify shared motorhome inventory and concurrent bookings
+        env:
+          MLT_FLEET_TEST_DSN: mysql:host=127.0.0.1;port=3306
+          MLT_FLEET_TEST_PASSWORD: voucher-test-only
+        run: node --test tests/fleet-api.test.mjs
+
       - name: Export static preview
         run: node scripts/export-static.mjs
 
@@ -85,8 +91,8 @@ jobs:
           cp public/api/scout-core.php public/api/scout-video.php voucher-preflight/api/
           cp public/data/scout-media.json public/data/scout-subcategories.json public/data/scout-i18n.json public/data/map-place-translations.json voucher-preflight/data/
           cp public/uploads/.htaccess voucher-preflight/uploads/
-          cp public/api/exclusive-requests.php public/api/exclusive-requests-actions.php public/api/journey-pricing.php public/api/journey-terms.php public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
-          cp public/data/journey-pricing.json public/data/private-exclusive-requests.json voucher-preflight/data/
+          cp public/api/fleet-core.php public/api/exclusive-requests.php public/api/exclusive-requests-actions.php public/api/journey-pricing.php public/api/journey-terms.php public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
+          cp public/data/motorhomes.json public/data/journey-pricing.json public/data/private-exclusive-requests.json voucher-preflight/data/
           cp public/api/telegram-routing.php public/api/telegram-sales-message.php static-export/api/telegram-sales-destination.php voucher-preflight/api/
 
       - name: Publish voucher backend dependencies

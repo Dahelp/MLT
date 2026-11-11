@@ -1,0 +1,64 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import {spawn,execFileSync} from 'node:child_process';
+import {mkdtemp,cp,mkdir,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createServer} from 'node:net';
+const php=process.env.PHP_BINARY||'php';
+const fixture=fileURLToPath(new URL('./fleet-integration.php',import.meta.url));
+const run=(...args)=>JSON.parse(execFileSync(php,[fixture,...args],{encoding:'utf8'}));
+const concurrent=(...args)=>new Promise((resolve,reject)=>{const p=spawn(php,[fixture,...args]);let out='',err='';p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('exit',code=>{try{if(code)throw Error(err);resolve(JSON.parse(out));}catch(e){reject(e);}});p.on('error',reject);});
+
+test('two shared units: concurrent collections, whole-period checks, holds, payments, maintenance and private account snapshots',{skip:!process.env.MLT_FLEET_TEST_DSN},async()=>{
+ const settings=run('setup');
+ const dir=await mkdtemp(path.join(tmpdir(),'mlt-fleet-'));
+ await cp(new URL('../public/api',import.meta.url),path.join(dir,'api'),{recursive:true});
+ await mkdir(path.join(dir,'data'));
+ for(const file of ['motorhomes.json','journey-pricing.json','private-exclusive-requests.json'])await cp(new URL(`../public/data/${file}`,import.meta.url),path.join(dir,'data',file));
+ await writeFile(path.join(dir,'paypal-config.php'),`<?php return ${JSON.stringify(settings).replace(/"([^"\\]+)":/g,"'$1'=>").replaceAll('{','[').replaceAll('}',']')};`);
+ const port=await new Promise(resolve=>{const s=createServer();s.listen(0,'127.0.0.1',()=>{const port=s.address().port;s.close(()=>resolve(port));});});
+ const server=spawn(php,['-S',`127.0.0.1:${port}`,'-t',dir],{stdio:'ignore'});
+ const api=async(endpoint,body,role='admin')=>{const r=await fetch(`http://127.0.0.1:${port}/api/${endpoint}`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer fleet-test-${role}`},body:JSON.stringify(body)});return {status:r.status,...await r.json()};};
+ const availability=async(start='2035-08-10',end='2035-08-18',days=7)=>{const r=await fetch(`http://127.0.0.1:${port}/api/fleet.php?from=${start}&to=${end}&days=${days}`);assert.equal(r.status,200);const data=await r.json();assert.deepEqual(Object.keys(data).sort(),['dates','modelId']);return data.dates;};
+ try{
+  for(let i=0;i<50;i++){try{await api('fleet.php',{action:'overview'});break;}catch{await new Promise(r=>setTimeout(r,100));}}
+  assert.equal((await api('fleet.php',{action:'overview'},'agency')).status,403);
+  assert.equal((await availability())['2035-08-10'],'available');
+  const bookings=await Promise.all(['freedom','signature','concierge'].map(collection=>concurrent('book',collection)));
+  const saved=bookings.filter(b=>b.ok).map(b=>b.order);
+  assert.equal(saved.length,2,JSON.stringify(bookings));assert.equal(new Set(saved.map(o=>Number(o.motorhome_unit_id))).size,2);
+  assert.match(bookings.find(b=>!b.ok).error,/Sold out/);
+  assert.equal((await availability())['2035-08-10'],'sold_out');
+  assert.equal((await availability())['2035-08-17'],'available','Return day permits a new rental');
+  const paid=saved[0],held=saved[1];run('pay',paid.reference_code);run('hold',held.reference_code);run('expire',paid.reference_code);run('expire',held.reference_code);
+  assert.equal((await availability())['2035-08-10'],'sold_out','Payment and active provider checkout survive provisional expiry');
+  const orders=(await api('account.php',{action:'orders'},'agency')).orders;
+  const own=orders.find(o=>o.reference_code===paid.reference_code);assert.equal(JSON.parse(own.motorhome_json).name,'KNAUS VAN I 650 MEG');assert.ok(own.motorhome_unit_id);
+  assert.equal(orders.find(o=>o.reference_code===held.reference_code).motorhome_unit_id,null,'No unit IDs before payment');
+  assert.equal((await api('account.php',{action:'orders'},'traveller')).orders.length,0);
+  assert.equal((await api('fleet.php',{action:'block',unitId:paid.motorhome_unit_id,start:'2035-08-11',end:'2035-08-12',reason:'Service'})).status,409);
+  run('clear');
+  const provisional=run('book','freedom').order;run('expire',provisional.reference_code);
+  assert.equal((await availability())['2035-08-10'],'available','Unpaid abandoned applications release inventory');
+  const block1=await api('fleet.php',{action:'block',unitId:1,start:'2035-08-10',end:'2035-08-14',reason:'Repair'});assert.equal(block1.status,200);
+  const block2=await api('fleet.php',{action:'block',unitId:2,start:'2035-08-14',end:'2035-08-17',reason:'Service'});assert.equal(block2.status,200);
+  assert.equal((await availability())['2035-08-10'],'sold_out','A unit must be free for the entire trip; switching units is forbidden');
+  assert.equal(run('hold',provisional.reference_code).ok,false,'Stale order cannot start checkout after stock changes');
+  const blocks=(await api('fleet.php',{action:'overview'})).blocks;
+  for(const block of blocks)assert.equal((await api('fleet.php',{action:'unblock',id:block.id})).status,200);
+  assert.equal(run('hold',provisional.reference_code).ok,true);
+  assert.equal((await api('concierge-account.php',{action:'status',reference:provisional.reference_code,status:'cancelled'})).status,409,'Cannot release a live payment checkout');
+  run('clear');
+  const legacy=run('book','signature').order;run('pay',legacy.reference_code);const legacy2=run('book','concierge').order;run('pay',legacy2.reference_code);run('legacy');
+  assert.equal((await availability())['2035-08-10'],'sold_out','Unassigned legacy paid orders fail closed');
+  assert.equal((await api('fleet.php',{action:'assign',orderId:legacy.id,unitId:1})).status,200);
+  assert.equal((await availability())['2035-08-10'],'sold_out');
+  assert.equal((await api('fleet.php',{action:'assign',orderId:legacy2.id,unitId:1})).status,409);
+  assert.equal((await api('fleet.php',{action:'assign',orderId:legacy2.id,unitId:2})).status,200);
+  assert.equal((await api('fleet.php',{action:'locations',orderId:legacy.id,pickup:'Milan',returning:'Rome'})).status,200);
+  const details=(await api('account.php',{action:'orders'},'agency')).orders.find(o=>o.reference_code===legacy.reference_code);assert.equal(details.pickup_location,'Milan');assert.equal(details.return_location,'Rome');
+  assert.equal(run('book','concierge','2035-08-10','2035-08-18').ok,false,'Forged rental duration is rejected');
+ }finally{server.kill();}
+});
