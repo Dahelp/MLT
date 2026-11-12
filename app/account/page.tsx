@@ -2,6 +2,7 @@
 import {BookedMotorhome} from "../MotorhomeSelection";
 import { operationsDestination as authorizedOperationsDestination } from "../../content/operations-access";
 import { FormEvent, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import SiteHeader from "../SiteHeader";
 import RealRouteMap from "../plan/RealRouteMap";
 import ChevronIcon from "../ChevronIcon";
@@ -288,16 +289,9 @@ export default function Account({
     const next = new URLSearchParams(location.search).get("next") || "";
     return authorizedOperationsDestination(role, next);
   };
-  const initial: L =
-    typeof window !== "undefined" && location.pathname.startsWith("/ru/")
-      ? "ru"
-      : typeof window !== "undefined" && location.pathname.startsWith("/it/")
-        ? "it"
-        : typeof window !== "undefined" && location.pathname.startsWith("/pl/")
-          ? "pl"
-          : typeof window !== "undefined" && location.pathname.startsWith("/de/")
-        ? "de"
-        : "en";
+  const pathname = usePathname() || "/account/";
+  const routeLocale = pathname.split("/")[1];
+  const initial: L = ["en", "de", "ru", "it", "pl"].includes(routeLocale) ? routeLocale as L : "en";
   const [locale, setLocale] = useState<L>(initial),
     t = tx[locale];
   const [user, setUser] = useState<U | null>(null),
@@ -310,6 +304,7 @@ export default function Account({
       initialTab || "home",
     ),
     [ready, setReady] = useState(false),
+    [sessionFailed, setSessionFailed] = useState(false),
     [collapsed, setCollapsed] = useState(false),
     [mobileMenuOpen, setMobileMenuOpen] = useState(false),
     [modal, setModal] = useState<"deposit" | "full" | "balance" | null>(null),
@@ -332,6 +327,8 @@ export default function Account({
   const api = async (a: string, d: object = {}) => {
     const r = await fetch("/api/account.php", {
       method: "POST",
+      cache: "no-store",
+      ...(a === "orders" ? { signal: AbortSignal.timeout(15000) } : {}),
       headers: {
         "Content-Type": "application/json",
         ...(token() ? { Authorization: `Bearer ${token()}` } : {}),
@@ -343,19 +340,22 @@ export default function Account({
     return j;
   };
   const load = async () => {
+    setSessionFailed(false);
+    let redirecting = false;
     try {
       let j = await api("orders");
     if (["admin", "concierge", "manager", "salesmanager"].includes(j.user?.role)) {
       localStorage.removeItem("mlt-account-draft");
       setDraft(null);
-      location.assign(operationsDestination(j.user?.role));
+      redirecting = true;
+      location.replace(operationsDestination(j.user?.role));
       return;
     }
       const hasOpen = (j.orders || []).some(
         (o: O) => !["completed", "cancelled"].includes(o.status),
       );
       const nextPath=new URLSearchParams(location.search).get("next")||"";
-      if(/^\/(?:en|de|ru|it|pl)\/vouchers\/$/.test(nextPath)){location.assign(nextPath);return;}
+      if(/^\/(?:en|de|ru|it|pl)\/vouchers\/$/.test(nextPath)){redirecting=true;location.replace(nextPath);return;}
       setUser(j.user);
       setLocale(j.user.locale);
       setOrders(j.orders || []);
@@ -380,10 +380,13 @@ export default function Account({
         if (next.confirmationId && hasOpen && j.user?.role !== "agency") setMessage(locale === "ru" ? "У вас уже есть текущая заявка. Новую можно оформить после завершения поездки." : "You can book a new journey after your current trip ends.");
       }
     } catch (error) {
-      if ((error as { status?: number }).status === 401) localStorage.removeItem("mlt-account-token");
-      else setMessage(error instanceof Error ? error.message : "Could not load your journeys.");
+      if ((error as { status?: number }).status === 401) {
+        localStorage.removeItem("mlt-account-token");
+        setUser(null);
+      } else if (user) setMessage(error instanceof Error ? error.message : "Could not load your journeys.");
+      else setSessionFailed(true);
     } finally {
-      setReady(true);
+      if (!redirecting) setReady(true);
     }
   };
   useEffect(() => {
@@ -396,7 +399,12 @@ export default function Account({
       setMessage("✓ Payment received");
       setTab("journeys");
     }
-    token() ? load() : setReady(true);
+    try {
+      token() ? void load() : setReady(true);
+    } catch {
+      setSessionFailed(true);
+      setReady(true);
+    }
   }, []);
   useEffect(() => {
     if (!message) return;
@@ -409,6 +417,7 @@ export default function Account({
     try {
       const j = await api(auth, { ...form, locale });
       localStorage.setItem("mlt-account-token", j.token);
+      setReady(false);
       await load();
     } catch (e) {
       setMessage(e instanceof Error ? e.message : "Error");
@@ -542,12 +551,23 @@ export default function Account({
       </button>
     </div>
   ) : null;
-  const routeLocale = typeof window === "undefined" ? "" : location.pathname.split("/")[1];
   const accountBase = (["en", "de", "ru", "it", "pl"].includes(routeLocale) ? `/${routeLocale}` : "") + "/account";
-  if (!ready) return <main className="account-page account-loading" />;
+  const sessionText = {
+    en: { loading: "Loading your account…", error: "Your account could not be loaded. Please try again.", retry: "Try again" },
+    de: { loading: "Ihr Konto wird geladen…", error: "Ihr Konto konnte nicht geladen werden. Bitte versuchen Sie es erneut.", retry: "Erneut versuchen" },
+    ru: { loading: "Загружаем личный кабинет…", error: "Не удалось загрузить кабинет. Попробуйте ещё раз.", retry: "Повторить" },
+    it: { loading: "Caricamento del tuo account…", error: "Impossibile caricare il tuo account. Riprova.", retry: "Riprova" },
+    pl: { loading: "Wczytywanie konta…", error: "Nie udało się wczytać konta. Spróbuj ponownie.", retry: "Spróbuj ponownie" },
+  }[locale];
+  if (!ready || (sessionFailed && !user)) return <main className="account-session-status" lang={locale} aria-busy={!ready}>
+    <img src="/mlt-logo-header.svg" width="140" height="52" alt="MLT" />
+    {!ready && <span className="account-session-spinner" aria-hidden="true" />}
+    <p role={ready ? "alert" : "status"}>{ready ? sessionText.error : sessionText.loading}</p>
+    {ready && <button type="button" className="bronze-button" onClick={() => {setReady(false);void load();}}>{sessionText.retry}</button>}
+  </main>;
   if (!user)
     return (
-      <main className="account-page">
+      <main className="account-page account-sign-in">
         <SiteHeader locale={locale} />
         <section className="account-auth">
               <p className="account-eyebrow">{t.eyebrow}</p>

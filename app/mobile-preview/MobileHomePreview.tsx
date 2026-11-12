@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { enableScrollReveal } from "../scrollReveal";
 import CollectionCarousel, { scrollCollectionCarouselIntoView } from "../CollectionCarousel";
 import RealRouteMap from "../DeferredRouteMap";
 import HeroVideo from "../HeroVideo";
@@ -20,7 +21,7 @@ export default function MobileHomePreview({initialLocale="en",previewMode=true}:
  const catalog=useCatalogItems(); const collections=homeCollectionCards(locale,catalog);
  const cardCta={en:"EXPLORE COLLECTION",de:"KOLLEKTION ENTDECKEN",ru:"ОТКРЫТЬ КОЛЛЕКЦИЮ",it:"SCOPRI LA COLLEZIONE",pl:"POZNAJ KOLEKCJĘ"}[locale];
  const pageRef=useRef<HTMLElement>(null);
- useEffect(()=>{const root=pageRef.current;if(!root||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;const items=Array.from(root.querySelectorAll<HTMLElement>("[data-mobile-reveal]")),initialItems=items.filter(item=>item.getBoundingClientRect().top<window.innerHeight*.94);root.classList.add(styles.revealReady);const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;entry.target.classList.add(styles.visible);observer.unobserve(entry.target)}),{rootMargin:"0px 0px -7% 0px",threshold:.1});items.forEach(item=>{if(!initialItems.includes(item))observer.observe(item)});let revealFrame=0;const prepareFrame=requestAnimationFrame(()=>{revealFrame=requestAnimationFrame(()=>initialItems.forEach(item=>item.classList.add(styles.visible)))});return()=>{cancelAnimationFrame(prepareFrame);cancelAnimationFrame(revealFrame);observer.disconnect();root.classList.remove(styles.revealReady)}},[]);
+ useEffect(()=>enableScrollReveal(pageRef.current,{selector:"[data-mobile-reveal]",enabledClass:styles.revealReady,visibleClass:styles.visible,rootMargin:"0px 0px -7% 0px",threshold:.1}),[]);
  return <main ref={pageRef} className={styles.stage}><div className={styles.phone}>
   <MobilePreviewHeader locale={locale} previewMode={previewMode}/><section className={`${styles.hero} ${styles.videoHero}`}><HeroVideo locale={locale} /><div className={`${styles.heroCopy} ${styles.heroEnter} mlt-hero-reveal`}><h1>{({en:"Individual Motorhome Expeditions",de:"Individuelle Wohnmobil-Expeditionen",ru:"Индивидуальные экспедиции на автодомах",it:"Spedizioni individuali in motorhome",pl:"Indywidualne wyprawy kamperem"})[locale]}</h1><span>{t.hero}</span><a href="#collections" onClick={scrollCollectionCarouselIntoView}>{t.choose}</a><a className={styles.voucherLink} href={`/${locale}/vouchers/`}>{voucherCopy[locale].buy}</a></div></section>
   <VoucherOffer locale={locale}/>

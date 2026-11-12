@@ -4,6 +4,21 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
+test('every account section initially renders a localized session check instead of a sign-in page', async () => {
+  const messages={en:'Loading your account',de:'Ihr Konto wird geladen',ru:'Загружаем личный кабинет',it:'Caricamento del tuo account',pl:'Wczytywanie konta'};
+  for (const locale of Object.keys(messages)) for (const section of ['', 'profile/', 'journeys/', 'documents/', 'vouchers/']) {
+    const response=await render(`/${locale}/account/${section}`);
+    assert.equal(response.status,200);
+    const html=await response.text();
+    const main=html.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[0] || '';
+    assert.match(main,/class="account-session-status"/);
+    assert.ok(main.includes(`lang="${locale}"`));
+    assert.ok(main.includes(messages[locale]));
+    assert.match(main,/aria-busy="true"/);
+    assert.doesNotMatch(main,/<form|account-auth|account-sign-in|account-login-background/);
+  }
+});
+
 test("every admin route renders exactly one shared workspace with the same navigation", async () => {
   const sections = ['overview','applications','payments','vouchers','catalog','fleet','acquisitions','investments','users','base-location','team','chat'];
   for (const section of ['', ...sections]) {

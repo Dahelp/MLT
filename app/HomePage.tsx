@@ -4,6 +4,7 @@ import {mapCopy as mapUi} from "../content/map";
 import ChatLink from "./ChatLink";
 
 import { useEffect } from "react";
+import { enableScrollReveal } from "./scrollReveal";
 import RealRouteMap from "./DeferredRouteMap";
 import { homeCollectionCards, philosophyImages, homeCopy as copy } from "../content/home";
 import { useMapSelection } from "./useMapSelection";
@@ -33,32 +34,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
 
   useEffect(() => {
     const root = document.querySelector<HTMLElement>(".home-light");
-    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-home-reveal]"));
-    const initialItems = items.filter((item) => item.getBoundingClientRect().top < window.innerHeight * 0.94);
-    root.classList.add("home-reveal-enabled");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
-    items.forEach((item) => {
-      if (!initialItems.includes(item)) observer.observe(item);
-    });
-    let revealFrame = 0;
-    const prepareFrame = window.requestAnimationFrame(() => {
-      revealFrame = window.requestAnimationFrame(() => {
-        initialItems.forEach((item) => item.classList.add("is-visible"));
-      });
-    });
-    return () => {
-      window.cancelAnimationFrame(prepareFrame);
-      window.cancelAnimationFrame(revealFrame);
-      observer.disconnect();
-      root.classList.remove("home-reveal-enabled");
-    };
+    return enableScrollReveal(root, { selector: "[data-home-reveal]", enabledClass: "home-reveal-enabled", visibleClass: "is-visible", rootMargin: "0px 0px -8% 0px", threshold: .12 });
   }, []);
 
   const localPath = (path: string) => `/${locale}${path}`;

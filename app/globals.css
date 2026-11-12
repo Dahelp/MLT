@@ -1028,8 +1028,14 @@ footer .brand-line { font-size: 12px; }
 @media(max-width:700px){.account-profile-grid{grid-template-columns:1fr}.account-history article{align-items:flex-start;flex-direction:column}.account-history article div:last-child{text-align:left}}
 
 /* Account dashboard: a calm, practical workspace for repeat bookings. */
-.account-loading { min-height: 100vh; background: #f7f2ea; }
-/* The React loading state now prevents auth flicker; never hide the real form. */
+.account-session-status { display: grid; align-content: center; justify-items: center; gap: 24px; min-height: 100svh; padding: var(--mlt-section-padding) var(--mlt-page-gutter); color: #29231f; background: linear-gradient(135deg,#f4f0e9,#e7e2d9); text-align: center; }
+.account-session-status > img { width: 140px; height: auto; }
+.account-session-status > p { margin: 0; font: var(--mlt-text-body)/1.5 var(--mlt-font-ui); }
+.account-session-status > button { min-height: 54px; cursor: pointer; }
+.account-session-spinner { width: 24px; height: 24px; border: 2px solid #a2725033; border-top-color: var(--mlt-bronze-dark); border-radius: 50%; animation: account-session-spin .8s linear infinite; }
+@keyframes account-session-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .account-session-spinner { animation: none; } }
+/* Only a confirmed signed-out session renders the sign-in form. */
 .account-page .account-auth { visibility: visible; }
 .account-dashboard { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 26px; align-items: start; }
 .account-sidebar { position: sticky; top: 24px; padding: 27px 22px; color: #f5ede3; background: #292b28; border: 1px solid #4a4c47; box-shadow: 0 20px 50px rgba(48,38,29,.14); }
