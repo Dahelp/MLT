@@ -92,10 +92,9 @@ export default function FreedomMobilePreview({ initialLocale = "EN", previewMode
           <div className={styles.travellers}><i><Icon name="travellers"/></i><span>{ui.travellers}</span><div><button onClick={() => setGuests(Math.max(1, guests - 1))}>−</button><b>{guests}</b><button onClick={() => setGuests(Math.min(8, guests + 1))}>+</button></div><small>{ui.included}</small></div>
         </div>
 
-      </section>
-
-    {fleet.enabled&&<MotorhomeSelection locale={language} status={fleet.status} retry={fleet.retry} selected={selectedMotorhome} onSelect={()=>setSelectedMotorhome(true)} guests={guests}/>}
+    {fleet.enabled&&<MotorhomeSelection locale={language} status={fleet.status} retry={fleet.retry} selected={selectedMotorhome} onSelect={()=>setSelectedMotorhome(current=>!current)} guests={guests}/>}
       <JourneyTerms terms={collectionTerms("freedom",plus,total,journeyPrice("freedom",days,prices[days]??options[0].p,plus))} locale={language} arrival={departure} preview/>
+      </section>
     <section className={styles.ideal}><p className={styles.eyebrow}>{ui.ideal}</p><p>{detail.ideal}</p></section>
       <section className={styles.shapes}><p className={styles.eyebrow}>{detail.includes}</p><div>{detail.signature.map(x => <span key={x}>✓ &nbsp;{x}</span>)}</div></section>
       <section className={styles.compare}>{[freedomPackage, freedomPlusPackage].map(item => <article key={item.id}><h3>{item.title}</h3>{[...(item.benefits || []), ...(item.supplement ? [item.supplement] : [])].map(entry=><p key={entry}>✓ &nbsp;{entry}</p>)}</article>)}</section>

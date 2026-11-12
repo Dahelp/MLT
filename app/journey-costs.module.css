@@ -1,4 +1,4 @@
-.summary{margin-block:var(--mlt-content-gap);padding-block:16px;border-block:1px solid currentColor;font:400 var(--mlt-text-body)/1.5 var(--mlt-font-ui);color:inherit;min-width:0;overflow-wrap:anywhere}
+.summary{margin-block:var(--mlt-content-gap);padding-block:16px;border-block:1px solid currentColor;font:400 var(--mlt-text-body)/1.5 var(--mlt-font-display);color:inherit;min-width:0;overflow-wrap:anywhere}
 .summary h3{margin:0 0 16px;font:400 var(--mlt-text-subtitle)/1.15 var(--mlt-font-display);color:inherit}
 .summary p{margin:16px 0;font:inherit;color:inherit}
 .summary .rows{display:grid;grid-template-columns:1fr;gap:8px;margin:0}
@@ -13,5 +13,5 @@
 .cancellation input{font:inherit;padding:8px;border:1px solid currentColor;border-radius:var(--mlt-radius-control);background:transparent;color:inherit;min-width:0;max-width:100%;color-scheme:normal}
 .cancellation ul{padding-left:24px;display:grid;gap:16px}
 .result{border-block:1px solid currentColor;margin-block:16px}
-.note{font:400 var(--mlt-text-body)/1.5 var(--mlt-font-ui)}
+.note{font:400 var(--mlt-text-body)/1.5 var(--mlt-font-display)}
 @media(max-width:580px){.summary .rows>div{flex-wrap:wrap;gap:0 16px}.summary .rows dd{margin-left:auto}}
