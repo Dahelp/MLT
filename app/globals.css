@@ -995,6 +995,7 @@ footer .brand-line { font-size: 12px; }
 .home-light .experience-list h3 { font-size: clamp(28px, 2.2vw, 36px); }
 .home-light .experience-list p { margin-top: 10px; color: #4f4b45; font: 400 clamp(18px, 1.08vw, 20px)/1.45 Arial, Helvetica, sans-serif; }
 .home-light .smart-map-open { position: absolute; z-index: 6; top: 24px; right: 24px; padding: 13px 18px; border: 1px solid rgba(113,87,65,.25); border-radius: 24px; color: #29251f; background: rgba(249,246,240,.94); text-decoration: none; font-size: 12px; font-weight: 700; box-shadow: 0 8px 24px rgba(55,43,32,.13); }
+.home-light .smart-map-canvas:has(.has-place-inspector) .smart-map-open { visibility: hidden; }
 .home-light .smart-map-selection-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
 .home-light .smart-map-selection-heading small, .home-light .smart-map-selection-heading span { color: #8b6043; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .home-light .smart-map-distance { display: block; margin-top: 10px; color: #645d55; text-align: center; font: 400 17px/1.4 var(--mlt-font-display); }

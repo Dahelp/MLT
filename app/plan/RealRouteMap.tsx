@@ -85,7 +85,8 @@ export default function RealRouteMap({ selected, country, onToggle, locale = "en
   useEffect(()=>{
     const map=mapRef.current,node=inspectorRef.current;
     if(!map||!node||!inspectorOpen||!anchorRef.current)return;
-    const host=node.parentElement?.parentElement,previousMinimum=host?.style.minHeight||"",baseHeight=map.getContainer().clientHeight;
+    // Deferred maps have a static wrapper; grow the actual positioned map frame.
+    const host=node.parentElement?.offsetParent as HTMLElement|null,previousMinimum=host?.style.minHeight||"",baseHeight=map.getContainer().clientHeight;
     const position=()=>{
       if(!anchorRef.current)return;
       const layout=mapPopupLayout(map.project(anchorRef.current),{width:map.getContainer().clientWidth,height:map.getContainer().clientHeight},{width:node.offsetWidth,height:node.offsetHeight});
