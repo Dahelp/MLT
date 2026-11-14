@@ -60,6 +60,11 @@ test('all collection layouts show Rome booking and replace it with the localized
           assert.match(html, /booking-total|class="sticky"/);
         } else {
           assert.ok(html.includes(collectionDestinationCopy[locale].developing));
+          const notice = html.match(/<div class="collection-destination-notice"[^>]*>(.*?)<\/div>/s)?.[1];
+          assert.ok(notice);
+          assert.equal(notice.replace(/<[^>]+>/g, ''), collectionDestinationCopy[locale].developing.replace(locale === 'it' ? ': ' : ' - ', ''));
+          assert.match(notice, /class="collection-destination-title"/);
+          assert.match(notice, /class="collection-destination-origin">[^<]+ \/ [^<]+<\/span>/);
           assert.match(html, /role="status"/);
           assert.doesNotMatch(html, /departure-calendar-trigger|data-journey-costs|booking-total|booking-route-picker|class="sticky"|class="types"|class="package-switch/);
         }

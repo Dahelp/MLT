@@ -22,5 +22,12 @@ export function CollectionDestinationField({ locale, value, onChange, className,
 }
 
 export function CollectionDestinationNotice({ locale }: { locale: Locale }) {
-  return <p className="collection-destination-notice" role="status">{collectionDestinationCopy[locale].developing}</p>;
+  const { developing } = collectionDestinationCopy[locale];
+  const separator = locale === "it" ? ": " : " - ";
+  const [title, invitation] = developing.split(separator);
+  const countryStart = invitation.lastIndexOf(" ", invitation.lastIndexOf(" / ") - 1) + 1;
+  return <div className="collection-destination-notice" role="status" aria-label={developing}>
+    <p className="collection-destination-title">{title}</p>
+    <p className="collection-destination-invitation">{invitation.slice(0, countryStart)}<span className="collection-destination-origin">{invitation.slice(countryStart)}</span></p>
+  </div>;
 }
