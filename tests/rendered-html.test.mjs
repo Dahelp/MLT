@@ -4,6 +4,29 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
+test('home collection loop copies use valid picture markup and existing image candidates', async () => {
+  const checked = new Set();
+  for (const locale of ['en', 'de', 'ru', 'it', 'pl']) for (const suffix of ['', 'mobile-site/']) {
+    const html = await (await render(`/${locale}/${suffix}`)).text();
+    const rail = html.match(/<section\b[^>]*id="collections"[^>]*>(.*?)<\/section>/s)?.[1];
+    assert.ok(rail, `${locale}/${suffix}`);
+    for (const [, picture] of rail.matchAll(/<picture\b[^>]*>(.*?)<\/picture>/gs)) {
+      assert.doesNotMatch(picture, /<picture\b/, 'picture cannot contain another picture');
+      assert.match(picture, /<img\b/);
+    }
+    const images = [...rail.matchAll(/<img\b[^>]*src="([^"]+)"[^>]*>/g)];
+    assert.equal(images.length, 15, 'all three loop copies retain their five images');
+    assert.equal(images.filter(([, src]) => src.includes('honeymoon')).length, 3);
+    for (const [image] of images) assert.match(image, /loading="lazy"/);
+    for (const [, src] of rail.matchAll(/(?:src|srcSet)="([^"]+)"/g)) {
+      if (checked.has(src)) continue;
+      const bytes = await readFile(new URL(`public${src}`, root));
+      assert.ok(bytes.length > 0, src);
+      checked.add(src);
+    }
+  }
+});
+
 test('every account section initially renders a localized session check instead of a sign-in page', async () => {
   const messages={en:'Loading your account',de:'Ihr Konto wird geladen',ru:'Загружаем личный кабинет',it:'Caricamento del tuo account',pl:'Wczytywanie konta'};
   for (const locale of Object.keys(messages)) for (const section of ['', 'profile/', 'journeys/', 'documents/', 'vouchers/']) {

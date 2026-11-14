@@ -63,9 +63,7 @@ export default function Home({ initialLocale }: { initialLocale: SiteLocale }) {
       <div className="light-section-head"><div><p className="light-section-label">02 / {t.ways}</p><h2>{t.collectionTitle}</h2></div><div><p>{t.collectionCopy}</p></div></div>
       <CollectionCarousel locale={locale} items={collections} shellClassName="collection-rail-shell" carouselClassName="collection-rail" slideClassName="collection-slide" arrowClassName="carousel-side-arrow" prevClassName="carousel-side-arrow-prev" nextClassName="carousel-side-arrow-next" renderSlide={(item,index)=>{const localizedItem=item;return <a className="collection-card-link" draggable={false} href={localPath(`/collections/${item.id}`)} aria-label={locale==="ru"?`Открыть MLT ${item.name} Collection`:locale==="de"?`MLT ${item.name} Collection öffnen`:locale==="it"?`Scopri MLT ${item.name} Collection`:locale==="pl"?`Poznaj MLT ${item.name} Collection`:`Open MLT ${item.name} Collection`}><article className="light-collection-card">
           <picture>
-            <source srcSet={item.image.replace(".jpg", ".avif")} type="image/avif" />
-            <source srcSet={item.image.replace(".jpg", ".webp")} type="image/webp" />
-            <picture><img src={item.image} alt={`MLT ${item.name} Collection`} loading="lazy" decoding="async" draggable="false" /></picture>
+            <img src={item.image} alt={`MLT ${item.name} Collection`} loading="lazy" decoding="async" draggable="false" />
           </picture>
           <div className="collection-top"><span>0{(index % collections.length) + 1}</span><small>{localizedItem.eyebrow}</small></div>
           <div className="collection-card-copy"><h3>MLT {item.name}<br /><em>Collection</em></h3><p>{localizedItem.copy}</p><div><span>{locale === "ru" ? item.days.replace("days", "дней") : locale === "de" ? item.days.replace("days", "Tage") : item.days}</span><strong>{localizedItem.rate}</strong></div><span className="collection-cta">{t.details}</span></div>

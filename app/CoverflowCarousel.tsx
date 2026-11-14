@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { EffectCoverflow, Keyboard } from "swiper/modules";
@@ -9,6 +9,7 @@ import "swiper/css/effect-coverflow";
 import ChevronIcon from "./ChevronIcon";
 import type { Locale } from "../content/i18n";
 import { carouselLabels } from "../content/carousel";
+import { observeCarouselImages } from "./carouselImages";
 
 type Props<T> = {
   items: readonly T[];
@@ -32,9 +33,11 @@ export default function CoverflowCarousel<T>({ items, shellClassName, carouselCl
   arrowClassName = "", prevClassName = "", nextClassName = "", previousLabel, nextLabel, label,
   initialIndex = 0, onActiveChange, renderSlide, locale = "en" }: Props<T>) {
   const carousel = useRef<SwiperInstance | null>(null);
+  const shell = useRef<HTMLDivElement | null>(null);
+  useEffect(() => observeCarouselImages(shell.current), [items.length]);
   if (!items.length) return null;
   const slides = items.length > 1 ? Array.from({ length: 3 }, () => items).flat() : items;
-  return <div className={shellClassName} onDragStartCapture={event => event.preventDefault()}>
+  return <div ref={shell} className={shellClassName} onDragStartCapture={event => event.preventDefault()}>
     <button type="button" className={`${arrowClassName} ${prevClassName}`.trim()} disabled={items.length < 2}
       onClick={() => carousel.current?.slidePrev()} aria-label={previousLabel || carouselLabels[locale].previous}><ChevronIcon direction="left" /></button>
     <Swiper key={items.length} className={carouselClassName} modules={[EffectCoverflow, Keyboard]} effect="coverflow"
