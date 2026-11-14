@@ -746,7 +746,7 @@ footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }.cookie-
 .collection-booking-band .booking-duration button { min-width: 0; min-height: 54px; padding: 8px; border-radius: var(--mlt-radius-control); }
 .collection-booking-band .booking-duration b, .collection-booking-band .booking-duration small { white-space: normal; overflow-wrap: break-word; }
 .collection-booking-band .booking-date select { width: 100%; min-height: 42px; padding: 5px 0; color: #fff6ec; border: 0; outline: 0; background: transparent; font: 400 18px var(--mlt-font-display); color-scheme: dark; cursor: pointer; }
-@media (min-width: 901px) { .collection-booking-band .booking-main { grid-template-columns: 1.05fr 1.7fr .82fr .82fr 1fr; } .collection-booking-band .booking-main > * { min-width: 0; } }
+@media (min-width: 901px) { .collection-booking-band .booking-main { grid-template-columns: minmax(230px, 1.3fr) 1.7fr .82fr .82fr 1fr; } .collection-booking-band .booking-main > * { min-width: 0; } }
 .collection-booking-band .booking-total { border: 0; }
 .collection-booking-band .booking-total .bronze-button { border-radius: 12px; }
 @media (max-width: 580px) { .collection-booking-band .package-switch { gap: 10px; }.package-benefits, .tailored-package-copy { grid-column: auto; margin-top: 0; }.tailored-package-copy { padding: 14px; }.tailored-package-copy > p { font-size: 15px; }.tailored-interests button { min-height: 42px; padding: 9px 13px; font-size: 13px; }.collection-booking-band .booking-main > *, .collection-booking-band .booking-main > *:nth-child(2), .collection-booking-band .booking-main > *:last-child { border: 1px solid rgba(255,255,255,.14); }.collection-booking-band .booking-main { gap: 8px; } }
@@ -775,7 +775,11 @@ footer p, footer a, footer small { font-size: 11px; line-height: 1.55; }.cookie-
 .collection-booking-band .booking-date-value, .collection-booking-band .booking-end strong { min-height: 28px; display: block; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
 .collection-booking-band .booking-total strong { min-width: 9ch; display: block; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; text-align: right; }
 @media (min-width: 581px) and (max-width: 900px) { .collection-booking-band .booking-main { grid-template-columns: 1.6fr 1fr 1fr; }.collection-booking-band .booking-duration { grid-row: span 2; }.collection-booking-band .guest-stepper { grid-column: 2 / -1; }.collection-booking-band .booking-main > *:nth-child(2), .collection-booking-band .booking-main > *:nth-child(-n+2) { border: 1px solid rgba(255,255,255,.14); } }
-@media (max-width: 580px) { .collection-booking-band .booking-main { grid-template-columns: 1fr 1fr; }.collection-booking-band .booking-duration, .collection-booking-band .guest-stepper { grid-column: 1 / -1; }.collection-booking-band .booking-main > *, .collection-booking-band .booking-main > *:nth-child(2) { min-height: 84px; } }
+@media (max-width: 580px) { .collection-booking-band .booking-main { grid-template-columns: 1fr 1fr; }.collection-booking-band .booking-destination, .collection-booking-band .booking-duration, .collection-booking-band .guest-stepper { grid-column: 1 / -1; }.collection-booking-band .booking-main > *, .collection-booking-band .booking-main > *:nth-child(2) { min-height: 84px; } }
+.collection-booking-band .collection-destination-pending { background: var(--mlt-surface-dark); }
+.collection-booking-band .booking-main-pending { grid-template-columns: minmax(0, 1fr); max-width: 360px; margin-top: 0; }
+.collection-destination-notice { max-width: 64ch; margin: var(--mlt-content-gap) auto; color: #f6f1e9; font: 400 var(--mlt-text-body)/1.6 var(--mlt-font-display); text-align: center; text-wrap: pretty; overflow-wrap: break-word; }
+.booking-destination select:focus-visible { outline: 2px solid var(--mlt-bronze); outline-offset: 3px; }
 
 /* Selectable product carousel inside the Freedom booking card. */
 .booking-route-picker { margin-top: 18px; padding-top: 17px; overflow: hidden; border-top: 1px solid rgba(255,255,255,.14); }

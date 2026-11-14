@@ -147,6 +147,11 @@
 .fields label>i,.calendarField>i{pointer-events:none}
 .returnField>strong{position:absolute;left:48px;right:9px;top:49px;margin:0;line-height:20px}
 .singleType{grid-template-columns:1fr}
+.fields .destinationField{grid-column:1/-1;min-width:0}
+.fields .destinationField select{color-scheme:dark}
+.fields .destinationField select:focus-visible{outline:2px solid var(--mlt-bronze);outline-offset:3px}
+.destinationPending{background:var(--mlt-surface-dark)}
+.destinationPending .fields{margin-top:0}
 .singleType button{min-height:0}
 .tailoredServices{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px;padding:12px;border:1px solid #484b45;border-radius:12px;background:#252823}
 .tailoredServices button{min-height:40px;padding:0 13px;border:1px solid #765b44;border-radius:10px;background:transparent;color:#d3cec6;font-size:12px}
