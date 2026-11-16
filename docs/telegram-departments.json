@@ -1,0 +1,48 @@
+{
+  "updated": "2026-11-16",
+  "bot": "mlt_concierge_request_bot",
+  "groups": [
+    {
+      "name": "Mlt sales",
+      "department": "sales",
+      "purpose": "Покупка автодомов и капсульных домов, запрос цены и подбор объекта",
+      "sources": [
+        "acquisitions",
+        "listing_ID_<number>"
+      ],
+      "deployment_variable": "MLT_TELEGRAM_SALES_CHAT_ID"
+    },
+    {
+      "name": "MLT Investmenstments",
+      "department": "investments",
+      "purpose": "Инвестиционные обращения и запрос индивидуального расчёта",
+      "sources": [
+        "investments"
+      ],
+      "deployment_variable": "MLT_TELEGRAM_INVESTMENTS_CHAT_ID"
+    },
+    {
+      "name": "MLT Concierge chat push",
+      "department": "tours",
+      "planned_name": "MLT Tours",
+      "purpose": "Заявки на туры из коллекций и конструктора, общие обращения к консьержу и существующие уведомления об оплате туров",
+      "sources": [
+        "other inquiry sources",
+        "existing journey payment notifications"
+      ],
+      "deployment_variable": "MLT_TELEGRAM_TOURS_CHAT_ID"
+    }
+  ],
+  "configuration_priority": [
+    "protected paypal-config.php department setting",
+    "TELEGRAM_<DEPARTMENT>_CHAT_ID environment variable",
+    "generated server-side deployment destination",
+    "existing common chat"
+  ],
+  "previous_plan_future_events": [
+    "Новый диалог онлайн-чата: уведомление соответствующего отдела со ссылкой на переписку",
+    "Пожелание по существующей поездке: уведомление консьержу с номером бронирования",
+    "Оплата ваучера: отдельное уведомление ответственному отделу"
+  ],
+  "future_events_note": "Подключение групп не добавляет новые триггеры онлайн-чата, пожеланий и ваучеров. Эти события остаются отдельными задачами прежнего плана."
+}

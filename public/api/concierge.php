@@ -80,32 +80,8 @@ if ($token && $chatId) {
         }
         $message = mlt_sales_telegram_message($body, $reference, $listing);
     } else {
-        $route = array_slice(array_filter(array_map($clean, is_array($body['route'] ?? null) ? $body['route'] : [])), 0, 12);
-        $extras = array_slice(array_filter(array_map($clean, is_array($body['extras'] ?? null) ? $body['extras'] : [])), 0, 12);
-        $lines = [
-            '◆ NEW MLT PRIVATE REQUEST',
-            'Reference: ' . $reference,
-            '',
-            'Client: ' . $firstName . ' ' . $lastName,
-            'Email: ' . $email,
-            'Phone: ' . ($clean($body['phone'] ?? '', 80) ?: 'Not provided'),
-            'Subject: ' . $clean($body['subject'] ?? '', 120),
-            'Source: ' . $clean($body['source'] ?? '', 100),
-            'Context: ' . $clean($body['context'] ?? '', 800),
-            '',
-            'Collection: ' . $clean($body['collection'] ?? '', 80),
-            'Vehicle: ' . ($clean($body['vehicle'] ?? '', 80) ?: 'To be confirmed'),
-            'Starting country: ' . $clean($body['country'] ?? '', 80),
-            'Travel dates: ' . ($clean($body['arrival'] ?? '', 20) ?: '—') . ' — ' . ($clean($body['departure'] ?? '', 20) ?: '—'),
-            'Travellers: ' . $clean($body['guests'] ?? '', 40),
-            'Duration: ' . $clean($body['days'] ?? '', 20) . ' days',
-            'Indicative rate: ' . $clean($body['rate'] ?? '', 80),
-            'Route: ' . ($route ? implode(' → ', $route) : 'To be curated'),
-            'Experiences: ' . ($extras ? implode(', ', $extras) : 'None'),
-            '',
-            'Notes: ' . ($clean($body['notes'] ?? '', 800) ?: 'No additional notes'),
-        ];
-        $message = implode("\n", $lines);
+        require_once __DIR__ . '/telegram-inquiry-message.php';
+        $message = mlt_inquiry_telegram_message($body, $reference);
     }
     $payload = json_encode([
         'chat_id' => $chatId,

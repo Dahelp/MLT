@@ -9,6 +9,8 @@ files = {
     '/api/telegram-routing.php': Path('public/api/telegram-routing.php'),
     '/api/telegram-sales-destination.php': Path('static-export/api/telegram-sales-destination.php'),
     '/api/telegram-sales-message.php': Path('public/api/telegram-sales-message.php'),
+    '/api/telegram-inquiry-message.php': Path('public/api/telegram-inquiry-message.php'),
+    '/api/telegram-department-destinations.php': Path('static-export/api/telegram-department-destinations.php'),
 }
 if '--include-handler' in sys.argv:
     files['/api/concierge.php'] = Path('public/api/concierge.php')

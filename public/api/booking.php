@@ -127,7 +127,8 @@ function mlt_notify_paid(array $order, array $settings): void {
     $provider = strtoupper((string)($order['payment_provider'] ?: 'payment'));
     $message = "◆ {$provider} PAYMENT RECEIVED\nReference: {$order['reference_code']}\nAmount: {$order['amount']} {$order['currency']}\n\nClient: {$order['first_name']} {$order['last_name']}\nEmail: {$order['customer_email']}\nPhone: " . ($order['phone'] ?: 'Not provided') . "\n\nCollection: {$order['collection_name']}\nVehicle: " . ($order['vehicle_name'] ?: 'To be confirmed') . "\nDates: " . ($order['arrival_date'] ?: '—') . ' — ' . ($order['departure_date'] ?: '—') . "\nTravellers: " . ($order['guests'] ?: '—') . "\nRoute: {$route}\nExperiences: {$extras}";
     $token = (string)($settings['telegram_bot_token'] ?? (getenv('TELEGRAM_BOT_TOKEN') ?: ''));
-    $chatId = (string)($settings['telegram_chat_id'] ?? (getenv('TELEGRAM_CHAT_ID') ?: ''));
+    require_once __DIR__ . '/telegram-routing.php';
+    $chatId = mlt_inquiry_telegram_chat($settings, 'tours');
     if ($token && $chatId) {
         $context = stream_context_create(['http' => ['method' => 'POST', 'header' => "Content-Type: application/json\r\n", 'content' => json_encode(['chat_id' => $chatId, 'text' => $message, 'disable_web_page_preview' => true], JSON_UNESCAPED_UNICODE), 'timeout' => 10]]);
         @file_get_contents('https://api.telegram.org/bot' . $token . '/sendMessage', false, $context);

@@ -19,6 +19,14 @@ test('sales inquiries use a separate chat, other departments and unconfigured sa
  assert.deepEqual(JSON.parse(execFileSync('php',['-r',php,file],{encoding:'utf8'})),['sales','sales','common','common','common','common','sales-env','common-env']);
 });
 
+test('investments and tours use their own destinations with safe fallback and settings priority',()=>{
+ const file=fileURLToPath(new URL('../public/api/telegram-routing.php',import.meta.url));
+ const php=`require $argv[1]; putenv('TELEGRAM_CHAT_ID=common'); putenv('TELEGRAM_INVESTMENTS_CHAT_ID=investment-env'); putenv('TELEGRAM_TOURS_CHAT_ID=tours-env');
+ $settings=['telegram_investments_chat_id'=>'investments','telegram_tours_chat_id'=>'tours','telegram_sales_chat_id'=>'sales'];
+ echo json_encode([mlt_inquiry_telegram_chat($settings,'investments'),mlt_inquiry_telegram_chat($settings,'concierge'),mlt_inquiry_telegram_chat($settings,'private'),mlt_inquiry_telegram_chat($settings,'acquisitions'),mlt_inquiry_telegram_chat([],'investments'),mlt_inquiry_telegram_chat([],'contact'),mlt_inquiry_telegram_chat(['telegram_investments_chat_id'=>' '],'investments')]);`;
+ assert.deepEqual(JSON.parse(execFileSync('php',['-r',php,file],{encoding:'utf8'})),['investments','tours','tours','sales','investment-env','tours-env','common']);
+});
+
 test('deployment destination supplies sales routing while explicit server settings retain priority',()=>{
  const prefix=path.join(tmpdir(),'mlt-telegram-routing-');
  const dir=mkdtempSync(prefix);
@@ -26,13 +34,16 @@ test('deployment destination supplies sales routing while explicit server settin
   const helper=path.join(dir,'telegram-routing.php'),generated=path.join(dir,'telegram-sales-destination.php');
   copyFileSync(fileURLToPath(new URL('../public/api/telegram-routing.php',import.meta.url)),helper);
   const generator=fileURLToPath(new URL('../scripts/prepare-telegram-routing.mjs',import.meta.url));
-  execFileSync(process.execPath,[generator,generated],{env:{...process.env,MLT_TELEGRAM_SALES_CHAT_ID:'-123456'}});
+  execFileSync(process.execPath,[generator,generated],{env:{...process.env,MLT_TELEGRAM_SALES_CHAT_ID:'-123456',MLT_TELEGRAM_INVESTMENTS_CHAT_ID:'-234567',MLT_TELEGRAM_TOURS_CHAT_ID:'-345678'}});
   const php=`require $argv[1]; putenv('TELEGRAM_CHAT_ID=common'); putenv('TELEGRAM_SALES_CHAT_ID');
-  $actual=[mlt_inquiry_telegram_chat([],'listing_ID_1'),mlt_inquiry_telegram_chat([],'acquisitions'),mlt_inquiry_telegram_chat([],'concierge'),mlt_inquiry_telegram_chat(['telegram_sales_chat_id'=>'explicit'],'listing_ID_1')];
+  putenv('TELEGRAM_INVESTMENTS_CHAT_ID');putenv('TELEGRAM_TOURS_CHAT_ID');
+  $actual=[mlt_inquiry_telegram_chat([],'listing_ID_1'),mlt_inquiry_telegram_chat([],'acquisitions'),mlt_inquiry_telegram_chat([],'concierge'),mlt_inquiry_telegram_chat(['telegram_sales_chat_id'=>'explicit'],'listing_ID_1'),mlt_inquiry_telegram_chat([],'investments')];
   putenv('TELEGRAM_SALES_CHAT_ID=environment');$actual[]=mlt_inquiry_telegram_chat([],'listing_ID_1');echo json_encode($actual);`;
-  assert.deepEqual(JSON.parse(execFileSync('php',['-r',php,helper],{encoding:'utf8'})),['-123456','-123456','common','explicit','environment']);
+  assert.deepEqual(JSON.parse(execFileSync('php',['-r',php,helper],{encoding:'utf8'})),['-123456','-123456','-345678','explicit','-234567','environment']);
   const before=readFileSync(generated,'utf8');
   assert.throws(()=>execFileSync(process.execPath,[generator,generated],{env:{...process.env,MLT_TELEGRAM_SALES_CHAT_ID:'1; arbitrary_php()'},stdio:'pipe'}));
+  assert.equal(readFileSync(generated,'utf8'),before);
+  assert.throws(()=>execFileSync(process.execPath,[generator,generated],{env:{...process.env,MLT_TELEGRAM_TOURS_CHAT_ID:'bad-id'},stdio:'pipe'}));
   assert.equal(readFileSync(generated,'utf8'),before);
  }finally{
   if(!path.resolve(dir).startsWith(path.resolve(prefix)))throw new Error('Unsafe test cleanup path');
