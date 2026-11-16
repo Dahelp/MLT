@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
-import {publicChatDepartment} from "../content/chat-departments";
+import {publicChatDepartment,publicChatTopic} from "../content/chat-departments";
 import { usePathname } from "next/navigation";
 import { OPEN_CONCIERGE_CHAT } from "./ChatLink";
 
@@ -21,12 +21,12 @@ function api(body:Record<string,unknown>){const accountToken=localStorage.getIte
 
 export default function ChatWidget(){
   const pathname=usePathname()||"/";
-  const department=publicChatDepartment(pathname);
-  return <ChatSession key={department} pathname={pathname} department={department}/>;
+  const department=publicChatDepartment(pathname),topic=publicChatTopic(pathname);
+  return <ChatSession key={topic} pathname={pathname} department={department} topic={topic}/>;
 }
-function ChatSession({pathname,department}:{pathname:string;department:"concierge"|"sales"}){
+function ChatSession({pathname,department,topic}:{pathname:string;department:"concierge"|"sales";topic:"sales"|"investments"|"concierge"}){
   const locale=getLocale(pathname),t=copy[locale];
-  const tokenKey=department==="sales"?"mlt-chat-token-sales":"mlt-chat-token";
+  const tokenKey=topic==="investments"?"mlt-chat-token-investments":department==="sales"?"mlt-chat-token-sales":"mlt-chat-token";
   const team={en:["Motorhomes, capsule homes & investments","Your MLT journey team"],de:["Wohnmobile, Kapselhäuser & Investitionen","Ihr MLT Reiseteam"],ru:["Автодома, капсулы и инвестиции","Ваша команда путешествий MLT"],it:["Camper, case capsula e investimenti","Il team viaggi MLT"],pl:["Kampery, domy kapsułowe i inwestycje","Twój zespół podróży MLT"]}[locale];
   const online={en:"Always online",de:"Immer online",ru:"Всегда онлайн",it:"Sempre online",pl:"Zawsze online"}[locale];
   const title=department==="sales"?"MLT Manager":"MLT Concierge";
@@ -44,7 +44,7 @@ function ChatSession({pathname,department}:{pathname:string;department:"concierg
   }, [hidden, department, sync]);
   useEffect(()=>{if(open)requestAnimationFrame(()=>{if(listRef.current)listRef.current.scrollTop=listRef.current.scrollHeight})},[open,state.messages.length]);
   useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape")setOpen(false)};document.addEventListener("keydown",close);return()=>document.removeEventListener("keydown",close)},[]);
-  const submit=async(event:FormEvent<HTMLFormElement>)=>{event.preventDefault();const formElement=event.currentTarget;setBusy(true);setError("");const form=new FormData(formElement);const existing=localStorage.getItem(tokenKey)||"";try{const data=await api(existing&&state.conversation?{action:"send",token:existing,message:form.get("message")}:{action:"start",name:form.get("name"),email:form.get("email"),message:form.get("message"),locale,department});if(data.token)localStorage.setItem(tokenKey,data.token);setState(data);formElement.reset();}catch{setError(t.error)}finally{setBusy(false)}};
+  const submit=async(event:FormEvent<HTMLFormElement>)=>{event.preventDefault();const formElement=event.currentTarget;setBusy(true);setError("");const form=new FormData(formElement);const existing=localStorage.getItem(tokenKey)||"";try{const data=await api(existing&&state.conversation?{action:"send",token:existing,message:form.get("message")}:{action:"start",name:form.get("name"),email:form.get("email"),message:form.get("message"),locale,department,topic});if(data.token)localStorage.setItem(tokenKey,data.token);setState(data);formElement.reset();}catch{setError(t.error)}finally{setBusy(false)}};
   if(hidden)return null;
   return <div className={`mlt-chat-widget is-online ${open?"is-open":""} ${isCollectionPage?"is-collection-page":""}`}>
     {!open&&<button className="mlt-chat-launcher" type="button" onClick={()=>{setOpen(true);sync(true)}} aria-label={t.open}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a3 3 0 0 1-3 3H9l-5 3v-3.5A3 3 0 0 1 3 15V7a3 3 0 0 1 3-3h14z"/><path d="M7 10h10M7 14h6"/></svg>{state.unread>0&&<span>{state.unread>99?"99+":state.unread}</span>}</button>}

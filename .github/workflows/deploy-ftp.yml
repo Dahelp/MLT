@@ -95,7 +95,7 @@ jobs:
           cp public/uploads/.htaccess voucher-preflight/uploads/
           cp public/api/fleet-core.php public/api/exclusive-requests.php public/api/exclusive-requests-actions.php public/api/journey-pricing.php public/api/journey-terms.php public/api/security.php public/api/voucher-core.php public/api/voucher-payments.php public/api/vouchers.php public/api/voucher-return.php public/api/journey-checkout.php voucher-preflight/api/
           cp public/data/motorhomes.json public/data/journey-pricing.json public/data/private-exclusive-requests.json voucher-preflight/data/
-          cp public/api/telegram-routing.php public/api/telegram-sales-message.php public/api/telegram-inquiry-message.php static-export/api/telegram-sales-destination.php static-export/api/telegram-department-destinations.php voucher-preflight/api/
+          cp public/api/telegram-routing.php public/api/telegram-sales-message.php public/api/telegram-inquiry-message.php public/api/telegram-chat.php static-export/api/telegram-sales-destination.php static-export/api/telegram-department-destinations.php voucher-preflight/api/
 
       - name: Publish voucher backend dependencies
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

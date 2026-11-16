@@ -29,5 +29,20 @@ class ChatTestDatabase extends PDO {
   return parent::prepare($query,$options);
  }
 }
-function mlt_settings():array{return [];}
+class ChatTestTelegramStream {
+ public $context;
+ private string $response='';
+ private int $offset=0;
+ public function stream_open($path,$mode,$options,&$opened_path):bool {
+  if($path!=='https://api.telegram.org/bottest-token/sendMessage')throw new RuntimeException('Unexpected network request');
+  $payload=stream_context_get_options($this->context)['http']['content'];
+  file_put_contents(__DIR__.'/telegram.jsonl',$payload."\n",FILE_APPEND);
+  $this->response=is_file(__DIR__.'/telegram-fail')?'{}':'{"ok":true}';return true;
+ }
+ public function stream_read($count):string{$chunk=substr($this->response,$this->offset,$count);$this->offset+=strlen($chunk);return $chunk;}
+ public function stream_eof():bool{return $this->offset>=strlen($this->response);}
+ public function stream_stat():array{return [];}
+}
+stream_wrapper_unregister('https');stream_wrapper_register('https',ChatTestTelegramStream::class);
+function mlt_settings():array{return ['telegram_bot_token'=>'test-token','telegram_sales_chat_id'=>'test-sales','telegram_investments_chat_id'=>'test-investments','telegram_tours_chat_id'=>'test-concierge'];}
 function mlt_db(array $settings):PDO{return new ChatTestDatabase();}

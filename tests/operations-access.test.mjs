@@ -22,3 +22,5 @@ test('tourism managers have only chat; sales managers have their own complete wo
  for(const next of ['/sales/','/sales/catalog/','/sales/chat/','/sales/acquisitions/','/sales/investments/'])assert.equal(operationsDestination('salesmanager',next),next);
  assert.equal(operationsDestination('salesmanager'),'/sales/');assert.equal(operationsDestination('manager'),'/manager/chat/');
 });
+
+test('Telegram conversation links survive sign-in and switch to the authorized staff cabinet',()=>{for(const role of ['manager','concierge','salesmanager']){const panel=role==='salesmanager'?'sales':role;assert.equal(operationsDestination(role,'/concierge/chat/?conversation=42'),`/${panel}/chat/?conversation=42`);assert.equal(operationsDestination(role,'/sales/chat/?conversation=42'),`/${panel}/chat/?conversation=42`)}assert.equal(operationsDestination('admin','/sales/chat/?conversation=42'),'/sales/chat/?conversation=42');assert.equal(operationsDestination('manager','https://evil.example/chat/?conversation=42'),'/manager/chat/')});

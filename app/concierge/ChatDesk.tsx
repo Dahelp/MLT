@@ -4,6 +4,7 @@ import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 import OperationsShell from "../OperationsShell";
 import {useOperationsLocale} from "../useOperationsLocale";
+import {operationsDestination} from "../../content/operations-access";
 
 type Conversation={id:number;name:string;email:string;locale:string;department:"concierge"|"sales";status:string;unread_operator:number;last_message:string;last_message_at:string};
 type Message={id:number;sender_type:"client"|"operator";sender_name:string;body:string;created_at:string};
@@ -27,10 +28,11 @@ export default function ChatDesk({requiredRole}:{requiredRole?:"admin"|"manager"
  const load=useCallback(async(id=selected)=>{const request=++requestRef.current;try{const next=await chatApi("operator_sync",{department,...(id?{conversationId:id}:{})});if(request!==requestRef.current)return;notify(next.unread);unreadRef.current=next.unread;setData(next);setError("");}catch(reason){if(request===requestRef.current)setError(reason instanceof Error?reason.message:"Chat unavailable")}},[selected,notify,department]);
  useEffect(()=>{let active=true,timer:number|undefined;const refresh=async()=>{await load();if(active)timer=window.setTimeout(refresh,3000)};void refresh();return()=>{active=false;window.clearTimeout(timer)}},[load]);
  useEffect(()=>{if(listRef.current)listRef.current.scrollTop=listRef.current.scrollHeight},[data?.messages.length,selected]);
+ useEffect(()=>{if(data&&requiredRole&&data.operator.role!=="admin"&&data.operator.role!==requiredRole){const next=operationsDestination(data.operator.role,location.pathname+location.search);if(next!==location.pathname+location.search)location.replace(next)}},[data,requiredRole]);
  useEffect(()=>{const restore=()=>{const id=Number(new URLSearchParams(location.search).get("conversation")||0);setSelected(id);load(id)};addEventListener("popstate",restore);return()=>removeEventListener("popstate",restore)},[load]);
  const choose=(id:number)=>{const url=new URL(location.href);if(id)url.searchParams.set("conversation",String(id));else url.searchParams.delete("conversation");history.pushState({},"",url);setSelected(id);load(id)};
  const send=async(event:FormEvent<HTMLFormElement>)=>{event.preventDefault();const form=event.currentTarget,message=new FormData(form).get("message");setSending(true);try{const next=await chatApi("operator_send",{conversationId:selected,message,department});setData(next);form.reset();}catch(reason){setError(reason instanceof Error?reason.message:"Could not send")}finally{setSending(false)}};
- if(error&&!data)return <main className="chat-desk-gate"><section><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT"/><h1>{t.restricted}</h1><p>{error}</p><a href="/account/">{t.signin}</a></section></main>;
+ if(error&&!data)return <main className="chat-desk-gate"><section><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT"/><h1>{t.restricted}</h1><p>{error}</p><a href={`/account/?next=${encodeURIComponent(typeof location==="undefined"?"":location.pathname+location.search)}`}>{t.signin}</a></section></main>;
  if(!data)return <main className="concierge-loading"/>;
  if(requiredRole&&data.operator.role!=="admin"&&data.operator.role!==requiredRole)return <main className="chat-desk-gate"><section><img src="/mlt-logo.svg?v=20261006-vector" alt="MLT"/><h1>{t.restricted}</h1><p>This panel is reserved for the {requiredRole} role.</p><a href={data.operator.role==="concierge"?"/concierge/chat/":data.operator.role==="salesmanager"?"/sales/chat/":"/manager/chat/"}>Open your panel</a></section></main>;
  const shown=data.conversations.filter(item=>`${item.name} ${item.email}`.toLowerCase().includes(search.toLowerCase()));

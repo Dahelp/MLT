@@ -8,9 +8,10 @@ header('Cache-Control: no-store, max-age=0');
 header('X-Content-Type-Options: nosniff');
 require_once __DIR__ . '/booking.php';
 require_once __DIR__ . '/chat-access.php';
+require_once __DIR__ . '/telegram-chat.php';
 
 $body=json_decode(file_get_contents('php://input'),true);if(!is_array($body))$body=[];
-$db=mlt_db(mlt_settings());if(!$db){http_response_code(503);echo json_encode(['error'=>'Chat service is unavailable.']);exit;}
+$settings=mlt_settings();$db=mlt_db($settings);if(!$db){http_response_code(503);echo json_encode(['error'=>'Chat service is unavailable.']);exit;}
 try{
  $db->exec('CREATE TABLE IF NOT EXISTS mlt_chat_conversations (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NULL,access_hash CHAR(64) NOT NULL UNIQUE,name VARCHAR(120) NOT NULL,email VARCHAR(160) NOT NULL,locale VARCHAR(8) NOT NULL DEFAULT "en",department VARCHAR(20) NOT NULL DEFAULT "concierge",status VARCHAR(24) NOT NULL DEFAULT "open",unread_client INT UNSIGNED NOT NULL DEFAULT 0,unread_operator INT UNSIGNED NOT NULL DEFAULT 0,last_message_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,INDEX chat_user(user_id),INDEX chat_email(email),INDEX chat_activity(last_message_at)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
  // Existing conversations retain their history in the concierge queue.
@@ -22,6 +23,12 @@ try{
  $db->exec('CREATE TABLE IF NOT EXISTS mlt_chat_messages (id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,conversation_id BIGINT UNSIGNED NOT NULL,sender_type VARCHAR(16) NOT NULL,sender_user_id BIGINT UNSIGNED NULL,sender_name VARCHAR(120) NOT NULL,body TEXT NOT NULL,read_at DATETIME NULL,created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,INDEX chat_messages_conversation(conversation_id,id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
  $db->exec('CREATE TABLE IF NOT EXISTS mlt_chat_presence (user_id BIGINT UNSIGNED PRIMARY KEY,last_seen_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
 
+ // Keep the notification topic separate from role-based queue authorization.
+ try { $db->query('SELECT notification_topic FROM mlt_chat_conversations LIMIT 0'); }
+ catch (PDOException $error) {
+  try { $db->exec("ALTER TABLE mlt_chat_conversations ADD COLUMN notification_topic VARCHAR(20) NOT NULL DEFAULT ''"); }
+  catch (PDOException $migrationError) { if ((int)($migrationError->errorInfo[1] ?? 0) !== 1060) throw $migrationError; }
+ }
 }catch(Throwable $error){error_log('MLT chat schema: '.$error->getMessage());http_response_code(503);echo json_encode(['error'=>'Chat database is unavailable.']);exit;}
 
 $clean=static fn($value,$limit)=>mb_substr(trim((string)$value),0,$limit);
@@ -48,23 +55,25 @@ if($action==='start'){
  if($user&&!in_array($user['role']??'traveller',['admin','manager','salesmanager','concierge'],true)){$name=trim($user['first_name'].' '.$user['last_name']);$email=strtolower($user['email']);}
  $department=(string)($body['department']??'concierge');
  if(!in_array($department,['concierge','sales'],true)){http_response_code(400);echo json_encode(['error'=>'Invalid chat department.']);exit;}
+ try{$topic=mlt_chat_notification_topic($department,(string)($body['topic']??''));}catch(InvalidArgumentException $error){http_response_code(400);echo json_encode(['error'=>$error->getMessage()]);exit;}
  if($name===''||!filter_var($email,FILTER_VALIDATE_EMAIL)||$message===''){http_response_code(400);echo json_encode(['error'=>'Enter your name, email and message.']);exit;}
  $rawToken=bin2hex(random_bytes(32));$hash=hash('sha256',$rawToken);$conversation=null;
- if($user){$q=$db->prepare('SELECT * FROM mlt_chat_conversations WHERE user_id=? AND department=? AND status="open" ORDER BY last_message_at DESC LIMIT 1');$q->execute([$user['id'],$department]);$conversation=$q->fetch()?:null;}
- if(!$conversation){$q=$db->prepare('INSERT INTO mlt_chat_conversations (user_id,access_hash,name,email,locale,department) VALUES (?,?,?,?,?,?)');$q->execute([$user['id']??null,$hash,$name,$email,$locale,$department]);$conversationId=(int)$db->lastInsertId();}
- else{$conversationId=(int)$conversation['id'];$db->prepare('UPDATE mlt_chat_conversations SET access_hash=?,name=?,email=?,locale=? WHERE id=?')->execute([$hash,$name,$email,$locale,$conversationId]);}
- $q=$db->prepare('INSERT INTO mlt_chat_messages (conversation_id,sender_type,sender_user_id,sender_name,body) VALUES (?,"client",?,?,?)');$q->execute([$conversationId,$user['id']??null,$name,$message]);
+ if($user){$q=$db->prepare('SELECT * FROM mlt_chat_conversations WHERE user_id=? AND department=? AND (notification_topic=? OR (notification_topic=\'\' AND ?<>\'investments\')) AND status="open" ORDER BY last_message_at DESC LIMIT 1');$q->execute([$user['id'],$department,$topic,$topic]);$conversation=$q->fetch()?:null;}
+ if(!$conversation){$q=$db->prepare('INSERT INTO mlt_chat_conversations (user_id,access_hash,name,email,locale,department,notification_topic) VALUES (?,?,?,?,?,?,?)');$q->execute([$user['id']??null,$hash,$name,$email,$locale,$department,$topic]);$conversationId=(int)$db->lastInsertId();}
+ else{$conversationId=(int)$conversation['id'];$db->prepare('UPDATE mlt_chat_conversations SET access_hash=?,name=?,email=?,locale=?,notification_topic=? WHERE id=?')->execute([$hash,$name,$email,$locale,$topic,$conversationId]);}
+ $q=$db->prepare('INSERT INTO mlt_chat_messages (conversation_id,sender_type,sender_user_id,sender_name,body) VALUES (?,"client",?,?,?)');$q->execute([$conversationId,$user['id']??null,$name,$message]);$messageId=(int)$db->lastInsertId();
  $db->prepare('UPDATE mlt_chat_conversations SET unread_operator=unread_operator+1,last_message_at=NOW() WHERE id=?')->execute([$conversationId]);
- $q=$db->prepare('SELECT * FROM mlt_chat_conversations WHERE id=?');$q->execute([$conversationId]);echo json_encode($clientPayload($db,$q->fetch(),true,$rawToken));exit;
+ $q=$db->prepare('SELECT * FROM mlt_chat_conversations WHERE id=?');$q->execute([$conversationId]);$savedConversation=$q->fetch();$notified=mlt_notify_chat_message($settings,$savedConversation,$message,$messageId,$conversation===null);echo json_encode(array_merge($clientPayload($db,$savedConversation,true,$rawToken),['notificationDelivered'=>$notified]));exit;
 }
 
 if(in_array($action,['sync','send'],true)){
  $rawToken=$clean($body['token']??'',128);if(!preg_match('/^[a-f0-9]{64}$/',$rawToken)){http_response_code(401);echo json_encode(['error'=>'Conversation not found.']);exit;}
  $q=$db->prepare('SELECT * FROM mlt_chat_conversations WHERE access_hash=? LIMIT 1');$q->execute([hash('sha256',$rawToken)]);$conversation=$q->fetch();if(!$conversation){http_response_code(404);echo json_encode(['error'=>'Conversation not found.']);exit;}
  if(isset($body['department'])&&$body['department']!==$conversation['department']){http_response_code(409);echo json_encode(['error'=>'Chat department mismatch.']);exit;}
- if($action==='send'){$message=$clean($body['message']??'',4000);if($message===''){http_response_code(400);echo json_encode(['error'=>'Message is required.']);exit;}$q=$db->prepare('INSERT INTO mlt_chat_messages (conversation_id,sender_type,sender_user_id,sender_name,body) VALUES (?,"client",?,?,?)');$q->execute([$conversation['id'],$user['id']??null,$conversation['name'],$message]);$db->prepare('UPDATE mlt_chat_conversations SET unread_operator=unread_operator+1,last_message_at=NOW(),status="open" WHERE id=?')->execute([$conversation['id']]);}
+ $notified=null;
+ if($action==='send'){$message=$clean($body['message']??'',4000);if($message===''){http_response_code(400);echo json_encode(['error'=>'Message is required.']);exit;}$q=$db->prepare('INSERT INTO mlt_chat_messages (conversation_id,sender_type,sender_user_id,sender_name,body) VALUES (?,"client",?,?,?)');$q->execute([$conversation['id'],$user['id']??null,$conversation['name'],$message]);$messageId=(int)$db->lastInsertId();$db->prepare('UPDATE mlt_chat_conversations SET unread_operator=unread_operator+1,last_message_at=NOW(),status="open" WHERE id=?')->execute([$conversation['id']]);$notified=mlt_notify_chat_message($settings,$conversation,$message,$messageId);}
  if(!empty($body['markRead'])){$db->prepare('UPDATE mlt_chat_messages SET read_at=NOW() WHERE conversation_id=? AND sender_type="operator" AND read_at IS NULL')->execute([$conversation['id']]);$db->prepare('UPDATE mlt_chat_conversations SET unread_client=0 WHERE id=?')->execute([$conversation['id']]);}
- $q=$db->prepare('SELECT * FROM mlt_chat_conversations WHERE id=?');$q->execute([$conversation['id']]);echo json_encode($clientPayload($db,$q->fetch()));exit;
+ $q=$db->prepare('SELECT * FROM mlt_chat_conversations WHERE id=?');$q->execute([$conversation['id']]);$response=$clientPayload($db,$q->fetch());if($notified!==null)$response['notificationDelivered']=$notified;echo json_encode($response);exit;
 }
 
 if(in_array($action,['operator_sync','operator_send','operator_close'],true)){
