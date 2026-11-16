@@ -50,8 +50,15 @@ test('chat queues enforce server authorization and retain existing conversations
   const before=await notices();
   assert.equal(before[0].chat_id,'test-sales');assert.match(before[0].text,/НОВЫЙ ДИАЛОГ ОНЛАЙН-ЧАТА/);
   assert.equal(before[1].chat_id,'test-concierge');
-  assert.ok(before[0].text.includes(`/sales/chat/?conversation=${sales.data.conversation.id}`));
-  assert.ok(before[1].text.includes(`/concierge/chat/?conversation=${concierge.data.conversation.id}`));
+  const checkLink=(notice,expectedUrl)=>{
+   assert.equal(notice.entities.length,1);const link=notice.entities[0];
+   assert.equal(link.type,'text_link');assert.equal(link.url,expectedUrl);
+   assert.equal(notice.text.slice(link.offset,link.offset+link.length),'Открыть переписку в кабинете');
+   assert.equal(notice.reply_markup.inline_keyboard[0][0].url,expectedUrl);
+   assert.equal(notice.parse_mode,undefined,'Customer text is not parsed as HTML or Markdown');
+  };
+  checkLink(before[0],`https://mlt-lifestyle.com/sales/chat/?conversation=${sales.data.conversation.id}`);
+  checkLink(before[1],`https://mlt-lifestyle.com/concierge/chat/?conversation=${concierge.data.conversation.id}`);
   const legacySend=await request({action:'send',token:'a'.repeat(64),message:'Legacy conversation follow-up'});
   assert.equal(legacySend.status,200);assert.equal(legacySend.data.notificationDelivered,true);assert.equal((await notices()).at(-1).chat_id,'test-concierge');
   const investment=await request({action:'start',department:'sales',topic:'investments',name:'Investor',email:'investor@example.test',message:'Investment chat test'},'traveller');
@@ -76,5 +83,10 @@ test('chat queues enforce server authorization and retain existing conversations
   await rm(path.join(directory,'telegram-fail'));
   await request({action:'send',token:reused.data.token,message:'😀'.repeat(4000)});
   assert.ok((await notices()).at(-1).text.length<4096,'Unicode preview fits Telegram message limit');
+  checkLink((await notices()).at(-1),`https://mlt-lifestyle.com/sales/chat/?conversation=${investment.data.conversation.id}`);
+  const literal='<a href="https://example.test/">Клиентский текст</a> & 😀';
+  await request({action:'send',token:reused.data.token,message:literal});
+  const plain=(await notices()).at(-1);assert.ok(plain.text.includes(literal));
+  checkLink(plain,`https://mlt-lifestyle.com/sales/chat/?conversation=${investment.data.conversation.id}`);
  }finally{server.kill();await new Promise(resolve=>server.once('exit',resolve));assert.equal(path.dirname(path.resolve(directory)),path.resolve(tmpdir()));assert.ok(path.basename(directory).startsWith('mlt-chat-'));await rm(directory,{recursive:true,force:true})}
 });

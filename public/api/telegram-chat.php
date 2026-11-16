@@ -27,9 +27,15 @@ function mlt_notify_chat_message(array $settings, array $conversation, string $m
             'Отдел: ' . $label, 'Диалог: #' . $id . ' · сообщение #' . $messageId,
             'Клиент: ' . mb_substr((string)$conversation['name'], 0, 120),
             'Email: ' . mb_substr((string)$conversation['email'], 0, 160),
-            '', 'Сообщение клиента:', $preview, '', 'Открыть переписку: ' . $url,
-        ]);
-        $payload = json_encode(['chat_id'=>$chatId,'text'=>$text,'disable_web_page_preview'=>true,
+            '', 'Сообщение клиента:', $preview,
+        ]) . "\n\n";
+        $linkLabel = 'Открыть переписку в кабинете';
+        // Telegram entity offsets use UTF-16 code units, including emoji in client text.
+        $linkOffset = intdiv(strlen(mb_convert_encoding($text, 'UTF-16LE', 'UTF-8')), 2);
+        $text .= $linkLabel;
+        $entities = [['type'=>'text_link','offset'=>$linkOffset,
+            'length'=>intdiv(strlen(mb_convert_encoding($linkLabel, 'UTF-16LE', 'UTF-8')), 2),'url'=>$url]];
+        $payload = json_encode(['chat_id'=>$chatId,'text'=>$text,'entities'=>$entities,'disable_web_page_preview'=>true,
             'reply_markup'=>['inline_keyboard'=>[[['text'=>'Открыть переписку в кабинете','url'=>$url]]]]], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
         $context = stream_context_create(['http'=>['method'=>'POST','header'=>"Content-Type: application/json\r\n",'content'=>$payload,'timeout'=>3,'ignore_errors'=>true]]);
         $response = @file_get_contents('https://api.telegram.org/bot' . $token . '/sendMessage', false, $context);
