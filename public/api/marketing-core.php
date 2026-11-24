@@ -58,7 +58,7 @@ function mlt_marketing_overview(PDO $db, int $days): array {
         'registrations'=>mlt_marketing_optional(static fn() => $groups('mlt_users', "CASE locale WHEN 'en' THEN 'en' WHEN 'de' THEN 'de' WHEN 'ru' THEN 'ru' WHEN 'it' THEN 'it' WHEN 'pl' THEN 'pl' ELSE 'other' END", " AND role IN ('traveller','agency')")),
         'inquiries'=>mlt_marketing_optional(static fn() => $groups('mlt_commercial_inquiries', "CASE WHEN source='investments' THEN 'investments' WHEN source='acquisitions' OR source LIKE 'listing_ID_%' THEN 'acquisitions' ELSE 'other' END")),
         'chats'=>mlt_marketing_optional(static fn() => $groups('mlt_chat_conversations', "CASE department WHEN 'sales' THEN 'sales' WHEN 'concierge' THEN 'concierge' ELSE 'other' END")),
-        'scout'=>mlt_marketing_optional(static fn() => $groups('mlt_scout_submissions', "CASE status WHEN 'pending' THEN 'pending' WHEN 'approved' THEN 'approved' WHEN 'rejected' THEN 'rejected' ELSE 'other' END")),
+        'scout'=>mlt_marketing_optional(static fn() => $groups('mlt_scout_submissions', "CASE status WHEN 'pending' THEN 'pending' WHEN 'accepted' THEN 'accepted' WHEN 'revision' THEN 'revision' WHEN 'rejected' THEN 'rejected' ELSE 'other' END")),
     ];
     $result['receipts'] = mlt_marketing_optional(static function() use ($db,$params): array {
         $q=$db->prepare("SELECT CASE currency WHEN 'EUR' THEN 'EUR' WHEN 'USD' THEN 'USD' WHEN 'GBP' THEN 'GBP' WHEN 'CHF' THEN 'CHF' WHEN 'PLN' THEN 'PLN' ELSE 'other' END AS bucket, COUNT(DISTINCT order_id) AS count, SUM(amount) AS amount FROM mlt_payments WHERE created_at>=? AND created_at<? AND status='paid' AND provider IN ('stripe','paypal') GROUP BY bucket ORDER BY bucket");

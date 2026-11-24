@@ -43,6 +43,7 @@ test('marketing API authorizes on the server, aggregates real records and suppre
    assert.equal(data.vouchers.units,10);assert.equal(data.vouchers.cashCents,100000);
    assert.equal(data.inquiries.rows.find(x=>x.key==='acquisitions').count,5);
    assert.equal(data.registrations.rows[0].count,5,'Staff accounts do not count as customer registrations');
+   assert.deepEqual(data.scout.rows,[{key:'accepted',count:5},{key:'revision',count:5}],'Location reports use the real moderation states');
    assert.doesNotMatch(JSON.stringify(data),/PRIVATE_|customer_email|session_hash|reference_code|notes|listing_ID|payment_id/);
   }
   await writeFile(path.join(dir,'missing'),'yes');assert.equal((await call()).data.scout.state,'unavailable');

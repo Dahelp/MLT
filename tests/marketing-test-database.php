@@ -36,7 +36,7 @@ function mlt_db(array $settings): ?PDO {
             $db->prepare('INSERT INTO mlt_payments VALUES (?,?,?,?,?,?)')->execute([$i,$date,'EUR',100,$first?'stripe':'voucher','paid']);
             $db->prepare('INSERT INTO mlt_commercial_inquiries VALUES (?,?,?)')->execute([$date,$first?'investments':'listing_ID_23','PRIVATE_CONTEXT']);
             $db->prepare('INSERT INTO mlt_chat_conversations VALUES (?,?,?)')->execute([$date,$first?'sales':'concierge','PRIVATE_EMAIL']);
-            $db->prepare('INSERT INTO mlt_scout_submissions VALUES (?,?,?)')->execute([$date,$first?'pending':'approved','PRIVATE_SCOUT']);
+            $db->prepare('INSERT INTO mlt_scout_submissions VALUES (?,?,?)')->execute([$date,$first?'revision':'accepted','PRIVATE_SCOUT']);
             if($first)$db->prepare('INSERT INTO mlt_voucher_purchases VALUES (?,?,?,?,?,?)')->execute([$date,$i,2,10000,'paid','PRIVATE_VOUCHER']);
         }
         file_put_contents(__DIR__.'/seeded','yes');
