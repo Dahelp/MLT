@@ -36,7 +36,7 @@ test("mobile responses preserve the primary document SEO and remain indexable",a
 });
 
 test("utility pages stay noindex and invalid collections return a real 404",async()=>{
- for(const route of ["/en/account/","/ru/account/profile/","/en/proposal/","/de/scout-passport/","/admin/","/concierge/","/manager/","/sales/","/en/mobile-preview/","/en/collections/private/mobile-preview/"]){
+ for(const route of ["/en/account/","/ru/account/profile/","/en/proposal/","/de/scout-passport/","/admin/","/concierge/","/manager/","/sales/","/marketing/","/en/mobile-preview/","/en/collections/private/mobile-preview/"]){
   const response=await render(route);assert.equal(response.status,200,route);
   const data=headData(await response.text());assert.match(data.meta.find(m=>m.name==="robots")?.content||"",/noindex/,route);
  }

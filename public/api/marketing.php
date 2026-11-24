@@ -1,0 +1,22 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__.'/security.php';
+mlt_security_guard();
+header('Content-Type: application/json; charset=utf-8');
+require_once __DIR__.'/booking.php';
+require_once __DIR__.'/marketing-core.php';
+$db=mlt_db(mlt_settings());
+if(!$db) mlt_security_error(503,'Service unavailable.');
+$token=preg_replace('/^Bearer\s+/i','',(string)($_SERVER['HTTP_AUTHORIZATION']??''));
+if(!$token) mlt_security_error(401,'Sign in required.');
+$q=$db->prepare('SELECT first_name,last_name,role FROM mlt_users WHERE session_hash=? AND session_expires_at>NOW() LIMIT 1');
+$q->execute([hash('sha256',$token)]); $actor=$q->fetch();
+if(!$actor) mlt_security_error(401,'Sign in required.');
+if(!in_array($actor['role'],['admin','marketer'],true)) mlt_security_error(403,'Marketing access required.');
+$body=json_decode(file_get_contents('php://input'),true);
+if(($body['action']??'')!=='overview') mlt_security_error(400,'Unknown action.');
+if(array_diff(array_keys($body),['action','days']) || !is_int($body['days']??null) || !in_array($body['days'],[30,90,365],true)) mlt_security_error(400,'Select a supported period.');
+mlt_security_limit('marketing:'.hash('sha256',$token),30,60);
+$data=mlt_marketing_overview($db,$body['days']);
+$data['operator']=['name'=>trim($actor['first_name'].' '.$actor['last_name']),'role'=>$actor['role']];
+echo json_encode($data,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);

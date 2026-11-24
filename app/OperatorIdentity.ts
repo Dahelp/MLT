@@ -1,6 +1,6 @@
 "use client";
 import {useEffect,useState} from "react";
-export type OperatorIdentity={name:string;role:"admin"|"manager"|"salesmanager"|"concierge"};
+export type OperatorIdentity={name:string;role:"admin"|"manager"|"salesmanager"|"concierge"|"marketer"};
 const requests=new Map<string,Promise<OperatorIdentity>>();
 export function operatorIdentity():Promise<OperatorIdentity>{
  const token=localStorage.getItem("mlt-account-token")||"";

@@ -46,7 +46,7 @@ LimitRequestBody 12582912
   # Private workspaces and generated proposals remain out of search; robots.txt
   # allows crawling so Google can actually read these noindex directives.
   Header always unset X-Robots-Tag
-  Header always set X-Robots-Tag "noindex, nofollow, noarchive" "expr=%{REQUEST_URI} =~ m#^/(?:(?:en|de|ru|it|pl)/)?(?:account|admin|concierge|manager|sales|plan|proposal|scout-passport|api)(?:/|$)|/mobile-preview(?:/|$)#"
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive" "expr=%{REQUEST_URI} =~ m#^/(?:(?:en|de|ru|it|pl)/)?(?:account|admin|concierge|manager|sales|marketing|plan|proposal|scout-passport|api)(?:/|$)|/mobile-preview(?:/|$)#"
   Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
   <FilesMatch "\.html$">
     Header always set Cache-Control "no-cache, must-revalidate"

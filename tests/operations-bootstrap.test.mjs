@@ -13,7 +13,7 @@ function bootstrap(pathname, values = {}, blocked = false) {
 }
 
 test('operations preferences are applied before paint on every staff route', () => {
-  for (const scope of ['admin','concierge','manager','sales']) {
+  for (const scope of ['admin','concierge','manager','sales','marketing']) {
     for (const locale of ['en','de','ru']) {
       assert.deepEqual(bootstrap(`/${scope}/catalog/`, {'mlt-operations-locale':locale,'mlt-operations-collapsed':'true'}), {operationsLocale:locale,operationsCollapsed:'true'});
     }

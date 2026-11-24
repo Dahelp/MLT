@@ -19,5 +19,7 @@ test('admin manages users with isolated permissions, sessions and cross-service 
   r=await request({...traveller,action:'save',id:1,role:'traveller',password:''});assert.equal(r.status,400,'Admin cannot remove their own access');
   const manager=(await request({action:'detail',id:2})).data.user;r=await request({...manager,action:'save',role:'traveller',password:''});assert.equal(r.status,200);assert.equal((await request({action:'list'},'manager')).status,403);
   assert.equal((await request({action:'detail',id:999999})).status,404);
+  const marketer=await request({...form,email:'marketer@example.test',role:'marketer'});assert.equal(marketer.status,200);
+  const marketingLogin=await request({action:'login',email:'marketer@example.test',password:form.password},'','account.php');assert.equal(marketingLogin.data.user.role,'marketer');
  }finally{server.kill();await new Promise(r=>server.once('exit',r));assert.equal(path.dirname(path.resolve(dir)),path.resolve(tmpdir()));assert.ok(path.basename(dir).startsWith('mlt-users-'));await rm(dir,{recursive:true,force:true})}
 });

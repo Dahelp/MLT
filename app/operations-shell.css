@@ -1,4 +1,4 @@
-.operations-shell{font:16px/1.5 "Segoe UI",Arial,sans-serif;background:#e7e4df;color:#272924}
+.operations-shell{--staff-panel-surface:rgba(255,255,255,.72);--staff-panel-border:rgba(89,86,78,.13);--staff-panel-shadow:0 22px 55px rgba(67,59,48,.08);font:16px/1.5 "Segoe UI",Arial,sans-serif;background:#e7e4df;color:#272924}
 .operations-shell[data-operations-ready=false] .operations-main>:not(.staff-topbar){visibility:hidden}
 .operations-main{min-width:0}
 .operations-menu-backdrop{display:none}

@@ -73,7 +73,7 @@ export default function OperationsShell({scope, active, children, operator, cont
     <OperationsSidebar scope={scope} active={active} role={current?.role || scope} name={current?.name || "MLT"} locale={locale} onNavigate={() => setMobileOpen(false)}/>
     {mobileOpen && <button type="button" className="operations-menu-backdrop" aria-label={operationsLabels[locale].closeMenu} onClick={() => setMobileOpen(false)}/>}
     <div className="staff-main operations-main">
-      <OperationsTopbar locale={locale} onLocaleChange={setLocale} collapsed={mobile ? !mobileOpen : collapsed} onToggleSidebar={toggleSidebar} chatHref={`/${scope}/chat/`} applicationsHref={`/${scope}/applications/`} department={scope === "sales" ? "sales" : scope === "admin" ? "all" : "concierge"} {...(pageTopbar || topbar)}/>
+      <OperationsTopbar showNotifications={scope !== "marketing"} locale={locale} onLocaleChange={setLocale} collapsed={mobile ? !mobileOpen : collapsed} onToggleSidebar={toggleSidebar} chatHref={`/${scope}/chat/`} applicationsHref={`/${scope}/applications/`} department={scope === "sales" ? "sales" : scope === "admin" ? "all" : "concierge"} {...(pageTopbar || topbar)}/>
       {persistent ? children : <div className={`operations-content ${contentClassName}`}>{children}</div>}
     </div>
     {overlay}

@@ -55,7 +55,8 @@ test("every admin route renders exactly one shared workspace with the same navig
     assert.equal((html.match(/class="staff-logout"/g) || []).length, 1, section);
     const nav = html.match(/<nav aria-label="Workspace navigation">(.*?)<\/nav>/s)?.[1];
     assert.ok(nav, section);
-    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(match => match[1]), sections.map(key => `/admin/${key}/`), section);
+    const destinations=sections.map(key => `/admin/${key}/`);destinations.splice(1,0,'/marketing/');
+    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map(match => match[1]), destinations, section);
     const active = section || 'overview';
     assert.match(nav, new RegExp(`href="/admin/${active}/"[^>]*aria-current="page"`), active);
     assert.doesNotMatch(html.match(/class="staff-topbar-start"(.*?)<\/div>/s)?.[1] || '', /vouchers/);

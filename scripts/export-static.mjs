@@ -51,6 +51,7 @@ const routes = [
   "/concierge/team",
   "/admin",
   "/admin/overview",
+  "/marketing",
   "/admin/applications",
   "/admin/payments",
   "/admin/catalog",

@@ -1,0 +1,44 @@
+.marketing-main{--marketing-paper:var(--staff-panel-surface);--marketing-line:#dfd8ce;--marketing-muted:#645e55;--marketing-accent:#805332;--marketing-highlight:#e4b087}
+.marketing-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.marketing-main .marketing-eyebrow{margin:0 0 12px;font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--marketing-accent)}
+.marketing-main button,.marketing-main a{min-height:44px;padding:10px 16px;border:1px solid var(--marketing-line);border-radius:var(--mlt-radius-control);background:var(--marketing-paper);color:inherit;font:600 15px/1.4 "Segoe UI",Arial,sans-serif;text-decoration:none;cursor:pointer}
+.marketing-main button:disabled{opacity:.65;cursor:wait}
+.marketing-main button:focus-visible,.marketing-main a:focus-visible{outline:2px solid var(--marketing-accent);outline-offset:3px}
+.marketing-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin:30px 0 20px}
+.marketing-toolbar>div{display:flex;gap:8px;flex-wrap:wrap}
+.marketing-toolbar button[aria-pressed=true]{background:var(--marketing-highlight);border-color:var(--marketing-highlight)}
+.marketing-toolbar>span,.marketing-period,.marketing-description{color:var(--marketing-muted);font-size:14px}
+.marketing-period{margin:0 0 22px}
+.marketing-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.marketing-metrics article,.marketing-panel{min-width:0;padding:24px;border:1px solid var(--staff-panel-border);border-radius:var(--mlt-radius-panel);background:var(--marketing-paper);box-shadow:var(--staff-panel-shadow)}
+.marketing-metrics h2{margin:0;font:600 15px/1.4 "Segoe UI",Arial,sans-serif}
+.marketing-metrics strong{display:block;margin:18px 0 12px;font:400 clamp(32px,3vw,46px)/1.15 var(--mlt-font-display);font-variant-numeric:lining-nums tabular-nums}
+.marketing-metrics p,.marketing-panel p{margin:8px 0 0;font-size:15px;line-height:1.55;color:var(--marketing-muted)}
+.marketing-privacy{margin:18px 0 0;padding-left:14px;border-left:3px solid var(--marketing-highlight);font-size:14px;color:var(--marketing-muted)}
+.marketing-section-title{margin:36px 0 18px;font:400 30px/1.2 var(--mlt-font-display)}
+.marketing-description{margin:-6px 0 18px}
+.marketing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.marketing-panel h2{margin:0 0 18px;font:400 25px/1.25 var(--mlt-font-display)}
+.marketing-panel table{width:100%;border-collapse:collapse;font-size:15px}
+.marketing-panel th,.marketing-panel td{padding:13px 0;border-bottom:1px solid var(--marketing-line);text-align:left}
+.marketing-panel thead th{font-size:12px;font-weight:600;color:var(--marketing-muted)}
+.marketing-panel tbody th{font-weight:400;overflow-wrap:anywhere}
+.marketing-panel td{position:relative;width:44%;text-align:right;font-variant-numeric:tabular-nums}
+.marketing-panel th:last-child{text-align:right}
+.marketing-panel td b{position:relative;z-index:1;background:var(--marketing-paper);padding-left:8px}
+.marketing-bar{position:absolute;inset:20px 42px 20px 12px;display:block}
+.marketing-bar i{display:block;height:5px;margin-top:3px;border-radius:3px;background:var(--marketing-highlight)}
+.marketing-empty{padding:20px 0}
+.marketing-money{margin:20px 0 0}
+.marketing-money>div{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--marketing-line)}
+.marketing-money dd{margin:0;font:400 28px/1.2 var(--mlt-font-display)}
+.marketing-sources,.marketing-access{margin-top:28px}
+.marketing-sources ul{list-style:none;margin:22px 0 0;padding:0}
+.marketing-sources li{display:flex;align-items:flex-start;gap:20px;padding:18px 0;border-top:1px solid var(--marketing-line)}
+.marketing-panel h3{margin:0;font-size:16px;line-height:1.5}
+.marketing-tag{flex-shrink:0;display:inline-block;padding:5px 9px;border:1px solid var(--marketing-line);border-radius:6px;font-size:12px;color:var(--marketing-accent)}
+.marketing-error{border-color:var(--marketing-accent)}
+.marketing-error button,.marketing-error a{display:inline-block;margin-top:18px}
+@media(max-width:1150px){.marketing-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.marketing-heading{flex-direction:column;gap:20px}.marketing-heading>button{align-self:flex-start}.marketing-grid{grid-template-columns:1fr}.marketing-metrics{gap:12px}.marketing-metrics article,.marketing-panel{padding:20px}.marketing-metrics strong{font-size:34px}.marketing-sources li{flex-direction:column;gap:10px}.marketing-section-title{font-size:28px}.marketing-metrics p{font-size:14px}.marketing-main .marketing-toolbar button{padding-inline:12px}}
+@media(max-width:360px){.marketing-metrics{grid-template-columns:1fr}}

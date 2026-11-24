@@ -14,6 +14,8 @@ test('Apache applies security headers and blocks private files and executable up
   const web = path.join(dir, 'web'); await mkdir(path.join(web, 'uploads'), { recursive: true });
   await mkdir(path.join(web, 'assets'));
   await mkdir(path.join(web, 'scout-passport'));
+  await mkdir(path.join(web, 'marketing'));
+  await writeFile(path.join(web, 'marketing/index.html'), 'Marketing fixture');
   await writeFile(path.join(web, 'scout-passport/index.html'), 'Scout passport fixture');
   for (const locale of ['en','de','ru','it','pl']) { await mkdir(path.join(web, locale, 'scout-passport'), { recursive: true }); await writeFile(path.join(web, locale, 'scout-passport/index.html'), 'Localized scout fixture'); }
   await writeFile(path.join(web, 'scout-core.php'), 'private helper fixture');
@@ -47,6 +49,7 @@ DocumentRoot "${unix(web)}"
   try {
     for (let i = 0; i < 80; i++) { try { await get('/page.html'); break; } catch { await new Promise(r => setTimeout(r, 100)); } }
     const page = await get('/page.html'); assert.equal(page.status, 200);
+    const marketing=await get('/marketing/index.html');assert.equal(marketing.status,200);assert.match(marketing.headers.get('X-Robots-Tag'),/noindex/);
     assert.equal(page.headers.get('X-Frame-Options'), 'SAMEORIGIN');
     assert.equal(page.headers.get('Permissions-Policy'), 'camera=(), microphone=(), geolocation=()');
     const scoutPage = await get('/scout-passport/index.html');

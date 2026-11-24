@@ -344,7 +344,7 @@ export default function Account({
     let redirecting = false;
     try {
       let j = await api("orders");
-    if (["admin", "concierge", "manager", "salesmanager"].includes(j.user?.role)) {
+    if (["admin", "concierge", "manager", "salesmanager", "marketer"].includes(j.user?.role)) {
       localStorage.removeItem("mlt-account-draft");
       setDraft(null);
       redirecting = true;
