@@ -32,7 +32,7 @@
 .marketing-money{margin:20px 0 0}
 .marketing-money>div{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--marketing-line)}
 .marketing-money dd{margin:0;font:400 28px/1.2 var(--mlt-font-display)}
-.marketing-sources,.marketing-access{margin-top:28px}
+.marketing-sources{margin-top:28px}
 .marketing-sources ul{list-style:none;margin:22px 0 0;padding:0}
 .marketing-sources li{display:flex;align-items:flex-start;gap:20px;padding:18px 0;border-top:1px solid var(--marketing-line)}
 .marketing-panel h3{margin:0;font-size:16px;line-height:1.5}

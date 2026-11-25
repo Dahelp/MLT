@@ -16,13 +16,13 @@ function snapshot(): StaffLocale {
   const value = localStorage.getItem(key);
   return value === "ru" || value === "de" ? value : "en";
 }
-function changeLocale(value: StaffLocale) {
+export function setOperationsLocale(value: StaffLocale) {
   localStorage.setItem(key, value);
   document.documentElement.dataset.operationsLocale = value;
   window.dispatchEvent(new Event("mlt-operations-locale"));
 }
 export function useOperationsLocale() {
-  return [useSyncExternalStore(subscribe, snapshot, () => "en" as StaffLocale), changeLocale] as const;
+  return [useSyncExternalStore(subscribe, snapshot, () => "en" as StaffLocale), setOperationsLocale] as const;
 }
 
 const subscribeHydration = () => () => {};

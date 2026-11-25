@@ -1,6 +1,7 @@
 "use client";
 import {BookedMotorhome} from "../MotorhomeSelection";
 import { operationsDestination as authorizedOperationsDestination } from "../../content/operations-access";
+import { setOperationsLocale } from "../useOperationsLocale";
 import { FormEvent, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import SiteHeader from "../SiteHeader";
@@ -345,6 +346,7 @@ export default function Account({
     try {
       let j = await api("orders");
     if (["admin", "concierge", "manager", "salesmanager", "marketer"].includes(j.user?.role)) {
+      setOperationsLocale(j.user.locale === "ru" || j.user.locale === "de" ? j.user.locale : "en");
       localStorage.removeItem("mlt-account-draft");
       setDraft(null);
       redirecting = true;

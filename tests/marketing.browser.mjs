@@ -3,16 +3,16 @@ import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 const {chromium}=await import(process.env.MLT_PLAYWRIGHT_MODULE||'playwright');
 const base=process.env.QA_BASE||'http://127.0.0.1:4297';
-const output='../output/marketing-2026-11-24';await mkdir(output,{recursive:true});
+const output=process.env.MLT_MARKETING_QA_OUTPUT||'../output/marketing-2026-11-25';await mkdir(output,{recursive:true});
 const browser=await chromium.launch({headless:true,...process.env.MLT_BROWSER_EXECUTABLE&&{executablePath:process.env.MLT_BROWSER_EXECUTABLE}});
 const groups=(rows)=>({state:'ready',rows:rows.map(([key,count])=>({key,count}))});
 const fixture={operator:{name:'MLT Marketing',role:'marketer'},period:{days:30,start:'2026-10-25',endExclusive:'2026-11-24'},journeys:{total:60,paid:20,conversion:33.3,averageDays:9.5,collections:groups([['freedom',30],['signature',20],['private',10]]),statuses:groups([['requested',30],['paid',20],['cancelled',10]]),months:groups([['2026-10',25],['2026-11',35]]),duration:groups([['short',20],['medium',30],['long',10]])},registrations:groups([['ru',30],['en',20]]),inquiries:groups([['acquisitions',25],['investments',10]]),chats:groups([['sales',20],['concierge',15]]),scout:groups([['accepted',10],['pending',5]]),receipts:{state:'ready',rows:[{currency:'EUR',amount:30000}]},vouchers:{state:'ready',units:10,cashCents:500000}};
 const errors=[],results=[];
 try{
  for(const width of [1440,390]){
-  const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});let mode='success';let requests=[];
+  const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});let mode='success';let requests=[];let profileLocale='ru';
   page.on('pageerror',e=>errors.push(e.message));
-  await page.addInitScript(()=>{localStorage.setItem('mlt-account-token','ui-fixture');localStorage.setItem('mlt-operations-locale','ru');localStorage.setItem('mlt-cookie-consent',JSON.stringify({choice:'essential',analytics:false}));});
+  await page.addInitScript(()=>{if(!localStorage.getItem('qa-marketing-initialized')){localStorage.setItem('mlt-account-token','ui-fixture');localStorage.setItem('mlt-operations-locale','ru');localStorage.setItem('qa-marketing-initialized','true');}localStorage.setItem('mlt-cookie-consent',JSON.stringify({choice:'essential',analytics:false}));});
   await page.route('**/api/**',async route=>{
    const url=route.request().url();requests.push(url);
    if(url.includes('marketing.php')){
@@ -28,14 +28,15 @@ try{
     return route.fulfill({json:data});
    }
    if(url.includes('operator-session'))return route.fulfill({json:{operator:page.url().includes('/admin/')?{name:'MLT Admin',role:'admin'}:fixture.operator}});
-   if(new URL(url).pathname==='/api/account.php')return route.fulfill({json:{user:{role:'marketer',locale:'ru',firstName:'MLT',lastName:'Marketing',email:'test@example.invalid'},orders:[]}});
+   if(new URL(url).pathname==='/api/account.php')return route.fulfill({json:{token:'ui-fixture',user:{role:'marketer',locale:profileLocale,firstName:'MLT',lastName:'Marketing',email:'test@example.invalid'},orders:[]}});
    if(url.includes('concierge-account'))return route.fulfill({json:{operator:{name:'MLT Admin',role:'admin'},summary:{total:0,paid:0,pending:0,revenue:0},orders:[]}});
-   if(url.includes('chat.php'))return route.fulfill({json:{unread:0}});
+   if(url.includes('chat.php'))return route.fulfill({json:{unread:0,messages:[],operatorsOnline:0}});
    return route.fulfill({json:{}});
   });
   await page.goto(base+'/marketing/',{waitUntil:'networkidle'});await page.getByRole('heading',{name:'Аналитика маркетинга',exact:true}).waitFor();await page.locator('.marketing-metrics').waitFor();
   assert.equal(await page.locator('.marketing-metrics article').count(),4);
   assert.equal(await page.locator('.staff-notifications').count(),0);
+  assert.equal(await page.locator('.marketing-access').count(),0);
   assert.ok(!requests.some(url=>/chat.php|concierge-account|admin-users/.test(url)),'Marketing must never request raw client APIs');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'No horizontal page overflow');
   await page.screenshot({path:`${output}/marketing-${width}.png`,fullPage:true});
@@ -54,7 +55,25 @@ try{
   }
   await page.goto(base+'/admin/overview/',{waitUntil:'networkidle'});await page.locator('.concierge-stats').waitFor();await page.screenshot({path:`${output}/sibling-admin-${width}.png`,fullPage:true});
   await page.goto(base+'/account/',{waitUntil:'networkidle'});await page.waitForURL(/\/marketing\/$/);await page.locator('.marketing-metrics').waitFor();
-  results.push({width,states:['success','loading','empty','suppressed','unavailable','503','network','403','401','retry'],locales:['ru','de','en'],overflow:false});await page.close();
+  for(const [saved,expected,title] of [['en','en','Marketing analytics'],['de','de','Marketinganalyse'],['ru','ru','Аналитика маркетинга'],['it','en','Marketing analytics'],['pl','en','Marketing analytics']]){
+   profileLocale=saved;
+   await page.evaluate(()=>localStorage.setItem('mlt-operations-locale','ru'));
+   await page.goto(base+'/account/',{waitUntil:'networkidle'});await page.waitForURL(/\/marketing\/$/);
+   await page.getByRole('heading',{name:title,exact:true}).waitFor();
+   assert.equal(await page.locator('main.operations-shell').getAttribute('lang'),expected);
+   assert.equal(await page.evaluate(()=>localStorage.getItem('mlt-operations-locale')),expected);
+  }
+  await page.getByRole('button',{name:'Language',exact:true}).click();await page.locator('.staff-topbar-popover button').filter({hasText:'DE'}).click();
+  await page.reload({waitUntil:'networkidle'});await page.getByRole('heading',{name:'Marketinganalyse',exact:true}).waitFor();
+  profileLocale='en';
+  await page.evaluate(()=>{localStorage.removeItem('mlt-account-token');localStorage.setItem('mlt-operations-locale','ru');});
+  await page.goto(base+'/ru/account/',{waitUntil:'networkidle'});
+  await page.locator('.account-auth input[type=email]').fill('marketer@example.invalid');
+  await page.locator('.account-auth input[type=password]').fill('fixture-password');
+  await page.locator('.account-auth form button').click();
+  await page.waitForURL(/\/marketing\/$/);await page.getByRole('heading',{name:'Marketing analytics',exact:true}).waitFor();
+  await page.screenshot({path:`${output}/marketing-profile-en-${width}.png`,fullPage:true});
+  results.push({width,states:['success','loading','empty','suppressed','unavailable','503','network','403','401','retry'],locales:['ru','de','en'],profileLocale:['en','de','ru','it→en','pl→en'],freshLoginFromRussianPage:'en',manualLocaleSurvivesReload:true,overflow:false});await page.close();
  }
  assert.deepEqual(errors,[]);await writeFile(`${output}/browser-results.json`,JSON.stringify({results,errors,fixture:true},null,2));console.log(JSON.stringify(results,null,2));
 }finally{await browser.close()}
