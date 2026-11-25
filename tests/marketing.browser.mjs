@@ -25,6 +25,7 @@ try{
     let data=structuredClone(fixture);data.period.days=days;
     if(mode==='empty'){data.journeys.total=0;data.journeys.paid=0;data.journeys.conversion=null;data.journeys.averageDays=null;for(const key of ['collections','statuses','months','duration'])data.journeys[key]=groups([]);for(const key of ['registrations','inquiries','chats','scout'])data[key]=groups([]);data.receipts.rows=[];data.vouchers.units=0;data.vouchers.cashCents=0;}
     if(mode==='suppressed'){data.journeys.total=null;data.journeys.paid=null;data.journeys.conversion=null;data.journeys.averageDays=null;for(const key of ['collections','statuses','months','duration'])data.journeys[key]={state:'suppressed',rows:[]};data.scout={state:'unavailable'};}
+    if(mode==='unavailable'){for(const key of ['registrations','inquiries','chats','scout','receipts','vouchers'])data[key]={state:'unavailable'};}
     return route.fulfill({json:data});
    }
    if(url.includes('operator-session'))return route.fulfill({json:{operator:page.url().includes('/admin/')?{name:'MLT Admin',role:'admin'}:fixture.operator}});
@@ -37,6 +38,7 @@ try{
   assert.equal(await page.locator('.marketing-metrics article').count(),4);
   assert.equal(await page.locator('.staff-notifications').count(),0);
   assert.equal(await page.locator('.marketing-access').count(),0);
+  assert.equal(await page.locator('.marketing-sources,.marketing-privacy').count(),0);
   assert.ok(!requests.some(url=>/chat.php|concierge-account|admin-users/.test(url)),'Marketing must never request raw client APIs');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'No horizontal page overflow');
   await page.screenshot({path:`${output}/marketing-${width}.png`,fullPage:true});
@@ -45,12 +47,13 @@ try{
   await page.getByRole('button',{name:'Язык',exact:true}).click();await page.locator('.staff-topbar-popover button').filter({hasText:'DE'}).click();await page.getByRole('heading',{name:'Marketinganalyse',exact:true}).waitFor();
   await page.getByRole('button',{name:'Sprache',exact:true}).click();await page.locator('.staff-topbar-popover button').filter({hasText:'EN'}).click();await page.getByRole('heading',{name:'Marketing analytics',exact:true}).waitFor();
   await page.getByRole('button',{name:'Language',exact:true}).click();await page.locator('.staff-topbar-popover button').filter({hasText:'RU'}).click();
-  for(const next of ['slow','empty','suppressed','error','network','denied','expired']){
+  for(const next of ['slow','empty','suppressed','unavailable','error','network','denied','expired']){
    mode=next;await page.getByRole('button',{name:'Обновить',exact:true}).click();
    if(mode==='slow'){await page.getByRole('heading',{name:'Загружаем данные…',exact:true}).waitFor();}
    if(['error','network','denied','expired'].includes(mode)){await page.getByRole('alert').waitFor();assert.equal(await page.locator('.marketing-metrics').count(),0);}else{await page.locator('.marketing-metrics').waitFor();}
    if(mode==='empty')assert.ok(await page.getByText('За этот период записей нет.',{exact:true}).count()>0);
-   if(mode==='suppressed')assert.ok(await page.getByText('Источник пока недоступен.',{exact:true}).count()>0);
+   if(mode==='suppressed'){assert.ok(await page.getByText('Недостаточно данных за выбранный период.',{exact:true}).count()>0);assert.equal(await page.locator('#marketing-scout').count(),0);}
+   if(mode==='unavailable'){assert.equal(await page.locator('#marketing-inquiries,#marketing-chats,#marketing-users,#marketing-scout').count(),0);assert.equal(await page.getByRole('heading',{name:'Обращения и регистрации',exact:true}).count(),0);assert.equal(await page.getByRole('heading',{name:'Оплаты',exact:true}).count(),0);}
    mode='success';if(next==='error'||next==='network')await page.getByRole('button',{name:'Повторить',exact:true}).click();else await page.getByRole('button',{name:'Обновить',exact:true}).click();await page.locator('.marketing-metrics').waitFor();
   }
   await page.goto(base+'/admin/overview/',{waitUntil:'networkidle'});await page.locator('.concierge-stats').waitFor();await page.screenshot({path:`${output}/sibling-admin-${width}.png`,fullPage:true});

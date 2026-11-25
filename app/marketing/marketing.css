@@ -14,7 +14,6 @@
 .marketing-metrics h2{margin:0;font:600 15px/1.4 "Segoe UI",Arial,sans-serif}
 .marketing-metrics strong{display:block;margin:18px 0 12px;font:400 clamp(32px,3vw,46px)/1.15 var(--mlt-font-display);font-variant-numeric:lining-nums tabular-nums}
 .marketing-metrics p,.marketing-panel p{margin:8px 0 0;font-size:15px;line-height:1.55;color:var(--marketing-muted)}
-.marketing-privacy{margin:18px 0 0;padding-left:14px;border-left:3px solid var(--marketing-highlight);font-size:14px;color:var(--marketing-muted)}
 .marketing-section-title{margin:36px 0 18px;font:400 30px/1.2 var(--mlt-font-display)}
 .marketing-description{margin:-6px 0 18px}
 .marketing-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
@@ -32,13 +31,8 @@
 .marketing-money{margin:20px 0 0}
 .marketing-money>div{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--marketing-line)}
 .marketing-money dd{margin:0;font:400 28px/1.2 var(--mlt-font-display)}
-.marketing-sources{margin-top:28px}
-.marketing-sources ul{list-style:none;margin:22px 0 0;padding:0}
-.marketing-sources li{display:flex;align-items:flex-start;gap:20px;padding:18px 0;border-top:1px solid var(--marketing-line)}
-.marketing-panel h3{margin:0;font-size:16px;line-height:1.5}
-.marketing-tag{flex-shrink:0;display:inline-block;padding:5px 9px;border:1px solid var(--marketing-line);border-radius:6px;font-size:12px;color:var(--marketing-accent)}
 .marketing-error{border-color:var(--marketing-accent)}
 .marketing-error button,.marketing-error a{display:inline-block;margin-top:18px}
 @media(max-width:1150px){.marketing-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.marketing-heading{flex-direction:column;gap:20px}.marketing-heading>button{align-self:flex-start}.marketing-grid{grid-template-columns:1fr}.marketing-metrics{gap:12px}.marketing-metrics article,.marketing-panel{padding:20px}.marketing-metrics strong{font-size:34px}.marketing-sources li{flex-direction:column;gap:10px}.marketing-section-title{font-size:28px}.marketing-metrics p{font-size:14px}.marketing-main .marketing-toolbar button{padding-inline:12px}}
+@media(max-width:760px){.marketing-heading{flex-direction:column;gap:20px}.marketing-heading>button{align-self:flex-start}.marketing-grid{grid-template-columns:1fr}.marketing-metrics{gap:12px}.marketing-metrics article,.marketing-panel{padding:20px}.marketing-metrics strong{font-size:34px}.marketing-section-title{font-size:28px}.marketing-metrics p{font-size:14px}.marketing-main .marketing-toolbar button{padding-inline:12px}}
 @media(max-width:360px){.marketing-metrics{grid-template-columns:1fr}}
